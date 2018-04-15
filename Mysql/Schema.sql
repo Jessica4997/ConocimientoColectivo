@@ -1,34 +1,5 @@
--- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema bd_cc
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema bd_cc
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `bd_cc` DEFAULT CHARACTER SET utf8 ;
--- -----------------------------------------------------
--- Schema BD_CC1
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema BD_CC1
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `BD_CC1` ;
-USE `bd_cc` ;
-
--- -----------------------------------------------------
--- Table `bd_cc`.`users`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_cc`.`users` (
+CREATE DATABASE bc_cc2;
+CREATE TABLE IF NOT EXISTS `bd_cc2`.`users` (
   `id` INT NOT NULL COMMENT '',
   `name` VARCHAR(20) NOT NULL COMMENT '',
   `last_name` VARCHAR(20) NOT NULL COMMENT '',
@@ -47,7 +18,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `bd_cc`.`categories`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_cc`.`categories` (
+CREATE TABLE IF NOT EXISTS `bd_cc2`.`categories` (
   `id` INT NOT NULL COMMENT '',
   `cultural_theme` VARCHAR(20) NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '')
@@ -87,7 +58,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `bd_cc`.`inscribed_users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_cc`.`inscribed_users` (
+CREATE TABLE IF NOT EXISTS `bd_cc2`.`inscribed_users` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `created_date` DATETIME NOT NULL COMMENT '',
   `iu_status` ENUM('Confirmado','No confirmado') NOT NULL COMMENT '',
@@ -115,7 +86,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `bd_cc`.`proposed_workshops`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_cc`.`proposed_workshops` (
+CREATE TABLE IF NOT EXISTS `bd_cc2`.`proposed_workshops` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `created_date` DATETIME NOT NULL COMMENT '',
   `pw_status` ENUM('Activo','Inactivo') NOT NULL COMMENT '',
@@ -141,7 +112,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `bd_cc`.`ratings`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_cc`.`ratings` (
+CREATE TABLE IF NOT EXISTS `bd_cc2`.`ratings` (
   `user_id` INT NOT NULL COMMENT '',
   `role` ENUM('Alumno', 'Docente') NOT NULL COMMENT '',
   `final_rating` FLOAT NULL COMMENT '',
@@ -157,7 +128,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `bd_cc`.`proposal_interested`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_cc`.`proposal_interested` (
+CREATE TABLE IF NOT EXISTS `bd_cc2`.`proposal_interested` (
   `id` INT NOT NULL COMMENT '',
   `created_date` DATETIME NOT NULL COMMENT '',
   `user_id` INT NULL COMMENT '',
@@ -181,7 +152,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `bd_cc`.`discounts`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_cc`.`discounts` (
+CREATE TABLE IF NOT EXISTS `bd_cc2`.`discounts` (
   `id` INT NOT NULL COMMENT '',
   `final_rating` INT NULL COMMENT '',
   `percentage` FLOAT NULL COMMENT '',
@@ -200,7 +171,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `bd_cc`.`payments`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_cc`.`payments` (
+CREATE TABLE IF NOT EXISTS `bd_cc2`.`payments` (
   `id` INT NOT NULL COMMENT '',
   `amount` DECIMAL(4,2) NOT NULL COMMENT '',
   `pay_status` ENUM('Pagado', 'No pagado') NOT NULL COMMENT '',
@@ -229,14 +200,14 @@ CREATE TABLE IF NOT EXISTS `bd_cc`.`payments` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-USE `BD_CC1` ;
+USE `bd_cc2` ;
 
 -- -----------------------------------------------------
 -- Table `BD_CC1`.`cultural_theme`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BD_CC1`.`cultural_theme` (
+CREATE TABLE IF NOT EXISTS `bd_cc2`.`cultural_theme` (
   `id` INT NOT NULL COMMENT '',
-  `description` VARCHAR(45) NULL COMMENT '',
+  `description` VARCHAR(45) NUusuarioLL COMMENT '',
   `category_id` INT NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
   INDEX `fk_category_id_idx` (`category_id` ASC)  COMMENT '',
@@ -246,8 +217,3 @@ CREATE TABLE IF NOT EXISTS `BD_CC1`.`cultural_theme` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
