@@ -64,11 +64,11 @@
             </div>
           </div>
           <div class="col-lg-9">
-            <h1 align="center"><strong>Lista de Talleres</strong></h1>
+            <h1 align="center"><strong>Solicitudes de Talleres</strong></h1>
 
             <p class="text-left">
                 <a href="javascript:void()" class="btn btn-primary btn-raised text-right" role="button">
-                  <i class="zmdi zmdi-collection-image-o"></i>Crear Taller</a>
+                  <i class="zmdi zmdi-collection-image-o"></i>Solicitar Taller</a>
             </p>
 
             <div class="row" id="Container">
@@ -231,4 +231,3 @@
             </div>
           </div>
         </div>
-     
