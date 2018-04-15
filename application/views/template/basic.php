@@ -13,6 +13,13 @@
     <link rel="stylesheet" href="/assets/css/preload.min.css">
     <link rel="stylesheet" href="/assets/css/plugins.min.css">
     <link rel="stylesheet" href="/assets/css/style.lime-600.min.css">
+    <style>
+    .wrap.wrap-danger {
+      background-color: #73791e;
+    }
+    </style>
+    
+
     <!--[if lt IE 9]>
         <script src="assets/js/html5shiv.min.js"></script>
         <script src="assets/js/respond.min.js"></script>

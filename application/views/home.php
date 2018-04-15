@@ -4,8 +4,8 @@
           <div class="row">
             <div class="col-xl-6 col-lg-7">
               <div id="carousel-hero" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
-                <!-- Wrapper for slides -->
 
+                <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
                     <div class="carousel-caption">
@@ -105,7 +105,7 @@
         <h2 class="text-center color-primary mb-2 wow fadeInDown animation-delay-4">Conoce los distintos tema que puedes aprender en Conocimiento<strong>&nbsp;Colectivo</strong></h2>
         <div class="row">
 
-          <div class="ms-feature col-xl-3 col-lg-6 col-md-6 card wow flipInX animation-delay-4">
+          <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-4">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg color-info">
                 <i class="zmdi zmdi-cloud-outline"></i>
@@ -118,7 +118,7 @@
             </div>
           </div>
 
-          <div class="ms-feature col-xl-3 col-lg-6 col-md-6 card wow flipInX animation-delay-8">
+          <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-8">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg color-warning">
                 <i class="zmdi zmdi-desktop-mac"></i>
@@ -129,7 +129,9 @@
               <a href="javascript:void(0)" class="btn btn-warning btn-raised">Conoce más</a>
             </div>
           </div>
-          <div class="ms-feature col-xl-3 col-lg-6 col-md-6 card wow flipInX animation-delay-10">
+          </div>
+          <div class="row">
+          <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-10">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg color-success">
                 <i class="zmdi zmdi-download"></i>
@@ -140,7 +142,7 @@
               <a href="javascript:void(0)" class="btn btn-success btn-raised">Conoce más</a>
             </div>
           </div>
-          <div class="ms-feature col-xl-3 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
+          <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg  color-danger">
                 <i class="zmdi zmdi-flower-alt"></i>
@@ -151,8 +153,9 @@
               <a href="javascript:void(0)" class="btn btn-danger btn-raised">Conoce más</a>
             </div>
           </div>
-
-          <div class="ms-feature col-xl-3 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
+          </div>
+          <div class="row">
+          <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg  color-danger">
                 <i class="zmdi zmdi-flower-alt"></i>
@@ -163,7 +166,7 @@
             </div>
           </div>
 
-          <div class="ms-feature col-xl-3 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
+          <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg  color-danger">
                 <i class="zmdi zmdi-flower-alt"></i>

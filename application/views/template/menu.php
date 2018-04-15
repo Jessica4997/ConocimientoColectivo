@@ -1,5 +1,5 @@
 <li class="nav-item dropdown">
-  <a href="" class="nav-link dropdown-toggle animated fadeIn animation-delay-9" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-name="ecommerce">Inicio</a>
+  <a href="<?php echo site_url('')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Inicio</a>
 
 </li>
 <li class="nav-item dropdown">
@@ -9,13 +9,13 @@
   </a>
   <ul class="dropdown-menu">
     <li>
-      <a class="dropdown-item" href="index.php/workshop">Lista de Talleres</a>
+      <a class="dropdown-item" href="<?php echo site_url('workshop')?>">Lista de Talleres</a>
     </li>
     <li>
-      <a class="dropdown-item" href="">Mis Talleres</a>
+      <a class="dropdown-item" href="<?php echo site_url('my_created_workshops')?>">Mis Talleres</a>
     </li>
     <li>
-      <a class="dropdown-item" href="">Mis Talleres Dictados</a>
+      <a class="dropdown-item" href="#">Mis Talleres Dictados</a>
     </li>
 
     <!--<li class="dropdown-divider"></li>
