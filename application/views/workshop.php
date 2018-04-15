@@ -72,18 +72,17 @@
             </p>
 
             <div class="row" id="Container">
-              <div class="col-xl-4 col-md-6 mix laptop apple" data-price="1999.99" data-date="20160901">
+
+              <?php foreach($workshops as $ws){?>
+              <div class="col-xl-4 col-md-6 mix laptop apple" data-price="<?php echo $ws['amount']?>" data-date="20160901">
                 <div class="card ms-feature">
                   <div class="card-body text-center">
-                    <a href="ecommerce-item.html">
+                    <a href="<?php echo site_url('workshop_detail/'.$ws['id'])?>">
                       <img src="/assets/img/demo/products/macbook.png" alt="" class="img-fluid center-block">
                     </a>
-                    <h4 class="text-normal text-center">Taller de Baile</h4>
+                    <h4 class="text-normal text-center"><?php echo $ws['title']?></h4>
                     <p>
-                      <li>Sub-categoría: Salsa</li>
-                      <li>Nivel: Básico</li>
-                      <li>Fecha de inicio: 28-04-18</li>
-                      <li>Buscó 10 personas que esten interesadas en el dictado de clases de salsa</li>
+                      <li>nn</li>
                     </p>
                     <div class="mt-2">
                       <span class="mr-2">
@@ -93,13 +92,14 @@
                         <i class="zmdi zmdi-star color-warning"></i>
                         <i class="zmdi zmdi-star"></i>
                       </span>
-                      <span class="ms-tag ms-tag-success">S/. 30.00</span>
+                      <span class="ms-tag ms-tag-success">S/. <?php echo $ws['amount']?></span>
                     </div>
                     <a href="javascript:void(0)" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
                       <i class="zmdi zmdi-shopping-cart-plus"></i>Ver</a>
                   </div>
                 </div>
               </div>
+              <?php }?>
               <div class="col-xl-4 col-md-6 mix tablet apple" data-price="999.99" data-date="20160705">
                 <div class="card ms-feature">
                   <div class="card-body text-center">

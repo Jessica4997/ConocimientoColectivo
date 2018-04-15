@@ -27,6 +27,10 @@ CREATE TABLE `categories` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+/*Data for the table `categories` */
+
+insert  into `categories`(`id`,`cultural_theme`) values (1,'Musica');
+
 /*Table structure for table `cultural_theme` */
 
 DROP TABLE IF EXISTS `cultural_theme`;
@@ -39,6 +43,8 @@ CREATE TABLE `cultural_theme` (
   KEY `fk_cultural_theme_category_id` (`category_id`),
   CONSTRAINT `fk_cultural_theme_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `cultural_theme` */
 
 /*Table structure for table `discounts` */
 
@@ -54,6 +60,8 @@ CREATE TABLE `discounts` (
   KEY `fk_discounts_wrks_id` (`wrks_id`),
   CONSTRAINT `fk_discounts_wrks_id` FOREIGN KEY (`wrks_id`) REFERENCES `workshops` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `discounts` */
 
 /*Table structure for table `inscribed_users` */
 
@@ -73,6 +81,8 @@ CREATE TABLE `inscribed_users` (
   CONSTRAINT `fk_inscribed_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_inscribed_users_wrks_id` FOREIGN KEY (`wrks_id`) REFERENCES `workshops` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `inscribed_users` */
 
 /*Table structure for table `payments` */
 
@@ -95,6 +105,8 @@ CREATE TABLE `payments` (
   CONSTRAINT `fk_payments_wrks_id` FOREIGN KEY (`wrks_id`) REFERENCES `workshops` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+/*Data for the table `payments` */
+
 /*Table structure for table `proposal_interested` */
 
 DROP TABLE IF EXISTS `proposal_interested`;
@@ -110,6 +122,8 @@ CREATE TABLE `proposal_interested` (
   CONSTRAINT `fk_proposal_interested_pw_id` FOREIGN KEY (`pw_id`) REFERENCES `proposed_workshops` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_proposal_interested_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `proposal_interested` */
 
 /*Table structure for table `proposed_workshops` */
 
@@ -128,6 +142,8 @@ CREATE TABLE `proposed_workshops` (
   CONSTRAINT `fk_proposed_workshops_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `proposed_workshops` */
+
 /*Table structure for table `ratings` */
 
 DROP TABLE IF EXISTS `ratings`;
@@ -139,6 +155,8 @@ CREATE TABLE `ratings` (
   PRIMARY KEY (`user_id`,`role`),
   CONSTRAINT `fk_ratings_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `ratings` */
 
 /*Table structure for table `users` */
 
@@ -158,13 +176,17 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Data for the table `users` */
+
+insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`phone`,`date_birth`,`description`,`created_date`) values (1,'Jessica','Paredes','jesi@gmail.com','123456','987654321','456123','1990-04-15','mujer de a pie','2018-04-15 06:17:38');
+
 /*Table structure for table `workshops` */
 
 DROP TABLE IF EXISTS `workshops`;
 
 CREATE TABLE `workshops` (
   `id` int(11) NOT NULL,
-  `amount` decimal(4,2) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
   `start_date` datetime NOT NULL,
   `final_date` datetime NOT NULL,
   `level` enum('Basico','Intermedio','Avanzado') NOT NULL,
@@ -172,12 +194,17 @@ CREATE TABLE `workshops` (
   `created_date` datetime NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
+  `title` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_workshops_user_id` (`user_id`),
   KEY `fk_workshops_category_id` (`category_id`),
   CONSTRAINT `fk_workshops_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_workshops_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `workshops` */
+
+insert  into `workshops`(`id`,`amount`,`start_date`,`final_date`,`level`,`wrks_status`,`created_date`,`user_id`,`category_id`,`title`) values (1,'100.00','2018-04-22 06:20:37','2018-04-22 06:20:27','Basico','En curso','2018-04-15 06:20:16',1,1,'Clase de Guitar Hero'),(2,'50.00','2018-04-21 06:39:35','2018-04-25 06:39:40','Intermedio','En curso','2018-04-15 06:39:52',1,1,'Clase de BAILE');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
