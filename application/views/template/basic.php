@@ -44,6 +44,15 @@
     <script src="/assets/js/app.min.js"></script>
     <script src="/assets/js/configurator.min.js"></script>
     <script src="/assets/js/ecommerce.js"></script>
+    <script>$(document).ready(function() {
+    
+    $(".datePickercc").datepicker({
+        orientation: "bottom left",
+        autoclose: !0,
+        todayHighlight: !0
+    });
+    
+})</script>
 
   </body>
 </html>

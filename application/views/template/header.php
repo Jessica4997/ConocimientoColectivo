@@ -19,10 +19,6 @@
                     <a href="#ms-login-tab" aria-controls="ms-login-tab" role="tab" data-toggle="tab" class="nav-link active withoutripple">
                       <i class="zmdi zmdi-account"></i>Iniciar Sesión</a>
                   </li>
-                  <li class="nav-item" role="presentation">
-                    <a href="#ms-register-tab" aria-controls="ms-register-tab" role="tab" data-toggle="tab" class="nav-link withoutripple">
-                      <i class="zmdi zmdi-account-add"></i>Registrarse</a>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -37,7 +33,7 @@
                             <i class="zmdi zmdi-account"></i>
                           </span>
                           <label class="control-label" for="ms-form-user">Correo electrónico</label>
-                          <input type="text" id="ms-form-user" class="form-control"> </div>
+                          <input name="username" type="text" id="username" class="form-control" required> </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -45,7 +41,7 @@
                             <i class="zmdi zmdi-lock"></i>
                           </span>
                           <label class="control-label" for="ms-form-pass">Contraseña</label>
-                          <input type="password" id="ms-form-pass" class="form-control"> </div>
+                          <input name="password" type="password" id="password" class="form-control" required> </div>
                       </div>
                       <div class="row mt-2">
                         <div class="col-md-6">
@@ -57,7 +53,9 @@
                           </div>
                         </div>
                         <div class="col-md-6">
-                          <button class="btn btn-raised btn-primary pull-right">Continuar</button>
+                          <input type="submit" name="submit"></input>
+                          <a class="btn btn-sm btn-raised btn-primary" href="<?php echo site_url('workshop')?>"> Continuar</a>
+                          <a class="btn btn-sm btn-raised btn-primary" href="<?php echo site_url('register_page')?>"> <i class="zmdi zmdi-account-add">&nbsp;&nbsp;Registrarse</i></a>
                         </div>
                       </div>
                     </fieldset>
@@ -69,8 +67,7 @@
                     <fieldset>
                       <div class="form-group label-floating">
                       </div> 
-
-                      <button class="btn btn-raised btn-block btn-primary">Registrarse</button>
+                      
                     </fieldset>
                   </form>
                 </div>
