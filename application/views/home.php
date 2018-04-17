@@ -107,7 +107,7 @@
               <p>Podras aprender a bailar diversos géneros musicales como:
                 <li>Bachata</li><li>Balada</li><li>Hip-hop</li><li>Salsa</li><li>Y mucho más</li>
               </p>
-              <a href="javascript:void(0)" class="btn btn-info btn-raised">Conoce más</a>
+              <a href="" class="btn btn-info btn-raised">Conoce más</a>
             </div>
           </div>
 
@@ -119,7 +119,7 @@
               <h4 class="color-warning">Deporte</h4>
               <p class="">Nuestros profesores podrán enseñarte diversos deportes como:</p>
               <li>Basketball</li><li>Fútbol</li><li>Natación</li><li>Voley</li><li>Y mucho más</li>
-              <a href="javascript:void(0)" class="btn btn-warning btn-raised">Conoce más</a>
+              <a href="" class="btn btn-warning btn-raised">Conoce más</a>
             </div>
           </div>
           </div>
@@ -132,7 +132,7 @@
               <h4 class="color-success">Música</h4>
               <p class="">¿Cansado de aprender los mismos instrumentos musicales? En Conocimiento Colectivo podrás aprender todos estos:</p>
                <li>Batería</li><li>Bajo</li><li>Guitarra</li><li>Violín</li><li>Y mucho más</li>
-              <a href="javascript:void(0)" class="btn btn-success btn-raised">Conoce más</a>
+              <a href="" class="btn btn-success btn-raised">Conoce más</a>
             </div>
           </div>
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
@@ -141,33 +141,34 @@
                 <i class="fa fa-users"></i>
               </span>
               <h4 class="color-danger">Teatro</h4>
-              <p class="">Pon a prueba tus dotes para las artes escénicas, tenemos distintos géneros que te pueden interesar</p>
+              <p class="">Pon a prueba tus dotes para las artes escénicas, tenemos distintos géneros que te pueden interesar:</p>
               <li>Clown</li><li>Comedia</li><li>Drama</li><li>Violín</li><li>Y mucho más</li>
-              <a href="javascript:void(0)" class="btn btn-danger btn-raised">Conoce más</a>
+              <a href="" class="btn btn-danger btn-raised">Conoce más</a>
             </div>
           </div>
           </div>
           <div class="row">
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
             <div class="text-center card-body">
-              <span class="ms-icon ms-icon-circle ms-icon-xxlg  color-danger">
+              <span class="ms-icon ms-icon-circle ms-icon-xxlg  color-info">
                 <i class="fa fa-paint-brush"></i>
               </span>
-              <h4 class="color-danger">Arte</h4>
-              <p class="">Te interesa la pintura, la escultura</p>
-              <a href="javascript:void(0)" class="btn btn-danger btn-raised">Conoce más</a>
+              <h4 class="color-info">Arte</h4>
+              <p class="">Si te interesa el mundo de las artes manuales tenemos distinto talleres que  te podrian gustar:</p>
+              <li>Escultura</li><li>Pintura</li><li>Decoración</li><li>Manualidades</li><li>Y mucho más</li>
+              <a href="" class="btn btn-info btn-raised">Conoce más</a>
             </div>
           </div>
 
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
             <div class="text-center card-body">
-              <span class="ms-icon ms-icon-circle ms-icon-xxlg  color-danger">
+              <span class="ms-icon ms-icon-circle ms-icon-xxlg  color-warning">
                 <i class="fa fa-coffee"></i>
               </span>
-              <h4 class="color-danger">Gastronomía</h4>
+              <h4 class="color-warning">Gastronomía</h4>
               <p class="">¿Te gusta el mundo de la gastronomía? En conocimiento Colectivo podrás encontrar profesores que te enseñen distintas recetas</p>
               <li>Coctelería</li><li>Repostería</li><li>Comida criolla</li><li>Comida oriental</li><li>Y mucho más</li>
-              <a href="javascript:void(0)" class="btn btn-danger btn-raised">Conoce más</a>
+              <a href="" class="btn btn-warning btn-raised">Conoce más</a>
             </div>
           </div>
         </div>
@@ -181,7 +182,7 @@
           <ul class="nav nav-tabs nav-tabs-transparent indicator-primary nav-tabs-full nav-tabs-5" role="tablist">
             <li class="nav-item wow fadeInDown animation-delay-6" role="presentation">
               <a href="#matriculate" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple">
-                <span class="d-none d-md-inline">Matrículate en talleres</span>
+                <span class="d-none d-md-inline">Matricúlate en talleres</span>
               </a>
             </li>
             <li class="nav-item wow fadeInDown animation-delay-4" role="presentation">
@@ -201,7 +202,7 @@
             </li>
             <li class="nav-item wow fadeInDown animation-delay-6" role="presentation">
               <a href="#paga" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple">
-                <span class="d-none d-md-inline">Pagos en línea</span>
+                <span class="d-none d-md-inline">Paga en línea</span>
               </a>
             </li>
           </ul>
