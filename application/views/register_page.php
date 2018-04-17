@@ -10,7 +10,7 @@
       <div class="container">
         <div class="card card-primary card-hero animated fadeInUp animation-delay-7">
           <div class="card-body">
-            <form class="form-horizontal">
+            <form class="form-horizontal" method="post" action="<?php echo site_url('user/register')?>">
               <fieldset>
 
                 <div class="row form-group">
@@ -21,7 +21,7 @@
                 <div class="row form-group">
                   <label for="inputPassword" class="col-md-2 control-label">Contraseña</label>
                   <div class="col-md-9">
-                    <input type="password" class="form-control" name="contraseña" placeholder="Contraseña"> </div>
+                    <input type="password" class="form-control" name="contrasena" placeholder="Contraseña"> </div>
                 </div>
                 <div class="row form-group">
                   <label for="inputPassword2" class="col-md-2 control-label">Reingresar contraseña</label>

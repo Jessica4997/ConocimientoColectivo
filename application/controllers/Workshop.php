@@ -4,14 +4,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Workshop extends CI_Controller {
 
 	private $dataView = array();
- 
 
-    public function __construct()
-    {
-        parent::__construct();
+	private $id_usuario = '0';
+    public function __construct() {
+		parent::__construct();
 		$this->load->model('workshop_model');
+		$this->id_usuario = $this->session->userdata('id_usuario');
+		$ruta = $this->uri->segment(2, '/');
+		$whiteList=array('/','description');
+        if ($this->id_usuario === null && !in_array($ruta,$whiteList)){
+            redirect('/', 'refresh');
+        }
 
-    }
+	}
 
 	public function index()
 	{
