@@ -16,55 +16,61 @@
                 <div class="row form-group">
                   <label for="inputEmail" class="col-md-2 control-label">Correo Electrónico</label>
                   <div class="col-md-9">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Correo Electrónico"> </div>
+                    <input type="email" class="form-control" name="correo" placeholder="Correo Electrónico"> </div>
                 </div>
                 <div class="row form-group">
                   <label for="inputPassword" class="col-md-2 control-label">Contraseña</label>
                   <div class="col-md-9">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña"> </div>
+                    <input type="password" class="form-control" name="contraseña" placeholder="Contraseña"> </div>
                 </div>
                 <div class="row form-group">
                   <label for="inputPassword2" class="col-md-2 control-label">Reingresar contraseña</label>
                   <div class="col-md-9">
-                    <input type="password" class="form-control" id="inputPassword2" placeholder="Contraseña"> </div>
+                    <input type="password" class="form-control" name="contraseña" placeholder="Contraseña"> </div>
                 </div>
                 <div class="row form-group">
                   <label for="inputName" class="col-md-2 control-label">Nombres</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" id="inputName" placeholder="Nombres"> </div>
+                    <input type="text" class="form-control" name="nombres" placeholder="Nombres"> </div>
                 </div>
                 <div class="row form-group">
                   <label for="inputLast" class="col-md-2 control-label">Apellidos</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" id="inputLast" placeholder="Apellidos"> </div>
+                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos"> </div>
                 </div>
 
                 <div class="row form-group">
                   <label for="inputCel" class="col-md-2 control-label">Celular</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" id="inputLast" placeholder="Celular"> </div>
+                    <input type="text" class="form-control" name="celular" placeholder="Celular"> </div>
+                </div>
+
+                <div class="row form-group">
+                  <label for="inputCel" class="col-md-2 control-label">Teléfono</label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" name="telefono" placeholder="Teléfono"> </div>
                 </div>
 
                 <div class="row form-group">
                   <label for="inputGen" class="col-md-2 control-label">Género</label>
                   <div class="col-md-9">
-                    <select id="inputGen" class="form-control selectpicker">
-                      <option>Seleccionar </option>
-                      <option>Femenino</option>
-                      <option>Masculino </option>
+                    <select name="genero" class="form-control selectpicker">
+                      <option value="0">Seleccionar </option>
+                      <option value="1">Femenino</option>
+                      <option value="2">Masculino </option>
                     </select>
                   </div>
                 </div>
                 <div class="row form-group">
                   <label for="inputDate" class="col-md-2 control-label">Fecha de Nacimiento</label>
                   <div class="col-md-9">
-                    <input id="datePicker" type="text" class="form-control" placeholder="mes/día/año"> </div>
+                    <input type="text" class="datePickercc form-control" name="fecha_nacimiento"placeholder="mes/día/año"> </div>
                 </div>
 
                 <div class="row form-group">
                   <label for="inputCel" class="col-md-2 control-label">Descripción</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" id="inputLast" placeholder="Descripción"> </div>
+                    <input type="text" class="form-control" name="descripcion" placeholder="Descripción"> </div>
                 </div>
 
                 <div class="row mt-2">

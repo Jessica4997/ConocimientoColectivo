@@ -20,10 +20,10 @@
                           <option value="" >Seleccionar</option>
                           <option value="1" selected>Bailes</option>
                           <option value="2">Deportes</option>
-                          <option>Música</option>
-                          <option>Teatro</option>
-                          <option>Arte</option>
-                          <option>Gastronomía</option>
+                          <option value="3">Música</option>
+                          <option value="4">Teatro</option>
+                          <option value="5">Arte</option>
+                          <option value="6">Gastronomía</option>
                         </select>
                       </div>
                     </div>

@@ -1,5 +1,6 @@
 <?php
 class Workshop_model extends CI_Model {
+
     public function get_list(){
         $sql = "SELECT 
         w.id,
@@ -52,7 +53,6 @@ class Workshop_model extends CI_Model {
         'vacancy' => $dataform['vacantes'],
         'amount' => $dataform['monto'],
         'description' => $dataform['descripcion'],
-        'user_id'=>2
     );
 
     $this->db->insert('Workshops', $data);

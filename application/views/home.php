@@ -1,97 +1,90 @@
 <div class="ms-hero ms-hero-material">
-        <span class="ms-hero-bg"></span>
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-6 col-lg-7">
-              <div id="carousel-hero" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
+   <div class="container">
+     <div class="row">
+       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+         <div id="cccarousel" class="carousel" data-ride="carousel" data-interval="8000">
+           <!--CAROUSEL-->
+             <div class="carousel-inner">
+               <div class="ms-hero-material-text-container">
+                 <header class="ms-hero-material-title animated slideInLeft animation-delay-5">
+                   <h1>Conocimiento  <strong>Colectivo</strong></h1>
+                   <h2 class="animated fadeInLeft animation-delay-18">Es un sitio que te permitirá contactar con diversas personas que te ayudarán a aprender distintos temas recreacionales.</h2>
+                 </header>
+               </div> 
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                  <div class="carousel-item active">
-                    <div class="carousel-caption">
-                      <div class="ms-hero-material-text-container">
-                        <header class="ms-hero-material-title animated slideInLeft animation-delay-5">
-                          <h1 class="animated fadeInLeft animation-delay-15 font-smoothing">Conocimiento
-                            <strong>Colectivo</strong></h1>
-                          <h2 class="animated fadeInLeft animation-delay-18">Es un sitio que te permitirá contactar con diversas personas que te ayudarán a aprender diversos temas recreacionales.</h2>
-                        </header>
-                        <ul class="ms-hero-material-list">
+               <div class="carousel-item active">
+                   <div class="ms-hero-material-text-container">
+                     <ul class="ms-hero-material-list">
+                         <li>
+                             <div class="ms-list-text animated fadeInRight animation-delay-19"><ul>Podrás aprender a bailar cualquier tipo de género musical, desde baladas y bachatas hasta hip-hop y breakdance.</ul></div>
+                         </li>
+                         <li>
+                             <div class="ms-list-text animated fadeInRight animation-delay-21"><ul>¿Tu equipo y tú buscan a alguien que les pueda entrenar? Con Conocimiento Colectivo lo podrás encontrar.</ul></div>
+                         </li>
                           <li>
-                            <div class="ms-list-text animated fadeInRight animation-delay-19"><ul><li>Podrás aprender a bailar cualquier tipo de género musical, desde baladas y bachatas hasta hip-hop y breakdance.</li></ul></div>
-                          </li>
-                          <li>
-                            <div class="ms-list-text animated fadeInRight animation-delay-21"><ul><li>¿Tu equipo y tú buscan a alguien que les pueda entrenar? Aqui en conocimiento colectivo lo podrás encontrar.</li></ul></div>
-                          </li>
-                          <li>
-                            <div class="ms-list-text animated fadeInRight animation-delay-23"><ul><li>¿Estas buscando adentrarte en el mundo musical? ¿Que esperas? Con Conocimiento Colectivo podrás aprender distintos instrumentos musicales, y en el género musical que desees.</li></ul></div>
+                            <div class="ms-list-text animated fadeInRight animation-delay-23"><ul>¿Estás buscando adentrarte en el mundo musical? Aquí podrás aprender distintos instrumentos musicales, y en el género musical que tú desees.</ul></div>
                           </li>
                         </ul>
- 
                       </div>
-                    </div>
+
                   </div>
 
                   <div class="carousel-item">
-                    <div class="carousel-caption">
                       <div class="ms-hero-material-text-container">
-                        <header class="ms-hero-material-title animated slideInLeft animation-delay-5">
-                          <h1 class="animated fadeInLeft animation-delay-15 font-smoothing">Conocimiento
-                            <strong>Colectivo</strong></h1>
-                          <h2 class="animated fadeInLeft animation-delay-18">Es un sitio que te permitirá contactar con diversas personas que te ayudarán a aprender diversos temas culturales.</h2>
-                        </header>
                         <ul class="ms-hero-material-list">
                           <li>
-                            <div class="ms-list-text animated fadeInRight animation-delay-19"><ul><li>Tus amigos y tú buscan aprender teatro en sus diferentes categorias, pues unete a Conocimiento Colectivo</li></ul></div>
+                            <div class="ms-list-text animated fadeInRight animation-delay-19"><ul>Buscas mejorar o poner a prueba tus habilidades escénicas, en Conocimiento Colectivo podrás aprender teatro en sus diferentes categorías</ul></div>
                           </li>
                           <li>
-                            <div class="ms-list-text animated fadeInRight animation-delay-21"><ul><li>Regístrate en Conocimiento Colectivo y mira todo lo que tenemos para tí.</li></ul></div>
+                            <div class="ms-list-text animated fadeInRight animation-delay-19"><ul>En Conocimiento Colectivo podrás descubrir, explorar y desarrollar tus habilidades a través de las artes manuales, ya sea en dibujo, escultura, decoración, etc.</ul></div>
+                          </li>
+
+                          <li>
+                            <div class="ms-list-text animated fadeInRight animation-delay-21"><ul>¿Qué esperas? Regístrate en Conocimiento Colectivo y mira todo lo que tenemos para tí.</ul></div>
                           </li>
                         </ul>
-
                       </div>
-                    </div>
                   </div>
 
-
+                  <br>
                   <div class="carousel-controls">
-                    <!-- Controls -->
-                    <a class="left carousel-control animated zoomIn animation-delay-30" href="#carousel-hero" role="button" data-slide="prev">
+                    <!--FLECHAS CAROUSEL -->
+                    <a class="left carousel-control animated zoomIn" href="#cccarousel" data-slide="prev">
                       <i class="zmdi zmdi-chevron-left"></i>
-                      <span class="sr-only">Previous</span>
+ 
                     </a>
-                    <a class="right carousel-control animated zoomIn animation-delay-30" href="#carousel-hero" role="button" data-slide="next">
+                    <a class="right carousel-control animated zoomIn" href="#cccarousel" data-slide="next">
                       <i class="zmdi zmdi-chevron-right"></i>
-                      <span class="sr-only">Next</span>
                     </a>
-                    <!-- Indicators -->
+                    <!--LINEAS CAROUSEL-->
                     <ol class="carousel-indicators">
-                      <li data-target="#carousel-hero" data-slide-to="0" class="animated fadeInUpBig animation-delay-27 active"></li>
-                      <li data-target="#carousel-hero" data-slide-to="1" class="animated fadeInUpBig animation-delay-28"></li>
+                      <li data-target="#cccarousel" data-slide-to="0" class="animated fadeInUpBig"></li>
+                      <li data-target="#cccarousel" data-slide-to="1" class="animated fadeInUpBig"></li>
                     </ol>
                   </div>
-
                 </div>
               </div>
             </div>
 
-            <div class="col-xl-6 col-lg-5">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div class="ms-hero-img animated zoomInUp animation-delay-30">
-                <img src="assets/img/demo/transparent.png" alt="" class="img-fluid">
+                <img src="assets/img/demo/transparent.png">
                 <div id="carousel-hero-img" class="carousel carousel-fade slide" data-ride="carousel" data-interval="3000">
+
                   <!-- Indicators -->
+                  <div>
                   <ol class="carousel-indicators carousel-indicators-hero-img">
                     <li data-target="#carousel-hero-img" data-slide-to="0" class="active"></li>
                     <li data-target="#carousel-hero-img" data-slide-to="1"></li>
-                    <li data-target="#carousel-hero-img" data-slide-to="2"></li>
                   </ol>
+                  </div>
                   <!-- Wrapper for slides -->
-                  <div class="carousel-inner" role="listbox">
+                  <div class="carousel-inner">
                     <div class="ms-hero-img-slider carousel-item active">
-                      <img src="assets/img/demo/category1.png" alt="" class="img-fluid"> </div>
+                      <img src="assets/img/demo/category1.png" class="img-fluid"> </div>
                     <div class="ms-hero-img-slider carousel-item">
-                      <img src="assets/img/demo/category2.png" alt="" class="img-fluid"> </div>
-                    <div class="ms-hero-img-slider carousel-item">
-                      <img src="assets/img/demo/hero2.png" alt="" class="img-fluid"> </div>
+                      <img src="assets/img/demo/category2.png" class="img-fluid"> </div>
+
                   </div>
                 </div>
               </div>
@@ -102,7 +95,9 @@
       </div>
       <!-- ms-hero ms-hero-black -->
       <div class="container mt-4">
-        <h2 class="text-center color-primary mb-2 wow fadeInDown animation-delay-4">Conoce los distintos tema que puedes aprender en Conocimiento<strong>&nbsp;Colectivo</strong></h2>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <h2 class="text-center color-primary mb-2 wow fadeInDown animation-delay-4">Conoce los distintos temas que puedes aprender en Conocimiento <strong>Colectivo</strong></h2>
+        </div>
         <div class="row">
 
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-4">
@@ -180,35 +175,34 @@
         </div>
       </div>
 
-      
-      </div>
+
       <div class="container mt-6">
         <h1 class="font-light">Mira algunas de las funciones que tenemos</h1>
         <div class="panel panel-light panel-flat">
           <!-- Nav tabs -->
           <ul class="nav nav-tabs nav-tabs-transparent indicator-primary nav-tabs-full nav-tabs-5" role="tablist">
             <li class="nav-item wow fadeInDown animation-delay-6" role="presentation">
-              <a href="#windows" aria-controls="windows" role="tab" data-toggle="tab" class="nav-link withoutripple">
+              <a href="#matriculate" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple">
                 <span class="d-none d-md-inline">Matrículate en talleres</span>
               </a>
             </li>
             <li class="nav-item wow fadeInDown animation-delay-4" role="presentation">
-              <a href="#macos" aria-controls="macos" role="tab" data-toggle="tab" class="nav-link withoutripple active">
+              <a href="#crea" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple active">
                 <span class="d-none d-md-inline">Crea talleres</span>
               </a>
             </li>
             <li class="nav-item wow fadeInDown animation-delay-2" role="presentation">
-              <a href="#linux" aria-controls="linux" role="tab" data-toggle="tab" class="nav-link withoutripple">
+              <a href="#solicita" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple">
                 <span class="d-none d-md-inline">Solicita talleres</span>
               </a>
             </li>
             <li class="nav-item wow fadeInDown animation-delay-4" role="presentation">
-              <a href="#android" aria-controls="android" role="tab" data-toggle="tab" class="nav-link withoutripple">
+              <a href="#accede" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple">
                 <span class="d-none d-md-inline">Accede a material de los talleres</span>
               </a>
             </li>
             <li class="nav-item wow fadeInDown animation-delay-6" role="presentation">
-              <a href="#ios" aria-controls="ios" role="tab" data-toggle="tab" class="nav-link withoutripple">
+              <a href="#paga" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple">
                 <span class="d-none d-md-inline">Pagos en línea</span>
               </a>
             </li>
@@ -216,7 +210,7 @@
           <div class="panel-body">
             <!-- Tab panes -->
             <div class="tab-content mt-4">
-              <div role="tabpanel" class="tab-pane fade" id="windows">
+              <div role="tabpanel" class="tab-pane fade" id="matriculate">
                 <div class="row">
                   <div class="col-lg-6 order-lg-2">
                     <img src="assets/img/demo/mock4.png" alt="" class="img-fluid animated zoomIn animation-delay-8"> </div>
@@ -229,7 +223,7 @@
                 </div>
               </div>
 
-              <div role="tabpanel" class="tab-pane active show fade" id="macos">
+              <div role="tabpanel" class="tab-pane active show fade" id="crea">
                 <div class="row">
                   <div class="col-lg-6">
                     <img src="assets/img/demo/mock2.png" alt="" class="img-fluid wow animated zoomIn animation-delay-8"> </div>
@@ -241,7 +235,7 @@
                 </div>
               </div>
 
-              <div role="tabpanel" class="tab-pane fade" id="linux">
+              <div role="tabpanel" class="tab-pane fade" id="solicita">
                 <div class="row">
                   <div class="col-lg-6 order-lg-2">
                     <img src="assets/img/demo/mock5.png" alt="" class="img-fluid animated zoomIn animation-delay-8"> </div>
@@ -253,7 +247,7 @@
                 </div>
               </div>
 
-              <div role="tabpanel" class="tab-pane fade" id="android">
+              <div role="tabpanel" class="tab-pane fade" id="accede">
                 <div class="row">
                   <div class="col-lg-6">
                     <img src="assets/img/demo/mock6.png" alt="" class="img-fluid animated zoomIn animation-delay-8"> </div>
@@ -265,7 +259,7 @@
                 </div>
               </div>
 
-              <div role="tabpanel" class="tab-pane fade" id="ios">
+              <div role="tabpanel" class="tab-pane fade" id="paga">
                 <div class="row">
                   <div class="col-lg-6 order-lg-2">
                     <img src="assets/img/demo/mock3.png" alt="" class="img-fluid animated zoomIn animation-delay-8"> </div>
