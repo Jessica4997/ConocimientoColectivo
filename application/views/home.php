@@ -95,15 +95,13 @@
       </div>
       <!-- ms-hero ms-hero-black -->
       <div class="container mt-4">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <h2 class="text-center color-primary mb-2 wow fadeInDown animation-delay-4">Conoce los distintos temas que puedes aprender en Conocimiento <strong>Colectivo</strong></h2>
-        </div>
-        <div class="row">
 
+        <div class="row">
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-4">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg color-info">
-                <i class="zmdi zmdi-cloud-outline"></i>
+                <i class="fa fa-child"></i>
               </span>
               <h4 class="color-info">Bailes</h4>
               <p>Podras aprender a bailar diversos géneros musicales como:
@@ -116,7 +114,7 @@
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-8">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg color-warning">
-                <i class="zmdi zmdi-desktop-mac"></i>
+                <i class="fa fa-bicycle"></i>
               </span>
               <h4 class="color-warning">Deporte</h4>
               <p class="">Nuestros profesores podrán enseñarte diversos deportes como:</p>
@@ -129,7 +127,7 @@
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-10">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg color-success">
-                <i class="zmdi zmdi-download"></i>
+                <i class="fa fa-music"></i>
               </span>
               <h4 class="color-success">Música</h4>
               <p class="">¿Cansado de aprender los mismos instrumentos musicales? En Conocimiento Colectivo podrás aprender todos estos:</p>
@@ -140,7 +138,7 @@
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg  color-danger">
-                <i class="zmdi zmdi-flower-alt"></i>
+                <i class="fa fa-users"></i>
               </span>
               <h4 class="color-danger">Teatro</h4>
               <p class="">Pon a prueba tus dotes para las artes escénicas, tenemos distintos géneros que te pueden interesar</p>
@@ -153,7 +151,7 @@
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg  color-danger">
-                <i class="zmdi zmdi-flower-alt"></i>
+                <i class="fa fa-paint-brush"></i>
               </span>
               <h4 class="color-danger">Arte</h4>
               <p class="">Te interesa la pintura, la escultura</p>
@@ -164,7 +162,7 @@
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
             <div class="text-center card-body">
               <span class="ms-icon ms-icon-circle ms-icon-xxlg  color-danger">
-                <i class="zmdi zmdi-flower-alt"></i>
+                <i class="fa fa-coffee"></i>
               </span>
               <h4 class="color-danger">Gastronomía</h4>
               <p class="">¿Te gusta el mundo de la gastronomía? En conocimiento Colectivo podrás encontrar profesores que te enseñen distintas recetas</p>
