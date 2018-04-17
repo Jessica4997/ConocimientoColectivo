@@ -21,21 +21,28 @@ class Workshop_model extends CI_Model {
     }
 
     public function show_by_id($id){
-      $sql = "SELECT 
-                w.id,
-                w.title,
-                DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
-                DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-                w.level,
-                w.amount,
-                w.description,
-                c.name AS category_name
-              FROM
-                workshops AS w 
-                INNER JOIN categories AS c 
-                  ON w.`category_id` = c.`id` 
-              WHERE w.`id` = ?
-              LIMIT 1";
+ 
+        $sql = "SELECT
+        w.id,
+        w.title,
+        DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
+        DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
+        w.level,
+        w.amount,
+        w.vacancy,
+        w.description,
+        w.wrks_status,
+        c.name AS category_name,
+        u.name AS user_name,
+        u.last_name AS user_last_name
+      FROM
+        workshops AS w
+        INNER JOIN categories AS c
+          ON w.category_id = c.id
+          INNER JOIN users AS u
+            ON u.id = w.user_id
+            WHERE w.`id` = ?
+            LIMIT 1";
 
       $query = $this->db->query($sql,array($id));
       
@@ -50,12 +57,15 @@ class Workshop_model extends CI_Model {
         'level' => $dataform['nivel'],
         'start_date' => $dataform['fecha_inicio'],
         'final_date' => $dataform['fecha_fin'],
-        'vacancy' => $dataform['vacantes'],
         'amount' => $dataform['monto'],
         'description' => $dataform['descripcion'],
+        'vacancy' => $dataform['vacantes'],
+        'wrks_status' => $dataform['estado_taller'],
+        'user_id'=>2
+
     );
 
-    $this->db->insert('Workshops', $data);
+    $this->db->insert('workshops', $data);
 
   }
 }

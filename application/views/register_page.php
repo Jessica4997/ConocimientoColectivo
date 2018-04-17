@@ -1,4 +1,3 @@
-
       <div class="ms-hero-page-override ms-hero-img-airplane ms-bg-fixed ms-hero-bg-dark-light">
         <div class="container">
           <div class="text-center">
@@ -10,7 +9,7 @@
       <div class="container">
         <div class="card card-primary card-hero animated fadeInUp animation-delay-7">
           <div class="card-body">
-            <form class="form-horizontal" method="post" action="<?php echo site_url('user/register')?>">
+            <form method="post" action="<?php echo site_url('register_page/saveuser')?>" class="form-horizontal">
               <fieldset>
 
                 <div class="row form-group">

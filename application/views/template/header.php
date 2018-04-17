@@ -48,7 +48,7 @@
                           <div class="form-group no-mt">
                             <div class="checkbox">
                               <label>
-                                <input type="checkbox">Recuerdame</label>
+                                <input type="checkbox">Recuérdame</label>
                             </div>
                           </div>
                         </div>

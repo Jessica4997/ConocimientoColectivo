@@ -10,7 +10,7 @@ class Home extends CI_Controller {
 			'name'     => 'jose'
 		);
 	
-		$this->session->set_userdata($newdata);
+		$this->session->set_userdata($newdata); 
 
 
 

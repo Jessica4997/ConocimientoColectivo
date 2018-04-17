@@ -20,10 +20,6 @@
     </style>
     
 
-    <!--[if lt IE 9]>
-        <script src="assets/js/html5shiv.min.js"></script>
-        <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body>
     <!--<div id="ms-preload" class="ms-preload">

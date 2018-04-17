@@ -1,8 +1,8 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
+SQLyog Trial v13.0.0 (32 bit)
 MySQL - 10.1.31-MariaDB : Database - db_cc_v2
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -12,7 +12,7 @@ MySQL - 10.1.31-MariaDB : Database - db_cc_v2
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_cc_v2` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_cc_v2` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `db_cc_v2`;
 
@@ -29,7 +29,13 @@ CREATE TABLE `categories` (
 
 /*Data for the table `categories` */
 
-insert  into `categories`(`id`,`name`,`parent_id`) values (1,'Bailes',NULL),(2,'Deportes',NULL),(3,'Música',NULL),(4,'Teatro',NULL),(5,'Arte',NULL),(6,'Gastronomía',NULL);
+insert  into `categories`(`id`,`name`,`parent_id`) values 
+(1,'Bailes',NULL),
+(2,'Deportes',NULL),
+(3,'Música',NULL),
+(4,'Teatro',NULL),
+(5,'Arte',NULL),
+(6,'Gastronomía',NULL);
 
 /*Table structure for table `discounts` */
 
@@ -162,11 +168,14 @@ CREATE TABLE `users` (
   `created_date` datetime NOT NULL,
   `gender` enum('Femenino','Masculino') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`phone`,`date_birth`,`description`,`status`,`created_date`,`gender`) values (1,'Jessica','Paredes','jessp.4997@gmail.com','123456','987654321','456123','1997-09-04','sadasdsad','Confirmado','2018-04-15 06:17:38','Femenino'),(2,'Kevin','Robles','kevin0696@gmail.com','56987','963852741','456123','1996-11-06','fdgdfgdg','Sin Confirmar','0000-00-00 00:00:00','Femenino');
+insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`phone`,`date_birth`,`description`,`status`,`created_date`,`gender`) values 
+(1,'Jessica','Paredes','jessp.4997@gmail.com','123456','987654321','456123','1997-09-04','sadasdsad','Confirmado','2018-04-15 06:17:38','Femenino'),
+(2,'Kevin','Robles','kevin0696@gmail.com','56987','963852741','456123','1996-11-06','fdgdfgdg','Sin Confirmar','0000-00-00 00:00:00','Femenino'),
+(3,'Ana','Suarez','ana@gmail.com','123','963852741','7894256','0000-00-00','sadsada','Sin Confirmar','0000-00-00 00:00:00','Femenino');
 
 /*Table structure for table `workshops` */
 
@@ -190,11 +199,17 @@ CREATE TABLE `workshops` (
   KEY `fk_workshops_category_id` (`category_id`),
   CONSTRAINT `fk_workshops_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_workshops_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 /*Data for the table `workshops` */
 
-insert  into `workshops`(`id`,`amount`,`start_date`,`final_date`,`level`,`wrks_status`,`created_date`,`user_id`,`category_id`,`title`,`description`,`vacancy`) values (1,'100.00','2018-04-22 06:20:37','2018-04-22 06:20:27','Basico','En curso','2018-04-15 06:20:16',1,3,'Clase de Guitarra','Buscamos 5 personas que quieran aprender a tocar guitarra',5),(2,'50.00','2018-04-21 06:39:35','2018-04-25 06:39:40','Intermedio','En curso','2018-04-15 06:39:52',2,1,'Clase de Baile','Busco 10 personas que esten dispuestas a aprender clases de salsa en nivel intermedio',10),(3,'150.00','2018-04-25 12:49:25','2018-04-28 12:49:33','Avanzado','En curso','2018-04-15 12:49:54',1,6,'Clase de Repostería','',8),(6,'40.00','2018-04-22 12:51:23','2018-04-23 12:51:58','Intermedio','En curso','2018-04-15 12:52:18',2,3,'Clase de Batería','',0),(11,'120.00','0000-00-00 00:00:00','0000-00-00 00:00:00','Basico','En curso','0000-00-00 00:00:00',2,1,'wadawdad','',5),(12,'120.00','0000-00-00 00:00:00','0000-00-00 00:00:00','Avanzado','En curso','0000-00-00 00:00:00',2,1,'Taller de Bachata','Animense a entrar a clases de bachata.',5);
+insert  into `workshops`(`id`,`amount`,`start_date`,`final_date`,`level`,`wrks_status`,`created_date`,`user_id`,`category_id`,`title`,`description`,`vacancy`) values 
+(1,100.00,'2018-04-22 06:20:37','2018-04-22 06:20:27','Basico','En curso','2018-04-15 06:20:16',1,3,'Clase de Guitarra','Buscamos 5 personas que quieran aprender a tocar guitarra.',5),
+(2,50.00,'2018-04-21 06:39:35','2018-04-25 06:39:40','Intermedio','En curso','2018-04-15 06:39:52',2,1,'Clase de Baile','Busco 10 personas que esten dispuestas a aprender clases de salsa en nivel intermedio.',10),
+(3,150.00,'2018-04-25 12:49:25','2018-04-28 12:49:33','Avanzado','En curso','2018-04-15 12:49:54',1,6,'Clase de Repostería','Personas interesadas a aprender como preparar postres postular al taller.',8),
+(4,40.00,'2018-04-22 12:51:23','2018-04-23 12:51:58','Intermedio','En curso','2018-04-15 12:52:18',2,3,'Clase de Batería','',3),
+(12,120.00,'0000-00-00 00:00:00','0000-00-00 00:00:00','Avanzado','En curso','0000-00-00 00:00:00',2,1,'Taller de Bachata','Animense a entrar a clases de bachata.',5),
+(15,200.00,'0000-00-00 00:00:00','0000-00-00 00:00:00','Avanzado','En curso','0000-00-00 00:00:00',2,3,'Taller de Guitarra Eléctrica','Interesados en llevar clases de guitarra eléctrica postularse. ',7);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Register_Page extends CI_Controller {
+class Register_page extends CI_Controller {
 
     private $dataView = array();
 
@@ -30,7 +30,7 @@ class Register_Page extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function save()
+	public function saveuser()
 	{
 		var_dump($_POST);
 		$this->user_model->createuser($_POST);
