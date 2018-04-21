@@ -1,4 +1,4 @@
-var myCircle1 = Circles.create({
+/*var myCircle1 = Circles.create({
 		id: "circles-1",
 		radius: 60,
 		value: 43,

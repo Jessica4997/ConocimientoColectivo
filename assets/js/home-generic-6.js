@@ -1,4 +1,4 @@
-$(function () {
+/*$(function () {
 	$("#Container").mixItUp();
 	new Typed(".typed-class", {
 		strings: ["be creative", "start your project", "innovate"],

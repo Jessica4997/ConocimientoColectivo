@@ -1,4 +1,4 @@
-$(function () {
+/*$(function () {
 	$("#Container").mixItUp(), $("#Cols1").click(function () {
 		$(".mix").removeClass("col-lg-4"), $(".mix").removeClass("col-lg-3"), $(".mix").removeClass("col-lg-6"), $(".mix").addClass("col-lg-12"), $("#Cols1").addClass("active"), $("#Cols2").removeClass("active"), $("#Cols3").removeClass("active"), $("#Cols4").removeClass("active")
 	}), $("#Cols2").click(function () {

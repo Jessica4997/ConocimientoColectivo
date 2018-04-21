@@ -9,30 +9,16 @@
         <h4 class="mb-1 no-mt">Categorías</h4>
 
         <fieldset>
-          
+          <?php foreach($lis as $rowc){?>
           <div class="form-group no-mt">
             <div class="checkbox">
               <label>
-                <input type="checkbox"> Bailes </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Deportes </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Música </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Pintura </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Teatro </label>
-            </div>
+                <input type="checkbox"> <?php echo $rowc['name']?> </label>
           </div>
+
+         <?php }?>
         </fieldset>
+
         <button class="btn btn-danger btn-block no-mb mt-2" id="Reset">
           <i class="zmdi zmdi-delete"></i>Limpiar filtros</button>
       </form>

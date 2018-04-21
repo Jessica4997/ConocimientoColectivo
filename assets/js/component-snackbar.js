@@ -1,4 +1,4 @@
-$(document).ready(function () {
+/*$(document).ready(function () {
     $(".snackbar-btn").click(function (t) {
         t.preventDefault();
         var o = $(this).attr("data-pos"),

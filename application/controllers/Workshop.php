@@ -18,23 +18,17 @@ class Workshop extends CI_Controller {
 
 	public function index() {
 		$wrk = $this->workshop_model->get_list();
-		//var_dump($wrkdates);exit;
-		$dataView=[
-			'page'=>'workshop',
-			'lists'=>$wrk
-		];
-		$this->load->view('template/basic',$dataView);
-	}
-
-		public function categoriescreate() {
 		$catlist = $this->workshop_model->get_categories_list();
 		//var_dump($wrkdates);exit;
 		$dataView=[
 			'page'=>'workshop',
+			'lists'=>$wrk ,
 			'lis'=>$catlist
+
 		];
 		$this->load->view('template/basic',$dataView);
 	}
+
 
 	public function description($id) {
 		$workshop_description = $this->workshop_model->show_by_id($id);

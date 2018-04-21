@@ -1,4 +1,4 @@
-window.onresize = introFull;
+/*window.onresize = introFull;
 var handler = window.onresize;
 
 function introFull() {
