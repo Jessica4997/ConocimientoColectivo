@@ -15,7 +15,6 @@
               <label>
                 <input type="checkbox"> <?php echo $rowc['name']?> </label>
           </div>
-
          <?php }?>
         </fieldset>
 

@@ -40,14 +40,17 @@ class Workshop extends CI_Controller {
 	}
 
 	public function create(){
+		$categorylist = $this->workshop_model->get_categories_list();
 		$dataView=[
-			'page'=>'workshops/create'
+			'page'=>'workshops/create',
+			'prueba'=>$categorylist
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
 	public function save(){
-		var_dump($_POST);
+		//var_dump($_POST);
 		$this->workshop_model->create($_POST);
+		redirect('workshop', 'refresh');
 	}
 }

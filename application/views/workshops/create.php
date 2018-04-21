@@ -10,21 +10,27 @@
                   <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Título</label>
                       <div class="col-md-9">
-                        <input type="text" class="form-control" placeholder="Título" name="titulo"> </div>
+                        <input type="text" class="form-control" placeholder="Título" name="titulo" required> </div>
                     </div>
                 
                   <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Categoría</label>
                       <div class="col-md-9">
+
                         <select name="categoria" class="form-control selectpicker">
-                          <option value="1">Bailes</option>
-                          <option value="2">Deportes</option>
+                          <?php foreach($prueba as $rowp){?>
+                          <option value="1"><?php echo $rowp['name']?></option>
+                          <?php }?>
+
+                          <!--<option value="2">Deportes</option>
                           <option value="3">Música</option>
                           <option value="4">Teatro</option>
                           <option value="5">Arte</option>
-                          <option value="6">Gastronomía</option>
+                          <option value="6">Gastronomía</option>-->
                         </select>
+                        
                       </div>
+                      
                     </div>
 
                     <div class="row form-group">
@@ -67,13 +73,13 @@
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Cantidad de Vacantes</label>
                       <div class="col-md-9">
-                        <input type="number" name="vacantes" min="1" max="10" class="form-control" id="" placeholder="Cantidad de Vacantes" value="5" required> </div>
+                        <input type="number" name="vacantes" min="1" max="10" class="form-control" id="" placeholder="Cantidad de Vacantes" required> </div>
                     </div>
 
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Monto</label>
                       <div class="col-md-9">
-                        <input type="number" name="monto" min="1" class="form-control" id="" placeholder="Monto" value="120" required> </div>
+                        <input type="number" name="monto" min="1" class="form-control" id="" placeholder="Monto" required> </div>
                     </div>
 
  <div class="form-group row justify-content-end">

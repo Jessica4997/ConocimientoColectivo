@@ -19,4 +19,21 @@ class User_model extends CI_Model {
     $this->db->insert('users', $data);
 
   }
-}
+
+  /*public function login($email,$password){
+    this->db->where('email',$email);
+    this->db->where('email',$email);
+
+    $q = $this->db->get('user');
+
+    if($q->num_rows()>0){
+        return true;
+
+    }else{
+        return false; 
+    }*/
+
+
+
+
+  }
