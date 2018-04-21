@@ -82,6 +82,19 @@ class Workshop_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_level_list(){
+        $sql = "SELECT 
+           DISTINCT
+            level
+
+      FROM
+        workshops;";
+
+        $query = $this->db->query($sql);
+        
+        return $query->result_array();
+    }
+
 
 
 

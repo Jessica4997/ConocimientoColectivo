@@ -19,7 +19,7 @@
 
                         <select name="categoria" class="form-control selectpicker">
                           <?php foreach($prueba as $rowp){?>
-                          <option value="1"><?php echo $rowp['name']?></option>
+                          <option><?php echo $rowp['name']?></option>
                           <?php }?>
 
                           <!--<option value="2">Deportes</option>
@@ -51,9 +51,9 @@
                       <label for="" class="col-md-2 control-label">Nivel</label>
                       <div class="col-md-9">
                         <select name="nivel" class="form-control selectpicker">
-                          <option selected>Básico </option>
-                          <option>Intermedio</option>
-                          <option>Avanzado</option>
+                          <?php foreach($intento as $rowi){?>
+                          <option><?php echo $rowi['level']?></option>
+                          <?php }?>
                         </select>
                       </div>
                     </div>
