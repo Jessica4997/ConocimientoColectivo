@@ -1,14 +1,14 @@
 <div class="ms-hero ms-hero-material">
    <div class="container">
      <div class="row">
-       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
          <div id="cccarousel" class="carousel" data-ride="carousel" data-interval="8000">
            <!--CAROUSEL-->
              <div class="carousel-inner">
                <div class="ms-hero-material-text-container">
                  <header class="ms-hero-material-title animated slideInLeft animation-delay-5">
                    <h1>Conocimiento  <strong>Colectivo</strong></h1>
-                   <h2 class="animated fadeInLeft animation-delay-18">Es un sitio que te permitirá contactar con diversas personas que te ayudarán a aprender distintos temas recreacionales.</h2>
+                   <h2 class="animated fadeInLeft animation-delay-10">Es un sitio que te permitirá contactar con diversas personas que te ayudarán a aprender distintos temas recreacionales.</h2>
                  </header>
                </div> 
 
@@ -16,13 +16,13 @@
                    <div class="ms-hero-material-text-container">
                      <ul class="ms-hero-material-list">
                          <li>
-                             <div class="ms-list-text animated fadeInRight animation-delay-19"><ul>Podrás aprender a bailar cualquier tipo de género musical, desde baladas y bachatas hasta hip-hop y breakdance.</ul></div>
+                             <div class="ms-list-text animated fadeInRight animation-delay-15"><ul>Podrás aprender a bailar cualquier tipo de género musical, desde baladas y bachatas hasta hip-hop y breakdance.</ul></div>
                          </li>
                          <li>
-                             <div class="ms-list-text animated fadeInRight animation-delay-21"><ul>¿Tu equipo y tú buscan a alguien que les pueda entrenar? Con Conocimiento Colectivo lo podrás encontrar.</ul></div>
+                             <div class="ms-list-text animated fadeInRight animation-delay-17"><ul>¿Tu equipo y tú buscan a alguien que les pueda entrenar? Con Conocimiento Colectivo lo podrás encontrar.</ul></div>
                          </li>
                           <li>
-                            <div class="ms-list-text animated fadeInRight animation-delay-23"><ul>¿Estás buscando adentrarte en el mundo musical? Aquí podrás aprender distintos instrumentos musicales, y en el género musical que tú desees.</ul></div>
+                            <div class="ms-list-text animated fadeInRight animation-delay-19"><ul>¿Estás buscando adentrarte en el mundo musical? Aquí podrás aprender distintos instrumentos musicales, y en el género musical que tú desees.</ul></div>
                           </li>
                         </ul>
                       </div>
@@ -33,14 +33,14 @@
                       <div class="ms-hero-material-text-container">
                         <ul class="ms-hero-material-list">
                           <li>
-                            <div class="ms-list-text animated fadeInRight animation-delay-19"><ul>Buscas mejorar o poner a prueba tus habilidades escénicas, en Conocimiento Colectivo podrás aprender teatro en sus diferentes categorías</ul></div>
+                            <div class="ms-list-text animated fadeInRight animation-delay-15"><ul>Buscas mejorar o poner a prueba tus habilidades escénicas, en Conocimiento Colectivo podrás aprender teatro en sus diferentes categorías</ul></div>
                           </li>
                           <li>
-                            <div class="ms-list-text animated fadeInRight animation-delay-19"><ul>En Conocimiento Colectivo podrás descubrir, explorar y desarrollar tus habilidades a través de las artes manuales, ya sea en dibujo, escultura, decoración, etc.</ul></div>
+                            <div class="ms-list-text animated fadeInRight animation-delay-17"><ul>En Conocimiento Colectivo podrás descubrir, explorar y desarrollar tus habilidades a través de las artes manuales, ya sea en dibujo, escultura, decoración, etc.</ul></div>
                           </li>
 
                           <li>
-                            <div class="ms-list-text animated fadeInRight animation-delay-21"><ul>¿Qué esperas? Regístrate en Conocimiento Colectivo y mira todo lo que tenemos para tí.</ul></div>
+                            <div class="ms-list-text animated fadeInRight animation-delay-19"><ul>¿Qué esperas? Regístrate en Conocimiento Colectivo y mira todo lo que tenemos para tí.</ul></div>
                           </li>
                         </ul>
                       </div>
@@ -66,36 +66,36 @@
               </div>
             </div>
 
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="ms-hero-img animated zoomInUp animation-delay-30">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+              <div class="ms-hero-img animated zoomInUp animation-delay-21">
                 <img src="assets/img/demo/transparent.png">
-                <div id="carousel-hero-img" class="carousel carousel-fade slide" data-ride="carousel" data-interval="3000">
+                <div id="carousel-hero-img" class="carousel carousel-fade slide" data-ride="carousel" data-interval="6000">
 
-                  <!-- Indicators -->
-                  <div>
-                  <ol class="carousel-indicators carousel-indicators-hero-img">
-                    <li data-target="#carousel-hero-img" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-hero-img" data-slide-to="1"></li>
-                  </ol>
-                  </div>
-                  <!-- Wrapper for slides -->
-                  <div class="carousel-inner">
-                    <div class="ms-hero-img-slider carousel-item active">
-                      <img src="assets/img/demo/category1.png" class="img-fluid"> </div>
-                    <div class="ms-hero-img-slider carousel-item">
-                      <img src="assets/img/demo/category2.png" class="img-fluid"> </div>
+            <div class="carousel-inner">
+              <div class="ms-hero-img-slider carousel-item active">
+                  <img src="assets/img/demo/category1.png" class="img-fluid"> </div>
+              <div class="ms-hero-img-slider carousel-item">
+                  <img src="assets/img/demo/category2.png" class="img-fluid"> </div>
+            </div>
 
-                  </div>
+                  <!--INDICADORES -->
+            <div>
+              <ol class="carousel-indicators carousel-indicators-hero-img">
+                <li data-target="#carousel-hero-img" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-hero-img" data-slide-to="1"></li>
+                </ol>
+              </div>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- container -->
       </div>
-      <!-- ms-hero ms-hero-black -->
+
+      
       <div class="container mt-4">
-        <h2 class="text-center color-primary mb-2 wow fadeInDown animation-delay-4">Conoce los distintos temas que puedes aprender en Conocimiento <strong>Colectivo</strong></h2>
+        <h2 class="text-center color-primary wow fadeInDown animation-delay-4">Conoce los distintos temas que puedes aprender en Conocimiento <strong>Colectivo</strong></h2>
 
         <div class="row">
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-4">
@@ -104,10 +104,10 @@
                 <i class="fa fa-child"></i>
               </span>
               <h4 class="color-info">Bailes</h4>
-              <p>Podras aprender a bailar diversos géneros musicales como:
+              <p>Podrás aprender a bailar diversos géneros musicales como:
                 <li>Bachata</li><li>Balada</li><li>Hip-hop</li><li>Salsa</li><li>Y mucho más</li>
               </p>
-              <a href="" class="btn btn-info btn-raised">Conoce más</a>
+              <a class="btn btn-info btn-raised">Conoce más</a>
             </div>
           </div>
 
@@ -119,7 +119,7 @@
               <h4 class="color-warning">Deporte</h4>
               <p class="">Nuestros profesores podrán enseñarte diversos deportes como:</p>
               <li>Basketball</li><li>Fútbol</li><li>Natación</li><li>Voley</li><li>Y mucho más</li>
-              <a href="" class="btn btn-warning btn-raised">Conoce más</a>
+              <a class="btn btn-warning btn-raised">Conoce más</a>
             </div>
           </div>
           </div>
@@ -132,7 +132,7 @@
               <h4 class="color-success">Música</h4>
               <p class="">¿Cansado de aprender los mismos instrumentos musicales? En Conocimiento Colectivo podrás aprender todos estos:</p>
                <li>Batería</li><li>Bajo</li><li>Guitarra</li><li>Violín</li><li>Y mucho más</li>
-              <a href="" class="btn btn-success btn-raised">Conoce más</a>
+              <a class="btn btn-success btn-raised">Conoce más</a>
             </div>
           </div>
           <div class="ms-feature col-xl-6 col-lg-6 col-md-6 card wow flipInX animation-delay-6">
@@ -143,7 +143,7 @@
               <h4 class="color-danger">Teatro</h4>
               <p class="">Pon a prueba tus dotes para las artes escénicas, tenemos distintos géneros que te pueden interesar:</p>
               <li>Clown</li><li>Comedia</li><li>Drama</li><li>Violín</li><li>Y mucho más</li>
-              <a href="" class="btn btn-danger btn-raised">Conoce más</a>
+              <a class="btn btn-danger btn-raised">Conoce más</a>
             </div>
           </div>
           </div>
@@ -156,7 +156,7 @@
               <h4 class="color-info">Arte</h4>
               <p class="">Si te interesa el mundo de las artes manuales tenemos distinto talleres que  te podrian gustar:</p>
               <li>Escultura</li><li>Pintura</li><li>Decoración</li><li>Manualidades</li><li>Y mucho más</li>
-              <a href="" class="btn btn-info btn-raised">Conoce más</a>
+              <a class="btn btn-info btn-raised">Conoce más</a>
             </div>
           </div>
 
@@ -175,22 +175,22 @@
       </div>
 
 
-      <div class="container mt-6">
+      <div class="container">
         <h1 class="font-light">Mira algunas de las funciones que tenemos</h1>
         <div class="panel panel-light panel-flat">
           <!-- Nav tabs -->
           <ul class="nav nav-tabs nav-tabs-transparent indicator-primary nav-tabs-full nav-tabs-5" role="tablist">
-            <li class="nav-item wow fadeInDown animation-delay-6" role="presentation">
-              <a href="#matriculate" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple">
+            <li class="nav-item wow fadeInDown animation-delay-4" role="presentation">
+              <a href="#matriculate" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple active">
                 <span class="d-none d-md-inline">Matricúlate en talleres</span>
               </a>
             </li>
             <li class="nav-item wow fadeInDown animation-delay-4" role="presentation">
-              <a href="#crea" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple active">
+              <a href="#crea" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple">
                 <span class="d-none d-md-inline">Crea talleres</span>
               </a>
             </li>
-            <li class="nav-item wow fadeInDown animation-delay-2" role="presentation">
+            <li class="nav-item wow fadeInDown animation-delay-4" role="presentation">
               <a href="#solicita" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple">
                 <span class="d-none d-md-inline">Solicita talleres</span>
               </a>
@@ -200,7 +200,7 @@
                 <span class="d-none d-md-inline">Accede a material de los talleres</span>
               </a>
             </li>
-            <li class="nav-item wow fadeInDown animation-delay-6" role="presentation">
+            <li class="nav-item wow fadeInDown animation-delay-4" role="presentation">
               <a href="#paga" aria-controls="" role="tab" data-toggle="tab" class="nav-link withoutripple">
                 <span class="d-none d-md-inline">Paga en línea</span>
               </a>
@@ -208,7 +208,8 @@
           </ul>
           <div class="panel-body">
             <!-- Tab panes -->
-            <div class="tab-content mt-4">
+            <div class="tab-content">
+
               <div role="tabpanel" class="tab-pane fade" id="matriculate">
                 <div class="row">
                   <div class="col-lg-6 order-lg-2">
@@ -272,18 +273,18 @@
             </div>
           </div>
         </div>
-        <!-- panel -->
+
       </div>
-      <!-- container -->
   
-      <!--container -->
+  
+      <!--CAROUSEL OPINIONES -->
       <div class="wrap wrap-danger mt-6">
-        <h2 class="text-center no-m">Mira lo que dicen nuestros usuarios de Conocimiento <strong>Colectivo</strong></h2>
-        <div id="carousel-example-generic" class="carousel carousel-cards carousel-fade slide" data-ride="carousel" data-interval="7000">
-          <!-- Indicators -->
+        <h2 class="text-center">Mira lo que dicen nuestros usuarios de Conocimiento <strong>Colectivo</strong></h2>
+        <div id="carouselopinion" class="carousel carousel-cards carousel-fade slide" data-ride="carousel" data-interval="7000">
+          <!--INDICADOR CIRCULO-->
           <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carouselopinion" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselopinion" data-slide-to="1"></li>
           </ol>
           <!-- Wrapper for slides -->
           <div class="carousel-inner" role="listbox">
@@ -359,11 +360,11 @@
             </div>
 
           </div>
-          <!-- Controls -->
-          <a class="left carousel-control-prev btn btn-white btn-raised" href="#carousel-example-generic" role="button" data-slide="next">
+          <!--INDICADOR FLECHA -->
+          <a class="left carousel-control-prev btn btn-white btn-raised" href="#carouselopinion" role="button" data-slide="next">
             <i class="zmdi zmdi-arrow-left"></i>
           </a>
-          <a class="right carousel-control-next btn btn-white btn-raised" href="#carousel-example-generic" role="button" data-slide="next">
+          <a class="right carousel-control-next btn btn-white btn-raised" href="#carouselopinion" role="button" data-slide="next">
             <i class="zmdi zmdi-arrow-right"></i>
           </a>
         </div>

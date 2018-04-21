@@ -38,10 +38,7 @@
 
                   <li> Vacantes: <?php echo $description['vacancy']?> </li>
 
-                  <li>
-                    <strong>Estado de taller: </strong>
-                    <span class="ms-tag ms-tag-success"> <?php echo $description['wrks_status']?> </span>
-                  </li>
+
 
                 </ul>
                 <a href="" class="btn btn-primary btn-block btn-raised">Postular</a>

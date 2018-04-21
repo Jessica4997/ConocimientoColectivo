@@ -15,27 +15,23 @@
                 <div class="row form-group">
                   <label for="inputEmail" class="col-md-2 control-label">Correo Electrónico</label>
                   <div class="col-md-9">
-                    <input type="email" class="form-control" name="correo" placeholder="Correo Electrónico"> </div>
+                    <input type="email" class="form-control" name="correo" placeholder="Correo Electrónico" required> </div>
                 </div>
                 <div class="row form-group">
                   <label for="inputPassword" class="col-md-2 control-label">Contraseña</label>
                   <div class="col-md-9">
-                    <input type="password" class="form-control" name="contrasena" placeholder="Contraseña"> </div>
+                    <input type="password" class="form-control" name="contrasena" placeholder="Contraseña" required> </div>
                 </div>
-                <div class="row form-group">
-                  <label for="inputPassword2" class="col-md-2 control-label">Reingresar contraseña</label>
-                  <div class="col-md-9">
-                    <input type="password" class="form-control" name="contraseña" placeholder="Contraseña"> </div>
-                </div>
+
                 <div class="row form-group">
                   <label for="inputName" class="col-md-2 control-label">Nombres</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="nombres" placeholder="Nombres"> </div>
+                    <input type="text" class="form-control" name="nombres" placeholder="Nombres" required> </div>
                 </div>
                 <div class="row form-group">
                   <label for="inputLast" class="col-md-2 control-label">Apellidos</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos"> </div>
+                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" required> </div>
                 </div>
 
                 <div class="row form-group">
@@ -54,7 +50,7 @@
                   <label for="inputGen" class="col-md-2 control-label">Género</label>
                   <div class="col-md-9">
                     <select name="genero" class="form-control selectpicker">
-                      <option value="0">Seleccionar </option>
+                      
                       <option value="1">Femenino</option>
                       <option value="2">Masculino </option>
                     </select>
@@ -63,7 +59,7 @@
                 <div class="row form-group">
                   <label for="inputDate" class="col-md-2 control-label">Fecha de Nacimiento</label>
                   <div class="col-md-9">
-                    <input type="text" class="datePickercc form-control" name="fecha_nacimiento"placeholder="mes/día/año"> </div>
+                    <input type="date" name="fecha_nacimiento"> </div>
                 </div>
 
                 <div class="row form-group">

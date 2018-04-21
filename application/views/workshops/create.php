@@ -10,15 +10,14 @@
                   <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Título</label>
                       <div class="col-md-9">
-                        <input type="text" class="form-control" placeholder="Título" name="titulo" value="wadawdad"> </div>
+                        <input type="text" class="form-control" placeholder="Título" name="titulo"> </div>
                     </div>
                 
                   <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Categoría</label>
                       <div class="col-md-9">
                         <select name="categoria" class="form-control selectpicker">
-                          <option value="" >Seleccionar</option>
-                          <option value="1" selected>Bailes</option>
+                          <option value="1">Bailes</option>
                           <option value="2">Deportes</option>
                           <option value="3">Música</option>
                           <option value="4">Teatro</option>
@@ -32,8 +31,7 @@
                       <label for="" class="col-md-2 control-label">Sub-categoría</label>
                       <div class="col-md-9">
                         <select name="sub_categoria" class="form-control selectpicker">
-                          <option>Seleccionar</option>
-                          <option selected>...</option>
+                          <option >...</option>
                           <option>...</option>
                           <option>...</option>
                           <option>...</option>
@@ -47,7 +45,6 @@
                       <label for="" class="col-md-2 control-label">Nivel</label>
                       <div class="col-md-9">
                         <select name="nivel" class="form-control selectpicker">
-                          <option>Seleccionar</option>
                           <option selected>Básico </option>
                           <option>Intermedio</option>
                           <option>Avanzado</option>
@@ -58,25 +55,25 @@
                     <div class="row form-group">
                       <label for="inputDate" class="col-md-2 control-label">Fecha de Inicio</label>
                       <div class="col-md-9">
-                        <input  type="text" class="datePickercc form-control" name="fecha_inicio" placeholder="mes/día/año" value="05/05/2018"> </div>
+                        <input  type="datetime-local" name="fecha_inicio" placeholder="mes/día/año" required> </div>
                     </div>
 
                     <div class="row form-group">
                       <label for="inputDate" class="col-md-2 control-label">Fecha de Cierre</label>
                       <div class="col-md-9">
-                        <input  type="text" class="datePickercc form-control" name="fecha_fin" placeholder="mes/día/año" value="05/01/2018"> </div>
+                        <input  type="datetime-local" name="fecha_fin" placeholder="mes/día/año" required> </div>
                     </div>
 
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Cantidad de Vacantes</label>
                       <div class="col-md-9">
-                        <input type="number" name="vacantes" min="1" max="10" class="form-control" id="" placeholder="Cantidad de Vacantes" value="5"> </div>
+                        <input type="number" name="vacantes" min="1" max="10" class="form-control" id="" placeholder="Cantidad de Vacantes" value="5" required> </div>
                     </div>
 
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Monto</label>
                       <div class="col-md-9">
-                        <input type="number" name="monto" min="1" class="form-control" id="" placeholder="Monto" value="120"> </div>
+                        <input type="number" name="monto" min="1" class="form-control" id="" placeholder="Monto" value="120" required> </div>
                     </div>
 
  <div class="form-group row justify-content-end">
@@ -87,7 +84,6 @@
                 <span class="help-block">Escriba una breve descripción </span>
             </div>
         </div>
-
 
 
                     <div class="row mt-2">

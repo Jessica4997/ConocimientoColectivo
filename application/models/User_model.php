@@ -13,7 +13,7 @@ class User_model extends CI_Model {
         'gender' => $dataform['genero'],
         'date_birth' => $dataform['fecha_nacimiento'],
         'description' => $dataform['descripcion'],
-        
+        'status' => 'Confirmado'
     );
 
     $this->db->insert('users', $data);

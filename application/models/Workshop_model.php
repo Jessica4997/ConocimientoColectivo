@@ -31,7 +31,7 @@ class Workshop_model extends CI_Model {
         w.amount,
         w.vacancy,
         w.description,
-        w.wrks_status,
+        /*w.wrks_status,*/
         c.name AS category_name,
         u.name AS user_name,
         u.last_name AS user_last_name
@@ -60,7 +60,7 @@ class Workshop_model extends CI_Model {
         'amount' => $dataform['monto'],
         'description' => $dataform['descripcion'],
         'vacancy' => $dataform['vacantes'],
-        'wrks_status' => $dataform['estado_taller'],
+        'wrks_status' => 'En Curso',
         'user_id'=>2
 
     );
@@ -68,4 +68,22 @@ class Workshop_model extends CI_Model {
     $this->db->insert('workshops', $data);
 
   }
+
+    public function get_categories_list(){
+        $sql = "SELECT 
+            id,
+            NAME
+
+      FROM
+        categories;";
+
+        $query = $this->db->query($sql);
+        
+        return $query->result_array();
+    }
+
+
+
+
+
 }

@@ -33,7 +33,7 @@
                             <i class="zmdi zmdi-account"></i>
                           </span>
                           <label class="control-label" for="ms-form-user">Correo electrónico</label>
-                          <input name="username" type="text" id="username" class="form-control" required> </div>
+                          <input name="username" type="text" id="username" class="form-control" > </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -53,9 +53,9 @@
                           </div>
                         </div>
                         <div class="col-md-6">
-                          <input type="submit" name="submit"></input>
-                          <a class="btn btn-sm btn-raised btn-primary" href="<?php echo site_url('workshop')?>"> Continuar</a>
-                          <a class="btn btn-sm btn-raised btn-primary" href="<?php echo site_url('register_page')?>"> <i class="zmdi zmdi-account-add">&nbsp;&nbsp;Registrarse</i></a>
+                          
+                          <a class="btn btn-sm btn-raised btn-primary"> Continuar</a>
+                          <a class="btn btn-sm btn-raised btn-primary" href="<?php echo site_url('register_page')?>">Registrarse</a>
                         </div>
                       </div>
                     </fieldset>

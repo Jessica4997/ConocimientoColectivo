@@ -7,7 +7,9 @@
     <div class="card-body">
       <form class="form-horizontal">
         <h4 class="mb-1 no-mt">Categorías</h4>
+
         <fieldset>
+          
           <div class="form-group no-mt">
             <div class="checkbox">
               <label>
@@ -57,7 +59,7 @@
   <div class="row" id="Container">
 
     <?php foreach($lists as $row){?>
-    <div class="col-xl-4 col-md-6 mix laptop apple" data-price="<?php echo $row['amount']?>">
+    <div class="col-xl-4 col-md-6 mix " data-price="<?php echo $row['amount']?>">
       <div class="card ms-feature">
         <div class="card-body text-center">
           <h4 class="text-normal text-center"><?php echo $row['title']?></h4>

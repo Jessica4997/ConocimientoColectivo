@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Workshop extends CI_Controller {
-
 	private $dataView = array();
 
 	private $id_usuario = '0';
@@ -15,11 +14,9 @@ class Workshop extends CI_Controller {
         if ($this->id_usuario === null && !in_array($ruta,$whiteList)){
             redirect('/', 'refresh');
         }
-
 	}
 
-	public function index()
-	{
+	public function index() {
 		$wrk = $this->workshop_model->get_list();
 		//var_dump($wrkdates);exit;
 		$dataView=[
@@ -29,8 +26,17 @@ class Workshop extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
+		public function categoriescreate() {
+		$catlist = $this->workshop_model->get_categories_list();
+		//var_dump($wrkdates);exit;
+		$dataView=[
+			'page'=>'workshop',
+			'lis'=>$catlist
+		];
+		$this->load->view('template/basic',$dataView);
+	}
 
-	public function description($id){
+	public function description($id) {
 		$workshop_description = $this->workshop_model->show_by_id($id);
 		$dataView=[
 			'page'=>'workshop_description',
@@ -39,16 +45,14 @@ class Workshop extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function create()
-	{
+	public function create(){
 		$dataView=[
 			'page'=>'workshops/create'
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function save()
-	{
+	public function save(){
 		var_dump($_POST);
 		$this->workshop_model->create($_POST);
 	}
