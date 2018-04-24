@@ -210,7 +210,7 @@
             <!-- Tab panes -->
             <div class="tab-content">
 
-              <div role="tabpanel" class="tab-pane fade" id="matriculate">
+              <div role="tabpanel" class="tab-pane active show fade" id="matriculate">
                 <div class="row">
                   <div class="col-lg-6 order-lg-2">
                     <img src="assets/img/demo/mock4.png" alt="" class="img-fluid animated zoomIn animation-delay-8"> </div>
@@ -223,7 +223,7 @@
                 </div>
               </div>
 
-              <div role="tabpanel" class="tab-pane active show fade" id="crea">
+              <div role="tabpanel" class="tab-pane show fade" id="crea">
                 <div class="row">
                   <div class="col-lg-6">
                     <img src="assets/img/demo/mock2.png" alt="" class="img-fluid wow animated zoomIn animation-delay-8"> </div>

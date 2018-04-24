@@ -25,8 +25,6 @@
         <h4>Ordenar por</h4>
         <select id="SortSelect" class="form-control selectpicker">
           <option value="random">Populares</option>
-          <option value="price:asc">Precio</option>
-          <option value="price:desc">Calificación</option>
           <option value="date:asc">Fecha</option>
         </select>
       </form>
@@ -34,11 +32,11 @@
   </div>
 
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-  <h1 align="center"><strong>Talleres</strong></h1>
+  <h1 align="center"><strong>Solicitudes de Talleres</strong></h1>
 
   <p class="text-center">
       <a href="<?php echo site_url('workshop/create')?>" class="btn btn-primary btn-raised text-right" role="button">
-        <i class="fa fa-plus"></i>Crear Taller</a>
+        <i class="fa fa-plus"></i>Crear Solicitud</a>
   </p>
 
   <div class="row" id="Container">

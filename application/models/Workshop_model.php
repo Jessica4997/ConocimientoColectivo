@@ -69,7 +69,7 @@ class Workshop_model extends CI_Model {
 
   }
 
-    public function get_categories_list(){
+   public function get_categories_list(){
         $sql = "SELECT 
             id,
             name
