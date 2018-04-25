@@ -19,7 +19,7 @@ class Workshop extends CI_Controller {
 	public function index() {
 		$wrk = $this->workshop_model->get_list();
 		$catlist = $this->workshop_model->get_categories_list();
-		//var_dump($wrkdates);exit;
+		//var_dump($wrk);exit;
 		$dataView=[
 			'page'=>'workshop',
 			'lists'=>$wrk ,

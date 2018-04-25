@@ -25,7 +25,8 @@
         <h4>Ordenar por</h4>
         <select id="SortSelect" class="form-control selectpicker">
           <option value="random">Populares</option>
-          <option value="price:asc">Precio</option>
+          <option value="price:asc">Menor Precio</option>
+          <option value="price:desc">Mayor Precio</option>
           <option value="price:desc">Calificación</option>
           <option value="date:asc">Fecha</option>
         </select>
@@ -44,7 +45,7 @@
   <div class="row" id="Container">
 
     <?php foreach($lists as $row){?>
-    <div class="col-xl-6 col-lg-6 col-md-6 mix ">
+    <div class="col-xl-6 col-lg-6 col-md-6 mix " data-price="<?php echo $row['amount']?>">
       <div class="card ms-feature">
         <div class="card-body text-center">
           <h4 class="text-normal text-center"><?php echo $row['title']?></h4>
@@ -54,6 +55,7 @@
             <li>Género:</li>
             <li>Nivel: <?php echo $row['level']?></li>
             <li>Fecha de inicio: <?php echo $row['start_date']?></li>
+            <li>Fecha de fin: <?php echo $row['final_date']?></li>
             <li>Descripción: <?php echo $row['description']?></li>
           </p>
 

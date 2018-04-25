@@ -5,7 +5,8 @@ class Workshop_model extends CI_Model {
         $sql = "SELECT 
         w.id,
         w.title,
-        w.start_date,
+        DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
+        DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,        
         w.level,
         w.amount,
         w.description,
