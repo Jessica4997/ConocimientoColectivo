@@ -1,4 +1,4 @@
-$(document).ready(function () {
+/*$(document).ready(function () {
 	$(".owl-carousel").owlCarousel({
 		loop: !0,
 		margin: 30,

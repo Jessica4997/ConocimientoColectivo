@@ -4,7 +4,7 @@
             <div class="card card-primary animated fadeInUp animation-delay-7">
               <div class="card-body">
                 <h1 class="color-primary text-center">Crear Nuevo Taller</h1>
-                <form method="post" action="<?php echo site_url('workshop/save')?>"  class="form-horizontal">
+                <form method="post" action="<?php echo site_url('proposed_workshop/save')?>"  class="form-horizontal">
                   <fieldset>
 
                   <div class="row form-group">
@@ -65,18 +65,6 @@
                         <input  type="datetime-local" name="fecha_fin" placeholder="mes/día/año" required> </div>
                     </div>
 
-                    <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Cantidad de Vacantes</label>
-                      <div class="col-md-9">
-                        <input type="number" name="vacantes" min="1" max="10" class="form-control" id="" placeholder="Cantidad de Vacantes" required> </div>
-                    </div>
-
-                    <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Monto</label>
-                      <div class="col-md-9">
-                        <input type="number" name="monto" min="1" class="form-control" id="" placeholder="Monto" required> </div>
-                    </div>
-
  <div class="form-group row justify-content-end">
             <label for="" class="col-lg-2 control-label">Descripción</label>
 
@@ -89,7 +77,7 @@
 
                     <div class="row mt-2">
                       <div class="col">
-                        <button class="btn btn-raised btn-primary btn-block">Crear Taller</button>
+                        <button class="btn btn-raised btn-primary btn-block">Crear Solicitud</button>
                       </div>
                     </div>
                   </fieldset>

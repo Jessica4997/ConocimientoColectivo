@@ -35,14 +35,14 @@
   <h1 align="center"><strong>Solicitudes de Talleres</strong></h1>
 
   <p class="text-center">
-      <a href="<?php echo site_url('workshop/create')?>" class="btn btn-primary btn-raised text-right" role="button">
+      <a href="<?php echo site_url('proposed_workshop/create')?>" class="btn btn-primary btn-raised text-right" role="button">
         <i class="fa fa-plus"></i>Crear Solicitud</a>
   </p>
 
   <div class="row" id="Container">
 
     <?php foreach($lists as $row){?>
-    <div class="col-xl-4 col-md-6 mix " data-price="<?php echo $row['amount']?>">
+    <div class="col-xl-4 col-md-6 mix ">
       <div class="card ms-feature">
         <div class="card-body text-center">
           <h4 class="text-normal text-center"><?php echo $row['title']?></h4>
@@ -62,9 +62,8 @@
               <i class="zmdi zmdi-star color-warning"></i>
               <i class="zmdi zmdi-star"></i>
             </span>
-            <span class="ms-tag ms-tag-success">S/. <?php echo $row['amount']?></span>
         
-          <a href="<?php echo site_url ('workshop/description/'.$row['id'])?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
+          <a href="<?php echo site_url ('proposed_workshop/description/'.$row['id'])?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
             <i class="fa fa-search"></i>Ver Detalles</a>
         </div>
       </div>
