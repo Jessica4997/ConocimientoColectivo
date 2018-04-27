@@ -20,20 +20,32 @@ class User_model extends CI_Model {
 
   }
 
-  /*public function login($email,$password){
-    this->db->where('email',$email);
-    this->db->where('email',$email);
+  public function check_user_login($u,$p){
 
-    $q = $this->db->get('user');
+    $this->db->select('id,name,last_name,description');
+    $this->db->from('users');
+    $this->db->where('email',$u);
+    $this->db->where('password',$p);
 
-    if($q->num_rows()>0){
-        return true;
+    $query = $this->db->get();
+    if ($query->num_rows() == 1) {
+        $q = $query->row();
+
+        $session_user = array(
+            's_iduser' => $q ->id,
+            's_username' => $q ->name.", ".$q->last_name
+        );
+
+        $this->session->set_userdata('$session_user');
+        return 1;
 
     }else{
-        return false; 
-    }*/
-
-
+        return 0;
+    }
+    
 
 
   }
+
+
+ }

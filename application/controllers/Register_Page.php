@@ -16,7 +16,7 @@ class Register_page extends CI_Controller {
 	public function index()
 	{
 		$dataView=[
-			'page'=>'register_page'
+			'page'=>'users/register'
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -25,7 +25,7 @@ class Register_page extends CI_Controller {
 		public function createuser()
 	{
 		$dataView=[
-			'page'=>'register_page'
+			'page'=>'users/register'
 		];
 		$this->load->view('template/basic',$dataView);
 	}

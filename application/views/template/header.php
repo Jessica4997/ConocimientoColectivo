@@ -1,102 +1,3 @@
-<div class="modal modal-primary" id="account_modal" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header d-block">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <i class="zmdi zmdi-close"></i>
-                    </span>
-                </button>
-                <div class="modal-title text-center">
-                    <span class="ms-logo ms-logo-white ms-logo-sm">CC</span>
-                    <h3 class="no-m ms-site-title">Conocimiento <strong>&nbsp;Colectivo</strong>
-                    </h3>
-                </div>
-                <div class="modal-header-tabs">
-                    <ul class="nav nav-tabs nav-tabs-full nav-tabs-3 nav-tabs-primary" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <a aria-controls="ms-login-tab" role="tab" data-toggle="tab" class="nav-link active withoutripple">
-                                <i class="zmdi zmdi-account"></i>Iniciar Sesión</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade active show" id="ms-login-tab">
-                        <form autocomplete="off">
-                            <fieldset>
-                                <div class="form-group label-floating">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="zmdi zmdi-account"></i>
-                                        </span>
-                                        <label class="control-label" for="ms-form-user">Correo electrónico</label>
-                                        <input name="username" type="text" id="username" class="form-control"> </div>
-                                </div>
-                                <div class="form-group label-floating">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="zmdi zmdi-lock"></i>
-                                        </span>
-                                        <label class="control-label" for="ms-form-pass">Contraseña</label>
-                                        <input name="password" type="password" id="password" class="form-control" required> </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-6">
-                                        <div class="form-group no-mt">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">Recuérdame</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-
-                                        <a class="btn btn-sm btn-raised btn-primary"> Continuar</a>
-                                        <a class="btn btn-sm btn-raised btn-primary" href="<?php echo site_url('register_page')?>">Registrarse</a>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="ms-register-tab">
-                        <form>
-                            <fieldset>
-                                <div class="form-group label-floating">
-                                </div>
-
-                            </fieldset>
-                        </form>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="ms-recovery-tab">
-                        <fieldset>
-                            <div class="form-group label-floating">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="zmdi zmdi-account"></i>
-                                    </span>
-                                    <label class="control-label" for="ms-form-user-re">Username</label>
-                                    <input type="text" id="ms-form-user-re" class="form-control"> </div>
-                            </div>
-                            <div class="form-group label-floating">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="zmdi zmdi-email"></i>
-                                    </span>
-                                    <label class="control-label" for="ms-form-email-re">Correo electrónico</label>
-                                    <input type="email" id="ms-form-email-re" class="form-control"> </div>
-                            </div>
-                            <button class="btn btn-raised btn-block btn-primary">Enviar contraseña</button>
-                        </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <header class="ms-header ms-header-white">
 
     <div class="container container-full">
@@ -113,7 +14,7 @@
             </a>
         </div>
         <div class="header-right">
-            <a href="" class="btn-circle btn-circle-primary no-focus animated zoomInDown animation-delay-8" data-toggle="modal" data-target="#account_modal">
+            <a href="<?php echo site_url('login')?>" class="btn-circle btn-circle-primary no-focus animated zoomInDown animation-delay-8">
                 <i class="zmdi zmdi-account"></i>
             </a>
         </div>

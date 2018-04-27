@@ -5,7 +5,7 @@ class Profile_Page extends CI_Controller {
 	public function index()
 	{
 		$dataView=[
-			'page'=>'profile_page'
+			'page'=>'users/profile'
 		];
 		$this->load->view('template/basic',$dataView);
 	}

@@ -8,7 +8,8 @@ class Workshop extends CI_Controller {
     public function __construct() {
 		parent::__construct();
 		$this->load->model('workshop_model');
-		$this->id_usuario = $this->session->userdata('id_usuario');
+		$this->load->model('user_model');
+		$this->id_usuario = $this->session->userdata('session_user');
 		$ruta = $this->uri->segment(2, '/');
 		$whiteList=array('/','description');
         if ($this->id_usuario === null && !in_array($ruta,$whiteList)){
