@@ -30,17 +30,13 @@ class User_model extends CI_Model {
     $query = $this->db->get();
     if ($query->num_rows() == 1) {
         $q = $query->row();
-
-        $session_user = array(
-            's_iduser' => $q ->id,
-            's_username' => $q ->name.", ".$q->last_name
+        return array(
+            's_iduser' => $q->id,
+            's_username' => $q->name.", ".$q->last_name
         );
 
-        $this->session->set_userdata('$session_user');
-        return 1;
-
     }else{
-        return 0;
+        return false;
     }
     
 

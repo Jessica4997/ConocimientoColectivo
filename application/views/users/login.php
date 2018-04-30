@@ -13,6 +13,17 @@
           <div class="col-lg-6">
             <div class="card card-hero card-primary animated fadeInUp animation-delay-7">
               <div class="card-body">
+                <?php if($error){?>
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="zmdi zmdi-close"></i>
+                    </button>
+                    <strong>
+                      <i class="zmdi zmdi-close-circle"></i> Error!</strong> <?php echo $error;?> 
+                </div>
+                <?php }?>
+
+
                 <h1 class="color-primary text-center">Iniciar Sesión</h1>
                 <form method="post" action="<?php echo site_url('login/user_login')?>" class="form-horizontal">
                   <fieldset>
@@ -35,7 +46,7 @@
                 <?php echo $error; ?>
                 <div align="center">
                   <h3>¿No tienes cuenta? Regístrate</h3>
-                  <a class="btn btn-raised btn-primary" href="<?php echo site_url('register_page')?>">Registrarse
+                  <a class="btn btn btn-primary" href="<?php echo site_url('register_page')?>">Registrarse
                     <i class=""></i>
                   </a>
                 </div>

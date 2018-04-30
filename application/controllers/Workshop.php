@@ -9,7 +9,7 @@ class Workshop extends CI_Controller {
 		parent::__construct();
 		$this->load->model('workshop_model');
 		$this->load->model('user_model');
-		$this->id_usuario = $this->session->userdata('session_user');
+		$this->id_usuario = $this->session->userdata('s_iduser');
 		$ruta = $this->uri->segment(2, '/');
 		$whiteList=array('/','description');
         if ($this->id_usuario === null && !in_array($ruta,$whiteList)){

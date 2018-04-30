@@ -9,16 +9,10 @@ class Login extends CI_Controller {
 	}
 
 	public function index(){
-		/*$newdata = array(
-			'id_usuario'  => '1',
-			'name'     => 'jessica'
-		);
-		
-		$this->session->set_userdata($newdata); */
-		$message = "";
+		$error = $this->input->get('message');
 		$dataView=[
 			'page'=>'users/login',
-			'error' => $message
+			'error' => $error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -27,22 +21,19 @@ class Login extends CI_Controller {
 		$u = $this->input->post('correo');
 		$p = $this->input->post('contrasena');
 
-		$result = $this->User_model->check_user_login($u,$p);
+		$session_user = $this->User_model->check_user_login($u,$p);
 
-		if ($result == 1) {
-		$dataView=[
-			'page'=>'users/profile',
-		];
-		$this->load->view('template/basic',$dataView);
+		if($session_user){
+			$this->session->set_userdata($session_user);
+			$toRedicrect="/profile_page";
 		}else{
-			$message = "Usuario o contraseña incorrecta";
-			$dataView=[
-			'page'=>'users/login',
-			'error' => $message
-		];
-
-		$this->load->view('template/basic',$dataView);
+			$error=urlencode("Usuario o constraseña incorrecta");
+			$toRedicrect='/login?message='.$error;
 		}
+
+		redirect($toRedicrect, 'refresh');
+		
+
 	}
 
 }
