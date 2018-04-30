@@ -43,7 +43,7 @@
 
                   </div>
                 </form>
-                <?php echo $error; ?>
+
                 <div align="center">
                   <h3>¿No tienes cuenta? Regístrate</h3>
                   <a class="btn btn btn-primary" href="<?php echo site_url('register_page')?>">Registrarse

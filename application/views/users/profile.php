@@ -16,9 +16,9 @@
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 order-md-3 order-lg-2">
-                <a href="javascript:void(0)" class="btn btn-warning btn-raised btn-block animated fadeInUp animation-delay-12">
+                <a href="" class="btn btn-warning btn-raised btn-block animated fadeInUp animation-delay-12">
                   <i class="zmdi zmdi-edit"></i>Editar Perfil</a>
-                <a href="javascript:void(0)" class="btn btn-danger btn-raised btn-block animated fadeInUp animation-delay-12">
+                <a href="" class="btn btn-danger btn-raised btn-block animated fadeInUp animation-delay-12">
                   <i class="zmdi zmdi-delete"></i>Borrar Perfil</a>
               </div>
             </div>

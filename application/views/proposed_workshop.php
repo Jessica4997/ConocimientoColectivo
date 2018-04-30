@@ -6,18 +6,18 @@
     </div>
     <div class="card-body">
       <form class="form-horizontal">
-        <h4 class="mb-1 no-mt">Categorías</h4>
+        <h4 class="no-mt">Categorías</h4>
 
         <fieldset>
           <?php foreach($lis as $rowc){?>
-          <div class="form-group no-mt">
+          <div class="no-mt">
+            
             <div class="checkbox">
               <label>
                 <input type="checkbox"> <?php echo $rowc['name']?> </label>
           </div>
          <?php }?>
         </fieldset>
-
         <button class="btn btn-danger btn-block no-mb mt-2" id="Reset">
           <i class="zmdi zmdi-delete"></i>Limpiar filtros</button>
       </form>
@@ -28,6 +28,7 @@
           <option value="date:asc">Fecha</option>
         </select>
       </form>
+
     </div>
   </div>
 
@@ -55,16 +56,14 @@
             <li>Descripción: <?php echo $row['description']?></li>
           </p>
 
-            <span class="mr-2">
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star"></i>
-            </span>
-        
-          <a href="<?php echo site_url ('proposed_workshop/description/'.$row['id'])?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
+          <div align="center" >
+          <a href="<?php echo site_url ('proposed_workshop/description/'.$row['id'])?>" class="btn btn-primary btn-sm btn-raised no-mb">
             <i class="fa fa-search"></i>Ver Detalles</a>
+              <a class="btn btn-primary btn-sm btn-raised no-mb">
+                <i class="fa fa-thumbs-up"></i>Votar</a>
+
+          </div>
+
         </div>
       </div>
     </div>
