@@ -9,4 +9,11 @@ class My_Created_Workshops extends CI_Controller {
 		];
 		$this->load->view('template/basic',$dataView);
 	}
+
+	public function show_student_list(){
+		$dataView=[
+			'page'=>'proposed_workshops/student_list'
+		];
+		$this->load->view('template/basic',$dataView);
+	}
 }

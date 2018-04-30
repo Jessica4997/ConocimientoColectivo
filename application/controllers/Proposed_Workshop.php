@@ -8,7 +8,8 @@ class Proposed_Workshop extends CI_Controller {
     public function __construct() {
 		parent::__construct();
 		$this->load->model('proposed_workshop_model');
-		$this->id_usuario = $this->session->userdata('id_usuario');
+		$this->load->model('user_model');
+		$this->id_usuario = $this->session->userdata('s_iduser');
 		$ruta = $this->uri->segment(2, '/');
 		$whiteList=array('/','description');
         if ($this->id_usuario === null && !in_array($ruta,$whiteList)){
@@ -21,7 +22,7 @@ class Proposed_Workshop extends CI_Controller {
 		$wrk = $this->proposed_workshop_model->get_list();
 		$catlist = $this->proposed_workshop_model->get_categories_list();
 		$dataView=[
-			'page'=>'proposed_workshop',
+			'page'=>'proposed_workshops/list',
 			'lists'=>$wrk ,
 			'lis'=>$catlist
 		];
@@ -31,7 +32,7 @@ class Proposed_Workshop extends CI_Controller {
 	public function description($id) {
 		$proposed_workshop_description = $this->proposed_workshop_model->show_by_id($id);
 		$dataView=[
-			'page'=>'proposed_workshop_description',
+			'page'=>'proposed_workshops/description',
 			'description'=>$proposed_workshop_description
 		];
 		$this->load->view('template/basic',$dataView);
