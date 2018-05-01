@@ -43,5 +43,27 @@ class User_model extends CI_Model {
 
   }
 
+      public function show_profile_by_id($id){
+ 
+        $sql = "SELECT
+        u.id,
+        u.name,
+        u.last_name,
+        u.email,
+        u.cell_phone,
+        u.phone,
+        DATE_FORMAT(u.date_birth,'%d-%m-%Y %l:%i %p') AS date_birth,
+        u.description,
+        u.gender
+      FROM
+        users AS u
+            WHERE u.`id` = ?
+            LIMIT 1";
+
+      $query = $this->db->query($sql,array($id));
+      
+      return $query->row_array();
+  }
+
 
  }

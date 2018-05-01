@@ -62,7 +62,7 @@ class Workshop_model extends CI_Model {
         'description' => $dataform['descripcion'],
         'vacancy' => $dataform['vacantes'],
         'wrks_status' => 'En Curso',
-        'user_id'=>2
+        'user_id'=> $dataform['s_iduser']
 
     );
 

@@ -28,8 +28,6 @@
 
                   <li> Sub-Categoría: </li>
 
-                  <li> Género: </li>
-
                   <li> Fecha de Inicio: <?php echo $description['start_date']?></li>
  
                   <li> Nivel: <?php echo $description['level']?></li>
