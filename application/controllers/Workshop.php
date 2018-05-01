@@ -2,17 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Workshop extends CI_Controller {
-	private $dataView = array();
 
-	private $id_usuario = '0';
+	private $user_id = '0';
     public function __construct() {
 		parent::__construct();
 		$this->load->model('workshop_model');
 		$this->load->model('user_model');
-		$this->id_usuario = $this->session->userdata('s_iduser');
+		$this->user_id = $this->session->userdata('s_iduser');
 		$ruta = $this->uri->segment(2, '/');
 		$whiteList=array('/','description');
-        if ($this->id_usuario === null && !in_array($ruta,$whiteList)){
+        if ($this->user_id === null && !in_array($ruta,$whiteList)){
             redirect('/', 'refresh');
         }
 	}
@@ -54,7 +53,7 @@ class Workshop extends CI_Controller {
 
 	public function save(){
 		//var_dump($_POST);
-		$this->workshop_model->create($_POST);
+		$this->workshop_model->create($_POST, $this->user_id);
 		redirect('workshop', 'refresh');
 	}
 }

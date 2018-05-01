@@ -50,7 +50,7 @@ class Workshop_model extends CI_Model {
       return $query->row_array();
   }
 
-  public function create($dataform){
+  public function create($dataform, $user_id){
     $data = array(
         'title' => $dataform['titulo'],
         'category_id' => $dataform['categoria'],
@@ -62,7 +62,7 @@ class Workshop_model extends CI_Model {
         'description' => $dataform['descripcion'],
         'vacancy' => $dataform['vacantes'],
         'wrks_status' => 'En Curso',
-        'user_id'=> $dataform['s_iduser']
+        'user_id'=> $user_id
 
     );
 
@@ -95,6 +95,8 @@ class Workshop_model extends CI_Model {
         
         return $query->result_array();
     }
+
+    
 
 
 
