@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Proposed_Workshop extends CI_Controller {
-	private $dataView = array();
 
 	private $id_usuario = '0';
     public function __construct() {

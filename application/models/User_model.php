@@ -1,7 +1,6 @@
 <?php
 class User_model extends CI_Model {
 
-
   public function createuser($dataform){
     $data = array(
         'email' => $dataform['correo'],
@@ -39,28 +38,26 @@ class User_model extends CI_Model {
         return false;
     }
     
-
-
   }
 
-      public function show_profile_by_id($id){
+      public function show_profile_by_id($user_id){
  
         $sql = "SELECT
-        u.id,
-        u.name,
-        u.last_name,
-        u.email,
-        u.cell_phone,
-        u.phone,
-        DATE_FORMAT(u.date_birth,'%d-%m-%Y %l:%i %p') AS date_birth,
-        u.description,
-        u.gender
-      FROM
-        users AS u
-            WHERE u.`id` = ?
-            LIMIT 1";
+                u.id,
+                u.name,
+                u.last_name,
+                u.email,
+                u.cell_phone,
+                u.phone,
+                DATE_FORMAT(u.date_birth,'%d-%m-%Y') AS date_birth,
+                u.description,
+                u.gender
+              FROM
+                users AS u
+                    WHERE u.`id` = ?
+                    LIMIT 1";
 
-      $query = $this->db->query($sql,array($id));
+      $query = $this->db->query($sql,array($user_id));
       
       return $query->row_array();
   }

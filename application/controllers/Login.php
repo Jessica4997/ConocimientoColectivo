@@ -5,8 +5,8 @@ class Login extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model('User_model');
-	}
+		$this->load->model('user_model');
+        }
 
 	public function index(){
 		$error = $this->input->get('message');
@@ -21,7 +21,7 @@ class Login extends CI_Controller {
 		$u = $this->input->post('correo');
 		$p = $this->input->post('contrasena');
 
-		$session_user = $this->User_model->check_user_login($u,$p);
+		$session_user = $this->user_model->check_user_login($u,$p);
 
 		if($session_user){
 			$this->session->set_userdata($session_user);
@@ -32,9 +32,8 @@ class Login extends CI_Controller {
 		}
 
 		redirect($toRedicrect, 'refresh');
-		
-
 	}
+
 
 }
 
