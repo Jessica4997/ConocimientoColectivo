@@ -30,4 +30,33 @@ class Created_Workshops_model extends CI_Model {
       return $query->result_array();
   }
 
+  public function get_students_list($id){
+  	
+
+			  	$sql = "SELECT 
+			  iu.id,
+			  iu.iu_status,
+			  u.`name` AS user_name,
+			  u.`last_name` AS user_last_name,
+			  u.`description` AS user_description,
+			  u.`email` AS user_email,
+			  u.`cell_phone` AS user_cell_phone,
+			  w.id
+			FROM
+			  inscribed_users AS iu 
+			  INNER JOIN users AS u 
+			    ON iu.`user_id` = u.`id` 
+			  INNER JOIN workshops AS w 
+			    ON iu.`wrks_id` = w.`id`
+			    WHERE w.`id`= ? ";
+
+      $query = $this->db->query($sql,array($id));
+
+      return $query->result_array();
+      
+
+
+  	
+  }
+
  }

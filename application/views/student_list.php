@@ -11,20 +11,16 @@
     </tr>
   </thead>
   <tbody>
+    <?php foreach($listaa as $rows){?>
     <tr>
-      <th scope="row">1</th>
-      <td>Jessica Paredes</td>
-      <td>AHSDHASDJASDKANSDKADN</td>
-      <td>jessp.4997@gmail.com</td>
-      <td>958690578</td>
+
+      <th scope="row"></th>
+      <td><?php echo $rows['user_name']?></td>
+      <td><?php echo $rows['user_description']?></td>
+      <td><?php echo $rows['user_email']?></td>
+      <td><?php echo $rows['user_cell_phone']?></td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Kevin Robles</td>
-      <td>AHSDHASDJASDKANSDKADN</td>
-      <td>kevin0696@gmail.com</td>
-      <td>959252653</td>
-    </tr>
+    <?php }?> 
   </tbody>
 </table>
 </div>

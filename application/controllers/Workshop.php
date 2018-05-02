@@ -58,7 +58,12 @@ class Workshop extends CI_Controller {
 	}
 
 	public function save_inscribed_user($id){
+		$verifydata = $this->workshop_model->verify_enroll_user($id, $this->user_id);
+		if ($verifydata) {
+			echo "Ya te matriculaste";
+		}else{
 		$this->workshop_model->enroll_workshop($this->user_id, $id);
 		redirect('workshop','refresh');
+		}
 	}
 }

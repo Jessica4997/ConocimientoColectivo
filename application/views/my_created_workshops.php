@@ -23,7 +23,7 @@
 
             <span class="ms-tag ms-tag-success">S/.<?php echo $row['amount']?></span>
         
-          <a href="<?php echo site_url('my_created_workshops/show_student_list')?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
+          <a href="<?php echo site_url('my_created_workshops/show_student_list/'.$row['id'])?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
             <i class="fa fa-search"></i>Ver Alumnos Matriculados</a>
         </div>
       </div>

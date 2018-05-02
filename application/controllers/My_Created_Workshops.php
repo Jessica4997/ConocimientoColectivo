@@ -26,10 +26,12 @@ class My_Created_Workshops extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function show_student_list(){
-		
+	public function show_student_list($id){
+		$students_list = $this->created_workshops_model->get_students_list($id);
+		//var_dump($students_list);exit;
 		$dataView=[
-			'page'=>'student_list'
+			'page'=>'student_list',
+			'listaa'=>$students_list
 		];
 		$this->load->view('template/basic',$dataView);
 	}
