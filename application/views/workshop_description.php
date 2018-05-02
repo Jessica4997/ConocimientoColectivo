@@ -39,7 +39,7 @@
 
 
                 </ul>
-                <a href="" class="btn btn-primary btn-block btn-raised">Postular</a>
+                <a href="<?php echo site_url('workshop/save_inscribed_user/'.$description['id'])?>" class="btn btn-primary btn-block btn-raised">Postular</a>
               </div>
             </div>
           </div>

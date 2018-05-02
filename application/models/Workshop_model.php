@@ -96,7 +96,18 @@ class Workshop_model extends CI_Model {
         return $query->result_array();
     }
 
-    
+
+    public function enroll_workshop($user_id, $id){
+    $data = array(
+        'user_id'=> $user_id,
+        'iu_status'=> 'Confirmado',
+        'wrks_id'=> $id
+
+    );
+
+    $this->db->insert('inscribed_users', $data);
+
+  }
 
 
 

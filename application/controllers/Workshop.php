@@ -56,4 +56,9 @@ class Workshop extends CI_Controller {
 		$this->workshop_model->create($_POST, $this->user_id);
 		redirect('workshop', 'refresh');
 	}
+
+	public function save_inscribed_user($id){
+		$this->workshop_model->enroll_workshop($this->user_id, $id);
+		redirect('workshop','refresh');
+	}
 }
