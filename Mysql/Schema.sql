@@ -54,20 +54,22 @@ DROP TABLE IF EXISTS `inscribed_users`;
 
 CREATE TABLE `inscribed_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_date` datetime NOT NULL,
   `iu_status` enum('Confirmado','No confirmado') NOT NULL,
   `student_rating` float DEFAULT NULL,
   `tutor_rating` float DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `wrks_id` int(11) NOT NULL,
+  `created_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_inscribed_users_user_id` (`user_id`),
   KEY `fk_inscribed_users_wrks_id` (`wrks_id`),
   CONSTRAINT `fk_inscribed_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_inscribed_users_wrks_id` FOREIGN KEY (`wrks_id`) REFERENCES `workshops` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 /*Data for the table `inscribed_users` */
+
+insert  into `inscribed_users`(`id`,`iu_status`,`student_rating`,`tutor_rating`,`user_id`,`wrks_id`,`created_date`) values (1,'Confirmado',NULL,NULL,2,1,NULL),(12,'Confirmado',NULL,NULL,1,2,NULL),(24,'Confirmado',NULL,NULL,1,4,NULL),(25,'Confirmado',NULL,NULL,2,54,NULL),(26,'Confirmado',NULL,NULL,2,3,NULL);
 
 /*Table structure for table `payments` */
 
@@ -170,11 +172,11 @@ CREATE TABLE `users` (
   `created_date` datetime NOT NULL,
   `gender` enum('Femenino','Masculino') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`phone`,`date_birth`,`description`,`status`,`created_date`,`gender`) values (1,'Jessica','Paredes','jessp.4997@gmail.com','123456','987654321','456123','1997-09-04','sadasdsad','Confirmado','2018-04-15 06:17:38','Femenino'),(2,'Kevin','Robles','kevin0696@gmail.com','56987','963852741','456123','1996-11-06','fdgdfgdg','Sin Confirmar','0000-00-00 00:00:00','Femenino'),(3,'Ana','Suarez','ana@gmail.com','123','963852741','7894256','0000-00-00','sadsada','Sin Confirmar','0000-00-00 00:00:00','Femenino'),(4,'','','','','','','0000-00-00','','Sin Confirmar','0000-00-00 00:00:00',''),(5,'/','/','z@g','/','','','0000-00-00','','Sin Confirmar','0000-00-00 00:00:00',''),(6,'/','/','z@g','asd','','','0000-00-00','','Confirmado','0000-00-00 00:00:00',''),(7,'ASD','ASD','ASD@G','SAD','','','1984-03-16','','Confirmado','0000-00-00 00:00:00','Masculino');
+insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`phone`,`date_birth`,`description`,`status`,`created_date`,`gender`) values (1,'Jessica','Paredes','jessp.4997@gmail.com','123456','987654321','456123','1997-09-04','sadasdsad','Confirmado','2018-04-15 06:17:38','Femenino'),(2,'Kevin','Robles','kevin0696@gmail.com','56987','963852741','456123','1996-11-06','fdgdfgdg','Sin Confirmar','0000-00-00 00:00:00','Femenino'),(3,'Ana','Suarez','ana@gmail.com','123','963852741','7894256','0000-00-00','sadsada','Sin Confirmar','0000-00-00 00:00:00','Femenino'),(4,'','','','','','','0000-00-00','','Sin Confirmar','0000-00-00 00:00:00',''),(5,'/','/','z@g','/','','','0000-00-00','','Sin Confirmar','0000-00-00 00:00:00',''),(6,'/','/','z@g','asd','','','0000-00-00','','Confirmado','0000-00-00 00:00:00',''),(7,'ASD','ASD','ASD@G','SAD','','','1984-03-16','','Confirmado','0000-00-00 00:00:00','Masculino'),(8,'aa','aa','ASD@G','aa','aa','aa','2018-04-09','aa','Confirmado','0000-00-00 00:00:00','Femenino'),(9,'aa','aaaa','sadad@hotmail.com','aa','aaaaaa','aaaaa','2018-01-08','aaaaaaa','Confirmado','0000-00-00 00:00:00','Femenino');
 
 /*Table structure for table `workshops` */
 
@@ -202,7 +204,7 @@ CREATE TABLE `workshops` (
 
 /*Data for the table `workshops` */
 
-insert  into `workshops`(`id`,`title`,`description`,`vacancy`,`amount`,`start_date`,`final_date`,`level`,`wrks_status`,`created_date`,`user_id`,`category_id`) values (1,'Clase de Guitarra','Buscamos 5 personas que quieran aprender a tocar guitarra.',5,100.00,'2018-04-22 06:20:37','2018-04-22 06:20:27','Básico','En curso','2018-04-15 06:20:16',1,3),(2,'Clase de Baile','Busco 10 personas que esten dispuestas a aprender clases de salsa en nivel intermedio.',10,50.00,'2018-04-21 06:39:35','2018-04-25 06:39:40','Intermedio','En curso','2018-04-15 06:39:52',2,1),(3,'Clase de Repostería','Personas interesadas a aprender como preparar postres postular al taller.',8,150.00,'2018-04-25 12:49:25','2018-04-28 12:49:33','Avanzado','En curso','2018-04-15 12:49:54',1,6),(4,'Clase de Batería','',3,40.00,'2018-04-22 12:51:23','2018-04-23 12:51:58','Intermedio','En curso','2018-04-15 12:52:18',2,3),(34,'wadawdad','',5,120.00,'2020-04-04 16:01:00','2020-02-03 13:00:00','Básico','En curso','0000-00-00 00:00:00',2,1),(35,'dd','',4,55.00,'2018-04-21 08:00:00','2017-04-21 08:30:00','Básico','En curso','0000-00-00 00:00:00',2,1),(36,'dd','',4,55.00,'2018-04-21 08:00:00','2017-04-21 08:30:00','Básico','En curso','0000-00-00 00:00:00',2,1),(45,'d','1',1,1.00,'0001-01-01 01:01:00','0001-01-01 01:01:00','Básico','En curso','0000-00-00 00:00:00',2,2),(47,'ui','j',1,1.00,'2018-04-01 01:01:00','2018-04-10 01:01:00','Intermedio','En curso','0000-00-00 00:00:00',2,1),(48,'sss','q',2,2.00,'4555-03-02 05:55:00','0454-05-05 04:05:00','Básico','En curso','0000-00-00 00:00:00',2,2),(49,'gfrsd','sd',2,2.00,'0001-01-01 01:01:00','0001-01-01 01:01:00','Básico','En curso','0000-00-00 00:00:00',2,3),(50,'Taller de Violín','Buscamos jóvenes que quieran aprender a tocar violín con un profesor con 10 años de trayectoria',10,30.00,'2018-04-25 17:00:00','2018-04-25 18:30:00','Intermedio','En curso','0000-00-00 00:00:00',2,3),(53,'aasdasdasdasdasdasdasdasd','qssss',3,22.00,'0001-01-01 01:01:00','0001-01-01 01:01:00','Básico','En curso','0000-00-00 00:00:00',2,5),(54,'aa','1',1,1.00,'0003-03-02 04:04:00','0001-01-01 01:01:00','Básico','En curso','0000-00-00 00:00:00',2,1);
+insert  into `workshops`(`id`,`title`,`description`,`vacancy`,`amount`,`start_date`,`final_date`,`level`,`wrks_status`,`created_date`,`user_id`,`category_id`) values (1,'Clase de Guitarra','Buscamos 5 personas que quieran aprender a tocar guitarra.',5,100.00,'2018-04-22 06:20:37','2018-04-22 06:20:27','Básico','En curso','2018-04-15 06:20:16',1,3),(2,'Clase de Baile','Busco 10 personas que esten dispuestas a aprender clases de salsa en nivel intermedio.',10,50.00,'2018-04-21 06:39:35','2018-04-25 06:39:40','Intermedio','En curso','2018-04-15 06:39:52',2,1),(3,'Clase de Repostería','Personas interesadas a aprender como preparar postres postular al taller.',8,150.00,'2018-04-25 12:49:25','2018-04-28 12:49:33','Avanzado','En curso','2018-04-15 12:49:54',1,6),(4,'Clase de Batería','',3,40.00,'2018-04-22 12:51:23','2018-04-23 12:51:58','Intermedio','En curso','2018-04-15 12:52:18',2,3),(50,'Taller de Violín','Buscamos jóvenes que quieran aprender a tocar violín con un profesor con 10 años de trayectoria',10,30.00,'2018-04-25 17:00:00','2018-04-25 18:30:00','Intermedio','En curso','0000-00-00 00:00:00',2,3),(52,'aa','1',1,1.00,'0001-01-01 01:01:00','0001-01-01 01:01:00','Básico','En curso','0000-00-00 00:00:00',1,1),(53,'prueba','',2,22.00,'0000-00-00 00:00:00','0000-00-00 00:00:00','Básico','En curso','0000-00-00 00:00:00',1,1),(54,'asdasdasdasdasdasdasdasdasdasd','1111111',1,11.00,'0011-01-01 01:01:00','0001-01-01 01:01:00','Básico','En curso','0000-00-00 00:00:00',1,4);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

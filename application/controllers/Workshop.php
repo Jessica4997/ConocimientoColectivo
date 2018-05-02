@@ -12,7 +12,7 @@ class Workshop extends CI_Controller {
 		$ruta = $this->uri->segment(2, '/');
 		$whiteList=array('/','description');
         if ($this->user_id === null && !in_array($ruta,$whiteList)){
-            redirect('/', 'refresh');
+            redirect('login', 'refresh');
         }
 	}
 
@@ -59,9 +59,15 @@ class Workshop extends CI_Controller {
 
 	public function save_inscribed_user($id){
 		$verifydata = $this->workshop_model->verify_enroll_user($id, $this->user_id);
+		$verifycreator = $this->workshop_model->check_user_creator($id);
+		$toString = implode($verifycreator);
+		//var_dump($verifycreator);exit;
 		if ($verifydata) {
 			echo "Ya te matriculaste";
-		}else{
+		}else if( $toString == $this->user_id) {
+			echo "No puedes matricularte porque tu lo creaste";
+		}
+		else{
 		$this->workshop_model->enroll_workshop($this->user_id, $id);
 		redirect('workshop','refresh');
 		}

@@ -21,6 +21,7 @@ class Workshop_model extends CI_Model {
         return $query->result_array();
     }
 
+
     public function show_by_id($id){
  
         $sql = "SELECT
@@ -50,6 +51,7 @@ class Workshop_model extends CI_Model {
       return $query->row_array();
   }
 
+
   public function create($dataform, $user_id){
     $data = array(
         'title' => $dataform['titulo'],
@@ -63,12 +65,12 @@ class Workshop_model extends CI_Model {
         'vacancy' => $dataform['vacantes'],
         'wrks_status' => 'En Curso',
         'user_id'=> $user_id
-
     );
 
     $this->db->insert('workshops', $data);
 
   }
+
 
    public function get_categories_list(){
         $sql = "SELECT 
@@ -82,6 +84,7 @@ class Workshop_model extends CI_Model {
         
         return $query->result_array();
     }
+
 
     public function get_level_list(){
         $sql = "SELECT 
@@ -109,30 +112,33 @@ class Workshop_model extends CI_Model {
 
   }
 
+
   public function verify_enroll_user($id, $user_id){
 
-                $sql = "SELECT 
-                      w.id AS workshop_id,
-                      u.id AS user_id
-                    FROM
-                      inscribed_users AS iu 
-                      INNER JOIN users AS u 
-                        ON iu.user_id = u.id
-                      INNER JOIN workshops AS w 
-                        ON iu.wrks_id = w.id 
-                        WHERE w.id = ?";
+    $this->db->select('wrks_id,user_id');
+    $this->db->from('inscribed_users');
+    $this->db->where('wrks_id',$id);
+    $this->db->where('user_id',$user_id);
+
+    $query = $this->db->get();
+        
+    return $query->row_array(); 
+  }
+
+
+  public function check_user_creator($id){
+    $sql = "SELECT 
+              user_id 
+            FROM
+              workshops
+              WHERE id = ?
+              LIMIT 1";
 
         $query = $this->db->query($sql,array($id));
         
         return $query->row_array();
-
-
     
-
   }
-
-
-
 
 
 }

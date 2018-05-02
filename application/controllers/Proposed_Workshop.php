@@ -13,7 +13,7 @@ class Proposed_Workshop extends CI_Controller {
 		$ruta = $this->uri->segment(2, '/');
 		$whiteList=array('/','description');
         if ($this->id_usuario === null && !in_array($ruta,$whiteList)){
-            redirect('/', 'refresh');
+            redirect('login', 'refresh');
         }
 	}
 
