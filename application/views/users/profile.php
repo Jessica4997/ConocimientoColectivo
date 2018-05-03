@@ -6,12 +6,18 @@
                     <div class="card animated fadeInUp animation-delay-7">
                         <div class="ms-hero-bg-primary ms-hero-img-coffee">
                             <h3 class="color-white index-1 text-center no-m pt-4">
-                                <?php echo $user_data['name']?> <?php echo $user_data['last_name']?></h3>
-                            <div class="color-medium index-1 text-center np-m"><?php echo $user_data['email']?></div>
-                            <img src="assets/img/demo/avatar1.jpg" alt="..." class="img-avatar-circle"> </div>
+                                <?php echo $user_data['name']?>
+                                <?php echo $user_data['last_name']?>
+                            </h3>
+                            <div class="color-medium index-1 text-center np-m">
+                                <?php echo $user_data['email']?>
+                            </div>
+                            <img src="" class="img-avatar-circle"> </div>
                         <div class="card-body pt-4 text-center">
                             <h3 class="color-primary">Biografía</h3>
-                            <p><?php echo $user_data['description']?></p>
+                            <p>
+                                <?php echo $user_data['description']?>
+                            </p>
 
                         </div>
                     </div>
@@ -19,8 +25,6 @@
                 <div class="col-lg-12 col-md-12 order-md-3 order-lg-2">
                     <a href="" class="btn btn-warning btn-raised btn-block animated fadeInUp animation-delay-12">
                         <i class="zmdi zmdi-edit"></i>Editar Perfil</a>
-                    <a href="" class="btn btn-danger btn-raised btn-block animated fadeInUp animation-delay-12">
-                        <i class="zmdi zmdi-delete"></i>Borrar Perfil</a>
                 </div>
             </div>
         </div>
@@ -59,36 +63,44 @@
                 <table class="table table-no-border ">
                     <tr>
                         <th style="color: olive">NOMBRES</th>
-                        <td><?php echo $user_data['name']?></td>
+                        <td>
+                            <?php echo $user_data['name']?>
+                        </td>
                     </tr>
                     <tr>
                         <th style="color: olive">APELLIDOS</th>
-                        <td><?php echo $user_data['last_name']?></td>
+                        <td>
+                            <?php echo $user_data['last_name']?>
+                        </td>
                     </tr>
                     <tr>
                         <th style="color: olive">CORREO ELECTRÓNICO</th>
-                        <td><?php echo $user_data['email']?></td>
+                        <td>
+                            <?php echo $user_data['email']?>
+                        </td>
                     </tr>
                     <tr>
                         <th style="color: olive">CELULAR</th>
-                        <td><?php echo $user_data['cell_phone']?></td>
+                        <td>
+                            <?php echo $user_data['cell_phone']?>
+                        </td>
                     </tr>
                     <tr>
                         <th style="color: olive">GÉNERO</th>
-                        <td><?php echo $user_data['gender']?></td>
+                        <td>
+                            <?php echo $user_data['gender']?>
+                        </td>
                     </tr>
                     <tr>
                         <th style="color: olive">FECHA DE NACIMIENTO</th>
-                        <td><?php echo $user_data['date_birth']?></td>
-                    </tr>
-                    <tr>
-                        <th style="color: olive">DESCRIPCIÓN</th>
-                        <td><?php echo $user_data['description']?></td>
+                        <td>
+                            <?php echo $user_data['date_birth']?>
+                        </td>
                     </tr>
                 </table>
             </div>
 
-     
+
         </div>
     </div>
-    </div>
+</div>

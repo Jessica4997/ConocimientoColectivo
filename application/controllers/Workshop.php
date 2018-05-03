@@ -61,6 +61,7 @@ class Workshop extends CI_Controller {
 		$verifydata = $this->workshop_model->verify_enroll_user($id, $this->user_id);
 		$verifycreator = $this->workshop_model->check_user_creator($id);
 		$toString = implode($verifycreator);
+		$verifyvacancy = $this->workshop_model->get_vacancy_number($id);
 		//var_dump($verifycreator);exit;
 		if ($verifydata) {
 			echo "Ya te matriculaste";
@@ -68,8 +69,15 @@ class Workshop extends CI_Controller {
 			echo "No puedes matricularte porque tu lo creaste";
 		}
 		else{
-		$this->workshop_model->enroll_workshop($this->user_id, $id);
-		redirect('workshop','refresh');
+			if ($verifyvacancy['vacancy'] > 0) {
+				$this->workshop_model->enroll_workshop($this->user_id, $id);
+				$verifyvacancy['vacancy'] = $verifyvacancy['vacancy'] - 1;
+				$this->workshop_model->update_vacany_number($id, $verifyvacancy['vacancy']);
+				redirect('workshop','refresh');
+			}else{
+				echo "No hay vacantes";
+			}
+
 		}
 	}
 }

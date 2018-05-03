@@ -68,7 +68,6 @@ class Workshop_model extends CI_Model {
     );
 
     $this->db->insert('workshops', $data);
-
   }
 
 
@@ -105,11 +104,9 @@ class Workshop_model extends CI_Model {
         'user_id'=> $user_id,
         'iu_status'=> 'Confirmado',
         'wrks_id'=> $id
-
     );
 
     $this->db->insert('inscribed_users', $data);
-
   }
 
 
@@ -136,8 +133,31 @@ class Workshop_model extends CI_Model {
 
         $query = $this->db->query($sql,array($id));
         
-        return $query->row_array();
-    
+        return $query->row_array(); 
+  }
+
+
+  public function get_vacancy_number($id){
+        $sql = "SELECT 
+                  id,
+                  vacancy 
+            FROM
+              workshops
+              WHERE id = ?
+              LIMIT 1";
+
+        $query = $this->db->query($sql,array($id));
+        
+        return $query->row_array(); 
+  }
+
+
+  public function update_vacany_number($id, $vacancy){
+    $data=array(
+      'vacancy'=>$vacancy
+    );
+
+    return $this->db->update('workshops', $data, array('id' => $id));
   }
 
 
