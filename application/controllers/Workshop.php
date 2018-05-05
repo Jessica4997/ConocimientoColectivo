@@ -7,7 +7,7 @@ class Workshop extends CI_Controller {
     public function __construct() {
 		parent::__construct();
 		$this->load->model('workshop_model');
-		$this->load->model('user_model');
+		//$this->load->model('user_model');
 		$this->user_id = $this->session->userdata('s_iduser');
 		$ruta = $this->uri->segment(2, '/');
 		$whiteList=array('/','description');
@@ -60,12 +60,12 @@ class Workshop extends CI_Controller {
 	public function save_inscribed_user($id){
 		$verifydata = $this->workshop_model->verify_enroll_user($id, $this->user_id);
 		$verifycreator = $this->workshop_model->check_user_creator($id);
-		$toString = implode($verifycreator);
+		//$toString = implode($verifycreator);
 		$verifyvacancy = $this->workshop_model->get_vacancy_number($id);
 		//var_dump($verifycreator);exit;
 		if ($verifydata) {
 			echo "Ya te matriculaste";
-		}else if( $toString == $this->user_id) {
+		}else if($verifycreator['user_id'] == $this->user_id) {
 			echo "No puedes matricularte porque tu lo creaste";
 		}
 		else{

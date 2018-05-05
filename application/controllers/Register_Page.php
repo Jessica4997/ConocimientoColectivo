@@ -20,17 +20,9 @@ class Register_page extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-
-	public function createuser(){
-		$dataView=[
-			'page'=>'users/register'
-		];
-		$this->load->view('template/basic',$dataView);
-	}
-
-
 	public function saveuser(){
 		//var_dump($_POST);
 		$this->user_model->createuser($_POST);
+		redirect('','refresh');
 	}
 }
