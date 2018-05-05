@@ -1,11 +1,9 @@
-<li class="nav-item dropdown">
-    <a href="<?php echo site_url('')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true"
-        aria-expanded="false" data-name="inicio">Inicio</a>
+<li class="nav-item">
+    <a href="<?php echo site_url('')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Inicio</a>
 
 </li>
 <li class="nav-item dropdown">
-    <a href="#" class="nav-link dropdown-toggle animated fadeIn animation-delay-9" data-toggle="dropdown" data-hover="dropdown"
-        role="button" aria-haspopup="true" aria-expanded="false" data-name="ecommerce">
+    <a href="#" class="nav-link dropdown-toggle animated fadeIn animation-delay-9" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-name="ecommerce">
         Talleres
         <i class="zmdi zmdi-chevron-down"></i>
     </a>
@@ -24,8 +22,7 @@
 </li>
 
 <li class="nav-item dropdown">
-    <a href="#" class="nav-link dropdown-toggle animated fadeIn animation-delay-9" data-toggle="dropdown" data-hover="dropdown"
-        role="button" aria-haspopup="true" aria-expanded="false" data-name="ecommerce">
+    <a href="#" class="nav-link dropdown-toggle animated fadeIn animation-delay-9" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-name="ecommerce">
         Solicitud de Talleres
         <i class="zmdi zmdi-chevron-down"></i>
     </a>

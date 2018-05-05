@@ -21,7 +21,7 @@ class User_model extends CI_Model {
 
   public function check_user_login($u,$p){
 
-    $this->db->select('id,name,last_name,description');
+    $this->db->select('id,name,last_name');
     $this->db->from('users');
     $this->db->where('email',$u);
     $this->db->where('password',$p);
@@ -31,16 +31,15 @@ class User_model extends CI_Model {
         $q = $query->row();
         return array(
             's_iduser' => $q->id,
-            's_username' => $q->name.", ".$q->last_name
+            //'s_username' => $q->name.", ".$q->last_name
         );
-
     }else{
         return false;
     }
     
   }
 
-      public function show_profile_by_id($user_id){
+  public function show_profile_by_id($user_id){
  
         $sql = "SELECT
                 u.id,
@@ -62,5 +61,17 @@ class User_model extends CI_Model {
       return $query->row_array();
   }
 
+    public function update_user_profile($dataform){
+        $data = array(
+            //'password' => $dataform['contrasena'],
+            'name' => $dataform['nombres'],
+            'last_name' => $dataform['apellidos'],
+            'cell_phone' => $dataform['celular'],
+            'phone' => $dataform['telefono'],
+            'date_birth' => $dataform['fecha_nacimiento'],
+            'description' => $dataform['descripcion']
+        );
 
- }
+        $this->db->update('users', $data, array('id' => $this->session->userdata('s_iduser')));
+    }
+}

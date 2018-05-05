@@ -9,7 +9,6 @@
     <title>Conocimiento Colectivo</title>
     <meta name="description" content="Material Style Theme">
     <link rel="shortcut icon" href="/assets/img/logo/principal_logo.png?">
-    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
     <link rel="stylesheet" href="/assets/css/plugins.min.css">
     <link rel="stylesheet" href="/assets/css/style.lime-600.min.css">
 
@@ -36,13 +35,13 @@
     <script src="/assets/js/configurator.min.js"></script>
     <script src="/assets/js/ecommerce.js"></script>
 
-    <script>$(document).ready(function() {
+    <!--<script>$(document).ready(function() {
     $(".datePickercc").datepicker({
         orientation: "bottom left",
         autoclose: !0,
         todayHighlight: !0
     });
-})</script>
+})</script>-->
 
   </body>
 </html>

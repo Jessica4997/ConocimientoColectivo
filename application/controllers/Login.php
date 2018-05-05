@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
-	function __construct(){
+	public function __construct(){
 		parent::__construct();
 		$this->load->model('user_model');
         }
@@ -25,7 +25,7 @@ class Login extends CI_Controller {
 
 		if($session_user){
 			$this->session->set_userdata($session_user);
-			$toRedicrect="/profile_page";
+			$toRedicrect="workshop";
 		}else{
 			$error=urlencode("Usuario o constraseña incorrecta");
 			$toRedicrect='/login?message='.$error;
@@ -39,7 +39,4 @@ class Login extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect('login');
 	}
-
-
 }
-

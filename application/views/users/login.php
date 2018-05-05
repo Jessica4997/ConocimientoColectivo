@@ -2,7 +2,7 @@
     <div class="container">
         <div class="text-center">
             <span class="ms-logo ms-logo-lg ms-logo-white center-block mb-2 mt-2 animated zoomInDown animation-delay-5">CC</span>
-            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Conocimiento
+            <h1 class="ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Conocimiento
                 <strong>&nbsp;&nbsp;Colectivo</strong>
             </h1>
             <p class="lead lead-lg color-white text-center center-block mt-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">Inicia sesión para poder disfrutar de los beneficios que te brinda Conocimiento
@@ -21,8 +21,6 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <i class="zmdi zmdi-close"></i>
                         </button>
-                        <strong>
-                            <i class="zmdi zmdi-close-circle"></¡Error!</strong>
                         <?php echo $error;?>
                     </div>
                     <?php }?>

@@ -8,9 +8,7 @@ class Profile_Page extends CI_Controller {
 		parent::__construct();
 		$this->load->model('user_model');
 		$this->user_id = $this->session->userdata('s_iduser');
-		$ruta = $this->uri->segment(2, '/');
-		$whiteList=array('/','description');
-        if ($this->user_id === null && !in_array($ruta,$whiteList)){
+        if ($this->user_id === null){
             redirect('login', 'refresh');
         }
 	}
@@ -23,4 +21,20 @@ class Profile_Page extends CI_Controller {
 		];
 		$this->load->view('template/basic',$dataView);
 	}
+
+	public function show_edit_profile(){
+		$dataView=[
+		'page'=>'users/edit'
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function save_edit_profile_data(){
+
+		$this->user_model->update_user_profile($_POST);
+		redirect('profile_page', 'refresh');
+	}
+
+
+
 }

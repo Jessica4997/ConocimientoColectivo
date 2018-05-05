@@ -14,14 +14,14 @@
             </a>
         </div>
         <div class="header-right">
+            <?php if($this->session->userdata('s_iduser') == false){?>
             <a href="<?php echo site_url('login')?>" class="btn-circle btn-circle-primary no-focus animated zoomInDown animation-delay-8">
                 <i class="zmdi zmdi-account"></i>
             </a>
+            <?php }?>
             <?php if($this->session->userdata('s_iduser')){?>
             <div class="btn-group">
-                <button type="button" class="btn btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                    style="color: white">
-                    Mi Cuenta
+                <button type="button" class="btn btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white"> Mi Cuenta
                     <i class="zmdi zmdi-chevron-down right"></i>
                 </button>
                 <ul class="dropdown-menu">
@@ -39,11 +39,11 @@
     </div>
 </header>
 
-<nav class="navbar navbar-expand-md  navbar-static ms-navbar ms-navbar-white">
+<nav class="navbar navbar-expand-md navbar-static ms-navbar ms-navbar-white">
     <div class="container container-full">
         <div class="navbar-header">
             <a class="navbar-brand" href="">
-                <img src="/assets/img/logo/people.png" alt="">
+                <img src="/assets/img/logo/people.png">
                 <span class="ms-title">Conocimiento
                     <strong>&nbsp;&nbsp;&nbsp;Colectivo</strong>
                 </span>

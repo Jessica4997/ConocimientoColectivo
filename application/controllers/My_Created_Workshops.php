@@ -9,19 +9,17 @@ class My_Created_Workshops extends CI_Controller {
 		$this->load->model('created_workshops_model');
 		$this->load->model('user_model');
 		$this->user_id = $this->session->userdata('s_iduser');
-		$ruta = $this->uri->segment(2, '/');
-		$whiteList=array('/','description');
-        if ($this->user_id === null && !in_array($ruta,$whiteList)){
-            redirect('/', 'refresh');
+        if ($this->user_id === null){
+            redirect('login', 'refresh');
         }
 	}
 
 	public function index(){
-		$get_work_b_u = $this->created_workshops_model->get_workshops_by_user($this->user_id);
+		$get_list_by_user = $this->created_workshops_model->get_workshops_by_user($this->user_id);
 		
 		$dataView=[
 			'page'=>'my_created_workshops',
-			'hhh'=>$get_work_b_u
+			'hhh'=>$get_list_by_user
 		];
 		$this->load->view('template/basic',$dataView);
 	}

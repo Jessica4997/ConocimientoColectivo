@@ -1,7 +1,7 @@
 <?php
 class Created_Workshops_model extends CI_Model {
 
-	    public function get_workshops_by_user($user_id){
+	public function get_workshops_by_user($user_id){
  
         $sql = "SELECT 
 			  w.id,
@@ -28,12 +28,12 @@ class Created_Workshops_model extends CI_Model {
       $query = $this->db->query($sql,array($user_id));
       
       return $query->result_array();
-  }
+  	}
 
-  public function get_students_list($id){
-  	
 
-			  	$sql = "SELECT 
+  	public function get_students_list($id){
+
+  	$sql = "SELECT 
 			  iu.id,
 			  iu.iu_status,
 			  u.`name` AS user_name,

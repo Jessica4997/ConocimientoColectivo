@@ -72,16 +72,50 @@ class Workshop_model extends CI_Model {
 
 
    public function get_categories_list(){
-        $sql = "SELECT 
-            id,
-            name
 
-      FROM
-        categories;";
+    /*
+ idl1  namel1          idl2  namel2   
+------  ------------  ------  ---------
+     1  Bailes             7  Bachata  
+     1  Bailes             8  Salsa    
+     2  Deportes           9  Fútbol  
+     2  Deportes          10  Voley    
+     3  Música        (NULL)  (NULL)   
+     4  Teatro        (NULL)  (NULL)   
+     5  Arte          (NULL)  (NULL)   
+     6  Gastronomía   (NULL)  (NULL)   
+     7  Bachata       (NULL)  (NULL)   
+     8  Salsa         (NULL)  (NULL)   
+     9  Fútbol        (NULL)  (NULL)   
+    10  Voley         (NULL)  (NULL)   
+                                       
+    */
+        $sql = "SELECT 
+                  level1.`id` AS idl1,
+                  level1.`name` AS namel1,
+                  level2.`id` AS idl2,
+                  level2.`name` AS namel2 
+                FROM
+                  categories AS level1 
+                  LEFT JOIN categories AS level2 
+                    ON level1.`id` = level2.`parent_id`";
 
         $query = $this->db->query($sql);
         
-        return $query->result_array();
+        $data = $query->result_array();
+
+        $list = [];
+
+        foreach ($data as $row) {
+          if(!isset($list[$row['idl1']])){
+            $list[$row['idl1']]=['id'=>$row['idl1'],'name'=>$row['namel1']];
+          }
+          if(!is_null($row['idl2'])){
+            $list[$row['idl2']]=['id'=>$row['idl2'],'name'=>$row['namel1'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$row['namel2']];
+          } 
+        }
+
+        return $list;
     }
 
 
