@@ -84,6 +84,20 @@ class Workshop_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_subcategories_list($category_id){
+      $sql = "SELECT 
+                id,
+                sub_name,
+                categories_id 
+              FROM
+                subcategories 
+              WHERE categories_id = ? ;";
+              
+      $query = $this->db->query($sql,array($category_id));
+          
+      return $query->result_array();
+    }
+
 
     public function get_level_list(){
         $sql = "SELECT 

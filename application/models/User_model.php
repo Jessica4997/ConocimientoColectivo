@@ -12,7 +12,8 @@ class User_model extends CI_Model {
         'gender' => $dataform['genero'],
         'date_birth' => $dataform['fecha_nacimiento'],
         'description' => $dataform['descripcion'],
-        'status' => 'Confirmado'
+        'status' => 'Confirmado',
+        'condition' => 'Activo'
     );
 
     $this->db->insert('users', $data);
@@ -23,6 +24,7 @@ class User_model extends CI_Model {
 
     $this->db->select('id,name,last_name');
     $this->db->from('users');
+    $this->db->where('removed','Activo');
     $this->db->where('email',$u);
     $this->db->where('password',$p);
 

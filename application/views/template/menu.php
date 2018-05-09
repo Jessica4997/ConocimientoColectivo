@@ -1,7 +1,7 @@
 <li class="nav-item">
     <a href="<?php echo site_url('')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Inicio</a>
-
 </li>
+
 <li class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle animated fadeIn animation-delay-9" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-name="ecommerce">
         Talleres
@@ -15,7 +15,7 @@
             <a class="dropdown-item" href="<?php echo site_url('my_created_workshops')?>">Mis Talleres Creados</a>
         </li>
         <li>
-            <a class="dropdown-item" href="#">Mis Talleres</a>
+            <a class="dropdown-item" href="<?php echo site_url('my_workshops')?>">Mis Talleres</a>
         </li>
 
     </ul>
@@ -33,3 +33,14 @@
         <li>
             <a class="dropdown-item" href="">Mis Solicitudes</a>
         </li>
+    </ul>
+</li>
+
+<li class="nav-item">
+    <a href="<?php echo site_url('admin')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Usuarios</a>
+</li>
+
+<li class="nav-item">
+    <a href="<?php echo site_url('admin/categories_list')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Categorías</a>
+</li>
+

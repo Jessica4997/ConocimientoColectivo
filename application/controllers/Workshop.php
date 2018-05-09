@@ -42,10 +42,11 @@ class Workshop extends CI_Controller {
 	public function create(){
 		$categorylist = $this->workshop_model->get_categories_list();
 		$levellist = $this->workshop_model->get_level_list();
-
+		//$subcategorylist = $this->workshop_model->get_subcategories_list($category_id);
 		$dataView=[
 			'page'=>'workshops/create',
 			'prueba'=>$categorylist,
+			//'list_sc'=>$subcategorylist,
 			'intento'=>$levellist
 		];
 		$this->load->view('template/basic',$dataView);

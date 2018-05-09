@@ -32,12 +32,10 @@
                       <label for="" class="col-md-2 control-label">Sub-categoría</label>
                       <div class="col-md-9">
                         <select name="sub_categoria" class="form-control selectpicker">
-                          <option>...</option>
-                          <option>...</option>
-                          <option>...</option>
-                          <option>...</option>
-                          <option>...</option>
-                          <option>...</option>
+                          <!--<?php foreach($list_sc as $rowsc){?>
+                          <option value="<?php echo $rowsc['id']?>"><?php echo $rowp['sub_name']?></option>
+                          <!--<?php }?>-->
+
                         </select>
                       </div>
                     </div>
