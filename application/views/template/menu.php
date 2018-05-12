@@ -31,7 +31,7 @@
             <a class="dropdown-item" href="<?php echo site_url('proposed_workshop')?>">Lista de Solicitudes</a>
         </li>
         <li>
-            <a class="dropdown-item" href="">Mis Solicitudes</a>
+            <a class="dropdown-item" href="<?php echo site_url('proposed_workshop/show_my_requests')?>">Mis Solicitudes</a>
         </li>
     </ul>
 </li>

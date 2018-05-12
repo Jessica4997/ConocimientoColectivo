@@ -1262,14 +1262,13 @@ output {
 	box-shadow: none
 }
 
-.form-group.has-error.is-focused .form-control {
+/*.form-group.has-error.is-focused .form-control {
 	background-image: linear-gradient(#f44336, #f44336), linear-gradient(#d2d2d2, #d2d2d2)
 }
 
 .form-group.has-error label.control-label, .form-group.has-error .help-block {
 	color: #f44336
 }
-
 .form-group.has-success .form-control {
 	box-shadow: none
 }
@@ -1281,6 +1280,7 @@ output {
 .form-group.has-success label.control-label, .form-group.has-success .help-block {
 	color: #4caf50
 }
+
 
 .form-group.has-info .form-control {
 	box-shadow: none
@@ -1296,7 +1296,7 @@ output {
 
 .form-group textarea {
 	resize: none
-}
+}*/
 
 .form-group textarea~.form-control-highlight {
 	margin-top: -11px

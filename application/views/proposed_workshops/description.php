@@ -17,14 +17,15 @@
                 <p class="lead" align="center">
                     <?php echo $description['description']?>
                 </p>
+
                 <ul class="list-unstyled">
                     <li>Categoría:
                         <?php echo $description['category_name']?>
                     </li>
 
-                    <li> Sub-Categoría: </li>
-
-                    <li> Género: </li>
+                    <li> Sub-Categoría:
+                        <?php echo $description['subcategory_name']?>
+                    </li>
 
                     <li> Nivel:
                         <?php echo $description['level']?>
@@ -37,10 +38,9 @@
                     <li> Fecha de Cierre:
                         <?php echo $description['final_date']?>
                     </li>
-
-
                 </ul>
-                <a href="" class="btn btn-primary btn-block btn-raised">Aperturar Solicitud</a>
+
+                <a href="<?php echo site_url('proposed_workshop/open_request/' .$description['id'])?>" class="btn btn-primary btn-block btn-raised">Aperturar Solicitud</a>
             </div>
         </div>
     </div>

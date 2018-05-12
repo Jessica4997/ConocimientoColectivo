@@ -56,8 +56,7 @@
                                     <li>Categoría:
                                         <?php echo $row['name']?>
                                     </li>
-                                    <li>Sub-categoría:</li>
-                                    <li>Género:</li>
+                                    <li>Sub-categoría: <?php echo $row['sub_name']?></li>
                                     <li>Nivel:
                                         <?php echo $row['level']?>
                                     </li>

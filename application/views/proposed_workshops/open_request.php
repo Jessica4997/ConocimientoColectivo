@@ -4,13 +4,14 @@
             <div class="card card-primary animated fadeInUp animation-delay-7">
               <div class="card-body">
                 <h1 class="color-primary text-center">Crear Nuevo Taller</h1>
+
                 <form method="post" action="<?php echo site_url('workshop/save')?>"  class="form-horizontal">
                   <fieldset>
 
                   <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Título</label>
                       <div class="col-md-9">
-                        <input type="text" class="form-control" placeholder="Título" name="titulo" required> </div>
+                        <input type="text" readonly="readonly" class="form-control" placeholder="Título" value="<?php echo $abc['title']?>" name="titulo" required> </div>
                     </div>
                 
                   <div class="row form-group">
@@ -18,23 +19,21 @@
                       <div class="col-md-9">
 
                         <select name="categoria" class="form-control selectpicker">
-                          <?php foreach($prueba as $rowp){?>
-                          <option value="<?php echo $rowp['id']?>"><?php echo $rowp['name']?></option>
-                          <?php }?>
-
+                          <option value="<?php echo $abc['category_id']?>"><?php echo $abc['category_name']?></option>
                         </select>
                         
                       </div>
                       
                     </div>
 
+
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Sub-categoría</label>
                       <div class="col-md-9">
                         <select name="sub_categoria" class="form-control selectpicker">
-                          <?php foreach($list_sc as $rowsc){?>
-                          <option value="<?php echo $rowsc['id']?>"><?php echo $rowsc['sub_name']?></option>
-                          <?php }?>
+
+                          <option value="<?php echo $abc['subcategory_id']?>"><?php echo $abc['subcategory_name']?></option>
+
 
                         </select>
                       </div>
@@ -44,9 +43,9 @@
                       <label for="" class="col-md-2 control-label">Nivel</label>
                       <div class="col-md-9">
                         <select name="nivel" class="form-control selectpicker">
-                          <?php foreach($intento as $rowi){?>
-                          <option><?php echo $rowi['level']?></option>
-                          <?php }?>
+
+                          <option><?php echo $abc['level']?></option>
+
                         </select>
                       </div>
                     </div>
@@ -54,13 +53,13 @@
                     <div class="row form-group">
                       <label for="inputDate" class="col-md-2 control-label">Fecha de Inicio</label>
                       <div class="col-md-9">
-                        <input  type="datetime-local" name="fecha_inicio" placeholder="mes/día/año" required> </div>
+                        <input  type="datetime-local" name="fecha_inicio" value="<?php echo $abc['start_date']?>" placeholder="mes/día/año" required> </div>
                     </div>
 
                     <div class="row form-group">
                       <label for="inputDate" class="col-md-2 control-label">Fecha de Cierre</label>
                       <div class="col-md-9">
-                        <input  type="datetime-local" name="fecha_fin" placeholder="mes/día/año" required> </div>
+                        <input  type="datetime-local" name="fecha_fin" value="<?php echo $abc['final_date']?>" placeholder="mes/día/año" required> </div>
                     </div>
 
                     <div class="row form-group">
