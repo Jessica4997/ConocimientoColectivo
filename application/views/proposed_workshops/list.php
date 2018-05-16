@@ -71,8 +71,6 @@
                                 <div align="center">
                                     <a href="<?php echo site_url ('proposed_workshop/description/'.$row['id'])?>" class="btn btn-primary btn-sm btn-raised no-mb">
                                         <i class="fa fa-search"></i>Ver Detalles</a>
-                                    <a class="btn btn-primary btn-sm btn-raised no-mb">
-                                        <i class="fa fa-thumbs-up"></i>Votar</a>
 
                                 </div>
 

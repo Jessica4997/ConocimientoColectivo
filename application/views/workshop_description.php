@@ -26,7 +26,7 @@
                 <ul class="list-unstyled">
                   <li>Categoría: <?php echo $description['category_name']?></li>
 
-                  <li> Sub-Categoría: </li>
+                  <li> Sub-Categoría: <?php echo $description['sub_name']?></li>
 
                   <li> Fecha de Inicio: <?php echo $description['start_date']?></li>
  

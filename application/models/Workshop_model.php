@@ -10,11 +10,14 @@ class Workshop_model extends CI_Model {
         w.level,
         w.amount,
         w.description,
-        c.name
+        c.name,
+        sc.sub_name
       FROM
         workshops AS w
         INNER JOIN categories AS c
-          ON w.`category_id` = c.`id` ;";
+          ON w.`category_id` = c.`id`
+          INNER JOIN subcategories AS sc
+            ON w.subcategory_id = sc.id ;";
 
         $query = $this->db->query($sql);
         
@@ -35,12 +38,15 @@ class Workshop_model extends CI_Model {
         w.description,
         /*w.wrks_status,*/
         c.name AS category_name,
+        sc.sub_name,
         u.name AS user_name,
         u.last_name AS user_last_name
       FROM
         workshops AS w
         INNER JOIN categories AS c
           ON w.category_id = c.id
+          INNER JOIN subcategories AS sc
+            ON w.subcategory_id = sc.id
           INNER JOIN users AS u
             ON u.id = w.user_id
             WHERE w.`id` = ?
@@ -90,7 +96,8 @@ class Workshop_model extends CI_Model {
                 sub_name,
                 categories_id 
               FROM
-                subcategories;";
+                subcategories
+                WHERE removed = 'Activo';";
               
       $query = $this->db->query($sql);
           

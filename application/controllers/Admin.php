@@ -57,6 +57,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
+
 	public function subcategories_list($category_id){
 		$show_subcategories = $this->admin_model->get_subcategories_list($category_id);
 		$dataView=[
@@ -64,6 +65,40 @@ class Admin extends CI_Controller {
 		'lista_sc'=>$show_subcategories
 		];
 		$this->load->view('template/basic',$dataView);
+	}
+
+	public function save_subcategory($category_id){
+		$this->admin_model->create_subcategory($_POST, $category_id);
+		redirect('admin/subcategories_list/' .$category_id, 'refresh');
+	}
+
+	public function show_edit_subcategory($subcategory_id){
+		$get_specific_sc = $this->admin_model->get_specific_subcategory($subcategory_id);
+		//var_dump($get_specific_sc);exit();
+		$dataView=[
+			'page'=>'admin/subcategories_edit_delete',
+			'sc_id'=>$get_specific_sc
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+
+	public function edit_subcategory($subcategory_id){
+		$this->admin_model->update_subcategory($_POST,$subcategory_id);
+		redirect('admin/subcategories_list/', 'refresh');
+	}
+
+
+	public function delete_subcategory($subcategory_id){
+		$this->admin_model->delete_subcategory($subcategory_id);
+		redirect('admin/subcategories_list/', 'refresh');
+
+	}
+
+	public function cancel_delete_subcategory($subcategory_id){
+		$this->admin_model->cancel_delete_subcategory($subcategory_id);
+		redirect('admin/subcategories_list/', 'refresh');
+
 	}
 
 }

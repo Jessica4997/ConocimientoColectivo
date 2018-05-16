@@ -51,8 +51,7 @@
           <h4 class="text-normal text-center"><?php echo $row['title']?></h4>
           <p>
             <li>Categoría: <?php echo $row['name']?></li>
-            <li>Sub-categoría:</li>
-            <li>Género:</li>
+            <li>Sub-categoría: <?php echo $row['sub_name']?></li>
             <li>Nivel: <?php echo $row['level']?></li>
             <li>Fecha de inicio: <?php echo $row['start_date']?></li>
             <li>Fecha de fin: <?php echo $row['final_date']?></li>

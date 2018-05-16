@@ -30,12 +30,16 @@ class Proposed_Workshop extends CI_Controller {
 
 	public function description($id) {
 		$proposed_workshop_description = $this->proposed_workshop_model->show_by_id($id);
+		if($proposed_workshop_description['removed'] == 'Activo'){
 		//var_dump($proposed_workshop_description);exit();
 		$dataView=[
 			'page'=>'proposed_workshops/description',
 			'description'=>$proposed_workshop_description
 		];
 		$this->load->view('template/basic',$dataView);
+		}else{
+			echo "Esta solicitud esta eliminada";
+		}
 	}
 
 	public function create(){
@@ -71,17 +75,46 @@ class Proposed_Workshop extends CI_Controller {
 
 	public function open_request($pw_id){
 		$pw_data = $this->proposed_workshop_model->get_proposed_workshop_data($pw_id);
+		if($pw_data['removed'] == 'Activo' && $pw_data['pw_user_id'] != $this->user_id){
 		//var_dump($pw_data);exit();
 		$dataView=[
 			'page'=>'proposed_workshops/open_request',
 			'abc'=>$pw_data
 		];
 		$this->load->view('template/basic',$dataView);
+		}else{
+			$dataView=[
+			'page'=>'error',
+		];
+		$this->load->view('template/basic',$dataView);
+		}
 
 	}
 
+	public function insert_to_workshop($id){
+		//if(){
+		//Todo se enviará por POST
+			$this->proposed_workshop_model->open_workshop_request($_POST, $this->user_id);
+			$this->proposed_workshop_model->remove_from_list($id);
+			redirect('workshop','refresh');
+		//}
+	}
 
+	public function vote($pw_id){
+		$verify_votes = $this->proposed_workshop_model->get_votes_quantity($pw_id);
+		$verify_user_vote = $this->proposed_workshop_model->verify_user_vote($pw_id, $this->user_id);
 
-
-
+		if($verify_user_vote){
+			echo "Ya votaste por este taller";
+		}else{
+			if($verify_votes['votes_quantity'] < 10){
+				$this->proposed_workshop_model->insert_into_votes($pw_id, $this->user_id);
+				$verify_votes['votes_quantity'] = $verify_votes['votes_quantity'] + 1;
+				$this->proposed_workshop_model->update_votes_quantity($pw_id, $verify_votes['votes_quantity']);
+				//redirect('proposed_workshop', 'refresh');
+			}else{
+				echo "Alcanzó el maximo de votos";
+			}
+		}
+	}
 }

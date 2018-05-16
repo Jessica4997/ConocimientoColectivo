@@ -39,8 +39,17 @@
                         <?php echo $description['final_date']?>
                     </li>
                 </ul>
+                <div align="center" >
+                <?php if($description['pw_user_id'] != $this->session->userdata('s_iduser')){ ?>
 
-                <a href="<?php echo site_url('proposed_workshop/open_request/' .$description['id'])?>" class="btn btn-primary btn-block btn-raised">Aperturar Solicitud</a>
+                <a href="<?php echo site_url('proposed_workshop/open_request/' .$description['id'])?>" class="btn btn-primary btn-raised">Aperturar Solicitud</a>
+
+                <?php } ?>
+
+                <a href="<?php echo site_url('proposed_workshop/vote/' .$description['id'])?>" class="btn btn-primary btn-raised">
+                    <i class="fa fa-thumbs-up"></i>Votar (<?php echo $description['votes_quantity']?>)</a>
+                </div>
+
             </div>
         </div>
     </div>

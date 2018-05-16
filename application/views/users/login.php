@@ -29,7 +29,7 @@
                     <h1 class="color-primary text-center">Iniciar Sesión</h1>
                     <form method="post" action="<?php echo site_url('login/user_login')?>" class="form-horizontal">
                         <fieldset>
-                            <div class=" row">
+                            <div class="form-group row">
                                 <label for="inputEmail" class="col-md-3 control-label">Correo Electrónico</label>
                                 <div class="col-md-9">
                                     <input type="email" class="form-control" name="correo" id="inputEmail" placeholder="Correo Electrónico" required> </div>
