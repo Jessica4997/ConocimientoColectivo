@@ -101,4 +101,14 @@ class Admin extends CI_Controller {
 
 	}
 
+
+	public function search_subcategory(){
+		$search_sc = $this->admin_model->search_subcategory_by_name($sub_name);
+		$dataView=[
+			'page'=>'admin/subcategories_list',
+			'lista_sc'=>$search_sc
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
 }

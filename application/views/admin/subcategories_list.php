@@ -1,15 +1,10 @@
 <div class="container">
-
-             <div class="card color-primary ">
-              <div class="card-body-big color-dark">
                 <h2 class="color-primary">Buscar</h2>
-                <div class="form-group label-floating">
-                  <label class="control-label" for="addon2">Search in page...</label>
-                  <input type="text" id="addon2" class="form-control"> </div>
-                <a href="" class="btn btn-primary btn-raised btn-block">
-                  <i class="zmdi zmdi-search"></i> Search</a>
-              </div>
-            </div>
+                <div class="form-group">
+                  <input type="text" class="form-control"> </div>
+                  <a href="admin/search_subcategory" class="btn btn-primary btn-raised btn-block">
+                    <i class="zmdi zmdi-search"></i> Buscar</a>
+
     <table class="table">
   <thead>
     <tr>

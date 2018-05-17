@@ -153,5 +153,18 @@ class Admin_model extends CI_Model {
         $this->db->update('subcategories', $data, array('id' => $subcategory_id));
     }
 
+  public function search_subcategory_by_name($sub_name){ 
+    $sql = "SELECT
+              id,
+              sub_name,
+              removed
+            FROM
+              subcategories
+              WHERE sub_name = ? " ;
+
+      $query = $this->db->query($sql,array($sub_name));
+      
+      return $query->result_array();
+  }
 
 }

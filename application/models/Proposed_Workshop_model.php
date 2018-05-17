@@ -250,4 +250,31 @@ class Proposed_Workshop_model extends CI_Model {
 
     return $this->db->update('proposed_workshops', $data, array('id' => $pw_id));
     }
+
+
+    public function search_list_by_category(){
+      $sql = "SELECT 
+                pw.id,
+                pw.title,
+                pw.description,
+                DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
+                DATE_FORMAT(pw.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
+                pw.level,
+                pw.removed,
+                c.id,
+                c.name,
+                sc.sub_name
+              FROM
+                proposed_workshops AS pw 
+                INNER JOIN categories AS c 
+                  ON pw.`category_id` = c.`id`
+                  INNER JOIN subcategories AS sc
+                  ON pw.`subcategory_id` = sc.`id`
+                  WHERE pw.removed = 'Activo'
+                  AND c.id = ? ";
+
+        $query = $this->db->query($sql);
+        
+        return $query->result_array();
+    }
 }

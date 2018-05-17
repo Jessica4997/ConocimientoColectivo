@@ -14,7 +14,7 @@
 
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox">
+                                    <input value="<?php echo $rowc['id']?>" type="checkbox">
                                     <?php echo $rowc['name']?> </label>
                             </div>
                             <?php }?>
@@ -22,6 +22,14 @@
                     <button class="btn btn-danger btn-block no-mb mt-2" id="Reset">
                         <i class="zmdi zmdi-delete"></i>Limpiar filtros</button>
                 </form>
+
+                <form method="get">
+                <h2 class="color-primary">Buscar</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control"> </div>
+                    <a href="proposed_workshop/search_by_category" class="btn btn-primary btn-raised btn-block">
+                        <i class="zmdi zmdi-search"></i>Buscar</a>
+                    </form>
                 <form class="form-horizontal">
                     <h4>Ordenar por</h4>
                     <select id="SortSelect" class="form-control selectpicker">

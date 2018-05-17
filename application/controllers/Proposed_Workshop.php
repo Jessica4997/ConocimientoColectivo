@@ -42,6 +42,18 @@ class Proposed_Workshop extends CI_Controller {
 		}
 	}
 
+	public function search_by_category(){
+		$search_c = $this->proposed_workshop_model->search_list_by_category($category_id);
+		$catlist = $this->proposed_workshop_model->get_categories_list();
+		$dataView=[
+			'page'=>'proposed_workshops/list',
+			'lists'=>$search_c,
+			'lis'=>$catlist
+		]; 
+		$this->load->view('template/basic',$dataView);
+
+	}
+
 	public function create(){
 		$categorylist = $this->proposed_workshop_model->get_categories_list();
 		$levellist = $this->proposed_workshop_model->get_level_list();
@@ -58,6 +70,7 @@ class Proposed_Workshop extends CI_Controller {
 
 	public function save(){
 		//var_dump($_POST);
+
 		$this->proposed_workshop_model->create($_POST, $this->user_id);
 		redirect('proposed_workshop', 'refresh');
 	}
