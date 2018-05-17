@@ -18,7 +18,15 @@ class Proposed_Workshop extends CI_Controller {
 
 
 	public function index(){
-		$wrk = $this->proposed_workshop_model->get_list();
+		$category = $this->input->get('category');
+		$q = $this->input->get('q');
+
+		if(!is_null($category) || !empty($q)){
+			$wrk = $this->proposed_workshop_model->search_list_by_category($category,$q);
+		}else{
+			$wrk = $this->proposed_workshop_model->get_list();
+		}
+		
 		$catlist = $this->proposed_workshop_model->get_categories_list();
 		$dataView=[
 			'page'=>'proposed_workshops/list',

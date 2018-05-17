@@ -252,7 +252,7 @@ class Proposed_Workshop_model extends CI_Model {
     }
 
 
-    public function search_list_by_category(){
+    public function search_list_by_category($category,$q){
       $sql = "SELECT 
                 pw.id,
                 pw.title,
@@ -271,7 +271,18 @@ class Proposed_Workshop_model extends CI_Model {
                   INNER JOIN subcategories AS sc
                   ON pw.`subcategory_id` = sc.`id`
                   WHERE pw.removed = 'Activo'
-                  AND c.id = ? ";
+                   ";
+
+
+        if(is_array($category)){
+          $category_id = implode(",",$category);
+          $sql.="AND c.id IN ({$category_id})";
+        }
+
+        if(is_string($q) && trim($q)!=''){
+          $q = trim($q);
+          $sql.="AND pw.title LIKE '%{$q}%' ";
+        }
 
         $query = $this->db->query($sql);
         
