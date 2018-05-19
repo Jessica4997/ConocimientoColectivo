@@ -3,7 +3,7 @@ class Workshop_model extends CI_Model {
 
     public function get_list(){
         $sql = "SELECT 
-        w.id,
+        w.id AS w_id,
         w.title,
         DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
         DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,        
@@ -17,7 +17,8 @@ class Workshop_model extends CI_Model {
         INNER JOIN categories AS c
           ON w.`category_id` = c.`id`
           INNER JOIN subcategories AS sc
-            ON w.subcategory_id = sc.id ;";
+            ON w.subcategory_id = sc.id
+            WHERE w.removed = 'Activo' ;";
 
         $query = $this->db->query($sql);
         
@@ -62,7 +63,7 @@ class Workshop_model extends CI_Model {
     $data = array(
         'title' => $dataform['titulo'],
         'category_id' => $dataform['categoria'],
-        //'category_id' => $dataform['sub_categoria'],
+        'subcategory_id' => $dataform['subcategoria'],
         'level' => $dataform['nivel'],
         'start_date' => $dataform['fecha_inicio'],
         'final_date' => $dataform['fecha_fin'],
@@ -70,6 +71,7 @@ class Workshop_model extends CI_Model {
         'description' => $dataform['descripcion'],
         'vacancy' => $dataform['vacantes'],
         'wrks_status' => 'En Curso',
+        'removed' => 'Activo',
         'user_id'=> $user_id
     );
 
@@ -179,6 +181,43 @@ class Workshop_model extends CI_Model {
 
     return $this->db->update('workshops', $data, array('id' => $id));
   }
+
+  public function search_by_category_title($category,$q){
+    $sql = "SELECT 
+              w.id AS w_id,
+              w.title,
+              w.description,
+              DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
+              DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
+              w.level,
+              w.amount,
+              w.removed,
+              c.id,
+              c.name,
+              sc.sub_name
+            FROM
+              workshops AS w 
+              INNER JOIN categories AS c 
+                ON w.`category_id` = c.`id`
+                INNER JOIN subcategories AS sc
+                ON w.`subcategory_id` = sc.`id`
+                WHERE w.removed = 'Activo'
+                 ";
+
+      if(is_array($category)){
+        $cat_id = implode(",",$category);
+        $sql.="AND c.id IN ({$cat_id})";
+      }
+
+      if(is_string($q) && trim($q)!=''){
+        $q = trim($q);
+        $sql.="AND w.title LIKE '%{$q}%' ";
+      }
+
+      $query = $this->db->query($sql);
+      
+      return $query->result_array();
+    }
 
 
 }

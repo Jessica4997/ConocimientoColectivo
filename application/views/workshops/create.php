@@ -10,7 +10,7 @@
                   <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Título</label>
                       <div class="col-md-9">
-                        <input type="text" class="form-control" placeholder="Título" name="titulo" required> </div>
+                        <input type="text" class="form-control" placeholder="Título" name="titulo" onkeypress="return only_letters(event)" onpaste="return false" required> </div>
                     </div>
                 
                   <div class="row form-group">
@@ -31,7 +31,7 @@
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Sub-categoría</label>
                       <div class="col-md-9">
-                        <select name="sub_categoria" class="form-control selectpicker">
+                        <select name="subcategoria" class="form-control selectpicker">
                           <?php foreach($list_sc as $rowsc){?>
                           <option value="<?php echo $rowsc['id']?>"><?php echo $rowsc['sub_name']?></option>
                           <?php }?>
@@ -66,20 +66,20 @@
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Cantidad de Vacantes</label>
                       <div class="col-md-9">
-                        <input type="number" name="vacantes" min="1" max="10" class="form-control" id="" placeholder="Cantidad de Vacantes" required> </div>
+                        <input type="number" name="vacantes" min="1" max="10" onkeypress="return only_numbers(event)" onpaste="return false" class="form-control" id="" placeholder="Cantidad de Vacantes" required> </div>
                     </div>
 
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Monto</label>
                       <div class="col-md-9">
-                        <input type="number" name="monto" min="1" class="form-control" id="" placeholder="Monto" required> </div>
+                        <input type="number" name="monto" min="1" onkeypress="return only_numbers(event)" onpaste="return false" class="form-control" id="" placeholder="Monto" required> </div>
                     </div>
 
  <div class="form-group row justify-content-end">
             <label for="" class="col-lg-2 control-label">Descripción</label>
 
             <div class="col-lg-10">
-                <textarea class="form-control" rows="3" name="descripcion"></textarea>
+                <textarea class="form-control" rows="3" name="descripcion" onkeypress="return only_letters(event)" onpaste="return false"></textarea>
                 <span class="help-block">Escriba una breve descripción </span>
             </div>
         </div>

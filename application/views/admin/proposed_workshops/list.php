@@ -45,11 +45,6 @@
                     <strong>Solicitudes de Talleres</strong>
                 </h1>
 
-                <p class="text-center">
-                    <a href="<?php echo site_url('proposed_workshop/create')?>" class="btn btn-primary btn-raised text-right" role="button">
-                        <i class="fa fa-plus"></i>Crear Solicitud</a>
-                </p>
-
                 <div class="row" id="Container">
 
                     <?php foreach($lists as $row){?>
@@ -57,9 +52,12 @@
                         <div class="card ms-feature">
                             <div class="card-body text-center">
                                 <h4 class="text-normal text-center">
-                                    <?php echo $row['title']?> <?php echo $row['pw_id']?>
+                                    <?php echo $row['title']?>
                                 </h4>
                                 <p>
+                                    <li>Creado por:
+                                        <?php echo $row['u_name']?> <?php echo $row['u_last_name']?>
+                                    </li>
                                     <li>Categoría:
                                         <?php echo $row['name']?>
                                     </li>
@@ -70,13 +68,16 @@
                                     <li>Fecha de inicio:
                                         <?php echo $row['start_date']?>
                                     </li>
+                                    <li>Fecha de cierre:
+                                        <?php echo $row['final_date']?>
+                                    </li>
                                     <li>Descripción:
                                         <?php echo $row['description']?>
                                     </li>
                                 </p>
 
                                 <div align="center">
-                                    <a href="<?php echo site_url ('proposed_workshop/description/'.$row['pw_id'])?>" class="btn btn-primary btn-sm btn-raised no-mb">
+                                    <a href="<?php echo site_url ('admin/proposed_workshop_description/'.$row['pw_id'])?>" class="btn btn-primary btn-sm btn-raised no-mb">
                                         <i class="fa fa-search"></i>Ver Detalles</a>
 
                                 </div>

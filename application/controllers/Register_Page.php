@@ -21,8 +21,14 @@ class Register_page extends CI_Controller {
 	}
 
 	public function saveuser(){
-		//var_dump($_POST);
 		$this->user_model->createuser($_POST);
-		redirect('','refresh');
+		//var_dump($_POST);exit();
+
+		if($_POST['contrasena'] != $_POST['recontrasena']){
+		$error="Las contraseñas no coinciden";
+			echo $error;
+		}else{
+			redirect('','refresh');
+		}
 	}
 }

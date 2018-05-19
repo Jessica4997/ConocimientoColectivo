@@ -8,13 +8,20 @@ class Admin extends CI_Controller {
 		$this->load->model('admin_model');
 	}
 
+//USERS
+
 	public function index(){
-	$this->load->model('admin_model');
-	$lis = $this->admin_model->show_all_users();
-	//var_dump($lis);exit();
+		$q = $this->input->get('q');
+
+		if(!empty($q)){
+			$u_list = $this->admin_model->search_users_by_name($q);
+		}else{
+			$u_list = $this->admin_model->show_all_users();
+		};
+		//var_dump($lis);exit();
 		$dataView=[
 			'page'=>'admin/users_list',
-			'lista_u'=> $lis
+			'lista_u'=> $u_list
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -47,6 +54,7 @@ class Admin extends CI_Controller {
 		redirect('admin/show_profile/'.$user_id, 'refresh');
 	}
 
+//CATEGORIES
 
 	public function categories_list(){
 		$show_categories = $this->admin_model->get_categories_list();
@@ -57,15 +65,78 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
+//WORKSHOPS
+
+	public function workshop_list(){
+		$catlist = $this->admin_model->get_categories_list();
+		$category = $this->input->get('category');
+		$q = $this->input->get('q');
+
+		if(!is_null($category) || !empty($q)){
+			$pw_list = $this->admin_model->search_by_category_title_w($category,$q);
+		}else{
+			$pw_list = $this->admin_model->get_w_list();
+		}
+		
+		$dataView=[
+			'page'=>'admin/workshops/list',
+			'lists'=>$pw_list ,
+			'lis'=>$catlist
+		]; 
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function workshop_description($id) {
+		$workshop_description = $this->admin_model->show_w_by_id($id);
+		$dataView=[
+			'page'=>'admin/workshops/description',
+			'description'=>$workshop_description
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function workshop_show_edit($id){
+		$show_by_id = $this->admin_model->show_w_by_id($id);
+		$show_categories = $this->admin_model->get_categories_list();
+		$show_subcategories = $this->admin_model->get_subcategories_list_no_filter();
+		$dataView=[
+			'page'=>'admin/workshops/edit',
+			'prueba'=>$show_categories,
+			'subcat'=>$show_subcategories,
+			'w_by_id'=>$show_by_id
+
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function workshop_delete($id){
+		$this->admin_model->delete_w($id);
+		redirect('admin/workshop_description/' .$id, 'refresh');
+	}
+
+	public function workshop_cancel_delete($id){
+		$this->admin_model->cancel_delete_w($id);
+		redirect('admin/workshop_description/' .$id, 'refresh');
+	}
+
+//SUBCATEGORIES
 
 	public function subcategories_list($category_id){
-		$show_subcategories = $this->admin_model->get_subcategories_list($category_id);
+		$q = $this->input->get('q');
+
+		if(!empty($q)){
+			$show_subcategories = $this->admin_model->search_subcategory_by_name($category_id,$q);
+		}else{
+			$show_subcategories = $this->admin_model->get_subcategories_list($category_id);
+		}
+
 		$dataView=[
 		'page'=>'admin/subcategories_list',
 		'lista_sc'=>$show_subcategories
 		];
 		$this->load->view('template/basic',$dataView);
 	}
+
 
 	public function save_subcategory($category_id){
 		$this->admin_model->create_subcategory($_POST, $category_id);
@@ -101,14 +172,58 @@ class Admin extends CI_Controller {
 
 	}
 
+//PROPOSED WORKSHOPS
 
-	public function search_subcategory(){
-		$search_sc = $this->admin_model->search_subcategory_by_name($sub_name);
+	public function proposed_workshop_list(){
+		$catlist = $this->admin_model->get_categories_list();
+		$category = $this->input->get('category');
+		$q = $this->input->get('q');
+
+		if(!is_null($category) || !empty($q)){
+			$pw_list = $this->admin_model->search_by_category_title($category,$q);
+		}else{
+			$pw_list = $this->admin_model->get_pw_list();
+		}
+		
 		$dataView=[
-			'page'=>'admin/subcategories_list',
-			'lista_sc'=>$search_sc
+			'page'=>'admin/proposed_workshops/list',
+			'lists'=>$pw_list ,
+			'lis'=>$catlist
+		]; 
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function proposed_workshop_description($id){
+		 $show_by_id = $this->admin_model->show_by_id($id);
+		 $dataView=[
+			'page'=>'admin/proposed_workshops/description',
+			'description'=>$show_by_id
 		];
 		$this->load->view('template/basic',$dataView);
+	}
+
+	public function proposed_workshop_show_edit($id){
+		$show_by_id = $this->admin_model->show_by_id($id);
+		$show_categories = $this->admin_model->get_categories_list();
+		$show_subcategories = $this->admin_model->get_subcategories_list_no_filter();
+		$dataView=[
+			'page'=>'admin/proposed_workshops/edit',
+			'prueba'=>$show_categories,
+			'subcat'=>$show_subcategories,
+			'pw_by_id'=>$show_by_id
+
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function proposed_workshop_delete($id){
+		$this->admin_model->delete_pw($id);
+		redirect('admin/proposed_workshop_description/' .$id, 'refresh');
+	}
+
+	public function proposed_workshop_cancel_delete($id){
+		$this->admin_model->cancel_delete_pw($id);
+		redirect('admin/proposed_workshop_description/' .$id, 'refresh');
 	}
 
 }

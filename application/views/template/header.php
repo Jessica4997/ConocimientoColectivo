@@ -44,8 +44,8 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="">
                 <img src="/assets/img/logo/people.png">
-                <span class="ms-title">Conocimiento
-                    <strong>&nbsp;&nbsp;&nbsp;Colectivo</strong>
+                <span class="ms-title">C
+                    <strong>C</strong>
                 </span>
             </a>
         </div>

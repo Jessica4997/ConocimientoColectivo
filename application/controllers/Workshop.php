@@ -17,14 +17,21 @@ class Workshop extends CI_Controller {
 	}
 
 	public function index() {
-		$wrk = $this->workshop_model->get_list();
+		$category = $this->input->get('category');
+		$q = $this->input->get('q');
+
+		if(!is_null($category) || !empty($q)){
+			$wrk = $this->workshop_model->search_by_category_title($category,$q);
+		}else{
+			$wrk = $this->workshop_model->get_list();
+		}
+
 		$catlist = $this->workshop_model->get_categories_list();
 		//var_dump($wrk);exit;
 		$dataView=[
 			'page'=>'workshop',
 			'lists'=>$wrk ,
 			'lis'=>$catlist
-
 		];
 		$this->load->view('template/basic',$dataView);
 	}

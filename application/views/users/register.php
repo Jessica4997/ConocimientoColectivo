@@ -24,6 +24,12 @@
                 </div>
 
                 <div class="row form-group">
+                  <label for="inputPassword" class="col-md-2 control-label">Repetir Contraseña</label>
+                  <div class="col-md-9">
+                    <input type="password" class="form-control" name="recontrasena" placeholder="Contraseña" required> </div>
+                </div>
+
+                <div class="row form-group">
                   <label for="inputName" class="col-md-2 control-label">Nombres</label>
                   <div class="col-md-9">
                     <input type="text" class="form-control" name="nombres" placeholder="Nombres" required> </div>

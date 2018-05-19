@@ -2,6 +2,8 @@
 class User_model extends CI_Model {
 
   public function createuser($dataform){
+    $comprobarc = $dataform['contrasena'];
+    $comprobar = $dataform['recontrasena'];
     $data = array(
         'email' => $dataform['correo'],
         'password' => $dataform['contrasena'],
@@ -12,11 +14,14 @@ class User_model extends CI_Model {
         'gender' => $dataform['genero'],
         'date_birth' => $dataform['fecha_nacimiento'],
         'description' => $dataform['descripcion'],
-        'status' => 'Confirmado',
-        'condition' => 'Activo'
+        'removed' => 'Activo'
     );
 
-    $this->db->insert('users', $data);
+    if ($dataform['contrasena'] === $dataform['recontrasena']) {
+        $this->db->insert('users', $data);
+    }else{
+        return "error";
+    }
 
   }
 

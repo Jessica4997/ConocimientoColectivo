@@ -3,7 +3,7 @@ class Proposed_Workshop_model extends CI_Model {
 
     public function get_list(){
         $sql = "SELECT 
-                  pw.id,
+                  pw.id AS pw_id,
                   pw.title,
                   pw.description,
                   DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
@@ -178,7 +178,7 @@ class Proposed_Workshop_model extends CI_Model {
 
     public function open_workshop_request($dataform, $user_id){
       $id_data = $dataform['pw_id'];
-        $data2 = $this->proposed_workshop_model->get_proposed_workshop_data($id_data);
+      $data2 = $this->proposed_workshop_model->get_proposed_workshop_data($id_data);
 
         $data = array(
         'title' => $data2['pw_title'],
@@ -254,7 +254,7 @@ class Proposed_Workshop_model extends CI_Model {
 
     public function search_list_by_category($category,$q){
       $sql = "SELECT 
-                pw.id,
+                pw.id AS pw_id,
                 pw.title,
                 pw.description,
                 DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
@@ -273,9 +273,8 @@ class Proposed_Workshop_model extends CI_Model {
                   WHERE pw.removed = 'Activo'
                    ";
 
-
         if(is_array($category)){
-          $category_id = implode(",",$category);
+          $category_id = implode(",",$category);  
           $sql.="AND c.id IN ({$category_id})";
         }
 

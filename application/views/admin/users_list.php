@@ -1,4 +1,13 @@
 <div class="container">
+
+    <form>
+    <h2 class="color-primary">Buscar</h2>
+    <div class="form-group">
+      <input type="text" name="q" class="form-control"> </div>
+      <button type="submit" class="btn btn-primary btn-raised btn-block">
+        <i class="zmdi zmdi-search"></i>Buscar</button>
+      </form>
+
     <table class="table">
   <thead>
     <tr>
@@ -7,7 +16,7 @@
       <th>Celular</th>
       <th>Calificación</th>
       <th>Estado</th>
-      <th>Detalles</th>
+      <th>Opciones</th>
     </tr>
   </thead>
   <tbody>

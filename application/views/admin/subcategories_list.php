@@ -1,9 +1,12 @@
 <div class="container">
-                <h2 class="color-primary">Buscar</h2>
-                <div class="form-group">
-                  <input type="text" class="form-control"> </div>
-                  <a href="admin/search_subcategory" class="btn btn-primary btn-raised btn-block">
-                    <i class="zmdi zmdi-search"></i> Buscar</a>
+  
+  <form>
+    <h2 class="color-primary">Buscar</h2>
+    <div class="form-group">
+      <input type="text" name="q" class="form-control"> </div>
+      <button type="submit" class="btn btn-primary btn-raised btn-block">
+        <i class="zmdi zmdi-search"></i>Buscar</button>
+      </form>
 
     <table class="table">
   <thead>

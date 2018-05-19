@@ -44,3 +44,11 @@
     <a href="<?php echo site_url('admin/categories_list')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Categorías</a>
 </li>
 
+<li class="nav-item">
+    <a href="<?php echo site_url('admin/workshop_list')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Talleres</a>
+</li>
+
+<li class="nav-item">
+    <a href="<?php echo site_url('admin/proposed_workshop_list')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Solicitudes de Talleres</a>
+</li>
+
