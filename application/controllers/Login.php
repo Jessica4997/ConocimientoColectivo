@@ -39,4 +39,16 @@ class Login extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect('login');
 	}
+
+	public function show_forgot_password(){
+		//$error = $this->input->get('message');
+		$dataView=[
+			'page'=>'users/forgot_password'
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function recovery_password(){
+
+	}
 }

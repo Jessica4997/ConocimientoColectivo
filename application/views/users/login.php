@@ -42,15 +42,16 @@
                         </fieldset>
                         <div align="center">
                             <input type="submit" class="btn btn-raised btn-primary" value="Continuar">
-
                         </div>
                     </form>
 
                     <div align="center">
+                        <a class="btn btn-primary" href="<?php echo site_url('login/show_forgot_password')?>">Olvide mi contraseña</a>
+                    </div>
+
+                    <div align="center">
                         <h3>¿No tienes cuenta? Regístrate</h3>
-                        <a class="btn btn btn-primary" href="<?php echo site_url('register_page')?>">Registrarse
-                            <i class=""></i>
-                        </a>
+                        <a class="btn btn-primary" href="<?php echo site_url('register_page')?>">Registrarse</a>
                     </div>
                 </div>
             </div>
