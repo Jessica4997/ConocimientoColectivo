@@ -196,6 +196,21 @@ CREATE TABLE `subcategories` (
 
 insert  into `subcategories`(`id`,`sub_name`,`categories_id`,`removed`) values (1,'Bachata',1,'Activo'),(2,'Salsa',1,'Activo'),(4,'Balada',1,'Activo'),(5,'Fútbol',2,'Activo'),(7,'Voley',2,'Activo'),(9,'Basketball',2,'Activo'),(10,'Guitarra',3,'Activo'),(11,'Batería',3,'Activo'),(12,'Piano',3,'Activo'),(13,'Clown',4,'Activo'),(14,'Dramático',4,'Activo'),(15,'Comedia',4,'Activo'),(16,'Pintura',5,'Activo'),(17,'Escultura',5,'Activo'),(18,'Manualidades',5,'Activo'),(19,'Repostería',6,'Activo'),(20,'Oriental',6,'Activo'),(21,'Criolla',6,'Activo'),(22,'Ballet',1,'Activo'),(23,'Hip-Hop',1,'Activo'),(24,'Ukelele',3,'Activo'),(27,'Break Dance',1,'Activo'),(28,'Violín',3,'Activo');
 
+/*Table structure for table `token` */
+
+DROP TABLE IF EXISTS `token`;
+
+CREATE TABLE `token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(50) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_token_user_id_users_id` (`user_id`),
+  CONSTRAINT `fk_token_user_id_users_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `token` */
+
 /*Table structure for table `users` */
 
 DROP TABLE IF EXISTS `users`;
@@ -207,7 +222,6 @@ CREATE TABLE `users` (
   `email` varchar(30) NOT NULL,
   `password` varchar(20) NOT NULL,
   `cell_phone` varchar(9) NOT NULL,
-  `phone` varchar(7) DEFAULT NULL,
   `date_birth` date DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -218,7 +232,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`phone`,`date_birth`,`description`,`created_date`,`gender`,`removed`) values (1,'Jessica Edith','Paredes Alarcon','jessp.4997@gmail.com','123456','958690578','5341313','1997-09-04','Hola','2018-04-15 06:17:38','Femenino','Activo'),(2,'Kevin','Robles','kevin0696@gmail.com','56987','963852741','456123','1996-11-06','fdgdfgdg','0000-00-00 00:00:00','Masculino','Activo'),(3,'Ana','Suarez','ana@gmail.com','123','963852741','7894256','0000-00-00','sadsada','0000-00-00 00:00:00','Femenino','Activo'),(12,'prueba2','prueba2','asa@aa','prueba2','','','0000-00-00','','0000-00-00 00:00:00','Masculino','Eliminado'),(18,'a','a','p@a','a','','','0000-00-00','','2018-05-18 22:43:23','Femenino','Activo');
+insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`date_birth`,`description`,`created_date`,`gender`,`removed`) values (1,'Jessica Edith','Paredes Alarcon','jessp.4997@gmail.com','123','958690578','1997-09-04','Hola','2018-05-20 23:13:41','Femenino','Activo'),(2,'Kevin','Robles','kevin0696@gmail.com','56987','963852741','1996-11-06','fdgdfgdg','0000-00-00 00:00:00','Masculino','Activo'),(3,'Ana','Suarez','ana@gmail.com','123','963852741','0000-00-00','sadsada','0000-00-00 00:00:00','Femenino','Activo'),(12,'prueba2','prueba2','asa@aa','prueba2','','0000-00-00','','0000-00-00 00:00:00','Masculino','Eliminado'),(18,'a','a','p@a','a','','0000-00-00','','2018-05-21 11:53:04','Femenino','Eliminado');
 
 /*Table structure for table `workshops` */
 
