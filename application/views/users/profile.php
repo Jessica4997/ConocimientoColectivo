@@ -26,6 +26,11 @@
                     <a href="<?php echo site_url('profile_page/show_edit_profile')?>" class="btn btn-warning btn-raised btn-block animated fadeInUp animation-delay-12">
                         <i class="zmdi zmdi-edit"></i>Editar Perfil</a>
                 </div>
+
+                <div class="col-lg-12 col-md-12 order-md-3 order-lg-2">
+                    <a href="<?php echo site_url('profile_page/show_edit_password')?>" class="btn btn-success btn-raised btn-block animated fadeInUp animation-delay-12">
+                        <i class="zmdi zmdi-edit"></i>Cambiar contraseña</a>
+                </div>
             </div>
         </div>
 

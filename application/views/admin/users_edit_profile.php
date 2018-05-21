@@ -36,12 +36,6 @@
                 </div>
 
                 <div class="row form-group">
-                  <label for="inputCel" class="col-md-2 control-label">Teléfono</label>
-                  <div class="col-md-9">
-                    <input type="text" class="form-control" name="telefono" placeholder="Teléfono"> </div>
-                </div>
-
-                <div class="row form-group">
                   <label for="inputDate" class="col-md-2 control-label">Fecha de Nacimiento</label>
                   <div class="col-md-9">
                     <input type="date" name="fecha_nacimiento"> </div>

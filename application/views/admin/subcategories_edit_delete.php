@@ -14,7 +14,7 @@
                 <div class="row form-group">
                   <label for="inputName" class="col-md-2 control-label">Subcategoría</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="subcategory_name" placeholder="Subcategoría" required> </div>
+                    <input type="text" class="form-control" name="subcategory_name" placeholder="Subcategoría" value="<?php echo $sc_id['sub_name']?>" required> </div>
                 </div>
            
                     <input type="submit" value="Guardar Cambios" class="btn btn-raised btn-primary btn-block">

@@ -15,12 +15,13 @@
                 <div class="card-body">
 
                     <h1 class="color-primary text-center">Recuperar contraseña</h1>
-                    <form method="post" action="" class="form-horizontal">
+                    <form method="post" action="<?php echo site_url('login/update_new_password')?>" class="form-horizontal">
+                        <input type="hidden" name="idusuario" value="<?php echo $id_user?>">
                         <fieldset>
                             <div class="form-group row">
                                 <label for="inputEmail" class="col-md-3 control-label">Nueva contraseña</label>
                                 <div class="col-md-9">
-                                    <input type="email" class="form-control" name="correo" id="inputEmail" placeholder="Nueva contraseña" required> </div>
+                                    <input type="password" class="form-control" name="contrasena" id="inputEmail" placeholder="Nueva contraseña" required> </div>
                             </div>
                             <div class="form-group row">
                                 <label for="inputPassword" class="col-md-3 control-label">Confirmar nueva contraseña</label>
@@ -30,6 +31,7 @@
                         </fieldset>
                         <div align="center">
                             <input type="submit" class="btn btn-raised btn-primary" value="Cambiar contraseña">
+
                         </div>
                     </form>
                 </div>

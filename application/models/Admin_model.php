@@ -10,7 +10,6 @@ class Admin_model extends CI_Model {
                 last_name,
                 email,
                 cell_phone,
-                phone,
                 DATE_FORMAT(date_birth,'%d-%m-%Y') AS date_birth,
                 description,
                 gender,
@@ -30,7 +29,6 @@ class Admin_model extends CI_Model {
                 last_name,
                 email,
                 cell_phone,
-                phone,
                 DATE_FORMAT(date_birth,'%d-%m-%Y') AS date_birth,
                 description,
                 gender,
@@ -51,7 +49,6 @@ class Admin_model extends CI_Model {
             'last_name' => $dataform['apellidos'],
             'password' => $dataform['contrasena'],
             'cell_phone' => $dataform['celular'],
-            'phone' => $dataform['telefono'],
             'date_birth' => $dataform['fecha_nacimiento'],
             'description' => $dataform['descripcion'],
             'status' => $dataform['estado'],
@@ -115,7 +112,6 @@ class Admin_model extends CI_Model {
           
           return $query->result_array();
     }
-
 
 
     public function get_subcategories_list($category_id){

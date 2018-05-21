@@ -23,8 +23,10 @@ class Profile_Page extends CI_Controller {
 	}
 
 	public function show_edit_profile(){
+		$data_u = $this->user_model->show_profile_by_id($this->user_id);
 		$dataView=[
-		'page'=>'users/edit'
+		'page'=>'users/edit',
+		'user_d'=>$data_u
 		];
 		$this->load->view('template/basic',$dataView);
 	}

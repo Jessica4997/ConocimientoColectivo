@@ -47,12 +47,6 @@
                 </div>
 
                 <div class="row form-group">
-                  <label for="inputCel" class="col-md-2 control-label">Teléfono</label>
-                  <div class="col-md-9">
-                    <input type="text" class="form-control" name="telefono" placeholder="Teléfono"> </div>
-                </div>
-
-                <div class="row form-group">
                   <label for="inputGen" class="col-md-2 control-label">Género</label>
                   <div class="col-md-9">
                     <select name="genero" class="form-control selectpicker">
@@ -75,19 +69,10 @@
                     <input type="text" class="form-control" name="descripcion" placeholder="Descripción"> </div>
                 </div>
 
-                <div class="row mt-2">
-                  <div class="offset-lg-2 col-lg-6">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox">
-                        <span class="ml-2">Acepto las condiciones de uso.</span>
-                      </label>
-                    </div>
-                  </div>
                   <div class="col-lg-3">
-                    <button class="btn btn-raised btn-primary btn-block">Registrarse Ahora</button>
+                    <button class="btn btn-raised btn-primary">Registrarse Ahora</button>
                   </div>
-                </div>
+  
               </fieldset>
             </form>
           </div>

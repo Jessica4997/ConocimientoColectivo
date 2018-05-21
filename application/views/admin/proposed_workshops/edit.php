@@ -10,8 +10,7 @@
                             <div class="row form-group">
                                 <label for="" class="col-md-2 control-label">Título</label>
                                 <div class="col-md-9">
-                                    <?php echo $pw_by_id['title']?>
-                                    <input type="text" class="form-control" placeholder="Título" name="titulo" required> </div>
+                                    <input type="text" class="form-control" placeholder="Título" name="titulo" value="<?php echo $pw_by_id['title']?>" required> </div>
                             </div>
 
                             <div class="row form-group">
@@ -58,23 +57,26 @@
                             <div class="row form-group">
                                 <label for="inputDate" class="col-md-2 control-label">Fecha de Inicio</label>
                                 <div class="col-md-9">
-                                    <?php echo $pw_by_id['start_date']?>
-                                    <input type="datetime-local" name="fecha_inicio" placeholder="mes/día/año" required> </div>
+                                   <?php
+                                   $datetime1 = new DateTime($pw_by_id['start_date']);
+                                   ?>
+                                    <input type="datetime-local" name="fecha_inicio" placeholder="mes/día/año" value="<?php echo $datetime1->format('Y-m-d\TH:i:s')?>" required> </div>
                             </div>
 
                             <div class="row form-group">
                                 <label for="inputDate" class="col-md-2 control-label">Fecha de Cierre</label>
                                 <div class="col-md-9">
-                                    <?php echo $pw_by_id['final_date']?>
-                                    <input type="datetime-local" name="fecha_fin" placeholder="mes/día/año" required> </div>
+                                   <?php
+                                   $datetime2 = new DateTime($pw_by_id['final_date']);
+                                   ?>
+                                    <input type="datetime-local" name="fecha_fin" placeholder="mes/día/año" value="<?php echo $datetime2->format('Y-m-d\TH:i:s')?>" required> </div>
                             </div>
 
                             <div class="form-group row justify-content-end">
                                 <label for="" class="col-lg-2 control-label">Descripción</label>
-
-                                <div class="col-lg-10">
-                                    <?php echo $pw_by_id['description']?>
-                                    <textarea class="form-control" rows="3" name="descripcion"></textarea>
+                                <div class="col-lg-10">   
+                                    <textarea class="form-control" rows="3" name="descripcion"><?php echo $pw_by_id['description']?>
+                                    </textarea>
                                     <span class="help-block">Escriba una breve descripción </span>
                                 </div>
                             </div>

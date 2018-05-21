@@ -15,7 +15,7 @@
                 <div class="card-body">
 
                     <h1 class="color-primary text-center">Olvide mi contraseña</h1>
-                    <form method="post" action="" class="form-horizontal">
+                    <form method="post" action="<?php echo site_url('login/recovery_password')?>" class="form-horizontal">
                         <fieldset>
                             <div class="form-group row">
                                 <label for="inputEmail" class="col-md-3 control-label">Correo Electrónico</label>

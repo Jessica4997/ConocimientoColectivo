@@ -10,7 +10,6 @@ class User_model extends CI_Model {
         'name' => $dataform['nombres'],
         'last_name' => $dataform['apellidos'],
         'cell_phone' => $dataform['celular'],
-        'phone' => $dataform['telefono'],
         'gender' => $dataform['genero'],
         'date_birth' => $dataform['fecha_nacimiento'],
         'description' => $dataform['descripcion'],
@@ -22,7 +21,6 @@ class User_model extends CI_Model {
     }else{
         return "error";
     }
-
   }
 
   public function check_user_login($u,$p){
@@ -43,18 +41,15 @@ class User_model extends CI_Model {
     }else{
         return false;
     }
-    
   }
 
   public function show_profile_by_id($user_id){
- 
         $sql = "SELECT
                 u.id,
                 u.name,
                 u.last_name,
                 u.email,
                 u.cell_phone,
-                u.phone,
                 DATE_FORMAT(u.date_birth,'%d-%m-%Y') AS date_birth,
                 u.description,
                 u.gender
@@ -68,17 +63,69 @@ class User_model extends CI_Model {
       return $query->row_array();
   }
 
-    public function update_user_profile($dataform){
+  public function update_user_profile($dataform){
         $data = array(
             //'password' => $dataform['contrasena'],
             'name' => $dataform['nombres'],
             'last_name' => $dataform['apellidos'],
             'cell_phone' => $dataform['celular'],
-            'phone' => $dataform['telefono'],
             'date_birth' => $dataform['fecha_nacimiento'],
             'description' => $dataform['descripcion']
         );
-
         $this->db->update('users', $data, array('id' => $this->session->userdata('s_iduser')));
+  }
+
+    public function find_user_by_email($email){
+        $sql = "SELECT
+                id,
+                name,
+                last_name,
+                email
+              FROM
+                users
+                    WHERE email = ?
+                    LIMIT 1";
+
+      $query = $this->db->query($sql,array($email));
+      
+      return $query->row_array();
+    }
+
+
+    public function insert_to_token($email,$token){
+        $userdata = $this->user_model->find_user_by_email($email);
+        $data = array(
+            'user_id' => $userdata['id'],
+            'token' => $token
+    );
+        $this->db->insert('token', $data);
+    }
+
+
+    public function find_user_by_token($token){
+        $sql = "SELECT
+                id,
+                token,
+                user_id
+              FROM
+                token
+                    WHERE token = ?
+                    LIMIT 1";
+
+        $query = $this->db->query($sql,array($token));
+
+        return $query->row_array();
+    }
+
+    public function update_user_password($dataform){
+        //var_dump($dataform);exit();
+        $data = array(
+            'password' => $dataform['contrasena']
+        );
+        $this->db->update('users', $data, array('id' => $dataform['idusuario']));
+    }
+
+    public function delete_token($id){
+        $this->db->delete('token', array('id' => $id));
     }
 }
