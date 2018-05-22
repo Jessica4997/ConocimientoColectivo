@@ -20,7 +20,7 @@ class Admin extends CI_Controller {
 		};
 		//var_dump($lis);exit();
 		$dataView=[
-			'page'=>'admin/users_list',
+			'page'=>'admin/users/list',
 			'lista_u'=> $u_list
 		];
 		$this->load->view('template/basic',$dataView);
@@ -29,7 +29,7 @@ class Admin extends CI_Controller {
 	public function show_profile($user_id){
 		$show_by_id = $this->admin_model->show_specific_user($user_id);
 		$dataView=[
-		'page'=>'admin/users_profile',
+		'page'=>'admin/users/profile',
 		'list'=>$show_by_id
 		];
 		$this->load->view('template/basic',$dataView);
@@ -38,15 +38,35 @@ class Admin extends CI_Controller {
 	public function show_edit_profile($user_id){
 		$show_by_id = $this->admin_model->show_specific_user($user_id);
 		$dataView=[
-		'page'=>'admin/users_edit_profile',
+		'page'=>'admin/users/edit_profile',
 		'data_id'=>$show_by_id
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
+	public function show_edit_password($user_id){
+		$show_by_id = $this->admin_model->show_specific_user($user_id);
+		$dataView=[
+		'page'=>'admin/users/edit_password',
+		'data_id'=>$show_by_id
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+
 	public function save_edit_profile($user_id){
 		$edit_profile = $this->admin_model->update_users_profiles($_POST, $user_id);
 		redirect('admin/show_profile/'.$user_id, 'refresh');
+	}
+
+	public function save_edit_password($user_id){
+		if ($_POST['contrasena'] === $_POST['recontrasena']){
+			$edit_profile = $this->admin_model->update_users_password($_POST, $user_id);
+			redirect('admin/show_profile/'.$user_id, 'refresh');
+		}else{
+			echo "Las contraseñas no coinciden";
+		}
+
 	}
 
 	public function remove_users($user_id){
@@ -225,5 +245,4 @@ class Admin extends CI_Controller {
 		$this->admin_model->cancel_delete_pw($id);
 		redirect('admin/proposed_workshop_description/' .$id, 'refresh');
 	}
-
 }

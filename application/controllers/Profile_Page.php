@@ -31,10 +31,28 @@ class Profile_Page extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function save_edit_profile_data(){
+	public function show_edit_password(){
+		$data_u = $this->user_model->show_profile_by_id($this->user_id);
+		$dataView=[
+		'page'=>'users/edit_password',
+		'user_d'=>$data_u
+		];
+		$this->load->view('template/basic',$dataView);
+	}
 
+	public function save_edit_profile_data(){
 		$this->user_model->update_user_profile($_POST);
 		redirect('profile_page', 'refresh');
+	}
+
+	public function save_edit_password_data(){
+		if($_POST['contrasena'] === $_POST['recontrasena']){
+			$this->user_model->change_user_password($_POST);
+			redirect('profile_page', 'refresh');
+		}else{
+			echo "Las contraseñas no coinciden";
+		}
+
 	}
 
 

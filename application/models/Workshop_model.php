@@ -1,7 +1,7 @@
 <?php
 class Workshop_model extends CI_Model {
 
-    public function get_list(){
+    public function get_list($page_num){
         $sql = "SELECT 
         w.id AS w_id,
         w.title,
@@ -18,13 +18,21 @@ class Workshop_model extends CI_Model {
           ON w.`category_id` = c.`id`
           INNER JOIN subcategories AS sc
             ON w.subcategory_id = sc.id
-            WHERE w.removed = 'Activo' ;";
+            WHERE w.removed = 'Activo'
+            LIMIT 2
+            ";
+
+            if($page_num){
+              $page_num = ($page_num*2);
+              //var_dump($page_num);exit();
+              $sql.=  "OFFSET $page_num";
+            }
 
         $query = $this->db->query($sql);
         
         return $query->result_array();
     }
-
+ 
 
     public function show_by_id($id){
  
@@ -182,7 +190,7 @@ class Workshop_model extends CI_Model {
     return $this->db->update('workshops', $data, array('id' => $id));
   }
 
-  public function search_by_category_title($category,$q){
+  public function search_by_category_title($page_num,$category,$q){
     $sql = "SELECT 
               w.id AS w_id,
               w.title,
@@ -206,18 +214,21 @@ class Workshop_model extends CI_Model {
 
       if(is_array($category)){
         $cat_id = implode(",",$category);
-        $sql.="AND c.id IN ({$cat_id})";
+        $sql.="AND c.id IN ({$cat_id}) LIMIT 2";
       }
 
       if(is_string($q) && trim($q)!=''){
         $q = trim($q);
-        $sql.="AND w.title LIKE '%{$q}%' ";
+        $sql.="AND w.title LIKE '%{$q}%' LIMIT 2";
+      }
+
+      if($page_num){
+        $page_num = ($page_num*2);
+        $sql.=  " LIMIT 2 OFFSET $page_num";
       }
 
       $query = $this->db->query($sql);
       
       return $query->result_array();
     }
-
-
 }

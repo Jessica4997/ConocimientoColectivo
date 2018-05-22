@@ -75,6 +75,13 @@ class User_model extends CI_Model {
         $this->db->update('users', $data, array('id' => $this->session->userdata('s_iduser')));
   }
 
+  public function change_user_password($dataform){
+        $data = array(
+            'password' => $dataform['contrasena']
+        );
+        $this->db->update('users', $data, array('id' => $this->session->userdata('s_iduser')));
+  }
+
     public function find_user_by_email($email){
         $sql = "SELECT
                 id,

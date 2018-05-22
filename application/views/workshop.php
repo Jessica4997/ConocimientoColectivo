@@ -24,9 +24,12 @@
           <h2 class="color-primary">Buscar</h2>
           <div class="form-group">
             <input type="text" name="q" class="form-control"> </div>
+            <input type="text" name="page">
             <button type="submit" class="btn btn-primary btn-raised btn-block">
               <i class="zmdi zmdi-search"></i>Buscar</button>
             </form>
+
+  
 
       <form class="form-horizontal">
         <h4>Ordenar por</h4>
@@ -83,5 +86,30 @@
 
   </div>
 </div>
+
+
+
+<nav aria-label="Page navigation">
+    <ul class="pagination pagination-plain">
+        <li class="page-item">
+            <a class="page-link" href="" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item active"><a class="page-link" href="">1</a></li>
+        <li class="page-item"><a class="page-link" href="">2</a></li>
+        <li class="page-item"><a class="page-link" href="">3</a></li>
+        <li class="page-item"><a class="page-link" href="">4</a></li>
+        <li class="page-item"><a class="page-link" href="">5</a></li>
+        <li class="page-item">
+            <a class="page-link" href="" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+
 </div>
 </div>

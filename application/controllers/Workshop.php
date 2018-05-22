@@ -19,14 +19,24 @@ class Workshop extends CI_Controller {
 	public function index() {
 		$category = $this->input->get('category');
 		$q = $this->input->get('q');
+		$pag = $this->input->get('page');
 
-		if(!is_null($category) || !empty($q)){
-			$wrk = $this->workshop_model->search_by_category_title($category,$q);
+		if (!empty($pag) || !is_null($category) || !empty($q)){
+			$wrk = $this->workshop_model->search_by_category_title($pag,$category,$q);
 		}else{
-			$wrk = $this->workshop_model->get_list();
+			$wrk = $this->workshop_model->get_list($pag);
 		}
+		//var_dump($wrk);exit();
+		/*if(!is_null($category) || !empty($q)){
+			$wrk = $this->workshop_model->search_by_category_title($category,$q);
+		}
+		else{
+			$wrk = $this->workshop_model->get_list();
+		}*/
 
 		$catlist = $this->workshop_model->get_categories_list();
+
+		//var_dump($pag_num);exit();
 		//var_dump($wrk);exit;
 		$dataView=[
 			'page'=>'workshop',

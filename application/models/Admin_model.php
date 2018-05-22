@@ -28,6 +28,7 @@ class Admin_model extends CI_Model {
                 name,
                 last_name,
                 email,
+                password,
                 cell_phone,
                 DATE_FORMAT(date_birth,'%d-%m-%Y') AS date_birth,
                 description,
@@ -47,13 +48,19 @@ class Admin_model extends CI_Model {
         $data = array(
             'name' => $dataform['nombres'],
             'last_name' => $dataform['apellidos'],
-            'password' => $dataform['contrasena'],
             'cell_phone' => $dataform['celular'],
             'date_birth' => $dataform['fecha_nacimiento'],
             'description' => $dataform['descripcion'],
-            'status' => $dataform['estado'],
             'gender' => $dataform['genero'],
             'removed' => 'Activo'
+        );
+
+        $this->db->update('users', $data, array('id' => $user_id));
+    }
+
+    public function update_users_password($dataform, $user_id){
+        $data = array(
+            'password' => $dataform['contrasena']
         );
 
         $this->db->update('users', $data, array('id' => $user_id));
