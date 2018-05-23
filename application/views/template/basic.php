@@ -37,6 +37,14 @@
 
     <script>
 
+      $( document ).ready(function() {
+        $('#workshop_navigate_list ul li a').on('click',function(event){
+            event.preventDefault();
+            $('#workshop_form_page').val($(this).attr("href"));
+            $('#workshop_form').submit();
+        });
+      });
+
       function only_numbers(e){
 
         key = e.keyCode || e.which;
@@ -60,11 +68,6 @@
           return false;
         }
       }
-
-    </script>
-
-
-    <script>
 
       function only_letters(e){
 

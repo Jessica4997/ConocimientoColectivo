@@ -17,31 +17,28 @@ class Workshop extends CI_Controller {
 	}
 
 	public function index() {
-		$category = $this->input->get('category');
-		$q = $this->input->get('q');
-		$pag = $this->input->get('page');
-
-		if (!empty($pag) || !is_null($category) || !empty($q)){
-			$wrk = $this->workshop_model->search_by_category_title($pag,$category,$q);
+		$rp = 2;
+		/*
+		if(isset($_GET['category'])){
+			$category = $_GET['category'];
 		}else{
-			$wrk = $this->workshop_model->get_list($pag);
+			$category = [];
 		}
-		//var_dump($wrk);exit();
-		/*if(!is_null($category) || !empty($q)){
-			$wrk = $this->workshop_model->search_by_category_title($category,$q);
-		}
-		else{
-			$wrk = $this->workshop_model->get_list();
-		}*/
-
+		*/
+		$category = (isset($_GET['category']))? $_GET['category']:[];
+		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$wrk = $this->workshop_model->search_by_category_title($page,$category,$q,$rp);
+		$num_pages = $this->workshop_model->get_total_search($category,$q,$rp);
 		$catlist = $this->workshop_model->get_categories_list();
-
-		//var_dump($pag_num);exit();
-		//var_dump($wrk);exit;
 		$dataView=[
 			'page'=>'workshop',
 			'lists'=>$wrk ,
-			'lis'=>$catlist
+			'lis'=>$catlist,
+			'q'=>$q,
+			'category'=>$category,
+			'pagination'=>$page,
+			'num_pages'=>$num_pages,
 		];
 		$this->load->view('template/basic',$dataView);
 	}

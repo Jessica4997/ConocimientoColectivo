@@ -1,37 +1,7 @@
 <?php
 class Workshop_model extends CI_Model {
 
-    public function get_list($page_num){
-        $sql = "SELECT 
-        w.id AS w_id,
-        w.title,
-        DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
-        DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,        
-        w.level,
-        w.amount,
-        w.description,
-        c.name,
-        sc.sub_name
-      FROM
-        workshops AS w
-        INNER JOIN categories AS c
-          ON w.`category_id` = c.`id`
-          INNER JOIN subcategories AS sc
-            ON w.subcategory_id = sc.id
-            WHERE w.removed = 'Activo'
-            LIMIT 2
-            ";
-
-            if($page_num){
-              $page_num = ($page_num*2);
-              //var_dump($page_num);exit();
-              $sql.=  "OFFSET $page_num";
-            }
-
-        $query = $this->db->query($sql);
-        
-        return $query->result_array();
-    }
+    
  
 
     public function show_by_id($id){
@@ -190,8 +160,23 @@ class Workshop_model extends CI_Model {
     return $this->db->update('workshops', $data, array('id' => $id));
   }
 
-  public function search_by_category_title($page_num,$category,$q){
-    $sql = "SELECT 
+  public function search_by_category_title($page,$category,$q,$rp){
+    $offset = (($page-1)*$rp);
+    $sql = $this->get_sql_search($category,$q);
+    $sql.=  " LIMIT {$rp} OFFSET {$offset}";
+    $query = $this->db->query($sql);
+    return $query->result_array();
+  }
+  
+  public function get_total_search($category,$q,$rp){
+    $sql = $this->get_sql_search($category,$q);
+    $query = $this->db->query($sql);
+    $total = $query->num_rows();
+    return ceil($total/$rp);
+  }
+
+    public function get_sql_search($category,$q){
+          $sql = "SELECT 
               w.id AS w_id,
               w.title,
               w.description,
@@ -212,23 +197,19 @@ class Workshop_model extends CI_Model {
                 WHERE w.removed = 'Activo'
                  ";
 
-      if(is_array($category)){
+      if(is_array($category) && count($category)>0){
         $cat_id = implode(",",$category);
-        $sql.="AND c.id IN ({$cat_id}) LIMIT 2";
+        $sql.="AND c.id IN ({$cat_id}) ";
       }
 
-      if(is_string($q) && trim($q)!=''){
+      if(trim($q)!=''){
         $q = trim($q);
-        $sql.="AND w.title LIKE '%{$q}%' LIMIT 2";
+        $sql.="AND w.title LIKE '%{$q}%' ";
       }
 
-      if($page_num){
-        $page_num = ($page_num*2);
-        $sql.=  " LIMIT 2 OFFSET $page_num";
-      }
+      $sql.=" ORDER BY w.id ";
 
-      $query = $this->db->query($sql);
-      
-      return $query->result_array();
+      return $sql;
+
     }
 }

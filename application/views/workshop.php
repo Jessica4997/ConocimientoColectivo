@@ -1,115 +1,113 @@
-<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-  <div class="container">
-  <div class="card card-primary">
-    <div class="card-header">
-      <h3 class="card-title">Filtros</h3>
-    </div>
-    <div class="card-body">
-      <form class="form-horizontal">
-        <h4 class="mb-1 no-mt">Categorías</h4>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3">
 
-        <fieldset>
-          <?php foreach($lis as $rowc){?>
-          <div class="form-group no-mt">
-            <div class="checkbox">
-              <label>
-                <input name="category[]" value="<?php echo $rowc['id']?>" type="checkbox"> <?php echo $rowc['name']?> </label>
-          </div>
-         <?php }?>
-        </fieldset>
+			<div class="card card-primary">
+				<div class="card-header">
+					<h3 class="card-title">Filtros</h3>
+				</div>
+				<div class="card-body">
+					<form class="form-horizontal" id="workshop_form">
+            <input type="hidden" id="workshop_form_page" name="page" value="<?php echo $pagination;?>">
+						<h4 class="mb-1 no-mt">Categorías</h4>
 
-        <button class="btn btn-danger btn-block no-mb mt-2" id="Reset">
-          <i class="zmdi zmdi-delete"></i>Limpiar filtros</button>
+						<fieldset>
+							<?php foreach($lis as $rowc){ $isselect = (isset($category[$rowc['id']]))? 'checked':'';  ?>
+							<div class="form-group no-mt">
+								<div class="checkbox">
+									<label>
+										<input name="category[<?php echo $rowc['id']?>]" value="<?php echo $rowc['id']?>" type="checkbox" <?php echo $isselect;?>>
+										<?php echo $rowc['name']?> </label>
+								</div>
+								<?php }?>
+						</fieldset>
+						<div class="form-group">
+							<input type="text" name="q" class="form-control" value="<?php echo $q?>" placeholder="buscar" > </div>
+						<button type="submit" class="btn btn-primary btn-raised btn-block">
+							<i class="zmdi zmdi-search"></i>Buscar</button>
+					</form>
+					</div>
+				</div>
+			</div>
 
-          <h2 class="color-primary">Buscar</h2>
-          <div class="form-group">
-            <input type="text" name="q" class="form-control"> </div>
-            <input type="text" name="page">
-            <button type="submit" class="btn btn-primary btn-raised btn-block">
-              <i class="zmdi zmdi-search"></i>Buscar</button>
-            </form>
+			<div class="col-lg-9">
+				<h1 align="center">
+					<strong>Talleres</strong>
+				</h1>
 
-  
+				<p class="text-center">
+					<a href="<?php echo site_url('workshop/create')?>" class="btn btn-primary btn-raised text-right" role="button">
+						<i class="fa fa-plus"></i>Crear Taller</a>
+				</p>
 
-      <form class="form-horizontal">
-        <h4>Ordenar por</h4>
-        <select id="SortSelect" class="form-control selectpicker">
-          <option value="random">Populares</option>
-          <option value="price:asc">Menor Precio</option>
-          <option value="price:desc">Mayor Precio</option>
-          <option value="price:desc">Calificación</option>
-          <option value="date:asc">Fecha</option>
-        </select>
-      </form>
-    </div>
-  </div>
+				<div class="row" id="Container">
 
-<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-  <h1 align="center"><strong>Talleres</strong></h1>
+					<?php foreach($lists as $row){?>
+					<div class="col-xl-6 col-lg-6 col-md-6 mix " data-price="<?php echo $row['amount']?>">
+						<div class="card ms-feature">
+							<div class="card-body text-center">
+								<h4 class="text-normal text-center">
+									<?php echo $row['title']?>
+									<?php echo $row['w_id']?>
+								</h4>
+								<p>
+									<li>Categoría:
+										<?php echo $row['name']?>
+									</li>
+									<li>Sub-categoría:
+										<?php echo $row['sub_name']?>
+									</li>
+									<li>Nivel:
+										<?php echo $row['level']?>
+									</li>
+									<li>Fecha de inicio:
+										<?php echo $row['start_date']?>
+									</li>
+									<li>Fecha de fin:
+										<?php echo $row['final_date']?>
+									</li>
+									<li>Descripción:
+										<?php echo $row['description']?>
+									</li>
+								</p>
 
-  <p class="text-center">
-      <a href="<?php echo site_url('workshop/create')?>" class="btn btn-primary btn-raised text-right" role="button">
-        <i class="fa fa-plus"></i>Crear Taller</a>
-  </p>
+								<span class="mr-2">
+									<i class="zmdi zmdi-star color-warning"></i>
+									<i class="zmdi zmdi-star color-warning"></i>
+									<i class="zmdi zmdi-star color-warning"></i>
+									<i class="zmdi zmdi-star color-warning"></i>
+									<i class="zmdi zmdi-star"></i>
+								</span>
+								<span class="ms-tag ms-tag-success">S/.
+									<?php echo $row['amount']?>
+								</span>
 
-  <div class="row" id="Container">
+								<a href="<?php echo site_url ('workshop/description/'.$row['w_id'])?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
+									<i class="fa fa-search"></i>Ver Detalles</a>
+							</div>
+						</div>
+					</div>
+					<?php }?>
 
-    <?php foreach($lists as $row){?>
-    <div class="col-xl-6 col-lg-6 col-md-6 mix " data-price="<?php echo $row['amount']?>">
-      <div class="card ms-feature">
-        <div class="card-body text-center">
-          <h4 class="text-normal text-center"><?php echo $row['title']?> <?php echo $row['w_id']?></h4>
-          <p>
-            <li>Categoría: <?php echo $row['name']?></li>
-            <li>Sub-categoría: <?php echo $row['sub_name']?></li>
-            <li>Nivel: <?php echo $row['level']?></li>
-            <li>Fecha de inicio: <?php echo $row['start_date']?></li>
-            <li>Fecha de fin: <?php echo $row['final_date']?></li>
-            <li>Descripción: <?php echo $row['description']?></li>
-          </p>
+				</div>
+				<nav id="workshop_navigate_list" aria-label="Page navigation">
+					<ul class="pagination pagination-plain">
 
-            <span class="mr-2">
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star"></i>
-            </span>
-            <span class="ms-tag ms-tag-success">S/. <?php echo $row['amount']?></span>
-        
-          <a href="<?php echo site_url ('workshop/description/'.$row['w_id'])?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
-            <i class="fa fa-search"></i>Ver Detalles</a>
-        </div>
-      </div>
-    </div>
-    <?php }?>
-
-  </div>
-</div>
-
-
-
-<nav aria-label="Page navigation">
-    <ul class="pagination pagination-plain">
-        <li class="page-item">
-            <a class="page-link" href="" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="">1</a></li>
-        <li class="page-item"><a class="page-link" href="">2</a></li>
-        <li class="page-item"><a class="page-link" href="">3</a></li>
-        <li class="page-item"><a class="page-link" href="">4</a></li>
-        <li class="page-item"><a class="page-link" href="">5</a></li>
-        <li class="page-item">
-            <a class="page-link" href="" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+            <?php for($page_i = 1;$page_i<=$num_pages && $num_pages>1;$page_i++){?>
+						<li class="page-item <?php echo ($page_i==$pagination)? 'active':'';?>">
+							<a class="page-link" href="<?php echo $page_i;?>"><?php echo $page_i;?></a>
+            </li>
+            <?php }?>
+					</ul>
+				</nav>
+			</div>
 
 
 
-</div>
+
+
+
+
+		</div>
+	</div>
 </div>
