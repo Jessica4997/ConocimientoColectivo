@@ -25,7 +25,7 @@ CREATE TABLE `categories` (
   `name` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `categories` */
 
@@ -65,11 +65,11 @@ CREATE TABLE `inscribed_users` (
   KEY `fk_inscribed_users_wrks_id` (`wrks_id`),
   CONSTRAINT `fk_inscribed_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_inscribed_users_wrks_id` FOREIGN KEY (`wrks_id`) REFERENCES `workshops` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 /*Data for the table `inscribed_users` */
 
-insert  into `inscribed_users`(`id`,`iu_status`,`student_rating`,`tutor_rating`,`user_id`,`wrks_id`,`created_date`) values (1,'Confirmado',NULL,NULL,2,1,NULL),(12,'Confirmado',NULL,NULL,1,2,NULL),(24,'Confirmado',NULL,NULL,1,4,NULL),(26,'Confirmado',NULL,NULL,2,3,NULL);
+insert  into `inscribed_users`(`id`,`iu_status`,`student_rating`,`tutor_rating`,`user_id`,`wrks_id`,`created_date`) values (1,'Confirmado',NULL,NULL,2,1,NULL),(12,'Confirmado',NULL,NULL,1,2,NULL),(24,'Confirmado',NULL,NULL,1,4,NULL),(26,'Confirmado',NULL,NULL,2,3,NULL),(27,'Confirmado',NULL,NULL,19,80,NULL),(28,'Confirmado',NULL,NULL,19,1,NULL);
 
 /*Table structure for table `payments` */
 
@@ -190,7 +190,7 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`id`),
   KEY `fk_subcategories_parent_id_categories_id` (`categories_id`),
   CONSTRAINT `fk_subcategories_parent_id_categories_id` FOREIGN KEY (`categories_id`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `subcategories` */
 
@@ -207,7 +207,7 @@ CREATE TABLE `token` (
   PRIMARY KEY (`id`),
   KEY `fk_token_user_id_users_id` (`user_id`),
   CONSTRAINT `fk_token_user_id_users_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `token` */
 
@@ -228,11 +228,11 @@ CREATE TABLE `users` (
   `gender` enum('Femenino','Masculino') NOT NULL,
   `removed` enum('Activo','Eliminado') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`date_birth`,`description`,`created_date`,`gender`,`removed`) values (1,'Jessica Edith','Paredes Alarcón','jessp.4997@gmail.com','123456','958690578','1997-09-04','Hola','2018-05-21 20:08:58','Femenino','Activo'),(2,'Kevin','Robles','kevin0696@gmail.com','56987','959252653','1996-11-06','fdgdfgdg','2018-05-21 20:23:38','Masculino','Activo'),(3,'Ana','Suarez','ana@gmail.com','123','963852741','0000-00-00','sadsada','2018-05-21 20:44:41','Femenino','Activo'),(12,'prueba2','prueba2','asa@aa','prueba2','','0000-00-00','','0000-00-00 00:00:00','Masculino','Eliminado'),(18,'a','a','p@a','a','','0000-00-00','','2018-05-21 11:53:04','Femenino','Eliminado');
+insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`date_birth`,`description`,`created_date`,`gender`,`removed`) values (1,'Jessica Edith','Paredes Alarcón','jessp.4997@gmail.com','123456','958690578','1997-09-04','Hola','2018-05-21 20:08:58','Femenino','Activo'),(2,'Kevin','Robles','kevin0696@gmail.com','56987','959252653','1996-11-06','fdgdfgdg','2018-05-21 20:23:38','Masculino','Activo'),(3,'Ana','Suarez','ana@gmail.com','123','963852741','0000-00-00','sadsada','2018-05-21 20:44:41','Femenino','Activo'),(12,'prueba2','prueba2','asa@aa','prueba2','','0000-00-00','','0000-00-00 00:00:00','Masculino','Eliminado'),(18,'a','a','p@a','a','','0000-00-00','','2018-05-23 13:15:18','Femenino','Eliminado'),(19,'Joyce','Nuñez','joyce810@gmail.com','aquarium','912547896','0000-00-00','','2018-05-23 14:05:54','Femenino','Activo');
 
 /*Table structure for table `workshops` */
 
@@ -260,11 +260,11 @@ CREATE TABLE `workshops` (
   CONSTRAINT `fk_workshops_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_workshops_subcategory_id_subcategories_id` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategories` (`id`),
   CONSTRAINT `fk_workshops_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 
 /*Data for the table `workshops` */
 
-insert  into `workshops`(`id`,`title`,`description`,`vacancy`,`amount`,`start_date`,`final_date`,`level`,`wrks_status`,`created_date`,`user_id`,`category_id`,`subcategory_id`,`removed`) values (1,'Clase de Guitarra','Buscamos 5 personas que quieran aprender a tocar guitarra.',5,100.00,'2018-04-22 06:20:37','2018-04-22 06:20:27','Básico','En curso','2018-04-15 06:20:16',1,3,10,'Activo'),(2,'Clase de Baile','Busco 10 personas que esten dispuestas a aprender clases de salsa en nivel intermedio.',10,50.00,'2018-04-21 06:39:35','2018-04-25 06:39:40','Intermedio','En curso','2018-04-15 06:39:52',2,1,2,'Activo'),(3,'Clase de Repostería','Personas interesadas a aprender como preparar postres postular al taller.',8,150.00,'2018-04-25 12:49:25','2018-04-28 12:49:33','Avanzado','En curso','2018-04-15 12:49:54',1,6,19,'Activo'),(4,'Clase de Batería','',3,40.00,'2018-04-22 12:51:23','2018-04-23 12:51:58','Intermedio','En curso','2018-05-19 00:13:16',2,3,11,'Activo'),(50,'Taller de Violín','Buscamos jóvenes que quieran aprender a tocar violín con un profesor con 10 años de trayectoria',10,30.00,'2018-04-25 17:00:00','2018-04-25 18:30:00','Intermedio','En curso','0000-00-00 00:00:00',2,3,28,'Activo'),(76,'Taller de Ukelele','2',2,2.00,'0000-00-00 00:00:00','0000-00-00 00:00:00','Intermedio','En curso','2018-05-19 00:35:40',2,3,24,'Activo'),(80,'Taller de Comida Oriental','Comida oriental',5,32.00,'2018-05-18 18:30:00','2018-05-18 20:00:00','Intermedio','En curso','0000-00-00 00:00:00',1,6,20,'Activo');
+insert  into `workshops`(`id`,`title`,`description`,`vacancy`,`amount`,`start_date`,`final_date`,`level`,`wrks_status`,`created_date`,`user_id`,`category_id`,`subcategory_id`,`removed`) values (1,'Clase de Guitarra','Buscamos 5 personas que quieran aprender a tocar guitarra.',4,100.00,'2018-04-22 06:20:37','2018-04-22 06:20:27','Básico','En curso','2018-05-23 14:08:19',1,3,10,'Activo'),(2,'Clase de Baile','Busco 10 personas que esten dispuestas a aprender clases de salsa en nivel intermedio.',10,50.00,'2018-04-21 06:39:35','2018-04-25 06:39:40','Intermedio','En curso','2018-04-15 06:39:52',2,1,2,'Activo'),(3,'Clase de Repostería','Personas interesadas a aprender como preparar postres postular al taller.',8,150.00,'2018-04-25 12:49:25','2018-04-28 12:49:33','Avanzado','En curso','2018-04-15 12:49:54',1,6,19,'Activo'),(4,'Clase de Batería','',3,40.00,'2018-04-22 12:51:23','2018-04-23 12:51:58','Intermedio','En curso','2018-05-19 00:13:16',2,3,11,'Activo'),(50,'Taller de Violín','Buscamos jóvenes que quieran aprender a tocar violín con un profesor con 10 años de trayectoria',10,30.00,'2018-04-25 17:00:00','2018-04-25 18:30:00','Intermedio','En curso','0000-00-00 00:00:00',2,3,28,'Activo'),(76,'Taller de Ukelele','2',2,2.00,'0000-00-00 00:00:00','0000-00-00 00:00:00','Intermedio','En curso','2018-05-19 00:35:40',2,3,24,'Activo'),(80,'Taller de Comida Oriental','Comida oriental',4,32.00,'2018-05-18 18:30:00','2018-05-18 20:00:00','Intermedio','En curso','2018-05-23 14:08:06',1,6,20,'Activo'),(81,'Taller de Voley','Buscamos personas que quieran aprender voley.',10,20.00,'2018-05-23 17:00:00','2018-05-30 19:00:00','Intermedio','En curso','2018-05-23 16:23:27',19,2,7,'Activo');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
