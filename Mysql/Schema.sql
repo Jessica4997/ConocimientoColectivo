@@ -232,7 +232,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`date_birth`,`description`,`created_date`,`gender`,`removed`) values (1,'Jessica Edith','Paredes Alarcon','jessp.4997@gmail.com','123','958690578','1997-09-04','Hola','2018-05-20 23:13:41','Femenino','Activo'),(2,'Kevin','Robles','kevin0696@gmail.com','56987','963852741','1996-11-06','fdgdfgdg','0000-00-00 00:00:00','Masculino','Activo'),(3,'Ana','Suarez','ana@gmail.com','123','963852741','0000-00-00','sadsada','0000-00-00 00:00:00','Femenino','Activo'),(12,'prueba2','prueba2','asa@aa','prueba2','','0000-00-00','','0000-00-00 00:00:00','Masculino','Eliminado'),(18,'a','a','p@a','a','','0000-00-00','','2018-05-21 11:53:04','Femenino','Eliminado');
+insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`date_birth`,`description`,`created_date`,`gender`,`removed`) values (1,'Jessica Edith','Paredes Alarcón','jessp.4997@gmail.com','123456','958690578','1997-09-04','Hola','2018-05-21 20:08:58','Femenino','Activo'),(2,'Kevin','Robles','kevin0696@gmail.com','56987','959252653','1996-11-06','fdgdfgdg','2018-05-21 20:23:38','Masculino','Activo'),(3,'Ana','Suarez','ana@gmail.com','123','963852741','0000-00-00','sadsada','2018-05-21 20:44:41','Femenino','Activo'),(12,'prueba2','prueba2','asa@aa','prueba2','','0000-00-00','','0000-00-00 00:00:00','Masculino','Eliminado'),(18,'a','a','p@a','a','','0000-00-00','','2018-05-21 11:53:04','Femenino','Eliminado');
 
 /*Table structure for table `workshops` */
 
