@@ -104,6 +104,27 @@ class Admin_model extends CI_Model {
                 return $query->result_array();
     }
 
+    public function get_specific_category($category_id){
+        $sql = "SELECT 
+                   id,
+                   name
+              FROM
+                categories
+                WHERE id = ? ;";
+
+        $query = $this->db->query($sql,array($category_id));
+
+        return $query->row_array();
+    }
+
+    public function update_category($dataform, $category_id){
+      $data = array(
+      'name' => $dataform['category_name']
+        );
+
+        $this->db->update('categories', $data, array('id' => $category_id));
+    }
+
 //SUBCATEGORIES
 
     public function get_subcategories_list_no_filter(){
@@ -154,7 +175,8 @@ class Admin_model extends CI_Model {
             $sql = "SELECT
                 id,
                 sub_name,
-                removed
+                removed,
+                categories_id
               FROM
                 subcategories
                 WHERE id = ?
@@ -167,6 +189,7 @@ class Admin_model extends CI_Model {
 
 
   public function update_subcategory($dataform, $subcategory_id){
+    $dataform['category_id'];
     $data = array(
       'sub_name' => $dataform['subcategory_name']
         );
@@ -456,7 +479,7 @@ class Admin_model extends CI_Model {
       $data = array(
           'title' => $dataform['titulo'],
           'category_id' => $dataform['categoria'],
-          'subcategory_id' => $dataform['sub_categoria'],
+          'subcategory_id' => $dataform['subcategoria'],
           'level' => $dataform['nivel'],
           'start_date' => $dataform['fecha_inicio'],
           'final_date' => $dataform['fecha_fin'],

@@ -1,9 +1,6 @@
 <?php
 class Workshop_model extends CI_Model {
 
-    
- 
-
     public function show_by_id($id){
  
         $sql = "SELECT
@@ -105,7 +102,6 @@ class Workshop_model extends CI_Model {
         'iu_status'=> 'Confirmado',
         'wrks_id'=> $id
     );
-
     $this->db->insert('inscribed_users', $data);
   }
 

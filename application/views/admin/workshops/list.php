@@ -18,26 +18,12 @@
          <?php }?>
         </fieldset>
 
-        <button class="btn btn-danger btn-block no-mb mt-2" id="Reset">
-          <i class="zmdi zmdi-delete"></i>Limpiar filtros</button>
-
           <h2 class="color-primary">Buscar</h2>
           <div class="form-group">
             <input type="text" name="q" class="form-control"> </div>
             <button type="submit" class="btn btn-primary btn-raised btn-block">
               <i class="zmdi zmdi-search"></i>Buscar</button>
             </form>
-
-      <form class="form-horizontal">
-        <h4>Ordenar por</h4>
-        <select id="SortSelect" class="form-control selectpicker">
-          <option value="random">Populares</option>
-          <option value="price:asc">Menor Precio</option>
-          <option value="price:desc">Mayor Precio</option>
-          <option value="price:desc">Calificación</option>
-          <option value="date:asc">Fecha</option>
-        </select>
-      </form>
     </div>
   </div>
 

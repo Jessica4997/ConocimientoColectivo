@@ -11,12 +11,6 @@
             <form method="post" action="<?php echo site_url('profile_page/save_edit_profile_data')?>" class="form-horizontal">
               <fieldset>
 
-                <!--<div class="row form-group">
-                  <label for="inputPassword" class="col-md-2 control-label">Contraseña</label>
-                  <div class="col-md-9">
-                    <input type="password" class="form-control" name="contrasena" placeholder="Contraseña" required> </div>
-                </div>-->
-
                 <div class="row form-group">
                   <label for="inputName" class="col-md-2 control-label">Nombres</label>
                   <div class="col-md-9">
@@ -32,7 +26,7 @@
                 <div class="row form-group">
                   <label for="inputCel" class="col-md-2 control-label">Celular</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="celular" placeholder="Celular" value="<?php echo $user_d['cell_phone']?>" > </div>
+                    <input type="text" class="form-control" name="celular" placeholder="Celular" onkeypress="return only_numbers(event)" onpaste="return false" value="<?php echo $user_d['cell_phone']?>" > </div>
                 </div>
 
                 <div class="row form-group">

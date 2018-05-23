@@ -66,7 +66,6 @@ class Admin extends CI_Controller {
 		}else{
 			echo "Las contraseñas no coinciden";
 		}
-
 	}
 
 	public function remove_users($user_id){
@@ -84,6 +83,22 @@ class Admin extends CI_Controller {
 		];
 		$this->load->view('template/basic',$dataView);
 	}
+
+	public function show_edit_category($category_id){
+		$specific_c = $this->admin_model->get_specific_category($category_id); 
+		$dataView=[
+			'page'=>'categories_edit_delete',
+			'c_id'=>$specific_c
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+
+	public function edit_category($category_id){
+		$this->admin_model->update_category($_POST,$category_id);
+		redirect('admin/categories_list/','refresh');
+	}
+
 
 //WORKSHOPS
 
@@ -127,6 +142,11 @@ class Admin extends CI_Controller {
 
 		];
 		$this->load->view('template/basic',$dataView);
+	}
+
+	public function workshop_save_edit($id){
+		$this->admin_model->update_w_description($_POST, $id);
+		redirect('admin/workshop_description/'.$id, 'refresh');
 	}
 
 	public function workshop_delete($id){
@@ -175,20 +195,23 @@ class Admin extends CI_Controller {
 
 
 	public function edit_subcategory($subcategory_id){
+		$specif_sc = $this->admin_model->get_specific_subcategory($subcategory_id);
 		$this->admin_model->update_subcategory($_POST,$subcategory_id);
-		redirect('admin/subcategories_list/', 'refresh');
+		redirect('admin/subcategories_list/' .$specif_sc['categories_id'], 'refresh');
 	}
 
 
 	public function delete_subcategory($subcategory_id){
+		$specif_sc = $this->admin_model->get_specific_subcategory($subcategory_id);
 		$this->admin_model->delete_subcategory($subcategory_id);
-		redirect('admin/subcategories_list/', 'refresh');
+		redirect('admin/subcategories_list/' .$specif_sc['categories_id'], 'refresh');
 
 	}
 
 	public function cancel_delete_subcategory($subcategory_id){
+		$specif_sc = $this->admin_model->get_specific_subcategory($subcategory_id);
 		$this->admin_model->cancel_delete_subcategory($subcategory_id);
-		redirect('admin/subcategories_list/', 'refresh');
+		redirect('admin/subcategories_list/' .$specif_sc['categories_id'], 'refresh');
 
 	}
 

@@ -12,7 +12,9 @@
 						<h4 class="mb-1 no-mt">Categorías</h4>
 
 						<fieldset>
-							<?php foreach($lis as $rowc){ $isselect = (isset($category[$rowc['id']]))? 'checked':'';  ?>
+							<!--<?php var_dump($rowc) ?>-->
+							<?php foreach($lis as $rowc){
+								$isselect = (isset($category[$rowc['id']]))? 'checked':'';  ?>
 							<div class="form-group no-mt">
 								<div class="checkbox">
 									<label>
@@ -48,7 +50,6 @@
 							<div class="card-body text-center">
 								<h4 class="text-normal text-center">
 									<?php echo $row['title']?>
-									<?php echo $row['w_id']?>
 								</h4>
 								<p>
 									<li>Categoría:
@@ -96,18 +97,11 @@
             <?php for($page_i = 1;$page_i<=$num_pages && $num_pages>1;$page_i++){?>
 						<li class="page-item <?php echo ($page_i==$pagination)? 'active':'';?>">
 							<a class="page-link" href="<?php echo $page_i;?>"><?php echo $page_i;?></a>
-            </li>
+						</li>
             <?php }?>
 					</ul>
 				</nav>
 			</div>
-
-
-
-
-
-
-
 		</div>
 	</div>
 </div>

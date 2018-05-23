@@ -18,6 +18,7 @@
     </tr>
   </thead>
   <tbody>
+
     <?php foreach($lista_sc as $rows){?>
     <tr>
 
@@ -32,6 +33,7 @@
       <th>Acción</th>
       <th>Campo</th>
     </tr>
+
      <form method="post" action="<?php echo site_url('admin/save_subcategory/' .$rows['categories_id'])?>" class="form-horizontal">
       <fieldset>
     <td>
@@ -43,6 +45,7 @@
     </td>
     </fieldset>
   </form>
+
   </tbody>
 </table>
 </div>

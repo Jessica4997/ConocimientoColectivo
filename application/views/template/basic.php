@@ -75,7 +75,7 @@
 
         teclado = String.fromCharCode(key);
 
-        letras = " abcdefghijklmnñopqrstuvwxyzáéíóú";
+        letras = " abcdefghijklmnñopqrstuvwxyzáéíóúABCDEFGHIJKLMNLÑOPQRSTUVWXYZÁÉÍÓÚ";
 
         especiales = "8-37-38-46-164"; //array
 
