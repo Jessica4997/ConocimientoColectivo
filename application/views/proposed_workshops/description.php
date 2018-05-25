@@ -46,8 +46,13 @@
 
                 <?php } ?>
 
+                <?php if($description['pw_user_id'] != $this->session->userdata('s_iduser')){ ?>
+
                 <a href="<?php echo site_url('proposed_workshop/vote/' .$description['id'])?>" class="btn btn-primary btn-raised">
                     <i class="fa fa-thumbs-up"></i>Votar (<?php echo $description['votes_quantity']?>)</a>
+
+                <?php } ?>
+                
                 </div>
 
             </div>

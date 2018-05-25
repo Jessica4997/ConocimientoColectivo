@@ -55,15 +55,20 @@
                             </div>
 
                             <div class="row form-group">
+                                <?php
+                                ini_set('date.timezone','America/Lima'); 
+                                $fechaActual = date('Y-m-d\TH:i');
+                                ?>
                                 <label for="inputDate" class="col-md-2 control-label">Fecha de Inicio</label>
+
                                 <div class="col-md-9">
-                                    <input type="datetime-local" name="fecha_inicio" placeholder="mes/día/año" required> </div>
+                                    <input type="datetime-local" name="fecha_inicio" placeholder="mes/día/año" min="<?php echo $fechaActual ?>" required> </div>
                             </div>
 
                             <div class="row form-group">
                                 <label for="inputDate" class="col-md-2 control-label">Fecha de Cierre</label>
                                 <div class="col-md-9">
-                                    <input type="datetime-local" name="fecha_fin" placeholder="mes/día/año" required> </div>
+                                    <input type="datetime-local" name="fecha_fin" placeholder="mes/día/año" min="<?php echo $fechaActual ?>" required> </div>
                             </div>
 
                             <div class="form-group row justify-content-end">

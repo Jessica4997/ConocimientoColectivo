@@ -12,6 +12,7 @@ class Workshop_model extends CI_Model {
         w.amount,
         w.vacancy,
         w.description,
+        w.user_id AS workshop_creator,
         /*w.wrks_status,*/
         c.name AS category_name,
         sc.sub_name,
@@ -31,7 +32,7 @@ class Workshop_model extends CI_Model {
       $query = $this->db->query($sql,array($id));
       
       return $query->row_array();
-  }
+    }
 
 
   public function create($dataform, $user_id){
@@ -58,7 +59,6 @@ class Workshop_model extends CI_Model {
     $sql = "SELECT 
            id,
            name
-
       FROM
         categories;";
 
@@ -86,7 +86,6 @@ class Workshop_model extends CI_Model {
         $sql = "SELECT 
            DISTINCT
             level
-
       FROM
         workshops;";
 
@@ -206,6 +205,5 @@ class Workshop_model extends CI_Model {
       $sql.=" ORDER BY w.id ";
 
       return $sql;
-
     }
 }

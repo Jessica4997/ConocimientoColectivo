@@ -1,19 +1,23 @@
-<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-  <div class="container">
+<div class="container">
+    <div class="row">
+    <div class="col-lg-3">
+
   <div class="card card-primary">
     <div class="card-header">
       <h3 class="card-title">Filtros</h3>
     </div>
     <div class="card-body">
-      <form class="form-horizontal">
+      <form class="form-horizontal" id="workshop_form">
+        <input type="hidden" id="workshop_form_page" name="page" value="<?php echo $pagination;?>">
         <h4 class="mb-1 no-mt">Categorías</h4>
 
         <fieldset>
-          <?php foreach($lis as $rowc){?>
+          <?php foreach($lis as $rowc){
+            $isselect = (isset($category[$rowc['id']]))? 'checked':'';  ?>
           <div class="form-group no-mt">
             <div class="checkbox">
               <label>
-                <input name="category[]" value="<?php echo $rowc['id']?>" type="checkbox"> <?php echo $rowc['name']?> </label>
+                <input name="category[<?php echo $rowc['id']?>]" value="<?php echo $rowc['id']?>" type="checkbox"> <?php echo $rowc['name']?> </label>
           </div>
          <?php }?>
         </fieldset>
@@ -26,8 +30,8 @@
             </form>
     </div>
   </div>
-
-<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+</div>
+<div class="col-lg-9">
   <h1 align="center"><strong>Talleres</strong></h1>
 
   <div class="row" id="Container">
@@ -38,7 +42,7 @@
         <div class="card-body text-center">
           <h4 class="text-normal text-center"><?php echo $row['title']?></h4>
           <p>
-            <li>Creado por: <?php echo $row['u_name']?> <?php echo $row['u_last_name']?></li>
+            <li>Creado por: <?php echo $row['w_user_name']?> <?php echo $row['w_user_lastname']?></li>
             <li>Categoría: <?php echo $row['name']?></li>
             <li>Sub-categoría: <?php echo $row['sub_name']?></li>
             <li>Nivel: <?php echo $row['level']?></li>
@@ -64,6 +68,19 @@
     <?php }?>
 
   </div>
+
+        <nav id="workshop_navigate_list" aria-label="Page navigation">
+          <ul class="pagination pagination-plain">
+
+            <?php for($page_i = 1;$page_i<=$num_pages && $num_pages>1;$page_i++){?>
+            <li class="page-item <?php echo ($page_i==$pagination)? 'active':'';?>">
+              <a class="page-link" href="<?php echo $page_i;?>"><?php echo $page_i;?></a>
+            </li>
+            <?php }?>
+          </ul>
+        </nav>
+
+</div>
 </div>
 </div>
 </div>

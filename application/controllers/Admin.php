@@ -11,17 +11,21 @@ class Admin extends CI_Controller {
 //USERS
 
 	public function index(){
-		$q = $this->input->get('q');
+		$rp = 3;
+		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$u_list = $this->admin_model->search_users_by_name($q,$page,$rp);
+		$num_row = $this->admin_model->get_rows_number($q,$page,$rp);
+		//var_dump($u_list);exit();
 
-		if(!empty($q)){
-			$u_list = $this->admin_model->search_users_by_name($q);
-		}else{
-			$u_list = $this->admin_model->show_all_users();
-		};
-		//var_dump($lis);exit();
+		//var_dump($num_row);exit();
+		//var_dump($u_list);exit();
 		$dataView=[
 			'page'=>'admin/users/list',
-			'lista_u'=> $u_list
+			'lista_u'=> $u_list,
+			'q'=>$q,
+			'num_pages'=>$num_row,
+			'pagination'=>$page
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -76,10 +80,20 @@ class Admin extends CI_Controller {
 //CATEGORIES
 
 	public function categories_list(){
-		$show_categories = $this->admin_model->get_categories_list();
+		$rp = 3;
+		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$c_list = $this->admin_model->search_categories_by_name($q,$page,$rp);
+		$num_row = $this->admin_model->get_rows_number_categories($q,$page,$rp);
+		//$sc_on_c=$this->admin_model->check_subcategory_exist($category_id);
+
 		$dataView=[
 		'page'=>'admin/categories_list',
-		'lista_c'=>$show_categories
+		'lista_c'=>$c_list,
+		'q'=>$q,
+		'pagination'=>$page,
+		'num_pages'=>$num_row,
+		
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -87,37 +101,52 @@ class Admin extends CI_Controller {
 	public function show_edit_category($category_id){
 		$specific_c = $this->admin_model->get_specific_category($category_id); 
 		$dataView=[
-			'page'=>'categories_edit_delete',
+			'page'=>'admin/categories/edit_delete',
 			'c_id'=>$specific_c
 		];
 		$this->load->view('template/basic',$dataView);
 	}
-
 
 	public function edit_category($category_id){
 		$this->admin_model->update_category($_POST,$category_id);
 		redirect('admin/categories_list/','refresh');
 	}
 
+	public function save_category(){
+		$this->admin_model->create_category($_POST);
+		//redirect('admin/categories_list', 'refresh');
+	}
+
+	public function remove_category($category_id){
+		$this->admin_model->delete_category($category_id);
+		redirect('admin/categories_list/', 'refresh');
+	}
+
+	public function cancel_remove_category($category_id){
+		$this->admin_model->cancel_delete_category($category_id);
+		redirect('admin/categories_list/', 'refresh');
+	}
+
 
 //WORKSHOPS
 
 	public function workshop_list(){
+		$rp = 2;
+		$category = (isset($_GET['category']))? $_GET['category']:[];
+		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$w_list = $this->admin_model->search_w_by_category_title($page,$category,$q,$rp);
+		$num_pages = $this->admin_model->get_w_total_search($category,$q,$rp);
 		$catlist = $this->admin_model->get_categories_list();
-		$category = $this->input->get('category');
-		$q = $this->input->get('q');
-
-		if(!is_null($category) || !empty($q)){
-			$pw_list = $this->admin_model->search_by_category_title_w($category,$q);
-		}else{
-			$pw_list = $this->admin_model->get_w_list();
-		}
-		
 		$dataView=[
 			'page'=>'admin/workshops/list',
-			'lists'=>$pw_list ,
-			'lis'=>$catlist
-		]; 
+			'lists'=>$w_list ,
+			'lis'=>$catlist,
+			'q'=>$q,
+			'category'=>$category,
+			'pagination'=>$page,
+			'num_pages'=>$num_pages,
+		];
 		$this->load->view('template/basic',$dataView);
 	}
 
@@ -162,25 +191,36 @@ class Admin extends CI_Controller {
 //SUBCATEGORIES
 
 	public function subcategories_list($category_id){
-		$q = $this->input->get('q');
-
-		if(!empty($q)){
-			$show_subcategories = $this->admin_model->search_subcategory_by_name($category_id,$q);
-		}else{
-			$show_subcategories = $this->admin_model->get_subcategories_list($category_id);
-		}
+		$rp = 4;
+		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$sc_list = $this->admin_model->search_subcategories_by_name($category_id,$q,$page,$rp);
+		$num_row = $this->admin_model->get_rows_number_subcategories($category_id,$q,$page,$rp);
+		$sc_on_c = $this->admin_model->check_subcategory_exist($category_id);
 
 		$dataView=[
 		'page'=>'admin/subcategories_list',
-		'lista_sc'=>$show_subcategories
+		'lista_sc'=>$sc_list,
+		'q'=>$q,
+		'pagination'=>$page,
+		'num_pages'=>$num_row,
+		'sc_on_c'=>$sc_on_c
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
+	public function show_create_subcategory($category_id){
+		$specific_c = $this->admin_model->get_specific_category($category_id); 
+		$dataView=[
+			'page'=>'admin/categories/create',
+			'c_id'=>$specific_c
+		];
+		$this->load->view('template/basic',$dataView);
+	}
 
 	public function save_subcategory($category_id){
 		$this->admin_model->create_subcategory($_POST, $category_id);
-		redirect('admin/subcategories_list/' .$category_id, 'refresh');
+		redirect('admin/categories_list/' .$category_id, 'refresh');
 	}
 
 	public function show_edit_subcategory($subcategory_id){
@@ -218,21 +258,22 @@ class Admin extends CI_Controller {
 //PROPOSED WORKSHOPS
 
 	public function proposed_workshop_list(){
+		$rp = 2;
+		$category = (isset($_GET['category']))? $_GET['category']:[];
+		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$pw_list = $this->admin_model->search_pw_by_category_title($page,$category,$q,$rp);
+		$num_pages = $this->admin_model->get_pw_total_search($category,$q,$rp);
 		$catlist = $this->admin_model->get_categories_list();
-		$category = $this->input->get('category');
-		$q = $this->input->get('q');
-
-		if(!is_null($category) || !empty($q)){
-			$pw_list = $this->admin_model->search_by_category_title($category,$q);
-		}else{
-			$pw_list = $this->admin_model->get_pw_list();
-		}
-		
 		$dataView=[
 			'page'=>'admin/proposed_workshops/list',
 			'lists'=>$pw_list ,
-			'lis'=>$catlist
-		]; 
+			'lis'=>$catlist,
+			'q'=>$q,
+			'category'=>$category,
+			'pagination'=>$page,
+			'num_pages'=>$num_pages,
+		];
 		$this->load->view('template/basic',$dataView);
 	}
 

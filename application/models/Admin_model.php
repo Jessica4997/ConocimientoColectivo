@@ -3,7 +3,7 @@ class Admin_model extends CI_Model {
 
 //USERS
 
-  public function show_all_users(){
+  public function get_sql_users($q){
         $sql = "SELECT
                 id,
                 name,
@@ -17,9 +17,27 @@ class Admin_model extends CI_Model {
               FROM
                 users";
 
-        $query = $this->db->query($sql);
-        
-        return $query->result_array();
+        if(trim($q)!=''){
+          $q = trim($q);
+          $sql.=" WHERE name LIKE '%{$q}%' ";
+        }
+        return $sql;
+  }
+
+  public function search_users_by_name($q,$page,$rp){
+    $offset = (($page-1)*$rp);
+    $sql = $this->get_sql_users($q);
+    $sql.= " LIMIT {$rp} OFFSET {$offset}";
+    $query = $this->db->query($sql);
+    return $query->result_array();
+  }
+
+  public function get_rows_number($q,$page,$rp){
+    $sql = $this->get_sql_users($q);
+    $query = $this->db->query($sql);
+    $row_number = $query->num_rows();
+    return ceil($row_number/$rp);
+    //var_dump($sql);exit();
   }
 
     public function show_specific_user($user_id){
@@ -74,28 +92,12 @@ class Admin_model extends CI_Model {
         return $this->db->update('users', $data, array('id' => $user_id));
     }
 
-    public function search_users_by_name($q){
-      $this->db->select('id,name,last_name,email,cell_phone,removed');
-      $this->db->from('users');
-
-      if(is_string($q) && trim($q)!=''){
-        $q = trim($q);
-        //$this->db->where("sub_name LIKE '%{$q}%' ",$q);
-        $this->db->where('name LIKE ', "%{$q}%");
-      }
-
-    $query = $this->db->get();
-        
-    return $query->result_array(); 
-    }
-
 //CATEGORIES
 
     public function get_categories_list(){
         $sql = "SELECT 
                    id,
                    name
-
               FROM
                 categories;";
 
@@ -104,10 +106,43 @@ class Admin_model extends CI_Model {
                 return $query->result_array();
     }
 
+    public function get_sql_categories($q){
+      $sql = "SELECT
+                id,
+                name,
+                removed
+              FROM
+                categories";
+
+        if(trim($q)!=''){
+          $q = trim($q);
+          $sql.=" WHERE name LIKE '%{$q}%' ";
+        }
+        return $sql;
+    }
+
+    public function search_categories_by_name($q,$page,$rp){
+      $offset = (($page-1)*$rp);
+      $sql = $this->get_sql_categories($q);
+      $sql.= " LIMIT {$rp} OFFSET {$offset}";
+      $query = $this->db->query($sql);
+
+      return $query->result_array();
+    }
+
+    public function get_rows_number_categories($q,$page,$rp){
+      $sql = $this->get_sql_categories($q);
+      $query = $this->db->query($sql);
+      $row_number = $query->num_rows();
+      return ceil($row_number/$rp);
+      //var_dump($sql);exit();
+    }
+
     public function get_specific_category($category_id){
         $sql = "SELECT 
                    id,
-                   name
+                   name,
+                   removed
               FROM
                 categories
                 WHERE id = ? ;";
@@ -124,6 +159,46 @@ class Admin_model extends CI_Model {
 
         $this->db->update('categories', $data, array('id' => $category_id));
     }
+
+    public function create_category($dataform){
+      $data = array(
+        'name' => $dataform['subcategory_name'],
+        'removed' => 'Activo'
+    );
+      $this->db->insert('categories', $data);
+    }
+
+    public function delete_category($category_id){
+      $data = array(
+        'removed' => 'Eliminado'
+      );
+      $this->db->update('categories', $data, array('id' => $category_id));
+    }
+
+    public function cancel_delete_category($category_id){
+      $data = array(
+        'removed' => 'Activo'
+      );
+      $this->db->update('categories', $data, array('id' => $category_id));
+    }
+
+    public function check_subcategory_exist($category_id){
+            $sql = "SELECT
+            sc.id AS sc_id,
+            sc.sub_name AS sc_name,
+            c.id AS c_id,
+            c.name AS c_name
+              FROM
+                subcategories AS sc 
+                INNER JOIN categories AS c 
+                  ON sc.categories_id = c.id
+                  WHERE c.id = ?";
+
+      $query = $this->db->query($sql,array($category_id));
+      
+      return $query->result_array();
+    }
+
 
 //SUBCATEGORIES
 
@@ -157,21 +232,53 @@ class Admin_model extends CI_Model {
           return $query->result_array();
     }
 
+    public function get_sql_subcategories($category_id,$q){
+      $sql = "SELECT
+                id,
+                sub_name,
+                categories_id,
+                removed
+              FROM
+                subcategories
+                WHERE categories_id = $category_id
+                ";
+                //var_dump($category_id);exit();
 
-  public function create_subcategory($dataform, $category_id){
-    $data = array(
+        if(trim($q)!=''){
+          $q = trim($q);
+          $sql.=" AND sub_name LIKE '%{$q}%' ";
+        }
+        return $sql;
+    }
+
+    public function search_subcategories_by_name($category_id,$q,$page,$rp){
+      $offset = (($page-1)*$rp);
+      $sql = $this->get_sql_subcategories($category_id,$q);
+      $sql.= " LIMIT {$rp} OFFSET {$offset}";
+      $query = $this->db->query($sql,array($category_id));
+
+      return $query->result_array();
+    }
+
+    public function get_rows_number_subcategories($category_id,$q,$page,$rp){
+      $sql = $this->get_sql_subcategories($category_id,$q);
+      $query = $this->db->query($sql);
+      $row_number = $query->num_rows();
+      return ceil($row_number/$rp);
+    }
+
+
+    public function create_subcategory($dataform, $category_id){
+      $data = array(
         'sub_name' => $dataform['subcategory_name'],
         'categories_id' => $category_id,
         'removed' => 'Activo'
-    );
-
-    $this->db->insert('subcategories', $data);
-
-  }
+      );
+      $this->db->insert('subcategories', $data);
+    }
 
 
-  public function get_specific_subcategory($subcategory_id){
-
+    public function get_specific_subcategory($subcategory_id){
             $sql = "SELECT
                 id,
                 sub_name,
@@ -185,40 +292,36 @@ class Admin_model extends CI_Model {
       $query = $this->db->query($sql,array($subcategory_id));
       
       return $query->row_array();
-  }
-
-
-  public function update_subcategory($dataform, $subcategory_id){
-    $dataform['category_id'];
-    $data = array(
-      'sub_name' => $dataform['subcategory_name']
-        );
-
-        $this->db->update('subcategories', $data, array('id' => $subcategory_id));
     }
 
 
-  public function delete_subcategory($subcategory_id){
-    $data = array(
-      'removed' => 'Eliminado'
-        );
-
-        $this->db->update('subcategories', $data, array('id' => $subcategory_id));
+    public function update_subcategory($dataform, $subcategory_id){
+      $data = array(
+        'sub_name' => $dataform['subcategory_name']
+      );
+      $this->db->update('subcategories', $data, array('id' => $subcategory_id));
     }
 
 
-  public function cancel_delete_subcategory($subcategory_id){
-    $data = array(
-      'removed' => 'Activo'
-        );
-
-        $this->db->update('subcategories', $data, array('id' => $subcategory_id));
+    public function delete_subcategory($subcategory_id){
+      $data = array(
+        'removed' => 'Eliminado'
+      );
+      $this->db->update('subcategories', $data, array('id' => $subcategory_id));
     }
 
-  public function search_subcategory_by_name($category_id, $q){
-    $this->db->select('id,sub_name,categories_id,removed');
-    $this->db->from('subcategories');
-    $this->db->where('categories_id',$category_id);
+
+    public function cancel_delete_subcategory($subcategory_id){
+      $data = array(
+        'removed' => 'Activo'
+      );
+      $this->db->update('subcategories', $data, array('id' => $subcategory_id));
+    }
+
+    public function search_subcategory_by_name($category_id, $q){
+      $this->db->select('id,sub_name,categories_id,removed');
+      $this->db->from('subcategories');
+      $this->db->where('categories_id',$category_id);
 
       if(is_string($q) && trim($q)!=''){
         $q = trim($q);
@@ -259,6 +362,60 @@ class Admin_model extends CI_Model {
       $query = $this->db->query($sql);
       
       return $query->result_array();
+    }
+
+    public function get_sql_pw_list($category,$q){
+          $sql = "SELECT 
+              pw.id AS pw_id,
+              pw.title,
+              pw.description,
+              DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
+              DATE_FORMAT(pw.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
+              pw.level,
+              pw.removed,
+              c.id,
+              c.name,
+              sc.sub_name,
+              pw.user_id AS u_id,
+              u.name AS u_name,
+              u.last_name AS u_last_name
+            FROM
+              proposed_workshops AS pw 
+              INNER JOIN categories AS c 
+                ON pw.`category_id` = c.`id`
+                INNER JOIN subcategories AS sc
+                ON pw.`subcategory_id` = sc.`id`
+                    INNER JOIN users AS u
+                    ON pw.user_id = u.id ";
+
+      if(is_array($category) && count($category)>0){
+        $cat_id = implode(",",$category);
+        $sql.="AND c.id IN ({$cat_id}) ";
+      }
+
+      if(trim($q)!=''){
+        $q = trim($q);
+        $sql.="AND pw.title LIKE '%{$q}%' ";
+      }
+
+      $sql.=" ORDER BY pw.id ";
+
+      return $sql;
+    }
+
+    public function search_pw_by_category_title($page,$category,$q,$rp){
+      $offset = (($page-1)*$rp);
+      $sql = $this->get_sql_pw_list($category,$q);
+      $sql.=  " LIMIT {$rp} OFFSET {$offset}";
+      $query = $this->db->query($sql);
+      return $query->result_array();
+    }
+  
+    public function get_pw_total_search($category,$q,$rp){
+      $sql = $this->get_sql_pw_list($category,$q);
+      $query = $this->db->query($sql);
+      $total = $query->num_rows();
+      return ceil($total/$rp);
     }
 
 
@@ -370,34 +527,62 @@ class Admin_model extends CI_Model {
 
 //WORKSHOPS
 
-    public function get_w_list(){
-      $sql = "SELECT 
-                w.id AS w_id,
-                w.title,
-                w.description,
-                DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
-                DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-                w.level,
-                w.amount,
-                w.removed,
-                c.name,
-                sc.sub_name,
-                w.user_id AS u_id,
-                u.name AS u_name,
-                u.last_name AS u_last_name
-              FROM
-                workshops AS w 
-                INNER JOIN categories AS c 
-                  ON w.`category_id` = c.`id`
-                  INNER JOIN subcategories AS sc
-                  ON w.`subcategory_id` = sc.`id`
-                    INNER JOIN users AS u
-                    ON w.user_id = u.id ";
+    public function get_sql_w_list($category,$q){
+          $sql = "SELECT 
+              w.id AS w_id,
+              w.title,
+              w.description,
+              DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
+              DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
+              w.level,
+              w.amount,
+              w.removed,
+              w.user_id as w_user_id,
+              c.id,
+              c.name,
+              sc.sub_name,
+              u.name AS w_user_name,
+              u.last_name AS w_user_lastname
+            FROM
+              workshops AS w 
+              INNER JOIN categories AS c 
+                ON w.`category_id` = c.`id`
+                INNER JOIN subcategories AS sc
+                ON w.`subcategory_id` = sc.`id`
+                  INNER JOIN users AS u
+                  ON w.user_id = u.id
+                 ";
 
-      $query = $this->db->query($sql);
-      
-      return $query->result_array();
+      if(is_array($category) && count($category)>0){
+        $cat_id = implode(",",$category);
+        $sql.="AND c.id IN ({$cat_id}) ";
+      }
+
+      if(trim($q)!=''){
+        $q = trim($q);
+        $sql.="AND w.title LIKE '%{$q}%' ";
+      }
+
+      $sql.=" ORDER BY w.id ";
+
+      return $sql;
     }
+
+  public function search_w_by_category_title($page,$category,$q,$rp){
+    $offset = (($page-1)*$rp);
+    $sql = $this->get_sql_w_list($category,$q);
+    $sql.=  " LIMIT {$rp} OFFSET {$offset}";
+    $query = $this->db->query($sql);
+    return $query->result_array();
+  }
+  
+  public function get_w_total_search($category,$q,$rp){
+    $sql = $this->get_sql_w_list($category,$q);
+    $query = $this->db->query($sql);
+    $total = $query->num_rows();
+    return ceil($total/$rp);
+  }
+
 
 
     public function show_w_by_id($id){

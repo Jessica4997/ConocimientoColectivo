@@ -1,46 +1,41 @@
-<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-    <div class="container">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">Filtros</h3>
-            </div>
-            <div class="card-body">
-                <form class="form-horizontal">
-                    <h4 class="no-mt">Categorías</h4>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Filtros</h3>
+                </div>
 
-                    <fieldset>
-                        <?php foreach($lis as $rowc){?>
-                        <div class="no-mt">
+                <div class="card-body">
+                    <form class="form-horizontal" id="workshop_form">
+                        <input type="hidden" id="workshop_form_page" name="page" value="<?php echo $pagination;?>">
+                        <h4 class="no-mt">Categorías</h4>
+
+                        <fieldset>
+                            <?php foreach($lis as $rowc){
+                                $isselect = (isset($category[$rowc['id']]))? 'checked':'';  ?>
+                                <div class="no-mt">
 
                             <div class="checkbox">
                                 <label>
-                                    <input name="category[]" value="<?php echo $rowc['id']?>" type="checkbox">
+                                    <input name="category[<?php echo $rowc['id']?>]" value="<?php echo $rowc['id']?>" type="checkbox"<?php echo $isselect;?>>
                                     <?php echo $rowc['name']?> </label>
                             </div>
                             <?php }?>
                     </fieldset>
-                    <button class="btn btn-danger btn-block no-mb mt-2" id="Reset">
-                        <i class="zmdi zmdi-delete"></i>Limpiar filtros</button>
                 
                 <h2 class="color-primary">Buscar</h2>
                 <div class="form-group">
-                    <input type="text" name="q" class="form-control"> </div>
+                    <input type="text" name="q" class="form-control" value="<?php echo $q?>"> </div>
                     <button type="submit" class="btn btn-primary btn-raised btn-block">
                         <i class="zmdi zmdi-search"></i>Buscar</button>
                     </form>
-                    
-                <form class="form-horizontal">
-                    <h4>Ordenar por</h4>
-                    <select id="SortSelect" class="form-control selectpicker">
-                        <option value="random">Populares</option>
-                        <option value="date:asc">Fecha</option>
-                    </select>
-                </form>
 
                 </div>
             </div>
 
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            </div>
+            <div class="col-lg-9">
                 <h1 align="center">
                     <strong>Solicitudes de Talleres</strong>
                 </h1>
@@ -78,7 +73,6 @@
                                 <div align="center">
                                     <a href="<?php echo site_url ('proposed_workshop/description/'.$row['pw_id'])?>" class="btn btn-primary btn-sm btn-raised no-mb">
                                         <i class="fa fa-search"></i>Ver Detalles</a>
-
                                 </div>
 
                             </div>
@@ -87,6 +81,19 @@
                     <?php }?>
 
                 </div>
+
+                <nav id="workshop_navigate_list" aria-label="Page navigation">
+                    <ul class="pagination pagination-plain">
+
+                        <?php for($page_i = 1;$page_i<=$num_pages && $num_pages>1;$page_i++){?>
+                        <li class="page-item <?php echo ($page_i==$pagination)? 'active':'';?>">
+                            <a class="page-link" href="<?php echo $page_i;?>"><?php echo $page_i;?></a>
+                        </li>
+                        <?php }?>
+                    </ul>
+                </nav>
+
+            </div>
             </div>
         </div>
     </div>

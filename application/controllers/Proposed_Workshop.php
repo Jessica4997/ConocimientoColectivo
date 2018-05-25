@@ -18,21 +18,22 @@ class Proposed_Workshop extends CI_Controller {
 
 
 	public function index(){
-		$category = $this->input->get('category');
-		$q = $this->input->get('q');
-
-		if(!is_null($category) || !empty($q)){
-			$wrk = $this->proposed_workshop_model->search_list_by_category($category,$q);
-		}else{
-			$wrk = $this->proposed_workshop_model->get_list();
-		}
-		
+		$rp = 2;
+		$category = (isset($_GET['category']))? $_GET['category']:[];
+		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$pw_list = $this->proposed_workshop_model->search_by_category_title($page,$category,$q,$rp);
+		$num_pages = $this->proposed_workshop_model->get_total_search($category,$q,$rp);
 		$catlist = $this->proposed_workshop_model->get_categories_list();
 		$dataView=[
 			'page'=>'proposed_workshops/list',
-			'lists'=>$wrk ,
-			'lis'=>$catlist
-		]; 
+			'lists'=>$pw_list ,
+			'lis'=>$catlist,
+			'q'=>$q,
+			'category'=>$category,
+			'pagination'=>$page,
+			'num_pages'=>$num_pages,
+		];
 		$this->load->view('template/basic',$dataView);
 	}
 
@@ -132,7 +133,7 @@ class Proposed_Workshop extends CI_Controller {
 				$this->proposed_workshop_model->insert_into_votes($pw_id, $this->user_id);
 				$verify_votes['votes_quantity'] = $verify_votes['votes_quantity'] + 1;
 				$this->proposed_workshop_model->update_votes_quantity($pw_id, $verify_votes['votes_quantity']);
-				//redirect('proposed_workshop', 'refresh');
+				redirect('proposed_workshop/description/' .$pw_id, 'refresh');
 			}else{
 				echo "Alcanzó el maximo de votos";
 			}

@@ -35,11 +35,11 @@
                   <li> Fecha de Cierre: <?php echo $description['final_date']?></li>
 
                   <li> Vacantes: <?php echo $description['vacancy']?> </li>
-
-
-
                 </ul>
+
+                <?php if ($description['workshop_creator'] != $this->session->userdata('s_iduser')){ ?>
                 <a href="<?php echo site_url('workshop/save_inscribed_user/'.$description['id'])?>" class="btn btn-primary btn-block btn-raised">Postular</a>
+                <?php }?>
               </div>
             </div>
           </div>

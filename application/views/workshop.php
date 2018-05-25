@@ -12,7 +12,6 @@
 						<h4 class="mb-1 no-mt">Categorías</h4>
 
 						<fieldset>
-							<!--<?php var_dump($rowc) ?>-->
 							<?php foreach($lis as $rowc){
 								$isselect = (isset($category[$rowc['id']]))? 'checked':'';  ?>
 							<div class="form-group no-mt">

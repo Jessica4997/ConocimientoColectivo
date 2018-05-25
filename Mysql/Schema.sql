@@ -24,12 +24,13 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
+  `removed` enum('Activo','Eliminado') COLLATE utf8_spanish2_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `categories` */
 
-insert  into `categories`(`id`,`name`,`parent_id`) values (1,'Bailes',NULL),(2,'Deportes',NULL),(3,'Música',NULL),(4,'Teatro',NULL),(5,'Arte',NULL),(6,'Gastronomía',NULL);
+insert  into `categories`(`id`,`name`,`parent_id`,`removed`) values (1,'Bailes',NULL,'Activo'),(2,'Deportes',NULL,'Activo'),(3,'Música',NULL,'Activo'),(4,'Teatro',NULL,'Activo'),(5,'Arte',NULL,'Activo'),(6,'Gastronomía',NULL,'Activo'),(7,'Escritura',NULL,'Activo'),(15,'aaa',NULL,'Eliminado');
 
 /*Table structure for table `discounts` */
 
@@ -70,6 +71,21 @@ CREATE TABLE `inscribed_users` (
 /*Data for the table `inscribed_users` */
 
 insert  into `inscribed_users`(`id`,`iu_status`,`student_rating`,`tutor_rating`,`user_id`,`wrks_id`,`created_date`) values (1,'Confirmado',NULL,NULL,2,1,NULL),(12,'Confirmado',NULL,NULL,1,2,NULL),(24,'Confirmado',NULL,NULL,1,4,NULL),(26,'Confirmado',NULL,NULL,2,3,NULL),(27,'Confirmado',NULL,NULL,19,80,NULL),(28,'Confirmado',NULL,NULL,19,1,NULL);
+
+/*Table structure for table `level` */
+
+DROP TABLE IF EXISTS `level`;
+
+CREATE TABLE `level` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `level` varchar(20) NOT NULL,
+  `dificult` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+/*Data for the table `level` */
+
+insert  into `level`(`id`,`level`,`dificult`) values (1,'Básico',1),(2,'Intermedio',2),(3,'Avanzado',3);
 
 /*Table structure for table `payments` */
 
@@ -142,7 +158,7 @@ CREATE TABLE `proposed_workshops` (
 
 /*Data for the table `proposed_workshops` */
 
-insert  into `proposed_workshops`(`id`,`title`,`description`,`start_date`,`final_date`,`level`,`pw_status`,`created_date`,`user_id`,`category_id`,`subcategory_id`,`removed`,`votes_quantity`) values (1,'Taller de Hip-Hop','Somos 5 chicos que deseamos la apertura de un taller de música urbana para el miércoles 25 de abril.','2018-04-25 14:00:00','2018-04-25 17:00:00','Básico','Inactivo','2018-04-25 08:03:19',2,1,23,'Activo',1),(2,'Taller de Ukelele','Buscamos a una persona que nos dicte clases de ukelele','2018-04-26 12:00:00','2018-04-26 14:00:00','Intermedio','Activo','2018-04-25 12:25:01',1,3,24,'Eliminado',0),(3,'Taller de Pintura','Necesitamos un profesor que nos enseñe como pintar en degradado','2018-04-25 18:00:00','2018-04-25 20:00:00','Avanzado','Inactivo','2018-04-25 12:26:34',3,5,16,'Activo',0),(6,'Taller de Ballet','Buscamos a una profesora que nos enseñe clases de ballet para una presentación','2018-04-25 08:00:00','2018-04-25 09:30:00','Intermedio','Inactivo','0000-00-00 00:00:00',2,1,22,'Activo',0),(7,'Taller de Fulbito','d','2018-06-05 16:00:00','2018-06-05 18:00:00','Avanzado','Inactivo','0000-00-00 00:00:00',2,2,5,'Activo',0),(9,'Clases de Bachata','Taller de bachata para personas con conocimiento intermedios','2018-05-19 08:00:00','2018-05-19 10:00:00','Intermedio','Inactivo','0000-00-00 00:00:00',3,1,1,'Activo',0);
+insert  into `proposed_workshops`(`id`,`title`,`description`,`start_date`,`final_date`,`level`,`pw_status`,`created_date`,`user_id`,`category_id`,`subcategory_id`,`removed`,`votes_quantity`) values (1,'Taller de Hip-Hop','Somos 5 chicos que deseamos la apertura de un taller de música urbana para el miércoles 25 de abril.','2018-04-25 14:00:00','2018-04-25 17:00:00','Básico','Inactivo','2018-04-25 08:03:19',2,1,23,'Activo',1),(2,'Taller de Ukelele','Buscamos a una persona que nos dicte clases de ukelele','2018-04-26 12:00:00','2018-04-26 14:00:00','Intermedio','Activo','2018-04-25 12:25:01',1,3,24,'Eliminado',0),(3,'Taller de Pintura','Necesitamos un profesor que nos enseñe como pintar en degradado','2018-04-25 18:00:00','2018-04-25 20:00:00','Avanzado','Inactivo','2018-05-24 23:30:21',3,5,16,'Activo',1),(6,'Taller de Ballet','Buscamos a una profesora que nos enseñe clases de ballet para una presentación','2018-04-25 08:00:00','2018-04-25 09:30:00','Intermedio','Inactivo','2018-05-24 23:32:07',2,1,22,'Activo',1),(7,'Taller de Fulbito','d','2018-06-05 16:00:00','2018-06-05 18:00:00','Avanzado','Inactivo','2018-05-24 23:34:54',2,2,5,'Activo',0),(9,'Clases de Bachata','Taller de bachata para personas con conocimiento intermedios','2018-05-19 08:00:00','2018-05-19 10:00:00','Intermedio','Inactivo','0000-00-00 00:00:00',3,1,1,'Activo',0);
 
 /*Table structure for table `proposed_workshops_votes` */
 
@@ -157,11 +173,11 @@ CREATE TABLE `proposed_workshops_votes` (
   KEY `fk_pw_votes_user_id_users_id` (`user_id`),
   CONSTRAINT `fk_pw_votes_proposed_workshops_id_proposed_workshops_id` FOREIGN KEY (`proposed_workshops_id`) REFERENCES `proposed_workshops` (`id`),
   CONSTRAINT `fk_pw_votes_user_id_users_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 /*Data for the table `proposed_workshops_votes` */
 
-insert  into `proposed_workshops_votes`(`id`,`proposed_workshops_id`,`user_id`) values (8,1,1);
+insert  into `proposed_workshops_votes`(`id`,`proposed_workshops_id`,`user_id`) values (8,1,1),(9,3,1),(11,6,1);
 
 /*Table structure for table `ratings` */
 
@@ -190,11 +206,11 @@ CREATE TABLE `subcategories` (
   PRIMARY KEY (`id`),
   KEY `fk_subcategories_parent_id_categories_id` (`categories_id`),
   CONSTRAINT `fk_subcategories_parent_id_categories_id` FOREIGN KEY (`categories_id`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `subcategories` */
 
-insert  into `subcategories`(`id`,`sub_name`,`categories_id`,`removed`) values (1,'Bachata',1,'Activo'),(2,'Salsa',1,'Activo'),(4,'Balada',1,'Activo'),(5,'Fútbol',2,'Activo'),(7,'Voley',2,'Activo'),(9,'Basketball',2,'Activo'),(10,'Guitarra',3,'Activo'),(11,'Batería',3,'Activo'),(12,'Piano',3,'Activo'),(13,'Clown',4,'Activo'),(14,'Dramático',4,'Activo'),(15,'Comedia',4,'Activo'),(16,'Pintura',5,'Activo'),(17,'Escultura',5,'Activo'),(18,'Manualidades',5,'Activo'),(19,'Repostería',6,'Activo'),(20,'Oriental',6,'Activo'),(21,'Criolla',6,'Activo'),(22,'Ballet',1,'Activo'),(23,'Hip-Hop',1,'Activo'),(24,'Ukelele',3,'Activo'),(27,'Break Dance',1,'Activo'),(28,'Violín',3,'Activo');
+insert  into `subcategories`(`id`,`sub_name`,`categories_id`,`removed`) values (1,'Bachata',1,'Activo'),(2,'Salsa',1,'Activo'),(4,'Balada',1,'Activo'),(5,'Fútbol',2,'Activo'),(7,'Voley',2,'Activo'),(9,'Basketball',2,'Activo'),(10,'Guitarra',3,'Activo'),(11,'Batería',3,'Activo'),(12,'Piano',3,'Activo'),(13,'Clown',4,'Activo'),(14,'Dramático',4,'Activo'),(15,'Comedia',4,'Activo'),(16,'Pintura',5,'Activo'),(17,'Escultura',5,'Activo'),(18,'Manualidades',5,'Activo'),(19,'Repostería',6,'Activo'),(20,'Oriental',6,'Activo'),(21,'Criolla',6,'Activo'),(22,'Ballet',1,'Activo'),(23,'Hip-Hop',1,'Activo'),(24,'Ukelele',3,'Activo'),(27,'Break Dance',1,'Activo'),(28,'Violín',3,'Activo'),(34,'Ortografía',7,'Activo'),(36,'ooo',15,'Activo');
 
 /*Table structure for table `token` */
 
@@ -207,7 +223,7 @@ CREATE TABLE `token` (
   PRIMARY KEY (`id`),
   KEY `fk_token_user_id_users_id` (`user_id`),
   CONSTRAINT `fk_token_user_id_users_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `token` */
 
@@ -232,7 +248,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`date_birth`,`description`,`created_date`,`gender`,`removed`) values (1,'Jessica Edith','Paredes Alarcón','jessp.4997@gmail.com','123456','958690578','1997-09-04','Hola','2018-05-21 20:08:58','Femenino','Activo'),(2,'Kevin','Robles','kevin0696@gmail.com','56987','959252653','1996-11-06','fdgdfgdg','2018-05-21 20:23:38','Masculino','Activo'),(3,'Ana','Suarez','ana@gmail.com','123','963852741','0000-00-00','sadsada','2018-05-21 20:44:41','Femenino','Activo'),(12,'prueba2','prueba2','asa@aa','prueba2','','0000-00-00','','0000-00-00 00:00:00','Masculino','Eliminado'),(18,'a','a','p@a','a','','0000-00-00','','2018-05-23 13:15:18','Femenino','Eliminado'),(19,'Joyce','Nuñez','joyce810@gmail.com','aquarium','912547896','0000-00-00','','2018-05-23 14:05:54','Femenino','Activo');
+insert  into `users`(`id`,`name`,`last_name`,`email`,`password`,`cell_phone`,`date_birth`,`description`,`created_date`,`gender`,`removed`) values (1,'Jessica Edith','Paredes Alarcón','jessp.4997@gmail.com','123456','958690578','1997-09-04','Hola','2018-05-21 20:08:58','Femenino','Activo'),(2,'Kevin','Robles','kevin0696@gmail.com','56987','959252653','1996-11-06','fdgdfgdg','2018-05-21 20:23:38','Masculino','Activo'),(3,'Ana','Suarez','ana@gmail.com','123','963852741','0000-00-00','sadsada','2018-05-21 20:44:41','Femenino','Activo'),(12,'prueba2','prueba2','asa@aa','prueba2','','0000-00-00','','0000-00-00 00:00:00','Masculino','Eliminado'),(18,'a','a','p@a','a','','0000-00-00','','2018-05-23 13:15:18','Femenino','Eliminado'),(19,'Joyce','Nuñez','joyce810@gmail.com','aquarium','912547896','0000-00-00','aa','2018-05-24 18:23:29','Femenino','Activo');
 
 /*Table structure for table `workshops` */
 

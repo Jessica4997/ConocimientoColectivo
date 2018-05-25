@@ -21,6 +21,15 @@
 
               </fieldset>
             </form>
+
+            <?php if($c_id['removed'] == 'Activo'){ ?>
+            <a href="<?php echo site_url('admin/remove_category/' .$c_id['id'])?>" class="btn btn-raised btn-primary btn-block">Eliminar</a>
+            <?php } ?>
+
+            <?php if($c_id['removed'] == 'Eliminado'){ ?>
+            <a href="<?php echo site_url('admin/cancel_remove_category/' .$c_id['id'])?>" class="btn btn-raised btn-primary btn-block">Volver a Agregar</a>
+            <?php } ?>
+
           </div>
         </div>
       </div>

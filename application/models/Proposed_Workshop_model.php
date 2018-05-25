@@ -25,6 +25,56 @@ class Proposed_Workshop_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_sql_search($category,$q){
+          $sql = "SELECT 
+              pw.id AS pw_id,
+              pw.title,
+              pw.description,
+              DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
+              DATE_FORMAT(pw.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
+              pw.level,
+              pw.removed,
+              c.id,
+              c.name,
+              sc.sub_name
+            FROM
+              proposed_workshops AS pw 
+              INNER JOIN categories AS c 
+                ON pw.`category_id` = c.`id`
+                INNER JOIN subcategories AS sc
+                ON pw.`subcategory_id` = sc.`id`
+                WHERE pw.removed = 'Activo'
+                 ";
+
+      if(is_array($category) && count($category)>0){
+        $cat_id = implode(",",$category);
+        $sql.="AND c.id IN ({$cat_id}) ";
+      }
+
+      if(trim($q)!=''){
+        $q = trim($q);
+        $sql.="AND pw.title LIKE '%{$q}%' ";
+      }
+
+      $sql.=" ORDER BY pw.id ";
+
+      return $sql;
+    }
+
+    public function search_by_category_title($page,$category,$q,$rp){
+      $offset = (($page-1)*$rp);
+      $sql = $this->get_sql_search($category,$q);
+      $sql.=  " LIMIT {$rp} OFFSET {$offset}";
+      $query = $this->db->query($sql);
+      return $query->result_array();
+    }
+  
+    public function get_total_search($category,$q,$rp){
+      $sql = $this->get_sql_search($category,$q);
+      $query = $this->db->query($sql);
+      $total = $query->num_rows();
+      return ceil($total/$rp);
+    }
 
     public function show_by_id($id){
  
