@@ -49,6 +49,14 @@ class Proposed_Workshop extends CI_Controller {
 		}else{
 			echo "Esta solicitud esta eliminada";
 		}
+
+			ini_set('date.timezone','America/Lima'); 
+              $fechaActual = date('d-m-Y g:i A');
+
+              var_dump($proposed_workshop_description['start_date']);
+              var_dump($fechaActual);
+		if($proposed_workshop_description['start_date'] < $fechaActual){
+			echo "La fecha de inicio ya paso";}
 	}
 
 	public function search_by_category(){
@@ -65,13 +73,13 @@ class Proposed_Workshop extends CI_Controller {
 
 	public function create(){
 		$categorylist = $this->proposed_workshop_model->get_categories_list();
-		$levellist = $this->proposed_workshop_model->get_level_list();
+		$level_list = $this->proposed_workshop_model->level_list();
 		$subcategorylist = $this->proposed_workshop_model->get_subcategories_list();
 
 		$dataView=[
 			'page'=>'proposed_workshops/create',
 			'prueba'=>$categorylist,
-			'intento'=>$levellist,
+			'level_list'=>$level_list,
 			'subcat'=>$subcategorylist
 		];
 		$this->load->view('template/basic',$dataView);
@@ -86,19 +94,31 @@ class Proposed_Workshop extends CI_Controller {
 
 
 	public function show_my_requests(){
-		$request = $this->proposed_workshop_model->get_my_request_list($this->user_id);
-			$dataView=[
+		$rp = 2;
+		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$request_list = $this->proposed_workshop_model->search_request_list_by_title($this->user_id,$page,$q,$rp);
+		$num_pages = $this->proposed_workshop_model->get_request_list_total_search($this->user_id,$q,$rp);
+		$dataView=[
 			'page'=>'proposed_workshops/my_requests',
-			'request_list'=>$request
+			'request_list'=>$request_list,
+			'q'=>$q,
+			'pagination'=>$page,
+			'num_pages'=>$num_pages,
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
 
 	public function open_request($pw_id){
+
+			ini_set('date.timezone','America/Lima'); 
+              $fechaActual = date('d-m-Y g:i A');
+
 		$pw_data = $this->proposed_workshop_model->get_proposed_workshop_data($pw_id);
-		if($pw_data['removed'] == 'Activo' && $pw_data['pw_user_id'] != $this->user_id){
-		//var_dump($pw_data);exit();
+		if($pw_data['pw_user_id'] != $this->user_id && $pw_data['start_date'] > $fechaActual){
+		//var_dump($pw_data);
+		//var_dump($fechaActual);exit();
 		$dataView=[
 			'page'=>'proposed_workshops/open_request',
 			'abc'=>$pw_data
@@ -118,16 +138,26 @@ class Proposed_Workshop extends CI_Controller {
 		//Todo se enviará por POST
 			$this->proposed_workshop_model->open_workshop_request($_POST, $this->user_id);
 			$this->proposed_workshop_model->remove_from_list($id);
+			$this->proposed_workshop_model->change_status($id);
 			redirect('workshop','refresh');
 		//}
 	}
 
 	public function vote($pw_id){
+
+              ini_set('date.timezone','America/Lima'); 
+              $fechaActual = date('d-m-Y g:i A');
+
 		$verify_votes = $this->proposed_workshop_model->get_votes_quantity($pw_id);
 		$verify_user_vote = $this->proposed_workshop_model->verify_user_vote($pw_id, $this->user_id);
+		$proposed_workshop_description = $this->proposed_workshop_model->show_by_id($pw_id);
+		//var_dump($pw_data);exit();
 
 		if($verify_user_vote){
 			echo "Ya votaste por este taller";
+		}else if($proposed_workshop_description['start_date'] < $fechaActual){
+			echo "La fecha de inicio culmino";
+
 		}else{
 			if($verify_votes['votes_quantity'] < 10){
 				$this->proposed_workshop_model->insert_into_votes($pw_id, $this->user_id);

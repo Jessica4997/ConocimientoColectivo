@@ -45,23 +45,39 @@ class Workshop extends CI_Controller {
 
 
 	public function description($id) {
+
 		$workshop_description = $this->workshop_model->show_by_id($id);
+		//var_dump($workshop_description);exit();
+		$w_by_user = $this->workshop_model->get_inscribed_workshops_by_user($this->user_id,$workshop_description['sc_id']);
+		$w_by_user_validate = isset($w_by_user)? $w_by_user :1;
+
+		      ini_set('date.timezone','America/Lima'); 
+              $fechaActual = date('d-m-Y g:i A');
+
+              var_dump($workshop_description['start_date']);
+              var_dump($fechaActual);
+		if($workshop_description['start_date'] < $fechaActual){
+			echo "La fecha de inicio ya paso";
+		}
+
+
 		$dataView=[
 			'page'=>'workshop_description',
-			'description'=>$workshop_description
+			'description'=>$workshop_description,
+			'w_historial'=>$w_by_user_validate
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
 	public function create(){
 		$categorylist = $this->workshop_model->get_categories_list();
-		$levellist = $this->workshop_model->get_level_list();
 		$subcategorylist = $this->workshop_model->get_subcategories_list();
+		$level_list = $this->workshop_model->level_list();
 		$dataView=[
 			'page'=>'workshops/create',
 			'prueba'=>$categorylist,
 			'list_sc'=>$subcategorylist,
-			'intento'=>$levellist
+			'level_list'=>$level_list
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -73,17 +89,31 @@ class Workshop extends CI_Controller {
 	}
 
 	public function save_inscribed_user($id){
+              ini_set('date.timezone','America/Lima'); 
+              $fechaActual = date('d-m-Y g:i A');
+
+
 		$verifydata = $this->workshop_model->verify_enroll_user($id, $this->user_id);
 		$verifycreator = $this->workshop_model->check_user_creator($id);
 		//$toString = implode($verifycreator);
 		$verifyvacancy = $this->workshop_model->get_vacancy_number($id);
-		//var_dump($verifycreator);exit;
+		$workshop_description = $this->workshop_model->show_by_id($id);
+		$w_by_user = $this->workshop_model->get_inscribed_workshops_by_user($this->user_id,$workshop_description['sc_id']);
+		//$w_by_user_validate = isset($w_by_user['dificult'])? $w_by_user['dificult'] :$w_by_user['dificult']=1;
+
 		if ($verifydata) {
 			echo "Ya te matriculaste";
 		}else if($verifycreator['user_id'] == $this->user_id) {
 			echo "No puedes matricularte porque tu lo creaste";
-		}
-		else{
+		}else if(intval($w_by_user['dificult']) +1 < intval($workshop_description['dificult'])){
+			//var_dump(intval($workshop_description['dificult']));
+			//var_dump($w_by_user['dificult']);
+			//var_dump($w_by_user_validate['dificult']);
+			
+			echo "No puedes matricularte porque necesitas llevar algun taller previo";
+		}else if($workshop_description['start_date'] < $fechaActual){
+			echo "La fecha de inicio ya paso";
+		}else{
 			if ($verifyvacancy['vacancy'] > 0) {
 				$this->workshop_model->enroll_workshop($this->user_id, $id);
 				$verifyvacancy['vacancy'] = $verifyvacancy['vacancy'] - 1;

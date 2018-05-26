@@ -1,7 +1,7 @@
 <?php
 class Proposed_Workshop_model extends CI_Model {
 
-    public function get_list(){
+    /*public function get_list(){
         $sql = "SELECT 
                   pw.id AS pw_id,
                   pw.title,
@@ -23,7 +23,7 @@ class Proposed_Workshop_model extends CI_Model {
         $query = $this->db->query($sql);
         
         return $query->result_array();
-    }
+    }*/
 
     public function get_sql_search($category,$q){
           $sql = "SELECT 
@@ -32,17 +32,20 @@ class Proposed_Workshop_model extends CI_Model {
               pw.description,
               DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
               DATE_FORMAT(pw.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-              pw.level,
               pw.removed,
               c.id,
               c.name,
-              sc.sub_name
+              sc.sub_name,
+              l.id,
+              l.level AS level_name
             FROM
               proposed_workshops AS pw 
               INNER JOIN categories AS c 
                 ON pw.`category_id` = c.`id`
                 INNER JOIN subcategories AS sc
                 ON pw.`subcategory_id` = sc.`id`
+                  INNER JOIN level AS l
+                  ON pw.level_id = l.id
                 WHERE pw.removed = 'Activo'
                  ";
 
@@ -84,15 +87,16 @@ class Proposed_Workshop_model extends CI_Model {
                   pw.description,
                   DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
                   DATE_FORMAT(pw.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-                  pw.level,
                   pw.votes_quantity,
                   pw.removed,
                   pw.user_id AS pw_user_id,
+                  pw.votes_quantity,
                   /*pw.pw_status,*/
                   c.name AS category_name,
                   sc.sub_name AS subcategory_name,
                   u.name AS user_name,
-                  u.last_name AS user_last_name
+                  u.last_name AS user_last_name,
+                  l.level AS level_name
                 FROM
                     proposed_workshops AS pw
                     INNER JOIN categories AS c
@@ -101,6 +105,8 @@ class Proposed_Workshop_model extends CI_Model {
                           ON pw.subcategory_id = sc.id
                             INNER JOIN users AS u
                               ON u.id = pw.user_id
+                                INNER JOIN level AS l
+                                ON pw.level_id = l.id
                         WHERE pw.`id` = ?
                         LIMIT 1";
 
@@ -114,7 +120,7 @@ class Proposed_Workshop_model extends CI_Model {
         'title' => $dataform['titulo'],
         'category_id' => $dataform['categoria'],
         'subcategory_id' => $dataform['sub_categoria'],
-        'level' => $dataform['nivel'],
+        'level_id' => $dataform['nivel'],
         'start_date' => $dataform['fecha_inicio'],
         'final_date' => $dataform['fecha_fin'],
         'description' => $dataform['descripcion'],
@@ -146,7 +152,6 @@ class Proposed_Workshop_model extends CI_Model {
         $sql = "SELECT 
             id,
             sub_name
-
       FROM
         subcategories
         WHERE removed = 'Activo';";
@@ -157,13 +162,14 @@ class Proposed_Workshop_model extends CI_Model {
     }
 
 
-    public function get_level_list(){
+    public function level_list(){
         $sql = "SELECT 
-           DISTINCT
-            level
+            id,
+            level,
+            dificult
 
       FROM
-        proposed_workshops;";
+        level;";
 
         $query = $this->db->query($sql);
         
@@ -171,7 +177,7 @@ class Proposed_Workshop_model extends CI_Model {
     }
 
 
-    public function get_my_request_list($user_id){
+    /*public function get_my_request_list($user_id){
 
         $sql = "SELECT 
                   pw.id,
@@ -179,21 +185,70 @@ class Proposed_Workshop_model extends CI_Model {
                   pw.description,
                   DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
                   DATE_FORMAT(pw.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-                  pw.level,
-                  
                   c.name AS category_name,
-                  sc.sub_name AS subcategory_name
+                  sc.sub_name AS subcategory_name,
+                  l.id AS level_id,
+                  l.level AS level_name
                 FROM
                     proposed_workshops AS pw
                     INNER JOIN categories AS c
                       ON pw.category_id = c.id
                         INNER JOIN subcategories AS sc
                           ON pw.subcategory_id = sc.id
+                            INNER JOIN level AS l
+                            ON pw.level_id = l.id
                         WHERE pw.`user_id` = ? ";
 
         $query = $this->db->query($sql,array($user_id));
 
         return $query->result_array();
+    }*/
+
+    public function get_sql_my_request_list($user_id,$q){
+          $sql = "SELECT 
+              pw.id AS pw_id,
+              pw.title,
+              pw.description,
+              DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
+              DATE_FORMAT(pw.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
+              c.name AS category_name,
+              sc.sub_name AS subcategory_name,
+              l.id,
+              l.level AS level_name
+            FROM
+              proposed_workshops AS pw 
+              INNER JOIN categories AS c 
+                ON pw.category_id = c.id
+                INNER JOIN subcategories AS sc
+                ON pw.subcategory_id = sc.id
+                  INNER JOIN level AS l
+                  ON pw.level_id = l.id
+                WHERE pw.user_id = $user_id
+                 ";
+
+      if(trim($q)!=''){
+        $q = trim($q);
+        $sql.="AND pw.title LIKE '%{$q}%' ";
+      }
+
+      $sql.=" ORDER BY pw.id ";
+
+      return $sql;
+    }
+
+    public function search_request_list_by_title($user_id,$page,$q,$rp){
+      $offset = (($page-1)*$rp);
+      $sql = $this->get_sql_my_request_list($user_id,$q);
+      $sql.=  " LIMIT {$rp} OFFSET {$offset}";
+      $query = $this->db->query($sql,array($user_id));
+      return $query->result_array();
+    }
+  
+    public function get_request_list_total_search($user_id,$q,$rp){
+      $sql = $this->get_sql_my_request_list($user_id,$q);
+      $query = $this->db->query($sql);
+      $total = $query->num_rows();
+      return ceil($total/$rp);
     }
 
     public function get_proposed_workshop_data($pw_id){
@@ -204,20 +259,23 @@ class Proposed_Workshop_model extends CI_Model {
                   pw.description,
                   DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
                   DATE_FORMAT(pw.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-                  pw.level AS pw_level,
                   pw.removed AS removed,
                   pw.user_id AS pw_user_id,
                   /*pw.pw_status,*/
                   c.id AS category_id,
                   c.name AS category_name,
                   sc.id AS subcategory_id,
-                  sc.sub_name AS subcategory_name
+                  sc.sub_name AS subcategory_name,
+                  l.id AS level_id,
+                  l.level AS level_name
                 FROM
                     proposed_workshops AS pw
                     INNER JOIN categories AS c
                       ON pw.category_id = c.id
                         INNER JOIN subcategories AS sc
                           ON pw.subcategory_id = sc.id
+                            INNER JOIN level AS l
+                            ON pw.level_id = l.id
                         WHERE pw.`id`= ? ";
 
         $query = $this->db->query($sql,array($pw_id));
@@ -234,13 +292,14 @@ class Proposed_Workshop_model extends CI_Model {
         'title' => $data2['pw_title'],
         'category_id' => $data2['category_id'],
         'subcategory_id' => $data2['subcategory_id'],
-        'level' => $data2['pw_level'],
+        'level_id' => $data2['level_id'],
         'start_date' => $data2['start_date'],
         'final_date' => $data2['final_date'],
         'amount' => $dataform['monto'],
         'description' => $dataform['descripcion'],
         'vacancy' => $dataform['vacantes'],
         'wrks_status' => 'En Curso',
+        'removed' => 'Activo',
         'user_id'=> $user_id
     );
     $this->db->insert('workshops', $data);
@@ -250,6 +309,13 @@ class Proposed_Workshop_model extends CI_Model {
     public function remove_from_list($pw_id){
       $data = array(
         'removed' => 'Eliminado'
+      );
+      $this->db->update('proposed_workshops', $data, array('id' => $pw_id));
+    }
+
+    public function change_status($pw_id){
+      $data = array(
+        'pw_status' => 'Activo'
       );
       $this->db->update('proposed_workshops', $data, array('id' => $pw_id));
     }
@@ -302,7 +368,7 @@ class Proposed_Workshop_model extends CI_Model {
     }
 
 
-    public function search_list_by_category($category,$q){
+    /*public function search_list_by_category($category,$q){
       $sql = "SELECT 
                 pw.id AS pw_id,
                 pw.title,
@@ -336,5 +402,5 @@ class Proposed_Workshop_model extends CI_Model {
         $query = $this->db->query($sql);
         
         return $query->result_array();
-    }
+    }*/
 }

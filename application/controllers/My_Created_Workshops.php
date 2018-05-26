@@ -15,13 +15,20 @@ class My_Created_Workshops extends CI_Controller {
 	}
 
 	public function index(){
-		$get_list_by_user = $this->created_workshops_model->get_workshops_by_user($this->user_id);
-		
+		$rp = 2;
+		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$request_list = $this->created_workshops_model->search_created_w_list_by_title($this->user_id,$page,$q,$rp);
+		$num_pages = $this->created_workshops_model->get_created_w_list_total_search($this->user_id,$q,$rp);
 		$dataView=[
 			'page'=>'my_created_workshops',
-			'hhh'=>$get_list_by_user
+			'hhh'=>$request_list,
+			'q'=>$q,
+			'pagination'=>$page,
+			'num_pages'=>$num_pages
 		];
 		$this->load->view('template/basic',$dataView);
+
 	}
 
 	public function show_student_list($id){

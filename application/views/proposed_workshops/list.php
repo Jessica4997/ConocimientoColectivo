@@ -13,7 +13,9 @@
 
                         <fieldset>
                             <?php foreach($lis as $rowc){
-                                $isselect = (isset($category[$rowc['id']]))? 'checked':'';  ?>
+                                $isselect = (isset($category[$rowc['id']]))? 'checked':'';  
+                                //var_dump($category);
+                                ?>
                                 <div class="no-mt">
 
                             <div class="checkbox">
@@ -48,11 +50,11 @@
                 <div class="row" id="Container">
 
                     <?php foreach($lists as $row){?>
-                    <div class="col-xl-4 col-md-6 mix ">
+                    <div class="col-xl-4 col-md-6 ">
                         <div class="card ms-feature">
                             <div class="card-body text-center">
                                 <h4 class="text-normal text-center">
-                                    <?php echo $row['title']?> <?php echo $row['pw_id']?>
+                                    <?php echo $row['title']?>
                                 </h4>
                                 <p>
                                     <li>Categoría:
@@ -60,11 +62,14 @@
                                     </li>
                                     <li>Sub-categoría: <?php echo $row['sub_name']?></li>
                                     <li>Nivel:
-                                        <?php echo $row['level']?>
+                                        <?php echo $row['level_name']?>
                                     </li>
                                     <li>Fecha de inicio:
                                         <?php echo $row['start_date']?>
                                     </li>
+                                    <li>Fecha de cierre:
+                                        <?php echo $row['final_date']?>
+                                    </li>                                    
                                     <li>Descripción:
                                         <?php echo $row['description']?>
                                     </li>

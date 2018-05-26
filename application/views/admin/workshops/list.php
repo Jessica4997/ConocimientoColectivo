@@ -45,7 +45,7 @@
             <li>Creado por: <?php echo $row['w_user_name']?> <?php echo $row['w_user_lastname']?></li>
             <li>Categoría: <?php echo $row['name']?></li>
             <li>Sub-categoría: <?php echo $row['sub_name']?></li>
-            <li>Nivel: <?php echo $row['level']?></li>
+            <li>Nivel: <?php echo $row['level_name']?></li>
             <li>Fecha de inicio: <?php echo $row['start_date']?></li>
             <li>Fecha de cierre: <?php echo $row['final_date']?></li>
             <li>Descripción: <?php echo $row['description']?></li>

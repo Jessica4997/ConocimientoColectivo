@@ -36,6 +36,7 @@
     </ul>
 </li>
 
+<?php if($this->session->userdata('s_iduser') == 20){ ?>
 <li class="nav-item">
     <a href="<?php echo site_url('admin')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Usuarios</a>
 </li>
@@ -51,4 +52,5 @@
 <li class="nav-item">
     <a href="<?php echo site_url('admin/proposed_workshop_list')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Solicitudes de Talleres</a>
 </li>
+<?php }?>
 

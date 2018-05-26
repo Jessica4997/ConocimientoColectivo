@@ -336,20 +336,21 @@ class Admin_model extends CI_Model {
 
 //PROPOSED_WORKSHOPS
 
-    public function get_pw_list(){
+    /*public function get_pw_list(){
       $sql = "SELECT 
                 pw.id AS pw_id,
                 pw.title,
                 pw.description,
                 DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
                 DATE_FORMAT(pw.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-                pw.level,
                 pw.removed,
                 c.name,
                 sc.sub_name,
                 pw.user_id AS u_id,
                 u.name AS u_name,
-                u.last_name AS u_last_name
+                u.last_name AS u_last_name,
+                l.id AS level_id,
+                l.level AS level_name
               FROM
                 proposed_workshops AS pw 
                 INNER JOIN categories AS c 
@@ -357,12 +358,14 @@ class Admin_model extends CI_Model {
                   INNER JOIN subcategories AS sc
                   ON pw.`subcategory_id` = sc.`id`
                     INNER JOIN users AS u
+                      INNER JOIN level AS l
+                      ON pw.level_id = l.id
                     ON pw.user_id = u.id ";
 
       $query = $this->db->query($sql);
       
       return $query->result_array();
-    }
+    }*/
 
     public function get_sql_pw_list($category,$q){
           $sql = "SELECT 
@@ -378,7 +381,9 @@ class Admin_model extends CI_Model {
               sc.sub_name,
               pw.user_id AS u_id,
               u.name AS u_name,
-              u.last_name AS u_last_name
+              u.last_name AS u_last_name,
+              l.id AS level_id,
+              l.level AS level_name
             FROM
               proposed_workshops AS pw 
               INNER JOIN categories AS c 
@@ -386,7 +391,9 @@ class Admin_model extends CI_Model {
                 INNER JOIN subcategories AS sc
                 ON pw.`subcategory_id` = sc.`id`
                     INNER JOIN users AS u
-                    ON pw.user_id = u.id ";
+                    ON pw.user_id = u.id
+                      INNER JOIN level AS l
+                      ON pw.level_id = l.id";
 
       if(is_array($category) && count($category)>0){
         $cat_id = implode(",",$category);
@@ -427,7 +434,6 @@ class Admin_model extends CI_Model {
                   pw.description,
                   DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
                   DATE_FORMAT(pw.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-                  pw.level,
                   pw.votes_quantity,
                   pw.removed AS pw_removed,
                   pw.user_id AS pw_user_id,
@@ -436,7 +442,9 @@ class Admin_model extends CI_Model {
                   c.name AS category_name,
                   sc.sub_name AS subcategory_name,
                   u.name AS user_name,
-                  u.last_name AS user_last_name
+                  u.last_name AS user_last_name,
+                  l.id AS level_id,
+                  l.level AS level_name
                 FROM
                     proposed_workshops AS pw
                     INNER JOIN categories AS c
@@ -445,6 +453,8 @@ class Admin_model extends CI_Model {
                           ON pw.subcategory_id = sc.id
                             INNER JOIN users AS u
                               ON u.id = pw.user_id
+                                INNER JOIN level AS l
+                                ON pw.level_id = l.id
                         WHERE pw.`id` = ?
                         LIMIT 1";
 
@@ -453,14 +463,13 @@ class Admin_model extends CI_Model {
       return $query->row_array();
   }
 
-    public function search_by_category_title($category,$q){
+    /*public function search_by_category_title($category,$q){
       $sql = "SELECT 
                 pw.id AS pw_id,
                 pw.title,
                 pw.description,
                 DATE_FORMAT(pw.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
                 DATE_FORMAT(pw.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-                pw.level,
                 pw.votes_quantity,
                 pw.removed,
                 c.id,
@@ -468,7 +477,9 @@ class Admin_model extends CI_Model {
                 sc.sub_name,
                 u.id,
                 u.name AS u_name,
-                u.last_name AS u_last_name
+                u.last_name AS u_last_name,
+                l.id AS level_id,
+                l.level AS level_name
               FROM
                 proposed_workshops AS pw 
                 INNER JOIN categories AS c 
@@ -477,6 +488,8 @@ class Admin_model extends CI_Model {
                   ON pw.`subcategory_id` = sc.`id`
                     INNER JOIN users AS u
                     ON pw.user_id = u.id
+                      INNER JOIN level AS l
+                      ON pw.level_id = l.id
                    ";
 
       if(is_array($category)){
@@ -492,14 +505,14 @@ class Admin_model extends CI_Model {
       $query = $this->db->query($sql);
       
       return $query->result_array();
-  }
+  }*/
 
     public function update_pw_description($dataform, $id){
       $data = array(
           'title' => $dataform['titulo'],
           'category_id' => $dataform['categoria'],
           'subcategory_id' => $dataform['sub_categoria'],
-          'level' => $dataform['nivel'],
+          'level_id' => $dataform['nivel'],
           'start_date' => $dataform['fecha_inicio'],
           'final_date' => $dataform['fecha_fin'],
           'description' => $dataform['descripcion']
@@ -534,7 +547,6 @@ class Admin_model extends CI_Model {
               w.description,
               DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
               DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-              w.level,
               w.amount,
               w.removed,
               w.user_id as w_user_id,
@@ -542,7 +554,9 @@ class Admin_model extends CI_Model {
               c.name,
               sc.sub_name,
               u.name AS w_user_name,
-              u.last_name AS w_user_lastname
+              u.last_name AS w_user_lastname,
+              l.id AS level_id,
+              l.level AS level_name
             FROM
               workshops AS w 
               INNER JOIN categories AS c 
@@ -551,6 +565,8 @@ class Admin_model extends CI_Model {
                 ON w.`subcategory_id` = sc.`id`
                   INNER JOIN users AS u
                   ON w.user_id = u.id
+                    INNER JOIN level AS l
+                    ON w.level_id = l.id
                  ";
 
       if(is_array($category) && count($category)>0){
@@ -593,7 +609,6 @@ class Admin_model extends CI_Model {
                   w.description,
                   DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
                   DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-                  w.level,
                   w.vacancy,
                   w.amount,
                   w.removed AS w_removed,
@@ -602,7 +617,9 @@ class Admin_model extends CI_Model {
                   c.name AS category_name,
                   sc.sub_name AS subcategory_name,
                   u.name AS user_name,
-                  u.last_name AS user_last_name
+                  u.last_name AS user_last_name,
+                  l.id AS level_id,
+                  l.level AS level_name
                 FROM
                     workshops AS w
                     INNER JOIN categories AS c
@@ -611,6 +628,8 @@ class Admin_model extends CI_Model {
                           ON w.subcategory_id = sc.id
                             INNER JOIN users AS u
                               ON u.id = w.user_id
+                                INNER JOIN level AS l
+                                ON w.level_id = l.id
                         WHERE w.`id` = ?
                         LIMIT 1";
 
@@ -619,7 +638,7 @@ class Admin_model extends CI_Model {
       return $query->row_array();
   }
 
-    public function search_by_category_title_w($category,$q){
+    /*public function search_by_category_title_w($category,$q){
       $sql = "SELECT 
                 w.id AS w_id,
                 w.title,
@@ -658,14 +677,14 @@ class Admin_model extends CI_Model {
       $query = $this->db->query($sql);
       
       return $query->result_array();
-  }
+  }*/
 
     public function update_w_description($dataform, $id){
       $data = array(
           'title' => $dataform['titulo'],
           'category_id' => $dataform['categoria'],
           'subcategory_id' => $dataform['subcategoria'],
-          'level' => $dataform['nivel'],
+          'level_id' => $dataform['nivel'],
           'start_date' => $dataform['fecha_inicio'],
           'final_date' => $dataform['fecha_fin'],
           'description' => $dataform['descripcion']
@@ -690,4 +709,22 @@ class Admin_model extends CI_Model {
 
         $this->db->update('workshops', $data, array('id' => $id));
     }
+
+
+//LEVEL
+
+  public function level_list(){
+    $sql = "SELECT 
+           id,
+           level,
+           dificult
+
+          FROM
+          level;";
+
+        $query = $this->db->query($sql);
+        
+        return $query->result_array();
+    }
+
 }

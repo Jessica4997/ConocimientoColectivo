@@ -30,16 +30,28 @@
 
                   <li> Fecha de Inicio: <?php echo $description['start_date']?></li>
  
-                  <li> Nivel: <?php echo $description['level']?></li>
+                  <li> Nivel: <?php echo $description['level_name']?></li>
 
                   <li> Fecha de Cierre: <?php echo $description['final_date']?></li>
 
                   <li> Vacantes: <?php echo $description['vacancy']?> </li>
                 </ul>
 
-                <?php if ($description['workshop_creator'] != $this->session->userdata('s_iduser')){ ?>
+                <?php
+
+                //var_dump($w_historial);
+
+                if ($description['workshop_creator'] != $this->session->userdata('s_iduser') || $w_historial['dificult'] >= $description['dificult']){
+
+
+
+
+
+                  ?>
                 <a href="<?php echo site_url('workshop/save_inscribed_user/'.$description['id'])?>" class="btn btn-primary btn-block btn-raised">Postular</a>
                 <?php }?>
+
+
               </div>
             </div>
           </div>

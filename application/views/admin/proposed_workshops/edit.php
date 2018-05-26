@@ -4,7 +4,7 @@
             <div class="card card-primary animated fadeInUp animation-delay-7">
                 <div class="card-body">
                     <h1 class="color-primary text-center">Editar Solicitud de Taller</h1>
-                    <form method="post" action="<?php echo site_url('admin/proposed_workshop_edit_save/' .$pw_by_id['id'])?>" class="form-horizontal">
+                    <form method="post" action="<?php echo site_url('admin/proposed_workshop_save_edit/' .$pw_by_id['id'])?>" class="form-horizontal">
                         <fieldset>
 
                             <div class="row form-group">
@@ -45,11 +45,11 @@
                             <div class="row form-group">
                                 <label for="" class="col-md-2 control-label">Nivel</label>
                                 <div class="col-md-9">
-                                    <?php echo $pw_by_id['level']?>
+                                    <?php echo $pw_by_id['level_name']?>
                                     <select name="nivel" class="form-control selectpicker">
-                                        <option>Básico</option>
-                                        <option>Intermedio</option>
-                                        <option>Avanzado</option>
+                                        <?php foreach($level_list as $rowl){ ?>
+                                        <option value="<?php echo $rowl['id']?>" ><?php echo $rowl['level']?></option>
+                                        <?php }?>
                                     </select>
                                 </div>
                             </div>

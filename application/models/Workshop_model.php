@@ -15,9 +15,12 @@ class Workshop_model extends CI_Model {
         w.user_id AS workshop_creator,
         /*w.wrks_status,*/
         c.name AS category_name,
+        sc.id AS sc_id,
         sc.sub_name,
         u.name AS user_name,
-        u.last_name AS user_last_name
+        u.last_name AS user_last_name,
+        l.level AS level_name,
+        l.dificult AS dificult 
       FROM
         workshops AS w
         INNER JOIN categories AS c
@@ -26,6 +29,8 @@ class Workshop_model extends CI_Model {
             ON w.subcategory_id = sc.id
           INNER JOIN users AS u
             ON u.id = w.user_id
+              INNER JOIN level AS l
+              ON w.level_id = l.id
             WHERE w.`id` = ?
             LIMIT 1";
 
@@ -40,7 +45,7 @@ class Workshop_model extends CI_Model {
         'title' => $dataform['titulo'],
         'category_id' => $dataform['categoria'],
         'subcategory_id' => $dataform['subcategoria'],
-        'level' => $dataform['nivel'],
+        'level_id' => $dataform['nivel'],
         'start_date' => $dataform['fecha_inicio'],
         'final_date' => $dataform['fecha_fin'],
         'amount' => $dataform['monto'],
@@ -82,12 +87,25 @@ class Workshop_model extends CI_Model {
     }
 
 
-    public function get_level_list(){
+    /*public function get_level_list(){
         $sql = "SELECT 
            DISTINCT
             level
       FROM
         workshops;";
+
+        $query = $this->db->query($sql);
+        
+        return $query->result_array();
+    }*/
+
+    public function level_list(){
+        $sql = "SELECT 
+           id,
+           level,
+           dificult
+      FROM
+        level;";
 
         $query = $this->db->query($sql);
         
@@ -155,6 +173,28 @@ class Workshop_model extends CI_Model {
     return $this->db->update('workshops', $data, array('id' => $id));
   }
 
+
+    public function get_inscribed_workshops_by_user($user_id,$subcategory_id){
+        $sql = "  SELECT 
+                  iu.id,
+                  iu.user_id,
+                  iu.wrks_id,
+                  l.dificult AS dificult
+                FROM
+                  inscribed_users AS iu 
+                  INNER JOIN workshops AS w 
+                    ON iu.wrks_id = w.id 
+                  INNER JOIN LEVEL AS l 
+                    ON w.level_id = l.id 
+                WHERE iu.user_id = ? AND w.subcategory_id = ?
+                ORDER BY l.dificult DESC";
+
+        $query = $this->db->query($sql,array($user_id,$subcategory_id));
+        
+        return $query->row_array(); 
+  }
+
+
   public function search_by_category_title($page,$category,$q,$rp){
     $offset = (($page-1)*$rp);
     $sql = $this->get_sql_search($category,$q);
@@ -182,13 +222,18 @@ class Workshop_model extends CI_Model {
               w.removed,
               c.id,
               c.name,
-              sc.sub_name
+              sc.sub_name,
+              l.id AS level_id,
+              l.level AS level_name
+
             FROM
               workshops AS w 
               INNER JOIN categories AS c 
                 ON w.`category_id` = c.`id`
                 INNER JOIN subcategories AS sc
                 ON w.`subcategory_id` = sc.`id`
+                  INNER JOIN level AS l
+                  ON w.level_id = l.id
                 WHERE w.removed = 'Activo'
                  ";
 

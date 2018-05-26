@@ -58,7 +58,7 @@
 										<?php echo $row['sub_name']?>
 									</li>
 									<li>Nivel:
-										<?php echo $row['level']?>
+										<?php echo $row['level_name']?>
 									</li>
 									<li>Fecha de inicio:
 										<?php echo $row['start_date']?>

@@ -114,7 +114,7 @@ class Admin extends CI_Controller {
 
 	public function save_category(){
 		$this->admin_model->create_category($_POST);
-		//redirect('admin/categories_list', 'refresh');
+		redirect('admin/categories_list', 'refresh');
 	}
 
 	public function remove_category($category_id){
@@ -163,11 +163,13 @@ class Admin extends CI_Controller {
 		$show_by_id = $this->admin_model->show_w_by_id($id);
 		$show_categories = $this->admin_model->get_categories_list();
 		$show_subcategories = $this->admin_model->get_subcategories_list_no_filter();
+		$show_level = $this->admin_model->level_list();
 		$dataView=[
 			'page'=>'admin/workshops/edit',
 			'prueba'=>$show_categories,
 			'subcat'=>$show_subcategories,
-			'w_by_id'=>$show_by_id
+			'w_by_id'=>$show_by_id,
+			'level_list'=>$show_level
 
 		];
 		$this->load->view('template/basic',$dataView);
@@ -290,14 +292,21 @@ class Admin extends CI_Controller {
 		$show_by_id = $this->admin_model->show_by_id($id);
 		$show_categories = $this->admin_model->get_categories_list();
 		$show_subcategories = $this->admin_model->get_subcategories_list_no_filter();
+		$level_list = $this->admin_model->level_list();
 		$dataView=[
 			'page'=>'admin/proposed_workshops/edit',
 			'prueba'=>$show_categories,
 			'subcat'=>$show_subcategories,
-			'pw_by_id'=>$show_by_id
+			'pw_by_id'=>$show_by_id,
+			'level_list'=>$level_list
 
 		];
 		$this->load->view('template/basic',$dataView);
+	}
+
+	public function proposed_workshop_save_edit($id){
+		$this->admin_model->update_pw_description($_POST, $id);
+		redirect('admin/proposed_workshop_description/'.$id, 'refresh');
 	}
 
 	public function proposed_workshop_delete($id){

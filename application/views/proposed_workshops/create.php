@@ -45,9 +45,9 @@
                                 <label for="" class="col-md-2 control-label">Nivel</label>
                                 <div class="col-md-9">
                                     <select name="nivel" class="form-control selectpicker">
-                                        <?php foreach($intento as $rowi){?>
-                                        <option>
-                                            <?php echo $rowi['level']?>
+                                        <?php foreach($level_list as $rowl){?>
+                                        <option value="<?php echo $rowl['id']?>" >
+                                            <?php echo $rowl['level']?>
                                         </option>
                                         <?php }?>
                                     </select>

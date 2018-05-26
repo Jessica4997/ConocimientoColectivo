@@ -28,7 +28,7 @@
 
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Nivel</label>
-                        <?php echo $abc['pw_level']?> 
+                        <?php echo $abc['level_name']?> 
                     </div>
 
                     <div class="row form-group">

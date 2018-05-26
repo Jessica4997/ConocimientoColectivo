@@ -28,7 +28,7 @@
                     </li>
 
                     <li> Nivel:
-                        <?php echo $description['level']?>
+                        <?php echo $description['level_name']?>
                     </li>
 
                     <li> Fecha de Inicio:
@@ -37,6 +37,10 @@
 
                     <li> Fecha de Cierre:
                         <?php echo $description['final_date']?>
+                    </li>
+
+                    <li> Cantidad de Votos:
+                        <?php echo $description['votes_quantity']?>
                     </li>
                 </ul>
                 <div align="center" >

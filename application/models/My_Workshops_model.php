@@ -1,7 +1,7 @@
 <?php
 class My_Workshops_model extends CI_Model {
 
-	public function get_workshops_by_inscribed_user($user_id){
+	/*public function get_workshops_by_inscribed_user($user_id){
  
         $sql = "SELECT 
 			  iu.iu_status,
@@ -12,21 +12,80 @@ class My_Workshops_model extends CI_Model {
 			  w.start_date,
 			  w.final_date,
 			  w.amount,
-			  w.level,
 			  w.description,
-			  c.name AS category_name
+			  c.name AS category_name,
+			  sc.sub_name AS subcategory_name,
+			  l.level AS level_name
 			FROM
 			  inscribed_users AS iu 
 			  INNER JOIN workshops AS w 
 			    ON iu.`wrks_id` = w.`id`
 			    INNER JOIN categories AS c
-			    ON w.`category_id`=c.`id` 
+			    ON w.`category_id`=c.`id`
+			     INNER JOIN subcategories AS sc
+			     ON w.subcategory_id =sc.id
+			       INNER JOIN level AS l
+			       ON w.level_id = l.id
 			WHERE iu.user_id = ? ";
 
       $query = $this->db->query($sql,array($user_id));
       
       return $query->result_array();
-  	}
+  	}*/
+
+
+  	public function get_sql_my_works_list($user_id,$q){
+          $sql = "SELECT
+			  iu.iu_status,
+			  iu.user_id AS inscribed_user,
+			  iu.wrks_id,
+			  w.id,
+			  w.title,
+			  w.start_date,
+			  w.final_date,
+			  w.amount,
+			  w.description,
+			  c.name AS category_name,
+			  sc.sub_name AS subcategory_name,
+			  l.level AS level_name
+            FROM
+              inscribed_users AS iu
+              INNER JOIN workshops AS w
+              ON iu.wrks_id = w.id 
+              	INNER JOIN categories AS c 
+                ON w.category_id = c.id
+                INNER JOIN subcategories AS sc
+                ON w.subcategory_id = sc.id
+                  INNER JOIN level AS l
+                  ON w.level_id = l.id
+                WHERE iu.user_id = $user_id
+                 ";
+
+      if(trim($q)!=''){
+        $q = trim($q);
+        $sql.="AND w.title LIKE '%{$q}%' ";
+      }
+
+      $sql.=" ORDER BY w.id ";
+
+      return $sql;
+    }
+
+    public function search_my_works_by_title($user_id,$page,$q,$rp){
+      $offset = (($page-1)*$rp);
+      $sql = $this->get_sql_my_works_list($user_id,$q);
+      $sql.=  " LIMIT {$rp} OFFSET {$offset}";
+      $query = $this->db->query($sql,array($user_id));
+      return $query->result_array();
+    }
+  
+    public function get_my_works_total_search($user_id,$q,$rp){
+      $sql = $this->get_sql_my_works_list($user_id,$q);
+      $query = $this->db->query($sql,array($user_id));
+      $total = $query->num_rows();
+      return ceil($total/$rp);
+    }
+
 
 
   	public function get_teacher_list($id){

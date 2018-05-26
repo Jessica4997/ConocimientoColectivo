@@ -28,7 +28,7 @@
                     </li>
 
                     <li> Nivel:
-                        <?php echo $description['level']?>
+                        <?php echo $description['level_name']?>
                     </li>
 
                     <li> Fecha de Inicio:
