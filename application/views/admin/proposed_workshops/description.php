@@ -31,13 +31,13 @@
                         <?php echo $description['level_name']?>
                     </li>
 
-                    <li> Fecha de Inicio:
+                    <li> Fecha:
                         <?php echo $description['start_date']?>
-                    </li>
+                    </li> 
 
-                    <li> Fecha de Cierre:
-                        <?php echo $description['final_date']?>
-                    </li>
+                    <li> Horario:
+                        <?php echo date("H:i", strtotime($description['start_time']))?> - <?php echo date("H:i", strtotime($description['end_time']))?>
+                    </li> 
 
                     <li> Cantidad de Votos:
                         <?php echo $description['votes_quantity']?>

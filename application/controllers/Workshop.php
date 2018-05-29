@@ -83,9 +83,20 @@ class Workshop extends CI_Controller {
 	}
 
 	public function save(){
-		//var_dump($_POST);
-		$this->workshop_model->create($_POST, $this->user_id);
-		redirect('workshop', 'refresh');
+		ini_set('date.timezone','America/Lima'); 
+        $fechaActual = date('d/m/Y');
+        //var_dump(strtotime($_POST['fecha']));exit();
+		if ($_POST['fecha'] > $fechaActual){
+			if ($_POST['hora_fin'] > $_POST['hora_inicio']) {
+				$this->workshop_model->create($_POST, $this->user_id);
+				redirect('workshop', 'refresh');
+			}else{
+				echo "La hora de fin debe ser mayor a la hora de inicio";
+			}
+		}else{
+			echo "Debes escoger una fecha posterior";
+		}
+		
 	}
 
 	public function save_inscribed_user($id){

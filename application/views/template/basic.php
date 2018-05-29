@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="/assets/css/plugins.min.css">
     <link rel="stylesheet" href="/assets/css/style.lime-600.min.css">
 
+    <link rel="stylesheet" href="/assets/css/jquery.timepicker.min.css">
+
+
     <style>
     .wrap.wrap-danger {
       background-color: #73791e;
@@ -34,6 +37,9 @@
     <script src="/assets/js/app.min.js"></script>
     <script src="/assets/js/configurator.min.js"></script>
     <script src="/assets/js/ecommerce.js"></script>
+
+    <script src="/assets/js/jquery.timepicker.min.js"></script>
+    <script src="/assets/js/bootstrap-datepicker.es.min.js"></script>
 
     <script>
 
@@ -92,6 +98,24 @@
           return false;
         }
       }
+
+      $(function(){
+        //var Date = moment.tz("America/Lima").format();
+        $('input.mydatepicker').datepicker({
+          format: 'dd/mm/yyyy',
+          weekStart:1,
+          language: 'es'
+        });
+      });
+
+      $('input.timepicker').timepicker({
+        timeFormat: 'HH:mm',
+        minTime: '8',
+        maxTime: '10:00pm',
+        interval:60
+      });
+
+
 
     </script>
 

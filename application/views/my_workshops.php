@@ -21,18 +21,18 @@
         <div class="card-body text-center">
           <h4 class="text-normal text-center"> <?php echo $row['title']?></h4>
           <p>
+            <?php echo $row['description']?>
             <li>Categoría: <?php echo $row['category_name']?></li>
             <li>Sub-categoría: <?php echo $row['subcategory_name']?></li>
             <li>Nivel: <?php echo $row['level_name']?></li>
-            <li>Fecha de inicio: <?php echo $row['start_date']?></li>
-            <li>Fecha de fin: <?php echo $row['final_date']?></li>
-            <li>Descripción: <?php echo $row['description']?></li>
+            <li>Fecha: <?php echo $row['start_date']?></li>
+            <li>Horario: <?php echo $row['start_time']?> - <?php echo $row['end_time']?></li>
           </p>
 
             <span class="ms-tag ms-tag-success">S/.<?php echo $row['amount']?></span>
         
           <a href="<?php echo site_url('my_workshops/show_teacher/' .$row['id'])?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
-            <i class="fa fa-search"></i>Ver Docente</a>
+            <i class="fa fa-search"></i>Datos del Docente</a>
         </div>
       </div>
     </div>

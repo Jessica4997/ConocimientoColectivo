@@ -58,21 +58,28 @@
                       $fechaActual = date('Y-m-d\TH:i');
                       ?>
 
-                      <label for="inputDate" class="col-md-2 control-label">Fecha de Inicio</label>
+                      <label class="col-md-2 control-label">Fecha</label>
                       <div class="col-md-9">
-                        <input  type="datetime-local" name="fecha_inicio" placeholder="mes/día/año" min="<?php echo $fechaActual ?>" required> </div>
+                        <input class="mydatepicker" type="text" name="fecha" placeholder="mes/día/año" required> </div>
+                    </div>
+
+
+                    <div class="row form-group">
+                      <label for="inputDate" class="col-md-2 control-label">Hora de Inicio</label>
+                      <div class="col-md-9">
+                        <input class="timepicker" type="text" name="hora_inicio" placeholder="   -- : -- --" value="" required> </div>
                     </div>
 
                     <div class="row form-group">
-                      <label for="inputDate" class="col-md-2 control-label">Fecha de Cierre</label>
+                      <label for="inputDate" class="col-md-2 control-label">Hora de Fin</label>
                       <div class="col-md-9">
-                        <input  type="datetime-local" name="fecha_fin" placeholder="mes/día/año" min="<?php echo $fechaActual ?>" required> </div>
+                        <input class="timepicker" type="text" name="hora_fin" placeholder="   -- : -- --" required> </div>
                     </div>
 
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Cantidad de Vacantes</label>
                       <div class="col-md-9">
-                        <input type="number" name="vacantes" min="1" max="10" class="form-control" id="" placeholder="Cantidad de Vacantes" required> </div>
+                        <input type="number" name="vacantes" min="1" max="10" class="form-control" placeholder="Cantidad de Vacantes" required> </div>
                     </div>
 
                     <div class="row form-group">

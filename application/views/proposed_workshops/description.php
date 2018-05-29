@@ -7,7 +7,7 @@
                 </h2>
 
                 <div class="row" align="center">
-                    <li class="list-unstyled"> Creado por:
+                    <li class="list-unstyled ml-2"> Creado por:
                         <?php echo $description['user_name']?>
                         <?php echo $description['user_last_name']?>
 
@@ -35,8 +35,8 @@
                         <?php echo $description['start_date']?>
                     </li>
 
-                    <li> Fecha de Cierre:
-                        <?php echo $description['final_date']?>
+                    <li> Horario:
+                        <?php echo date("H:i", strtotime($description['start_time']))?> - <?php echo date("H:i", strtotime($description['end_time']))?>
                     </li>
 
                     <li> Cantidad de Votos:

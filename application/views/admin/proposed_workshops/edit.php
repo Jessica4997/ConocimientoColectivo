@@ -60,16 +60,19 @@
                                    <?php
                                    $datetime1 = new DateTime($pw_by_id['start_date']);
                                    ?>
-                                    <input type="datetime-local" name="fecha_inicio" placeholder="mes/día/año" value="<?php echo $datetime1->format('Y-m-d\TH:i:s')?>" required> </div>
+                                    <input class="mydatepicker" type="date" name="fecha_inicio" placeholder="mes/día/año" value="<?php echo $datetime1->format('Y-m-d')?>" required> </div>
                             </div>
 
                             <div class="row form-group">
-                                <label for="inputDate" class="col-md-2 control-label">Fecha de Cierre</label>
-                                <div class="col-md-9">
-                                   <?php
-                                   $datetime2 = new DateTime($pw_by_id['final_date']);
-                                   ?>
-                                    <input type="datetime-local" name="fecha_fin" placeholder="mes/día/año" value="<?php echo $datetime2->format('Y-m-d\TH:i:s')?>" required> </div>
+                              <label for="inputDate" class="col-md-2 control-label">Hora de Inicio</label>
+                              <div class="col-md-9">
+                                <input class="timepicker" type="text" name="hora_inicio" placeholder="   -- : -- --" value="<?php echo date("H:i", strtotime($pw_by_id['start_time']))?>" required> </div>
+                            </div>
+
+                            <div class="row form-group">
+                              <label for="inputDate" class="col-md-2 control-label">Hora de Fin</label>
+                              <div class="col-md-9">
+                                <input class="timepicker" type="text" name="hora_fin" placeholder="   -- : -- --" value="<?php echo date("H:i", strtotime($pw_by_id['end_time']))?>" required> </div>
                             </div>
 
                             <div class="form-group row justify-content-end">

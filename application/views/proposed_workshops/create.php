@@ -55,21 +55,24 @@
                             </div>
 
                             <div class="row form-group">
-                                <?php
-                                ini_set('date.timezone','America/Lima'); 
-                                $fechaActual = date('Y-m-d\TH:i');
-                                ?>
-                                <label for="inputDate" class="col-md-2 control-label">Fecha de Inicio</label>
+                                <label for="inputDate" class="col-md-2 control-label">Fecha</label>
 
                                 <div class="col-md-9">
-                                    <input type="datetime-local" name="fecha_inicio" placeholder="mes/día/año" min="<?php echo $fechaActual ?>" required> </div>
+                                    <input class="mydatepicker" type="text" name="fecha_inicio" placeholder="mes/día/año" required> </div>
                             </div>
 
                             <div class="row form-group">
-                                <label for="inputDate" class="col-md-2 control-label">Fecha de Cierre</label>
+                                <label for="inputDate" class="col-md-2 control-label">Hora de Inicio</label>
                                 <div class="col-md-9">
-                                    <input type="datetime-local" name="fecha_fin" placeholder="mes/día/año" min="<?php echo $fechaActual ?>" required> </div>
+                                    <input class="timepicker" type="text" name="hora_inicio" placeholder="   -- : -- --" required> </div>
                             </div>
+
+                                <div class="row form-group">
+                                    <label for="inputDate" class="col-md-2 control-label">Hora de Fin</label>
+                                    <div class="col-md-9">
+                                        <input class="timepicker" type="text" name="hora_fin" placeholder="   -- : -- --" required> </div>
+                                </div>
+
 
                             <div class="form-group row justify-content-end">
                                 <label for="" class="col-lg-2 control-label">Descripción</label>

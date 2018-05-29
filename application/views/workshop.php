@@ -42,6 +42,9 @@
 				</p>
 
 				<div class="row" id="Container">
+					<?php
+					$hora_ini = date("g:i a", strtotime("15:30:00"));
+					?>
 
 					<?php foreach($lists as $row){?>
 					<div class="col-xl-6 col-lg-6 col-md-6 mix " data-price="<?php echo $row['amount']?>">
@@ -51,23 +54,18 @@
 									<?php echo $row['title']?>
 								</h4>
 								<p>
+									<?php echo $row['description']?>
 									<li>Categoría:
-										<?php echo $row['name']?>
-									</li>
-									<li>Sub-categoría:
-										<?php echo $row['sub_name']?>
+										<?php echo $row['name']?> - <?php echo $row['sub_name']?> 
 									</li>
 									<li>Nivel:
 										<?php echo $row['level_name']?>
 									</li>
-									<li>Fecha de inicio:
+									<li>Fecha:
 										<?php echo $row['start_date']?>
 									</li>
-									<li>Fecha de fin:
-										<?php echo $row['final_date']?>
-									</li>
-									<li>Descripción:
-										<?php echo $row['description']?>
+									<li>Horario:
+										<?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?>
 									</li>
 								</p>
 

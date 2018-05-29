@@ -46,8 +46,8 @@
             <li>Categoría: <?php echo $row['name']?></li>
             <li>Sub-categoría: <?php echo $row['sub_name']?></li>
             <li>Nivel: <?php echo $row['level_name']?></li>
-            <li>Fecha de inicio: <?php echo $row['start_date']?></li>
-            <li>Fecha de cierre: <?php echo $row['final_date']?></li>
+            <li>Fecha: <?php echo $row['start_date']?></li>
+            <li>Horario: <?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?></li>
             <li>Descripción: <?php echo $row['description']?></li>
           </p>
 

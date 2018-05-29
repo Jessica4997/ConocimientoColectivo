@@ -6,14 +6,13 @@ class Workshop_model extends CI_Model {
         $sql = "SELECT
         w.id,
         w.title,
-        DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
-        DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-        w.level,
+        DATE_FORMAT(w.start_date,'%d-%m-%Y') AS start_date,
+        w.start_time,
+        w.end_time,
         w.amount,
         w.vacancy,
         w.description,
         w.user_id AS workshop_creator,
-        /*w.wrks_status,*/
         c.name AS category_name,
         sc.id AS sc_id,
         sc.sub_name,
@@ -41,17 +40,20 @@ class Workshop_model extends CI_Model {
 
 
   public function create($dataform, $user_id){
+    $date = DateTime::createFromFormat('d/m/Y', $dataform['fecha']);
+    $dateformat = $date->format('Y-m-d');
+
     $data = array(
         'title' => $dataform['titulo'],
         'category_id' => $dataform['categoria'],
         'subcategory_id' => $dataform['subcategoria'],
         'level_id' => $dataform['nivel'],
-        'start_date' => $dataform['fecha_inicio'],
-        'final_date' => $dataform['fecha_fin'],
+        'start_date' => $dateformat,
+        'start_time' => $dataform['hora_inicio'],
+        'end_time' => $dataform['hora_fin'],
         'amount' => $dataform['monto'],
         'description' => $dataform['descripcion'],
         'vacancy' => $dataform['vacantes'],
-        'wrks_status' => 'En Curso',
         'removed' => 'Activo',
         'user_id'=> $user_id
     );
@@ -86,18 +88,6 @@ class Workshop_model extends CI_Model {
       return $query->result_array();
     }
 
-
-    /*public function get_level_list(){
-        $sql = "SELECT 
-           DISTINCT
-            level
-      FROM
-        workshops;";
-
-        $query = $this->db->query($sql);
-        
-        return $query->result_array();
-    }*/
 
     public function level_list(){
         $sql = "SELECT 
@@ -215,9 +205,9 @@ class Workshop_model extends CI_Model {
               w.id AS w_id,
               w.title,
               w.description,
-              DATE_FORMAT(w.start_date,'%d-%m-%Y %l:%i %p') AS start_date,
-              DATE_FORMAT(w.final_date,'%d-%m-%Y %l:%i %p') AS final_date,
-              w.level,
+              DATE_FORMAT(w.start_date,'%d-%m-%Y') AS start_date,
+              w.start_time,
+              w.end_time,
               w.amount,
               w.removed,
               c.id,
