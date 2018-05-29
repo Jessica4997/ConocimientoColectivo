@@ -88,7 +88,7 @@ class Admin extends CI_Controller {
 		//$sc_on_c=$this->admin_model->check_subcategory_exist($category_id);
 
 		$dataView=[
-		'page'=>'admin/categories_list',
+		'page'=>'admin/categories/list',
 		'lista_c'=>$c_list,
 		'q'=>$q,
 		'pagination'=>$page,
@@ -201,7 +201,7 @@ class Admin extends CI_Controller {
 		$sc_on_c = $this->admin_model->check_subcategory_exist($category_id);
 
 		$dataView=[
-		'page'=>'admin/subcategories_list',
+		'page'=>'admin/subcategories/list',
 		'lista_sc'=>$sc_list,
 		'q'=>$q,
 		'pagination'=>$page,
@@ -229,7 +229,7 @@ class Admin extends CI_Controller {
 		$get_specific_sc = $this->admin_model->get_specific_subcategory($subcategory_id);
 		//var_dump($get_specific_sc);exit();
 		$dataView=[
-			'page'=>'admin/subcategories_edit_delete',
+			'page'=>'admin/subcategories/edit_delete',
 			'sc_id'=>$get_specific_sc
 		];
 		$this->load->view('template/basic',$dataView);

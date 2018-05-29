@@ -122,14 +122,13 @@ class Proposed_Workshop extends CI_Controller {
 
 
 	public function open_request($pw_id){
-
-			ini_set('date.timezone','America/Lima'); 
-              $fechaActual = date('d-m-Y g:i A');
+		
+		ini_set('date.timezone','America/Lima');
+		$fechaActual = date('d-m-Y g:i A');
 
 		$pw_data = $this->proposed_workshop_model->get_proposed_workshop_data($pw_id);
 		if($pw_data['pw_user_id'] != $this->user_id && $pw_data['start_date'] > $fechaActual){
 		//var_dump($pw_data);
-		//var_dump($fechaActual);exit();
 		$dataView=[
 			'page'=>'proposed_workshops/open_request',
 			'abc'=>$pw_data
@@ -145,11 +144,16 @@ class Proposed_Workshop extends CI_Controller {
 	}
 
 	public function insert_to_workshop($id){
+		$pw_data = $this->proposed_workshop_model->get_proposed_workshop_data($id);
+		$email = $this->proposed_workshop_model->get_pw_creator_email($pw_data['pw_user_id']);
+		//var_dump($pw_data);exit();
+		//var_dump($email['email']);exit();
 		//if(){
 		//Todo se enviará por POST
 			$this->proposed_workshop_model->open_workshop_request($_POST, $this->user_id);
 			$this->proposed_workshop_model->remove_from_list($id);
 			$this->proposed_workshop_model->change_status($id);
+			$this->proposed_workshop_model->send_email($email['email'],$pw_data['pw_title']);
 			redirect('workshop','refresh');
 		//}
 	}

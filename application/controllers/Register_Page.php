@@ -21,14 +21,26 @@ class Register_page extends CI_Controller {
 	}
 
 	public function saveuser(){
-		$this->user_model->createuser($_POST);
 		//var_dump($_POST);exit();
+		ini_set('date.timezone','America/Lima'); 
+        $fechaActual = date('d-m-Y');
 
-		if($_POST['contrasena'] != $_POST['recontrasena']){
-		$error="Las contraseñas no coinciden";
-			echo $error;
-		}else{
-			redirect('','refresh');
+        $email_exist = $this->user_model->find_user_by_email($_POST['correo']);
+
+        if($email_exist){
+        	echo "El correo ya está siendo usado";
+        }else{
+        	if($_POST['contrasena'] != $_POST['recontrasena']){
+        		$error="Las contraseñas no coinciden";
+        		echo $error;
+        	}else if($_POST['fecha_nacimiento'] >= $fechaActual){
+        		echo "Fecha incorrecta";
+        	}else{
+        		$this->user_model->createuser($_POST);
+        		redirect('','refresh');
 		}
+
+        }
 	}
+
 }

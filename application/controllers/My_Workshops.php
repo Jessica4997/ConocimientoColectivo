@@ -23,7 +23,7 @@ class My_Workshops extends CI_Controller {
 		$num_pages = $this->my_workshops_model->get_my_works_total_search($this->user_id,$q,$rp);
 
 		$dataView=[
-			'page'=>'my_workshops',
+			'page'=>'workshops/my_inscribed',
 			'lisss'=>$get_list_by_inscribed_user,
 			'q'=>$q,
 			'pagination'=>$page,
@@ -37,7 +37,7 @@ class My_Workshops extends CI_Controller {
 		$teacher = $this->my_workshops_model->get_teacher_list($id);
 		//var_dump($students_list);exit;
 		$dataView=[
-			'page'=>'teacher_list',
+			'page'=>'workshops/teacher_list',
 			'listaa'=>$teacher
 		];
 		$this->load->view('template/basic',$dataView);

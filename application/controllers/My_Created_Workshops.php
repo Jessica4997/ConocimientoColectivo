@@ -21,7 +21,7 @@ class My_Created_Workshops extends CI_Controller {
 		$request_list = $this->created_workshops_model->search_created_w_list_by_title($this->user_id,$page,$q,$rp);
 		$num_pages = $this->created_workshops_model->get_created_w_list_total_search($this->user_id,$q,$rp);
 		$dataView=[
-			'page'=>'my_created_workshops',
+			'page'=>'workshops/my_created',
 			'hhh'=>$request_list,
 			'q'=>$q,
 			'pagination'=>$page,
@@ -35,7 +35,7 @@ class My_Created_Workshops extends CI_Controller {
 		$students_list = $this->created_workshops_model->get_students_list($id);
 		//var_dump($students_list);exit;
 		$dataView=[
-			'page'=>'student_list',
+			'page'=>'workshops/student_list',
 			'listaa'=>$students_list
 		];
 		$this->load->view('template/basic',$dataView);

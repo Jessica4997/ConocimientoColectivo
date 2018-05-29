@@ -32,16 +32,10 @@
                     </div>
 
                     <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Fecha de Inicio</label>
+                      <label for="" class="col-md-2 control-label">Fecha</label>
                         <?php echo $abc['start_date']?> 
                     </div>
-
-
-                    <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Fecha de Cierre</label>
-                        <?php echo $abc['final_date']?> 
-                    </div>
-                                  
+ 
 
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Cantidad de Vacantes</label>

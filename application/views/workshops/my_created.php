@@ -26,7 +26,7 @@
             <li>Categoría: <?php echo $row['category_name']?> - <?php echo $row['subcategory_name']?></li>
             <li>Nivel: <?php echo $row['level_name']?></li>
             <li>Fecha: <?php echo $row['start_date']?></li>
-            <li>Horario: <?php echo $row['start_time']?> - <?php echo $row['end_time']?></li>
+            <li>Horario: <?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?></li>
             <li>Vacantes: <?php echo $row['vacancy']?></li>
           </p>
 

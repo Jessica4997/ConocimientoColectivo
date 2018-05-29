@@ -251,7 +251,6 @@ class Proposed_Workshop_model extends CI_Model {
         'amount' => $dataform['monto'],
         'description' => $dataform['descripcion'],
         'vacancy' => $dataform['vacantes'],
-        'wrks_status' => 'En Curso',
         'removed' => 'Activo',
         'user_id'=> $user_id
     );
@@ -272,6 +271,49 @@ class Proposed_Workshop_model extends CI_Model {
       );
       $this->db->update('proposed_workshops', $data, array('id' => $pw_id));
     }
+
+    public function get_pw_creator_email($id){
+              $sql = "SELECT
+                  id,
+                  email
+                FROM
+                users
+                WHERE id = ? ";
+
+        $query = $this->db->query($sql,array($id));
+
+        return $query->row_array();
+    }
+
+
+    public function send_email($email,$pw_title){
+      $this->load->library("email");
+
+      $config_email = array(
+        'protocol' => 'smtp',
+        'smtp_host' => 'ssl://smtp.gmail.com',
+        'smtp_port' => 465,
+        'smtp_user' => 'conocimientocolectivo2018@gmail.com',
+        'smtp_pass' => 'lifeline44',
+        'mailtype' => 'html',
+        'charset' => 'utf-8',
+        'newline' => "\r\n"
+      );
+
+    $this->email->initialize($config_email);
+
+        $this->email->from('conocimientocolectivo2018@gmail.com');
+        $this->email->to($email);
+        $this->email->subject('Apertura de taller');
+
+        //$html = $this->load->view('users/email',$dataView, TRUE);
+    
+        $this->email->message("Se le informa que el taller " .$pw_title. " que usted solicito, se ha aperturado");
+
+        if($this->email->send()){
+          return TRUE;
+        }
+  }
 
 
     public function insert_into_votes($pw_id, $user_id){

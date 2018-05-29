@@ -2,8 +2,9 @@
 class User_model extends CI_Model {
 
   public function createuser($dataform){
-    $comprobarc = $dataform['contrasena'];
-    $comprobar = $dataform['recontrasena'];
+    $date = DateTime::createFromFormat('d/m/Y', $dataform['fecha_nacimiento']);
+    $dateformat = $date->format('Y-m-d');
+
     $data = array(
         'email' => $dataform['correo'],
         'password' => $dataform['contrasena'],
@@ -11,16 +12,11 @@ class User_model extends CI_Model {
         'last_name' => $dataform['apellidos'],
         'cell_phone' => $dataform['celular'],
         'gender' => $dataform['genero'],
-        'date_birth' => $dataform['fecha_nacimiento'],
+        'date_birth' => $dateformat,
         'description' => $dataform['descripcion'],
         'removed' => 'Activo'
     );
-
-    if ($dataform['contrasena'] === $dataform['recontrasena']) {
-        $this->db->insert('users', $data);
-    }else{
-        return "error";
-    }
+    $this->db->insert('users', $data);
   }
 
   public function check_user_login($u,$p){

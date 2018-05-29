@@ -32,7 +32,7 @@ class Workshop extends CI_Controller {
 		$num_pages = $this->workshop_model->get_total_search($category,$q,$rp);
 		$catlist = $this->workshop_model->get_categories_list();
 		$dataView=[
-			'page'=>'workshop',
+			'page'=>'workshops/list',
 			'lists'=>$wrk ,
 			'lis'=>$catlist,
 			'q'=>$q,
@@ -62,7 +62,7 @@ class Workshop extends CI_Controller {
 
 
 		$dataView=[
-			'page'=>'workshop_description',
+			'page'=>'workshops/description',
 			'description'=>$workshop_description,
 			'w_historial'=>$w_by_user_validate
 		];

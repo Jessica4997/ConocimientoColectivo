@@ -60,7 +60,7 @@
                 <div class="row form-group">
                   <label for="inputDate" class="col-md-2 control-label">Fecha de Nacimiento</label>
                   <div class="col-md-9">
-                    <input type="date" name="fecha_nacimiento"> </div>
+                    <input class="mydatepicker" type="text" name="fecha_nacimiento" placeholder="dia/mes/año"> </div>
                 </div>
 
                 <div class="row form-group">
