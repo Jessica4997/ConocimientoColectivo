@@ -49,7 +49,7 @@
     </td>
 
     <td>
-      <input type="text" placeholder="Nombre" name="subcategory_name" required> 
+      <input type="text" placeholder="Nombre" name="category_name" onkeypress="return only_letters(event)" required> 
     </td>
     </fieldset>
   </form>

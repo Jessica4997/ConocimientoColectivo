@@ -7,7 +7,7 @@ class Workshop extends CI_Controller {
     public function __construct() {
 		parent::__construct();
 		$this->load->model('workshop_model');
-		//$this->load->model('user_model');
+		
 		$this->user_id = $this->session->userdata('s_iduser');
 		$ruta = $this->uri->segment(2, '/');
 		$whiteList=array('/','description');

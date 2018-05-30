@@ -3,6 +3,24 @@ class Admin_model extends CI_Model {
 
 //USERS
 
+  public function check_admin($user_id){
+          $sql = "SELECT
+              id,
+              name,
+              last_name,
+              email,
+              removed,
+              role
+            FROM
+              users
+              WHERE id = ?
+              LIMIT 1";
+
+      $query = $this->db->query($sql,array($user_id));
+      
+      return $query->row_array();
+  }
+
   public function get_sql_users($q){
         $sql = "SELECT
                 id,
@@ -99,7 +117,9 @@ class Admin_model extends CI_Model {
                    id,
                    name
               FROM
-                categories;";
+                categories
+                WHERE removed ='Activo'; 
+                ";
 
                 $query = $this->db->query($sql);
                 
@@ -162,7 +182,7 @@ class Admin_model extends CI_Model {
 
     public function create_category($dataform){
       $data = array(
-        'name' => $dataform['subcategory_name'],
+        'name' => $dataform['category_name'],
         'removed' => 'Activo'
     );
       $this->db->insert('categories', $data);
@@ -434,12 +454,15 @@ class Admin_model extends CI_Model {
   }
 
     public function update_pw_description($dataform, $id){
+      $date = DateTime::createFromFormat('d/m/Y', $dataform['fecha_inicio']);
+      $dateformat = $date->format('Y-m-d');
+
       $data = array(
           'title' => $dataform['titulo'],
           'category_id' => $dataform['categoria'],
           'subcategory_id' => $dataform['sub_categoria'],
           'level_id' => $dataform['nivel'],
-          'start_date' => $dataform['fecha_inicio'],
+          'start_date' => $dateformat,
           'start_time' => $dataform['hora_inicio'],
           'end_time' => $dataform['hora_fin'],
           'description' => $dataform['descripcion']
@@ -575,8 +598,8 @@ class Admin_model extends CI_Model {
           'subcategory_id' => $dataform['subcategoria'],
           'level_id' => $dataform['nivel'],
           'start_date' => $dataform['fecha_inicio'],
-          'start_time' => $dataform['hora_inicio'],
-          'start_time' => $dataform['hora_fin'],
+          //'start_time' => $dataform['hora_inicio'],
+          //'end_time' => $dataform['hora_fin'],
           'description' => $dataform['descripcion']
       );
 

@@ -32,7 +32,7 @@
 
                   <li> Fecha: <?php echo $description['start_date']?></li>
 
-                  <li> Horario: <?php echo $description['start_time']?> - <?php echo $description['end_time']?></li>
+                  <li> Horario: <?php echo date("H:i", strtotime($description['start_time']))?> - <?php echo date("H:i", strtotime($description['end_time']))?></li>
 
                   <li> Vacantes: <?php echo $description['vacancy']?> </li>
                 </ul>

@@ -28,11 +28,11 @@
 
                   <li> Sub-Categoría: <?php echo $description['subcategory_name']?></li>
 
-                  <li> Fecha de Inicio: <?php echo $description['start_date']?></li>
+                  <li> Fecha: <?php echo $description['start_date']?></li>
+
+                  <li> Horario: <?php echo date("H:i", strtotime($description['start_time']))?> - <?php echo date("H:i", strtotime($description['end_time']))?></li>
  
                   <li> Nivel: <?php echo $description['level_name']?></li>
-
-                  <li> Fecha de Cierre: <?php echo $description['final_date']?></li>
 
                   <li> Vacantes: <?php echo $description['vacancy']?> </li>
 

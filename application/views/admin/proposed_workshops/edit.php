@@ -10,7 +10,7 @@
                             <div class="row form-group">
                                 <label for="" class="col-md-2 control-label">Título</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" placeholder="Título" name="titulo" value="<?php echo $pw_by_id['title']?>" required> </div>
+                                    <input type="text" class="form-control" placeholder="Título" name="titulo" value="<?php echo $pw_by_id['title']?>" onkeypress="return only_letters(event)"  required> </div>
                             </div>
 
                             <div class="row form-group">
@@ -60,7 +60,7 @@
                                    <?php
                                    $datetime1 = new DateTime($pw_by_id['start_date']);
                                    ?>
-                                    <input class="mydatepicker" type="date" name="fecha_inicio" placeholder="mes/día/año" value="<?php echo $datetime1->format('Y-m-d')?>" required> </div>
+                                    <input class="mydatepicker" type="text" name="fecha_inicio" placeholder="mes/día/año" required> </div>
                             </div>
 
                             <div class="row form-group">

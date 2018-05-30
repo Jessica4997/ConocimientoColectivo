@@ -93,12 +93,15 @@ class Proposed_Workshop_model extends CI_Model {
   }
 
   public function create($dataform, $user_id){
+    $date = DateTime::createFromFormat('d/m/Y', $dataform['fecha_inicio']);
+    $dateformat = $date->format('Y-m-d');
+
     $data = array(
         'title' => $dataform['titulo'],
         'category_id' => $dataform['categoria'],
         'subcategory_id' => $dataform['sub_categoria'],
         'level_id' => $dataform['nivel'],
-        'start_date' => $dataform['fecha_inicio'],
+        'start_date' => $dateformat,
         'start_time' => $dataform['hora_inicio'],
         'end_time' => $dataform['hora_fin'],
         'description' => $dataform['descripcion'],

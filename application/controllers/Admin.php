@@ -3,9 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
 
+    private $user_id = '0';
     public function __construct() {
 		parent::__construct();
 		$this->load->model('admin_model');
+
+		$this->user_id = $this->session->userdata('s_iduser');
+		$u_data = $this->admin_model->check_admin($this->user_id);
+        if ($this->user_id === null || $u_data['role'] != 'Admin'){
+        redirect('login', 'refresh');
+    	}
 	}
 
 //USERS
@@ -92,8 +99,7 @@ class Admin extends CI_Controller {
 		'lista_c'=>$c_list,
 		'q'=>$q,
 		'pagination'=>$page,
-		'num_pages'=>$num_row,
-		
+		'num_pages'=>$num_row,	
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -108,13 +114,22 @@ class Admin extends CI_Controller {
 	}
 
 	public function edit_category($category_id){
-		$this->admin_model->update_category($_POST,$category_id);
-		redirect('admin/categories_list/','refresh');
+		//var_dump($_POST['category_name']);exit();
+		if (!empty($_POST['category_name']) && trim($_POST['category_name']) != '') {
+			$this->admin_model->update_category($_POST,$category_id);
+			redirect('admin/categories_list/','refresh');
+		}else{
+			echo "Campo vacio";
+		}	
 	}
 
 	public function save_category(){
-		$this->admin_model->create_category($_POST);
-		redirect('admin/categories_list', 'refresh');
+		if (!empty($_POST['category_name']) && trim($_POST['category_name']) != '') {
+			$this->admin_model->create_category($_POST);
+			redirect('admin/categories_list', 'refresh');
+		}else{
+			echo "Campo vacio";
+		}
 	}
 
 	public function remove_category($category_id){
@@ -140,7 +155,7 @@ class Admin extends CI_Controller {
 		$catlist = $this->admin_model->get_categories_list();
 		$dataView=[
 			'page'=>'admin/workshops/list',
-			'lists'=>$w_list ,
+			'lists'=>$w_list,
 			'lis'=>$catlist,
 			'q'=>$q,
 			'category'=>$category,
@@ -177,7 +192,7 @@ class Admin extends CI_Controller {
 
 	public function workshop_save_edit($id){
 		$this->admin_model->update_w_description($_POST, $id);
-		redirect('admin/workshop_description/'.$id, 'refresh');
+		//redirect('admin/workshop_description/'.$id, 'refresh');
 	}
 
 	public function workshop_delete($id){
@@ -221,8 +236,13 @@ class Admin extends CI_Controller {
 	}
 
 	public function save_subcategory($category_id){
-		$this->admin_model->create_subcategory($_POST, $category_id);
-		redirect('admin/categories_list/' .$category_id, 'refresh');
+		if (!empty($_POST['subcategory_name']) && trim($_POST['subcategory_name']) != '') {
+			$this->admin_model->create_subcategory($_POST, $category_id);
+			redirect('admin/categories_list/' .$category_id, 'refresh');
+		}else{
+			echo "Campo vacio";
+		}
+
 	}
 
 	public function show_edit_subcategory($subcategory_id){
@@ -237,9 +257,14 @@ class Admin extends CI_Controller {
 
 
 	public function edit_subcategory($subcategory_id){
+		//var_dump($_POST);exit();
 		$specif_sc = $this->admin_model->get_specific_subcategory($subcategory_id);
-		$this->admin_model->update_subcategory($_POST,$subcategory_id);
-		redirect('admin/subcategories_list/' .$specif_sc['categories_id'], 'refresh');
+		if (!empty($_POST['subcategory_name']) && trim($_POST['subcategory_name']) != '') {
+			$this->admin_model->update_subcategory($_POST,$subcategory_id);
+			redirect('admin/subcategories_list/' .$specif_sc['categories_id'], 'refresh');
+		}else{
+			echo "Campo vacio";
+		}
 	}
 
 
@@ -305,8 +330,21 @@ class Admin extends CI_Controller {
 	}
 
 	public function proposed_workshop_save_edit($id){
-		$this->admin_model->update_pw_description($_POST, $id);
-		redirect('admin/proposed_workshop_description/'.$id, 'refresh');
+		ini_set('date.timezone','America/Lima'); 
+        $fechaActual = date('d-m-Y g:i A');
+		//var_dump($_POST);exit();
+		if ($_POST['fecha_inicio'] > $fechaActual) {
+		
+			if($_POST['hora_fin'] > $_POST['hora_inicio']){
+				$this->admin_model->update_pw_description($_POST, $id);
+				redirect('admin/proposed_workshop_description/'.$id, 'refresh');
+			}else{
+				echo "Debes escoger una hora de fin mayor";
+			}
+		}else{
+			echo "La fecha ya paso";
+		}
+
 	}
 
 	public function proposed_workshop_delete($id){

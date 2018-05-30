@@ -60,17 +60,9 @@
                                     <?php
                                     $datetime1 = new DateTime($w_by_id['start_date']);
                                     ?>
-                                    <input type="datetime-local" name="fecha_inicio" placeholder="mes/día/año" value="<?php echo $datetime1->format('Y-m-d\TH:i:s')?>" required> </div>
+                                    <input type="date" name="fecha_inicio" placeholder="mes/día/año" value="<?php echo $datetime1->format('Y-m-d')?>" required> </div>
                             </div>
 
-                            <div class="row form-group">
-                                <label for="inputDate" class="col-md-2 control-label">Fecha de Cierre</label>
-                                <div class="col-md-9">
-                                    <?php
-                                    $datetime2 = new DateTime($w_by_id['final_date']);
-                                    ?>
-                                    <input type="datetime-local" name="fecha_fin" placeholder="mes/día/año" value="<?php echo $datetime2->format('Y-m-d\TH:i:s')?>" required> </div>
-                            </div>
 
                             <div class="form-group row justify-content-end">
                                 <label for="" class="col-lg-2 control-label">Descripción</label>

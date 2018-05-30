@@ -7,17 +7,19 @@
       <h3 class="card-title">Filtros</h3>
     </div>
     <div class="card-body">
+
       <form class="form-horizontal" id="workshop_form">
         <input type="hidden" id="workshop_form_page" name="page" value="<?php echo $pagination;?>">
-        <h4 class="mb-1 no-mt">Categorías</h4>
 
+        <h4 class="mb-1 no-mt">Categorías</h4>
         <fieldset>
           <?php foreach($lis as $rowc){
-            $isselect = (isset($category[$rowc['id']]))? 'checked':'';  ?>
+            $isselect = (isset($category[$rowc['id']]))? 'checked':'';
+            ?>
           <div class="form-group no-mt">
             <div class="checkbox">
               <label>
-                <input name="category[<?php echo $rowc['id']?>]" value="<?php echo $rowc['id']?>" type="checkbox"> <?php echo $rowc['name']?> </label>
+                <input name="category[<?php echo $rowc['id']?>]" value="<?php echo $rowc['id']?>" type="checkbox" <?php echo $isselect;?> > <?php echo $rowc['name']?> </label>
           </div>
          <?php }?>
         </fieldset>

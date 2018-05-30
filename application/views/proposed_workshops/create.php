@@ -10,7 +10,7 @@
                             <div class="row form-group">
                                 <label for="" class="col-md-2 control-label">Título</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" placeholder="Título" name="titulo" required> </div>
+                                    <input type="text" class="form-control" placeholder="Título" name="titulo" onkeypress="return only_letters(event)" required> </div>
                             </div>
 
                             <div class="row form-group">
