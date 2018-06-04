@@ -94,7 +94,7 @@
       $(function(){
         //var Date = moment.tz("America/Lima").format();
         $('input.mydatepicker').datepicker({
-          format: 'dd/mm/yyyy',
+          format: 'dd-mm-yyyy',
           weekStart:1,
           language: 'es'
         });

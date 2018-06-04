@@ -32,18 +32,18 @@
                 <div class="row form-group">
                   <label for="inputName" class="col-md-2 control-label">Nombres</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="nombres" placeholder="Nombres" required> </div>
+                    <input type="text" class="form-control" name="nombres" placeholder="Nombres" onkeypress="return only_numbers(event)" required> </div>
                 </div>
                 <div class="row form-group">
                   <label for="inputLast" class="col-md-2 control-label">Apellidos</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" required> </div>
+                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" onkeypress="return only_numbers(event)" required> </div>
                 </div>
 
                 <div class="row form-group">
                   <label for="inputCel" class="col-md-2 control-label">Celular</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="celular" placeholder="Celular"> </div>
+                    <input type="text" class="form-control" name="celular" placeholder="Celular" onkeypress="return only_numbers(event)"> </div>
                 </div>
 
                 <div class="row form-group">

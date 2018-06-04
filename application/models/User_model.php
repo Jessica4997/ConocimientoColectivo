@@ -2,7 +2,8 @@
 class User_model extends CI_Model {
 
   public function createuser($dataform){
-    $date = DateTime::createFromFormat('d/m/Y', $dataform['fecha_nacimiento']);
+
+    $date = new DateTime($dataform['fecha_nacimiento']);
     $dateformat = $date->format('Y-m-d');
 
     $data = array(
@@ -60,12 +61,15 @@ class User_model extends CI_Model {
   }
 
   public function update_user_profile($dataform){
+    $date = new DateTime($dataform['fecha_nacimiento']);
+    $dateformat = $date->format('Y-m-d');
+
         $data = array(
             //'password' => $dataform['contrasena'],
             'name' => $dataform['nombres'],
             'last_name' => $dataform['apellidos'],
             'cell_phone' => $dataform['celular'],
-            'date_birth' => $dataform['fecha_nacimiento'],
+            'date_birth' => $dateformat,
             'description' => $dataform['descripcion']
         );
         $this->db->update('users', $data, array('id' => $this->session->userdata('s_iduser')));

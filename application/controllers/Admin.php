@@ -192,7 +192,7 @@ class Admin extends CI_Controller {
 
 	public function workshop_save_edit($id){
 		$this->admin_model->update_w_description($_POST, $id);
-		//redirect('admin/workshop_description/'.$id, 'refresh');
+		redirect('admin/workshop_description/'.$id, 'refresh');
 	}
 
 	public function workshop_delete($id){

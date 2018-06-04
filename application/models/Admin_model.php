@@ -81,11 +81,14 @@ class Admin_model extends CI_Model {
   }
 
     public function update_users_profiles($dataform, $user_id){
+      $date = new DateTime($dataform['fecha_nacimiento']);
+      $dateformat = $date->format('Y-m-d');
+
         $data = array(
             'name' => $dataform['nombres'],
             'last_name' => $dataform['apellidos'],
             'cell_phone' => $dataform['celular'],
-            'date_birth' => $dataform['fecha_nacimiento'],
+            'date_birth' => $dateformat,
             'description' => $dataform['descripcion'],
             'gender' => $dataform['genero'],
             'removed' => 'Activo'
@@ -454,7 +457,7 @@ class Admin_model extends CI_Model {
   }
 
     public function update_pw_description($dataform, $id){
-      $date = DateTime::createFromFormat('d/m/Y', $dataform['fecha_inicio']);
+      $date = new DateTime($dataform['fecha_inicio']);
       $dateformat = $date->format('Y-m-d');
 
       $data = array(
@@ -592,14 +595,17 @@ class Admin_model extends CI_Model {
 
 
     public function update_w_description($dataform, $id){
+      $date = new DateTime($dataform['fecha_inicio']);
+      $dateformat = $date->format('Y-m-d');
+
       $data = array(
           'title' => $dataform['titulo'],
           'category_id' => $dataform['categoria'],
           'subcategory_id' => $dataform['subcategoria'],
           'level_id' => $dataform['nivel'],
-          'start_date' => $dataform['fecha_inicio'],
-          //'start_time' => $dataform['hora_inicio'],
-          //'end_time' => $dataform['hora_fin'],
+          'start_date' => $dateformat,
+          'start_time' => $dataform['hora_inicio'],
+          'end_time' => $dataform['hora_fin'],
           'description' => $dataform['descripcion']
       );
 

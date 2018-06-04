@@ -4,7 +4,7 @@
               <div class="card-body">
                 <h2 align="center"><?php echo $description['title']?></h2>
                 
-                  <div class="row" align="center">
+                  <div class="row ml-1" align="center">
                     <li class="list-unstyled"> Creado por: <?php echo $description['user_name']?> <?php echo $description['user_last_name']?>
 
                     </li>

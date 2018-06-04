@@ -93,7 +93,7 @@ class Proposed_Workshop_model extends CI_Model {
   }
 
   public function create($dataform, $user_id){
-    $date = DateTime::createFromFormat('d/m/Y', $dataform['fecha_inicio']);
+    $date = new DateTime($dataform['fecha_inicio']);
     $dateformat = $date->format('Y-m-d');
 
     $data = array(
@@ -108,7 +108,6 @@ class Proposed_Workshop_model extends CI_Model {
         'pw_status' => 'Activo',
         'removed' => 'Activo',
         'user_id'=> $user_id
-
     );
 
     $this->db->insert('proposed_workshops', $data);
@@ -243,12 +242,15 @@ class Proposed_Workshop_model extends CI_Model {
       $id_data = $dataform['pw_id'];
       $data2 = $this->proposed_workshop_model->get_proposed_workshop_data($id_data);
 
+      $date = new DateTime($data2['start_date']);
+      $dateformat = $date->format('Y-m-d');
+
         $data = array(
         'title' => $data2['pw_title'],
         'category_id' => $data2['category_id'],
         'subcategory_id' => $data2['subcategory_id'],
         'level_id' => $data2['level_id'],
-        'start_date' => $data2['start_date'],
+        'start_date' => $dateformat,
         'start_time' => $data2['start_time'],
         'end_time' => $data2['end_time'],
         'amount' => $dataform['monto'],

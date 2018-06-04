@@ -83,10 +83,11 @@ class Workshop extends CI_Controller {
 	}
 
 	public function save(){
-		ini_set('date.timezone','America/Lima'); 
-        $fechaActual = date('d/m/Y');
-        //var_dump(strtotime($_POST['fecha']));exit();
-		if ($_POST['fecha'] > $fechaActual){
+		//var_dump($_POST);exit();
+		ini_set('date.timezone','America/Lima');
+		$today = new Datetime();
+        $workshop_date = new Datetime($_POST['fecha']);
+		if ($workshop_date > $today){
 			if ($_POST['hora_fin'] > $_POST['hora_inicio']) {
 				$this->workshop_model->create($_POST, $this->user_id);
 				redirect('workshop', 'refresh');
@@ -95,18 +96,16 @@ class Workshop extends CI_Controller {
 			}
 		}else{
 			echo "Debes escoger una fecha posterior";
-		}
-		
+		}	
 	}
 
 	public function save_inscribed_user($id){
-              ini_set('date.timezone','America/Lima'); 
-              $fechaActual = date('d-m-Y g:i A');
-
+		ini_set('date.timezone','America/Lima');
+  		$today = new Datetime();
+      	$workshop_date = new Datetime($_POST['fecha']);
 
 		$verifydata = $this->workshop_model->verify_enroll_user($id, $this->user_id);
 		$verifycreator = $this->workshop_model->check_user_creator($id);
-		//$toString = implode($verifycreator);
 		$verifyvacancy = $this->workshop_model->get_vacancy_number($id);
 		$workshop_description = $this->workshop_model->show_by_id($id);
 		$w_by_user = $this->workshop_model->get_inscribed_workshops_by_user($this->user_id,$workshop_description['sc_id']);
@@ -117,12 +116,8 @@ class Workshop extends CI_Controller {
 		}else if($verifycreator['user_id'] == $this->user_id) {
 			echo "No puedes matricularte porque tu lo creaste";
 		}else if(intval($w_by_user['dificult']) +1 < intval($workshop_description['dificult'])){
-			//var_dump(intval($workshop_description['dificult']));
-			//var_dump($w_by_user['dificult']);
-			//var_dump($w_by_user_validate['dificult']);
-			
 			echo "No puedes matricularte porque necesitas llevar algun taller previo";
-		}else if($workshop_description['start_date'] < $fechaActual){
+		}else if($workshop_date < $today){
 			echo "La fecha de inicio ya paso";
 		}else{
 			if ($verifyvacancy['vacancy'] > 0) {
@@ -133,7 +128,6 @@ class Workshop extends CI_Controller {
 			}else{
 				echo "No hay vacantes";
 			}
-
 		}
 	}
 }

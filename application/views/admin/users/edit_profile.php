@@ -14,19 +14,19 @@
                 <div class="row form-group">
                   <label for="inputName" class="col-md-2 control-label">Nombres</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="nombres" placeholder="Nombres" required value="<?php echo $data_id['name']?>"> </div>
+                    <input type="text" class="form-control" name="nombres" placeholder="Nombres" required value="<?php echo $data_id['name']?>" onkeypress="return only_letters(event)"> </div>
                 </div>
 
                 <div class="row form-group">
                   <label for="inputLast" class="col-md-2 control-label">Apellidos</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" required value="<?php echo $data_id['last_name']?>"> </div>
+                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" required value="<?php echo $data_id['last_name']?>" onkeypress="return only_letters(event)"> </div>
                 </div>
 
                 <div class="row form-group">
                   <label for="inputCel" class="col-md-2 control-label">Celular</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="celular" placeholder="Celular" value="<?php echo $data_id['cell_phone']?>"> </div>
+                    <input type="text" class="form-control" name="celular" placeholder="Celular" value="<?php echo $data_id['cell_phone']?>" onkeypress="return only_numbers(event)"> </div>
                 </div>
 
                 <div class="row form-group">
@@ -35,7 +35,7 @@
                   ?>
                   <label for="inputDate" class="col-md-2 control-label">Fecha de Nacimiento</label>
                   <div class="col-md-9">
-                    <input type="date" name="fecha_nacimiento" value="<?php echo $datetime->format('Y-m-d')?>"> </div>
+                    <input type="text" class="mydatepicker" name="fecha_nacimiento" value="<?php echo $datetime->format('d-m-Y')?>"> </div>
                 </div>
 
                 <div class="row form-group">
@@ -56,18 +56,6 @@
                     <span class="help-block">Escriba una breve descripción </span>
                   </div>
                 </div>
-
-                <!--<div class="row form-group">
-                  <label for="inputGen" class="col-md-2 control-label">Estado</label>
-                  <div class="col-md-9">
-                    <select name="estado" class="form-control selectpicker">
-                      
-                      <option value="1">Sin Confirmar</option>
-                      <option value="2">Confirmado</option>
-                    </select>
-                  </div>
-                </div>-->
-
            
                   <div class="col-lg-3" align="center">
                     <input type="submit" value="Guardar Cambios" class="btn btn-raised btn-primary btn-block">

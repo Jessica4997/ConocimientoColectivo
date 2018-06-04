@@ -60,7 +60,7 @@
                                    <?php
                                    $datetime1 = new DateTime($pw_by_id['start_date']);
                                    ?>
-                                    <input class="mydatepicker" type="text" name="fecha_inicio" placeholder="mes/día/año" required> </div>
+                                    <input class="mydatepicker" type="text" name="fecha_inicio" placeholder="mes/día/año" value="<?php echo $datetime1->format('d-m-Y')?>" required> </div>
                             </div>
 
                             <div class="row form-group">

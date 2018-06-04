@@ -14,13 +14,13 @@
                 <div class="row form-group">
                   <label for="inputName" class="col-md-2 control-label">Nombres</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="nombres" placeholder="Nombres" value="<?php echo $user_d['name']?>" required> </div>
+                    <input type="text" class="form-control" name="nombres" placeholder="Nombres" value="<?php echo $user_d['name']?>" onkeypress="return only_letters(event)" required> </div>
                 </div>
 
                 <div class="row form-group">
                   <label for="inputLast" class="col-md-2 control-label">Apellidos</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" value="<?php echo $user_d['last_name']?>"  required> </div>
+                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" value="<?php echo $user_d['last_name']?>" onkeypress="return only_letters(event)" required> </div>
                 </div>
 
                 <div class="row form-group">
@@ -35,7 +35,7 @@
                   ?>
                   <label for="inputDate" class="col-md-2 control-label">Fecha de Nacimiento</label>
                   <div class="col-md-9">
-                    <input type="date" name="fecha_nacimiento" value="<?php echo $datetime->format('Y-m-d')?>"> </div>
+                    <input type="text" class="mydatepicker" name="fecha_nacimiento" value="<?php echo $datetime->format('d-m-Y')?>"> </div>
                 </div>
 
                 <div class="form-group row justify-content-end">

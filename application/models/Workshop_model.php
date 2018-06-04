@@ -40,7 +40,7 @@ class Workshop_model extends CI_Model {
 
 
   public function create($dataform, $user_id){
-    $date = DateTime::createFromFormat('d/m/Y', $dataform['fecha']);
+    $date = new DateTime($dataform['fecha_nacimiento']);
     $dateformat = $date->format('Y-m-d');
 
     $data = array(
