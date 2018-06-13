@@ -356,4 +356,162 @@ class Admin extends CI_Controller {
 		$this->admin_model->cancel_delete_pw($id);
 		redirect('admin/proposed_workshop_description/' .$id, 'refresh');
 	}
+
+
+//RATINGS
+
+	public function show_student_list($iu_w_id){
+		$student_list = $this->admin_model->get_student_list($iu_w_id);
+		$teacher = $this->admin_model->get_teacher($iu_w_id);
+		$dataView=[
+			'page'=>'admin/workshops/student_list',
+			'list'=>$student_list,
+			'teacher'=>$teacher
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function show_edit_student_rate($iu_w_id, $user_id){
+		$iu_id = $this->admin_model->get_iu_id($iu_w_id,$user_id);
+		//var_dump($iu_id);exit();
+		$dataView=[
+			'page'=>'admin/workshops/edit_delete_student_rate',
+			'iu_id'=>$iu_id
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function edit_student_rate($iu_id){
+		$this->admin_model->update_student_rating($_POST,$iu_id);
+		//PARA INSERTAR CALIFICACION FINAL EN USUARIO
+		$iu_user_id = $this->admin_model->get_user_by_iu_id($iu_id);
+		$this->admin_model->insert_final_rating_to_users($iu_user_id['iu_user_id']);
+		//redirect('admin/show_edit_student_rate/'.$id, 'refresh');
+	}
+
+	public function delete_rate_student($iu_id){
+		$this->admin_model->delete_student_rating($_POST,$iu_id);
+
+		$iu_user_id = $this->admin_model->get_user_by_iu_id($iu_id);
+		
+		$this->admin_model->insert_final_rating_to_users($iu_user_id['iu_user_id']);
+		//redirect('my_created_workshops/show_profile/'.$user_id, 'refresh');
+	}
+
+	public function show_edit_teacher_rate($iu_w_id, $user_id){
+		$iu_id = $this->admin_model->get_iu_id($iu_w_id,$user_id);
+		//$this->admin_model->update_student_rating($iu_id);
+		$dataView=[
+			'page'=>'admin/workshops/edit_delete_teacher_rate',
+			'iu_id'=>$iu_id
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+
+	public function edit_teacher_rate($iu_id){
+		$this->admin_model->update_teacher_rating($_POST,$iu_id);
+		//PARA INSERTAR CALIFICACION FINAL EN USUARIO
+		$iu_w_id = $this->admin_model->get_user_by_iu_id($iu_id);
+		$w_user_id = $this->admin_model->get_user_id_by_iu_w_id($iu_w_id['iu_w_id']);
+		$this->admin_model->insert_final_teacher_rating_to_users($iu_w_id['iu_w_id'],$w_user_id['user_id']);
+		//redirect('admin/show_edit_student_rate/'.$id, 'refresh');
+	}
+
+//PROPOSED_SUBCATEGORIES
+
+	public function proposed_subcategories_list(){
+		$rp = 2;
+		$category = (isset($_GET['category']))? $_GET['category']:[];
+		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$psc_list = $this->admin_model->search_psc_by_category_title($page,$category,$q,$rp);
+		$num_pages = $this->admin_model->get_psc_total_search($category,$q,$rp);
+		$catlist = $this->admin_model->get_categories_list();
+		$dataView=[
+			'page'=>'admin/proposed_subcategories/list',
+			'lists'=>$psc_list ,
+			'lis'=>$catlist,
+			'q'=>$q,
+			'category'=>$category,
+			'pagination'=>$page,
+			'num_pages'=>$num_pages,
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function proposed_subcategories_description($id) {
+		$proposed_subcategory_description = $this->admin_model->proposed_subcategories_show_by_id($id);
+		//var_dump($proposed_workshop_description);exit();
+		$dataView=[
+			'page'=>'admin/proposed_subcategories/description',
+			'description'=>$proposed_subcategory_description
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function proposed_subcategories_edit($id){
+		$categorylist = $this->admin_model->get_categories_list();
+		$proposed_subcategory_description = $this->admin_model->proposed_subcategories_show_by_id($id);
+		$dataView=[
+			'page'=>'admin/proposed_subcategories/edit',
+			'prueba'=>$categorylist,
+			'psc_data'=>$proposed_subcategory_description
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function proposed_subcategories_save_edit($id){
+		$this->admin_model->update_proposed_subcategories($_POST,$id);
+		redirect('admin/proposed_subcategories_description/' .$id, 'refresh');
+	}
+
+	public function proposed_subcategories_delete($id){
+		$this->admin_model->delete_proposed_subcategories($id);
+		redirect('admin/proposed_subcategories_description/' .$id, 'refresh');
+	}
+
+	public function proposed_subcategories_cancel_delete($id){
+		$this->admin_model->cancel_delete_proposed_subcategories($id);
+		redirect('admin/proposed_subcategories_description/' .$id, 'refresh');
+	}
+
+	public function proposed_subcategories_open_request($id){
+		$sc_info = $this->admin_model->proposed_subcategories_show_by_id($id);
+		if ($sc_info['votes_quantity'] >= 10) {
+			$this->admin_model->open_subcategory_request($id,$_POST);
+			$this->admin_model->change_proposed_subcategory_status($id);
+			//var_dump($_POST);exit();
+			redirect('admin/proposed_subcategories_description/' .$id, 'refresh');
+		}else{
+			echo "No tiene suficientes votos";
+		}
+	}
+
+//REPORTS
+
+	public function show_reports() {
+		$month = $this->input->get('mes');
+		$inscriptions_month = $this->admin_model->inscriptions_per_month($month);
+		$pw_month = $this->admin_model->workshops_request_per_month($month);
+
+		//var_dump($inscriptions_month);exit();
+		$dataView=[
+			'page'=>'admin/reports/reports',
+			'inscriptions_month'=>$inscriptions_month,
+			'pw_month'=>$pw_month
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function to_pdf() {
+
+		$this->load->helper('pdf_helper');
+
+		$dataView=[
+			'page'=>'admin/reports/topdf'
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
 }

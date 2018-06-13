@@ -17,8 +17,8 @@
       <td><?php echo $listaa['description']?></td>
       <td><?php echo $listaa['email']?></td>
       <td><?php echo $listaa['cell_phone']?></td>
-      <td></td>
-      <td><a href="<?php echo site_url('')?>" class="btn btn-primary">Calificar</a></td>
+      <td><?php echo $listaa['u_tutor_rating']?></td>
+      <td><a href="<?php echo site_url('my_workshops/show_rate_teacher/' .$listaa['w_user_id'].'/'.$listaa['w_id'])?>" class="btn btn-primary">Calificar</a></td>
     </tr>
 
   </tbody>

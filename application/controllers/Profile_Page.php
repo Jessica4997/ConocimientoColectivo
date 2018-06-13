@@ -7,6 +7,8 @@ class Profile_Page extends CI_Controller {
     public function __construct() {
 		parent::__construct();
 		$this->load->model('user_model');
+		$this->load->model('created_workshops_model');
+		$this->load->model('my_workshops_model');
 		$this->user_id = $this->session->userdata('s_iduser');
         if ($this->user_id === null){
             redirect('login', 'refresh');
@@ -15,6 +17,11 @@ class Profile_Page extends CI_Controller {
 
 	public function index(){
 		$data_profile= $this->user_model->show_profile_by_id($this->user_id);
+		$this->created_workshops_model->get_student_final_rating($this->user_id);
+		$this->created_workshops_model->insert_final_rating_to_users($this->user_id);
+
+		$this->my_workshops_model->get_teacher_final_rating($this->user_id);
+		$this->my_workshops_model->insert_final_tutor_rating_to_users($this->user_id);
 		$dataView=[
 			'page'=>'users/profile',
 			'user_data'=>$data_profile

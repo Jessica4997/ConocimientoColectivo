@@ -76,7 +76,7 @@
         key = e.keyCode || e.which;
 
         teclado = String.fromCharCode(key);
-        letras = " abcdefghijklmnñopqrstuvwxyzáéíóúABCDEFGHIJKLMNLÑOPQRSTUVWXYZÁÉÍÓÚ";
+        letras = " abcdefghijklmnñopqrstuvwxyzáéíóúABCDEFGHIJKLMNLÑOPQRSTUVWXYZÁÉÍÓÚ.";
         especiales = "8-37-38-46-164"; //array
         teclado_especial = false;
 
@@ -106,7 +106,6 @@
         maxTime: '10:00pm',
         interval:60
       });
-
 
 
     </script>

@@ -5,18 +5,11 @@
                 <h2 align="center"><?php echo $description['title']?></h2>
                 
                   <div class="row" align="center">
-                    <li class="list-unstyled"> Creado por: <?php echo $description['user_name']?> <?php echo $description['user_last_name']?>
-
-                    </li>
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <li class="list-unstyled ml-1"> Creado por: <?php echo $description['user_name']?> <?php echo $description['user_last_name']?>
                       
-                        <i class="zmdi zmdi-hc-lg zmdi-star color-warning"></i>
-                        <i class="zmdi zmdi-hc-lg zmdi-star color-warning"></i>
-                        <i class="zmdi zmdi-hc-lg zmdi-star color-warning"></i>
-                        <i class="zmdi zmdi-hc-lg zmdi-star color-warning"></i>
-                        <i class="zmdi zmdi-hc-lg zmdi-star"></i>
-                   
-                      </div>
+                      <i class="fa fa-star" style="color: goldenrod"><?php echo $description['user_tutor_rating']?></i>
+                    </li>
+
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" align="center">
                       <h2 class="color-success text-normal">S/. <?php echo $description['amount']?></h2>

@@ -52,6 +52,8 @@
                 <a href="<?php echo site_url('admin/workshop_cancel_delete/'.$description['id'])?>" class="btn btn-primary btn-raised">Agregar</a>
                 <?php } ?>
 
+                <a href="<?php echo site_url('admin/show_student_list/'.$description['id'])?>" class="btn btn-primary btn-raised">Ver Lista de Alumnos</a>
+
                 </div>
               </div>
             </div>

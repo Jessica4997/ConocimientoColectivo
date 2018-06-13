@@ -20,7 +20,7 @@
     <div class="col-xl-6 col-lg-6 col-md-6 mix ">
       <div class="card ms-feature">
         <div class="card-body text-center">
-          <h4 class="text-normal text-center"> <?php echo $row['title']?></h4>
+          <h4 class="text-normal text-center"> <?php echo $row['title']?> <?php echo $row['w_id']?></h4>
           <p>
             <?php echo $row['description']?>
             <li>Categoría: <?php echo $row['category_name']?> - <?php echo $row['subcategory_name']?></li>
@@ -32,8 +32,12 @@
 
             <span class="ms-tag ms-tag-success">S/.<?php echo $row['amount']?></span>
         
+          <a href="<?php echo site_url('my_created_workshops/show_postulants_list/'.$row['w_id'])?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
+            <i class="fa fa-search"></i>Ver Postulantes</a>
+
           <a href="<?php echo site_url('my_created_workshops/show_student_list/'.$row['w_id'])?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
             <i class="fa fa-search"></i>Ver Alumnos Matriculados</a>
+
         </div>
       </div>
     </div>

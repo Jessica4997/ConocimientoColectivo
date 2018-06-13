@@ -17,6 +17,10 @@
                             <h3 class="color-primary">Biografía</h3>
                             <p>
                                 <?php echo $user_data['description']?>
+                                <br>
+                                S<i class="fa fa-star" style="color: goldenrod" id="s_rating"><?php echo $user_data['student_rating']?></i>
+                                <br>
+                                T<i class="fa fa-star" style="color: goldenrod" id="t_rating"><?php echo $user_data['tutor_rating']?></i>
                             </p>
 
                         </div>

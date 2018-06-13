@@ -35,12 +35,46 @@ class My_Workshops extends CI_Controller {
 
 	public function show_teacher($id){
 		$teacher = $this->my_workshops_model->get_teacher_list($id);
-		//var_dump($students_list);exit;
+		//var_dump($teacher);exit;
 		$dataView=[
 			'page'=>'workshops/teacher_list',
 			'listaa'=>$teacher
 		];
 		$this->load->view('template/basic',$dataView);
+	}
+
+	public function show_rate_teacher($user_id,$w_id){
+		$w_info = $this->my_workshops_model->get_workshop_info($w_id);
+
+		ini_set('date.timezone','America/Lima');
+  		$today = new Datetime();
+      	$workshop_date = new Datetime($w_info['start_date']);
+      	$workshop_date->add(new DateInterval('P1D'));
+
+      	//var_dump($w_info);exit();
+		if ($today > $workshop_date) {
+			$teacher_info = $this->my_workshops_model->get_teacher_info($w_id, $this->user_id);
+			$final = $this->my_workshops_model->get_teacher_final_rating($w_info['user_id']);
+			//var_dump($teacher_info);exit;
+			$dataView=[
+				'page'=>'workshops/rate_teacher',
+				'teacher_info'=>$teacher_info,
+				'final'=>$final
+			];
+			$this->load->view('template/basic',$dataView);
+		}else{
+			echo "El taller aun no ha finalizado";
+		}
+	}
+
+	public function rate_teacher($iu_id){
+		$this->my_workshops_model->rate_teacher($_POST,$iu_id);
+
+		$get_w_id = $this->my_workshops_model->find_w_id_by_iu_id($iu_id);
+		$tutor_user_id = $this->my_workshops_model->find_user_by_w_id($get_w_id['iu_w_id']);
+
+		$this->my_workshops_model->insert_final_tutor_rating_to_users($tutor_user_id['w_user_id']);
+		//redirect('my_workshops/show_profile/'.$user_id, 'refresh');
 	}
 
 }

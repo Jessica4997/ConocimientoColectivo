@@ -69,13 +69,6 @@
 									</li>
 								</p>
 
-								<span class="mr-2">
-									<i class="zmdi zmdi-star color-warning"></i>
-									<i class="zmdi zmdi-star color-warning"></i>
-									<i class="zmdi zmdi-star color-warning"></i>
-									<i class="zmdi zmdi-star color-warning"></i>
-									<i class="zmdi zmdi-star"></i>
-								</span>
 								<span class="ms-tag ms-tag-success">S/.
 									<?php echo $row['amount']?>
 								</span>

@@ -7,6 +7,8 @@ class Workshop extends CI_Controller {
     public function __construct() {
 		parent::__construct();
 		$this->load->model('workshop_model');
+		$this->load->model('created_workshops_model');
+		$this->load->model('my_workshops_model');
 		
 		$this->user_id = $this->session->userdata('s_iduser');
 		$ruta = $this->uri->segment(2, '/');
@@ -51,15 +53,11 @@ class Workshop extends CI_Controller {
 		$w_by_user = $this->workshop_model->get_inscribed_workshops_by_user($this->user_id,$workshop_description['sc_id']);
 		$w_by_user_validate = isset($w_by_user)? $w_by_user :1;
 
-		      ini_set('date.timezone','America/Lima'); 
-              $fechaActual = date('d-m-Y g:i A');
+		$this->my_workshops_model->get_teacher_final_rating($id);
+		$this->my_workshops_model->insert_final_tutor_rating_to_users($workshop_description['workshop_creator']);
 
-              var_dump($workshop_description['start_date']);
-              var_dump($fechaActual);
-		if($workshop_description['start_date'] < $fechaActual){
-			echo "La fecha de inicio ya paso";
-		}
-
+              //var_dump($workshop_description['start_date']);
+              //var_dump($fechaActual);
 
 		$dataView=[
 			'page'=>'workshops/description',
@@ -100,15 +98,19 @@ class Workshop extends CI_Controller {
 	}
 
 	public function save_inscribed_user($id){
+		$workshop_description = $this->workshop_model->show_by_id($id);
+
 		ini_set('date.timezone','America/Lima');
   		$today = new Datetime();
-      	$workshop_date = new Datetime($_POST['fecha']);
+      	$workshop_date = new Datetime($workshop_description['start_date']);
 
 		$verifydata = $this->workshop_model->verify_enroll_user($id, $this->user_id);
 		$verifycreator = $this->workshop_model->check_user_creator($id);
-		$verifyvacancy = $this->workshop_model->get_vacancy_number($id);
-		$workshop_description = $this->workshop_model->show_by_id($id);
+		
 		$w_by_user = $this->workshop_model->get_inscribed_workshops_by_user($this->user_id,$workshop_description['sc_id']);
+
+		$postulants_number = $this->workshop_model->get_postulants_number($id);
+
 		//$w_by_user_validate = isset($w_by_user['dificult'])? $w_by_user['dificult'] :$w_by_user['dificult']=1;
 
 		if ($verifydata) {
@@ -119,14 +121,15 @@ class Workshop extends CI_Controller {
 			echo "No puedes matricularte porque necesitas llevar algun taller previo";
 		}else if($workshop_date < $today){
 			echo "La fecha de inicio ya paso";
-		}else{
-			if ($verifyvacancy['vacancy'] > 0) {
+		}else if ($workshop_description['vacancy'] <= 0) {
+			echo "No hay vacantes";
+		}
+		else{
+			if ($postulants_number < 15){
 				$this->workshop_model->enroll_workshop($this->user_id, $id);
-				$verifyvacancy['vacancy'] = $verifyvacancy['vacancy'] - 1;
-				$this->workshop_model->update_vacany_number($id, $verifyvacancy['vacancy']);
 				redirect('workshop','refresh');
 			}else{
-				echo "No hay vacantes";
+				echo "Se superó el número de postulantes";
 			}
 		}
 	}

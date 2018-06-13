@@ -646,4 +646,376 @@ class Admin_model extends CI_Model {
         return $query->result_array();
     }
 
+
+//RATINGS
+
+  public function get_student_list($iu_w_id){
+    $sql = "SELECT
+              iu.id AS iu_id,
+              iu.iu_status,
+              iu.student_rating AS iu_student_rating,
+              iu.tutor_rating AS iu_tutor_rating,
+              iu.user_id AS iu_user_id,
+              iu.wrks_id AS iu_w_id,
+              u.name,
+              u.last_name,
+              u.student_rating
+            FROM
+                inscribed_users AS iu
+                INNER JOIN users AS u
+                ON iu.user_id = u.id
+                  WHERE iu.wrks_id = ? ";
+
+        $query = $this->db->query($sql,array($iu_w_id));
+        
+        return $query->result_array();
+  }
+
+
+  public function get_teacher($w_id){
+    $sql = "SELECT
+              w.user_id,
+              u.name,
+              u.last_name,
+              u.tutor_rating
+            FROM
+                workshops AS w
+                INNER JOIN users AS u
+                ON w.user_id = u.id
+                  WHERE w.id = ? ";
+
+        $query = $this->db->query($sql,array($w_id));
+        
+        return $query->row_array();
+  }
+
+
+  public function get_iu_id($iu_w_id,$user_id){
+    $sql = "SELECT
+              iu.id AS iu_id,
+              iu.iu_status,
+              iu.user_id AS iu_user_id,
+              iu.wrks_id AS iu_w_id,
+              iu.student_rating AS iu_student_rating,
+              iu.tutor_rating AS iu_tutor_rating
+            FROM
+                inscribed_users AS iu
+                INNER JOIN users AS u
+                ON iu.user_id = u.id
+                  WHERE iu.wrks_id = ?
+                  AND iu.user_id = ? ";
+
+        $query = $this->db->query($sql,array($iu_w_id,$user_id));
+        
+        return $query->row_array();
+  }
+
+  public function update_student_rating($dataform,$iu_id){
+    $data = array(
+      'student_rating' => $dataform['puntaje_alumno']
+        );
+        $this->db->update('inscribed_users', $data, array('id' => $iu_id));
+    }
+
+  public function delete_student_rating($iu_id){
+    $data = array(
+      'student_rating' => NULL
+        );
+        $this->db->update('inscribed_users', $data, array('id' => $iu_id));
+    }
+
+
+    public function get_student_final_rating($user_id){
+      $sql = "SELECT
+        ROUND(SUM(student_rating) / COUNT(*),1) AS student_final_note 
+        FROM inscribed_users
+          WHERE user_id = ?
+          AND student_rating is not null 
+          GROUP BY user_id
+          HAVING COUNT(*) >= 2
+          ";
+
+      $query = $this->db->query($sql,array($user_id));
+
+      $rs = $query->row_array();
+
+      if(is_null($rs)){
+        $num =0;
+      }else{
+        $num = $rs['student_final_note'];
+      }
+      return $num;
+    }
+
+    public function insert_final_rating_to_users($user_id){
+      $final_rating = $this->get_student_final_rating($user_id);
+      $data=array(
+        'student_rating'=> $final_rating
+      );
+      return $this->db->update('users', $data, array('id' => $user_id));
+
+    }
+
+  public function get_user_by_iu_id($iu_id){
+    $sql = "SELECT
+              iu.id AS iu_id,
+              iu.iu_status,
+              iu.user_id AS iu_user_id,
+              iu.wrks_id AS iu_w_id,
+              iu.student_rating AS iu_student_rating
+            FROM
+                inscribed_users AS iu
+                INNER JOIN users AS u
+                ON iu.user_id = u.id
+                  WHERE iu.id = ? ";
+
+        $query = $this->db->query($sql,array($iu_id));
+        
+        return $query->row_array();
+  }
+
+
+
+
+
+  public function update_teacher_rating($dataform,$iu_id){
+    $data = array(
+      'tutor_rating' => $dataform['puntaje_docente']
+        );
+        $this->db->update('inscribed_users', $data, array('id' => $iu_id));
+    }
+
+  public function delete_teacher_rating($iu_id){
+    $data = array(
+      'student_rating' => NULL
+        );
+        $this->db->update('inscribed_users', $data, array('id' => $iu_id));
+    }
+
+
+    public function get_teacher_final_rating($w_id){
+      $sql = "SELECT
+        ROUND(SUM(tutor_rating) / COUNT(*),1) AS teacher_final_note 
+        FROM inscribed_users
+          WHERE wrks_id = ?
+          AND tutor_rating is not null 
+          GROUP BY wrks_id
+          HAVING COUNT(*) >= 2
+          ";
+
+      $query = $this->db->query($sql,array($w_id));
+
+      $rs = $query->row_array();
+
+      if(is_null($rs)){
+        $num =0;
+      }else{
+        $num = $rs['teacher_final_note'];
+      }
+      return $num;
+    }
+
+    public function insert_final_teacher_rating_to_users($w_id,$user_id){
+      $final_teacher_rating = $this->get_teacher_final_rating($w_id);
+      $data=array(
+        'tutor_rating'=> $final_teacher_rating
+      );
+      return $this->db->update('users', $data, array('id' => $user_id));
+
+    }
+
+
+    public function get_user_id_by_iu_w_id($w_id){
+      $sql = "SELECT
+                w.id,
+                w.user_id
+              FROM
+                  workshops AS w
+                  INNER JOIN users AS u
+                  ON w.user_id = u.id
+                    WHERE w.id = ? ";
+
+          $query = $this->db->query($sql,array($w_id));
+          
+          return $query->row_array();
+    }
+
+//PROPOSED_SUBCATEGORIES
+
+    public function get_psc_sql_search($category,$q){
+          $sql = "SELECT 
+              psc.id AS psc_id,
+              psc.name AS psc_name,
+              psc.description,
+              psc.votes_quantity,
+              c.id,
+              c.name AS c_name,
+              u.id,
+              u.name AS u_name,
+              u.last_name AS u_last_name
+            FROM
+              proposed_subcategories AS psc 
+              INNER JOIN categories AS c 
+              ON psc.category_id = c.id
+                INNER JOIN users AS u
+                ON psc.user_id = u.id
+                   ";
+
+      if(is_array($category) && count($category)>0){
+        $cat_id = implode(",",$category);
+        $sql.="AND c.id IN ({$cat_id}) ";
+      }
+
+      if(trim($q)!=''){
+        $q = trim($q);
+        $sql.="AND psc.name LIKE '%{$q}%' ";
+      }
+
+      $sql.=" ORDER BY psc.id ";
+
+      return $sql;
+    }
+
+    public function search_psc_by_category_title($page,$category,$q,$rp){
+      $offset = (($page-1)*$rp);
+      $sql = $this->get_psc_sql_search($category,$q);
+      $sql.=  " LIMIT {$rp} OFFSET {$offset}";
+      $query = $this->db->query($sql);
+      return $query->result_array();
+    }
+  
+    public function get_psc_total_search($category,$q,$rp){
+      $sql = $this->get_psc_sql_search($category,$q);
+      $query = $this->db->query($sql);
+      $total = $query->num_rows();
+      return ceil($total/$rp);
+    }
+
+    public function proposed_subcategories_show_by_id($id){
+        $sql = "SELECT
+                  psc.id AS psc_id,
+                  psc.name AS psc_name,
+                  psc.description AS psc_description,
+                  psc.votes_quantity,
+                  psc.removed AS psc_removed,
+                  psc.status AS psc_status,
+                  c.id AS c_id,
+                  c.name AS category_name,
+                  u.name AS user_name,
+                  u.last_name AS user_last_name
+                FROM
+                  proposed_subcategories AS psc
+                  INNER JOIN categories AS c
+                  ON psc.category_id = c.id
+                    INNER JOIN users AS u
+                    ON psc.user_id = u.id
+                WHERE psc.id = ?
+                LIMIT 1";
+
+      $query = $this->db->query($sql,array($id));
+      
+      return $query->row_array();
+  }
+
+    public function update_proposed_subcategories($dataform, $id){
+      $data = array(
+          'name' => $dataform['nombre_subcategoria'],
+          'category_id' => $dataform['categoria'],
+          'description' => $dataform['descripcion']
+      );
+
+      $this->db->update('proposed_subcategories', $data, array('id' => $id));
+    }
+
+    public function delete_proposed_subcategories($id){
+      $data = array(
+        'removed' => 'Eliminado'
+      );
+      $this->db->update('proposed_subcategories', $data, array('id' => $id));
+    }
+
+
+    public function cancel_delete_proposed_subcategories($id){
+      $data = array(
+        'removed' => 'Activo'
+      );
+      $this->db->update('proposed_subcategories', $data, array('id' => $id));
+    }
+
+    public function open_subcategory_request($id){
+      $psc_data = $this->proposed_subcategories_show_by_id($id);
+      $data = array(
+        'sub_name' => $psc_data['psc_name'],
+        'categories_id' => $psc_data['c_id'],
+        'removed' => 'Activo'
+      );
+      $this->db->insert('subcategories', $data);
+    }
+
+    public function change_proposed_subcategory_status($id){
+      $data = array(
+        'status' => 'En Curso'
+      );
+      $this->db->update('proposed_subcategories', $data, array('id' => $id));
+    }
+
+//REPORTS
+
+    public function inscriptions_per_month($month){
+      $sql = "SELECT
+              iu.id AS iu_id,
+              iu.iu_status,
+              iu.user_id AS iu_user_id,
+              iu.wrks_id AS iu_w_id,
+              iu.created_date AS iu_created_date,
+              u.name AS u_name,
+              u.last_name AS u_last_name,
+              w.title AS w_title,
+              w.category_id,
+              c.name AS c_name,
+              sc.sub_name AS sc_name
+            FROM
+                inscribed_users AS iu
+                INNER JOIN users AS u
+                ON iu.user_id = u.id
+                  INNER JOIN workshops AS w
+                  ON iu.wrks_id = w.id
+                    INNER JOIN categories AS c
+                    ON w.category_id = c.id
+                      INNER JOIN subcategories AS sc
+                      ON w.subcategory_id = sc.id
+            WHERE MONTH(iu.created_date) = ? ";
+
+        $query = $this->db->query($sql,array($month));
+        
+        return $query->result_array();
+      }
+
+    public function workshops_request_per_month($month){
+      $sql = "SELECT
+              pw.id AS pw_id,
+              pw.title,
+              pw.user_id AS pw_user_id,
+              pw.votes_quantity,
+              pw.removed,
+              pw.pw_status,
+              u.name AS u_name,
+              u.last_name AS u_last_name,
+              c.name AS c_name,
+              sc.sub_name AS sc_name
+            FROM
+                proposed_workshops AS pw
+                INNER JOIN users AS u
+                ON pw.user_id = u.id
+                  INNER JOIN categories AS c
+                  ON pw.category_id = c.id
+                    INNER JOIN subcategories AS sc
+                    ON pw.subcategory_id = sc.id
+            WHERE MONTH(pw.created_date) = ? ";
+
+        $query = $this->db->query($sql,array($month));
+        
+        return $query->result_array();
+      }
+
 }

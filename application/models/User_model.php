@@ -49,7 +49,9 @@ class User_model extends CI_Model {
                 u.cell_phone,
                 DATE_FORMAT(u.date_birth,'%d-%m-%Y') AS date_birth,
                 u.description,
-                u.gender
+                u.gender,
+                u.student_rating,
+                u.tutor_rating
               FROM
                 users AS u
                     WHERE u.`id` = ?

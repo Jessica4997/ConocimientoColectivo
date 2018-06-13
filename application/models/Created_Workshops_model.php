@@ -56,32 +56,170 @@ class Created_Workshops_model extends CI_Model {
     }
 
 
-  	public function get_students_list($id){
-
-  	$sql = "SELECT 
-			  iu.id,
-			  iu.iu_status,
-			  u.`name` AS user_name,
-			  u.`last_name` AS user_last_name,
-			  u.`description` AS user_description,
-			  u.`email` AS user_email,
-			  u.`cell_phone` AS user_cell_phone,
-			  w.id
-			FROM
-			  inscribed_users AS iu 
-			  INNER JOIN users AS u 
-			    ON iu.`user_id` = u.`id` 
-			  INNER JOIN workshops AS w 
-			    ON iu.`wrks_id` = w.`id`
-			    WHERE w.`id`= ? ";
+    public function get_postulants_list($id){
+      $sql = "SELECT 
+        /*iu.id,*/
+        iu.iu_status,
+        u.id AS user_id,
+        u.name AS user_name,
+        u.last_name AS user_last_name,
+        u.description AS user_description,
+        u.email AS user_email,
+        u.cell_phone AS user_cell_phone,
+        u.student_rating,
+        w.id AS w_id
+      FROM
+        inscribed_users AS iu 
+        INNER JOIN users AS u 
+          ON iu.user_id = u.id 
+        INNER JOIN workshops AS w 
+          ON iu.wrks_id = w.id
+          WHERE w.id = ? ";
 
       $query = $this->db->query($sql,array($id));
 
       return $query->result_array();
-      
-
-
-  	
   }
 
- }
+  public function validate_student($iu_id){
+    $data=array(
+      'iu_status'=> 'Confirmado'
+    );
+    return $this->db->update('inscribed_users', $data, array('id' => $iu_id));
+  }
+
+  public function cancel_student($iu_id){
+    $data=array(
+      'iu_status'=> 'No confirmado'
+    );
+    return $this->db->update('inscribed_users', $data, array('id' => $iu_id));
+  }
+
+  	public function get_students_list($id){
+      $sql = "SELECT 
+			  /*iu.id,*/
+			  iu.iu_status,
+        u.id AS user_id,
+			  u.name AS user_name,
+			  u.last_name AS user_last_name,
+			  u.description AS user_description,
+			  u.email AS user_email,
+			  u.cell_phone AS user_cell_phone,
+        u.student_rating,
+			  w.id AS w_id
+			FROM
+			  inscribed_users AS iu 
+			  INNER JOIN users AS u 
+			    ON iu.user_id = u.id 
+			  INNER JOIN workshops AS w 
+			    ON iu.wrks_id = w.id
+			    WHERE iu.iu_status = 'Confirmado'
+          AND w.id = ? ";
+
+      $query = $this->db->query($sql,array($id));
+
+      return $query->result_array();
+  }
+
+//PARA OBETENER EL ID DE INSCRIBED USERS CON EL ID DEL USUARIO Y DEL TALLER
+    public function get_student_info($user_id, $w_id){
+      $sql = "SELECT
+        iu.id AS iu_id,
+        iu.iu_status,
+        iu.student_rating AS iu_student_rating,
+        iu.wrks_id,
+        u.id,
+        u.name,
+        u.last_name,
+        u.email,
+        u.cell_phone,
+        u.description,
+        u.student_rating AS u_student_rating
+      FROM
+        inscribed_users AS iu
+        INNER JOIN users AS u
+         ON iu.user_id = u.id 
+          WHERE iu.user_id = ?
+          AND iu.wrks_id = ? ";
+
+      $query = $this->db->query($sql,array($user_id, $w_id));
+
+      return $query->row_array();
+    }
+
+
+    public function rate_student($dataform, $iu_id){
+      $data=array(
+        'student_rating'=> $dataform['puntaje']
+      );
+      return $this->db->update('inscribed_users', $data, array('id' => $iu_id));
+    }
+
+
+    public function get_student_final_rating($user_id){
+      $sql = "SELECT
+        ROUND(SUM(student_rating) / COUNT(*),1) AS student_final_note 
+        FROM inscribed_users
+          WHERE user_id = ?
+          AND student_rating is not null 
+          GROUP BY user_id
+          HAVING COUNT(*) >= 2
+          ";
+
+      $query = $this->db->query($sql,array($user_id));
+
+      $rs = $query->row_array();
+
+      if(is_null($rs)){
+        $num =0;
+      }else{
+        $num = $rs['student_final_note'];
+      }
+      return $num;
+    }
+
+    public function insert_final_rating_to_users($user_id){
+      $final_rating = $this->get_student_final_rating($user_id);
+      $data=array(
+        'student_rating'=> $final_rating
+      );
+      return $this->db->update('users', $data, array('id' => $user_id));
+    }
+
+
+    public function find_user_by_iu_id($iu_id){
+      $sql = "SELECT
+        iu.id AS iu_id,
+        iu.user_id AS iu_user_id
+      FROM
+        inscribed_users AS iu
+          WHERE iu.id = ? ";
+
+      $query = $this->db->query($sql,array($iu_id));
+
+      return $query->row_array();
+    }
+
+    public function get_workshop_info($w_id){
+      $sql = "SELECT
+        w.id,
+        w.title,
+        w.vacancy,
+        w.start_date
+      FROM
+        workshops AS w
+      WHERE w.id = ? ";
+
+      $query = $this->db->query($sql,array($w_id));
+
+      return $query->row_array();
+    }
+
+    public function update_vacancy_number($id, $vacancy){
+      $data=array(
+        'vacancy'=>$vacancy
+      );
+      return $this->db->update('workshops', $data, array('id' => $id));
+    }
+
+}

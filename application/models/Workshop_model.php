@@ -18,6 +18,7 @@ class Workshop_model extends CI_Model {
         sc.sub_name,
         u.name AS user_name,
         u.last_name AS user_last_name,
+        u.tutor_rating AS user_tutor_rating,
         l.level AS level_name,
         l.dificult AS dificult 
       FROM
@@ -40,7 +41,7 @@ class Workshop_model extends CI_Model {
 
 
   public function create($dataform, $user_id){
-    $date = new DateTime($dataform['fecha_nacimiento']);
+    $date = new DateTime($dataform['fecha']);
     $dateformat = $date->format('Y-m-d');
 
     $data = array(
@@ -106,7 +107,7 @@ class Workshop_model extends CI_Model {
     public function enroll_workshop($user_id, $id){
     $data = array(
         'user_id'=> $user_id,
-        'iu_status'=> 'Confirmado',
+        'iu_status'=> 'No confirmado',
         'wrks_id'=> $id
     );
     $this->db->insert('inscribed_users', $data);
@@ -139,32 +140,7 @@ class Workshop_model extends CI_Model {
         return $query->row_array(); 
   }
 
-
-  public function get_vacancy_number($id){
-        $sql = "SELECT 
-                  id,
-                  vacancy 
-            FROM
-              workshops
-              WHERE id = ?
-              LIMIT 1";
-
-        $query = $this->db->query($sql,array($id));
-        
-        return $query->row_array(); 
-  }
-
-
-  public function update_vacany_number($id, $vacancy){
-    $data=array(
-      'vacancy'=>$vacancy
-    );
-
-    return $this->db->update('workshops', $data, array('id' => $id));
-  }
-
-
-    public function get_inscribed_workshops_by_user($user_id,$subcategory_id){
+  public function get_inscribed_workshops_by_user($user_id,$subcategory_id){
         $sql = "  SELECT 
                   iu.id,
                   iu.user_id,
@@ -200,32 +176,32 @@ class Workshop_model extends CI_Model {
     return ceil($total/$rp);
   }
 
-    public function get_sql_search($category,$q){
-          $sql = "SELECT 
-              w.id AS w_id,
-              w.title,
-              w.description,
-              DATE_FORMAT(w.start_date,'%d-%m-%Y') AS start_date,
-              w.start_time,
-              w.end_time,
-              w.amount,
-              w.removed,
-              c.id,
-              c.name,
-              sc.sub_name,
-              l.id AS level_id,
-              l.level AS level_name
+  public function get_sql_search($category,$q){
+    $sql = "SELECT 
+            w.id AS w_id,
+            w.title,
+            w.description,
+            DATE_FORMAT(w.start_date,'%d-%m-%Y') AS start_date,
+            w.start_time,
+            w.end_time,
+            w.amount,
+            w.removed,
+            c.id,
+            c.name,
+            sc.sub_name,
+            l.id AS level_id,
+            l.level AS level_name
 
-            FROM
-              workshops AS w 
-              INNER JOIN categories AS c 
-                ON w.`category_id` = c.`id`
-                INNER JOIN subcategories AS sc
-                ON w.`subcategory_id` = sc.`id`
-                  INNER JOIN level AS l
-                  ON w.level_id = l.id
-                WHERE w.removed = 'Activo'
-                 ";
+          FROM
+            workshops AS w 
+            INNER JOIN categories AS c 
+              ON w.`category_id` = c.`id`
+              INNER JOIN subcategories AS sc
+              ON w.`subcategory_id` = sc.`id`
+                INNER JOIN level AS l
+                ON w.level_id = l.id
+              WHERE w.removed = 'Activo'
+               ";
 
       if(is_array($category) && count($category)>0){
         $cat_id = implode(",",$category);
@@ -241,4 +217,31 @@ class Workshop_model extends CI_Model {
 
       return $sql;
     }
+
+//PARA OBTENER EL NUMERO DE POSTULANTES
+  public function get_postulants_number($id){
+    $sql = "SELECT 
+        /*iu.id,*/
+        iu.iu_status,
+        u.id AS user_id,
+        u.name AS user_name,
+        u.last_name AS user_last_name,
+        u.description AS user_description,
+        u.email AS user_email,
+        u.cell_phone AS user_cell_phone,
+        u.student_rating,
+        w.id AS w_id
+      FROM
+        inscribed_users AS iu 
+        INNER JOIN users AS u 
+          ON iu.user_id = u.id 
+        INNER JOIN workshops AS w 
+          ON iu.wrks_id = w.id
+          WHERE w.id = ? ";
+
+      $query = $this->db->query($sql,array($id));
+
+      return $query->num_rows();
+  }
+
 }
