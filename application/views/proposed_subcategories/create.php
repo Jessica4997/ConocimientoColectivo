@@ -4,6 +4,17 @@
             <div class="card card-primary">
                 <div class="card-body">
                     <h1 class="color-primary text-center">Crear Solicitud de Nuevo Tema</h1>
+
+                    <?php if($error){?>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="zmdi zmdi-close"></i>
+                        </button>
+                        <?php echo $error;?>
+                    </div>
+                    <?php }?>
+
+                    
                     <form method="post" action="<?php echo site_url('proposed_subcategories/save')?>" class="form-horizontal">
                         <fieldset>
 

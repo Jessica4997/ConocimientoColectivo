@@ -190,7 +190,8 @@ class Created_Workshops_model extends CI_Model {
     public function find_user_by_iu_id($iu_id){
       $sql = "SELECT
         iu.id AS iu_id,
-        iu.user_id AS iu_user_id
+        iu.user_id AS iu_user_id,
+        iu.wrks_id AS iu_w_id
       FROM
         inscribed_users AS iu
           WHERE iu.id = ? ";

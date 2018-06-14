@@ -53,18 +53,25 @@ class Proposed_subcategories extends CI_Controller {
 
 
 	public function create(){
+		$error = $this->input->get('message');
 		$categorylist = $this->proposed_subcategories_model->get_categories_list();
-
 		$dataView=[
 			'page'=>'proposed_subcategories/create',
-			'prueba'=>$categorylist
+			'prueba'=>$categorylist,
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
 	public function save(){
-		$this->proposed_subcategories_model->create($_POST, $this->user_id);
-		redirect('proposed_subcategories', 'refresh');
+		$sc_exist = $this->proposed_subcategories_model->check_if_subcategory_exist($_POST['categoria'],$_POST['nombre_subcategoria']);
+		if ($sc_exist){
+			$error = urldecode("Esta subcategoria ya existe");
+			redirect('proposed_subcategories/create?message='.$error, 'refresh');
+		}else{
+			$this->proposed_subcategories_model->create($_POST, $this->user_id);
+			redirect('proposed_subcategories', 'refresh');
+		}
 	}
 
 

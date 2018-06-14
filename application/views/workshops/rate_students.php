@@ -2,6 +2,7 @@
     <div class="row">
 
         <div class="col-lg-12">
+            <label>La calificación total se mostrará cuando tengas dos calificaciones como mínimo</label> 
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">DATOS DEL ALUMNO</h3>
@@ -54,11 +55,21 @@
 
                 </table>
             </div>
+
+                <?php if($error){?>
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <i class="zmdi zmdi-close"></i>
+                </button>
+                <?php echo $error;?>
+                </div>
+                <?php }?>
             
                 <form method="post" action="<?php echo site_url('my_created_workshops/rate_student/' .$info['iu_id']) ?>" class="form-horizontal">
+                    <label>Nota: La calificación es de 1 a 5</label>
                     <fieldset>
                         <button class="btn btn-raised btn-primary">Calificar</button>
-                        <input class="ml-5" type="number" name="puntaje" onkeypress="return only_numbers(event)" min="1" max="5" required>
+                        <input class="ml-5" type="number" name="puntaje" onkeypress="return only_for_ratings(event)" min="1" max="5" required>
                     </fieldset>
                 </form>
 

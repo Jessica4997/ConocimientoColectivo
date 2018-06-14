@@ -91,6 +91,28 @@
         }
       }
 
+
+      function only_for_ratings(e){
+
+        key = e.keyCode || e.which;
+
+        teclado = String.fromCharCode(key);
+        numeros = "12345";
+        especiales = "8-37-38-46"; //array
+        teclado_especial = false;
+
+        for(var i in especiales){
+          if (key==especiales[i]){
+            teclado_especial = true;
+          }
+        }
+
+        if (numeros.indexOf(teclado)==-1 && !teclado_especial) {
+          return false;
+        }
+      }
+
+
       $(function(){
         //var Date = moment.tz("America/Lima").format();
         $('input.mydatepicker').datepicker({

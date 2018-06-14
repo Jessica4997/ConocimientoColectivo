@@ -52,7 +52,6 @@ class Proposed_subcategories_model extends CI_Model {
     }
 
     public function show_by_id($id){
- 
         $sql = "SELECT
                   psc.id AS psc_id,
               	  psc.name AS psc_name,
@@ -79,9 +78,6 @@ class Proposed_subcategories_model extends CI_Model {
   }
 
   public function create($dataform, $user_id){
-    $date = new DateTime($dataform['fecha_inicio']);
-    $dateformat = $date->format('Y-m-d');
-
     $data = array(
         'name' => $dataform['nombre_subcategoria'],
         'category_id' => $dataform['categoria'],
@@ -95,7 +91,7 @@ class Proposed_subcategories_model extends CI_Model {
 
 
    public function get_categories_list(){
-        $sql = "SELECT 
+    $sql = "SELECT 
             id,
             name
       FROM
@@ -106,6 +102,22 @@ class Proposed_subcategories_model extends CI_Model {
         return $query->result_array();
     }
 
+  public function check_if_subcategory_exist($category_id,$subcategory_name){
+    $sql = "SELECT
+              id AS sc_id,
+              sub_name AS sc_name,
+              categories_id AS sc_c_id
+            FROM
+              subcategories
+            WHERE categories_id = ?
+            AND sub_name = ?
+            LIMIT 1";
+
+    $query = $this->db->query($sql,array($category_id,$subcategory_name));
+    
+    return $query->row_array();
+    }
+
 
     public function get_sql_my_request_list($user_id,$q){
           $sql = "SELECT 
@@ -113,6 +125,7 @@ class Proposed_subcategories_model extends CI_Model {
               psc.name AS psc_name,
               psc.description,
               psc.votes_quantity,
+              psc.status AS psc_status,
               c.id,
               c.name AS c_name,
               u.id AS u_id,

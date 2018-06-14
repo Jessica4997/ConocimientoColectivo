@@ -32,11 +32,13 @@ class My_Created_Workshops extends CI_Controller {
 	}
 
 	public function show_postulants_list($id){
+		$error = $this->input->get('message');
 		$postulants_list = $this->created_workshops_model->get_postulants_list($id);
 		//var_dump($students_list);exit;
 		$dataView=[
 			'page'=>'workshops/postulants_list',
-			'list'=>$postulants_list
+			'list'=>$postulants_list,
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -51,7 +53,8 @@ class My_Created_Workshops extends CI_Controller {
 		//var_dump($workshop_date);exit();
 		//var_dump($w_info);exit();
 		if ($today > $workshop_date){
-			echo "La fecha de modificación culminó";
+			$error = urlencode("La fecha de modificación culminó");
+			redirect('my_created_workshops/show_postulants_list/' .$w_id.'/?message='.$error ,'refresh');
 		}else{
 			if ($w_info['vacancy'] > 0) {
 				$get_iu_id = $this->created_workshops_model->get_student_info($user_id, $w_id);
@@ -62,10 +65,12 @@ class My_Created_Workshops extends CI_Controller {
 					$this->created_workshops_model->update_vacancy_number($w_id, $w_info['vacancy']);
 					redirect('my_created_workshops/show_postulants_list/' .$w_id, 'refresh');
 				}else{
-					echo "Ya se validó a este alumno";
+					$error = urlencode("Ya se validó a este alumno");
+					redirect('my_created_workshops/show_postulants_list/' .$w_id.'/?message='.$error ,'refresh');
 				}
 			}else{
-				echo "Ya no hay vacantes";
+				$error = urlencode("Ya no hay vacantes");
+				redirect('my_created_workshops/show_postulants_list/' .$w_id.'/?message='.$error ,'refresh');
 			}
 		}
 	}
@@ -78,7 +83,8 @@ class My_Created_Workshops extends CI_Controller {
       	$workshop_date = new Datetime($w_info['start_date']);
 
       	if ($today > $workshop_date) {
-			echo "La fecha de inicio culminó";
+			$error = urlencode("La fecha de modificación culminó");
+			redirect('my_created_workshops/show_postulants_list/' .$w_id.'/?message='.$error ,'refresh');
 		}else{
 			$get_iu_id = $this->created_workshops_model->get_student_info($user_id, $w_id);
 			//var_dump($get_iu_id);exit();
@@ -86,25 +92,29 @@ class My_Created_Workshops extends CI_Controller {
 				$this->created_workshops_model->cancel_student($get_iu_id['iu_id']);
 
 				$w_info['vacancy'] = $w_info['vacancy'] + 1;
-				$this->created_workshops_model->update_vacany_number($w_id, $w_info['vacancy']);
+				$this->created_workshops_model->update_vacancy_number($w_id, $w_info['vacancy']);
 				redirect('my_created_workshops/show_postulants_list/' .$w_id, 'refresh');
 			}else{
-				echo "Ya se canceló a este alumno";
+				$error = urlencode("Ya se canceló a este alumno");
+				redirect('my_created_workshops/show_postulants_list/' .$w_id.'/?message='.$error ,'refresh');
 			}	
 		}
 	}
 
 	public function show_student_list($id){
+		$error = $this->input->get('message');
 		$students_list = $this->created_workshops_model->get_students_list($id);
 		//var_dump($students_list);exit;
 		$dataView=[
 			'page'=>'workshops/student_list',
-			'listaa'=>$students_list
+			'listaa'=>$students_list,
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
 	public function show_rate_students($user_id, $w_id){
+		$error = $this->input->get('message');
 		$w_info = $this->created_workshops_model->get_workshop_info($w_id);
 
 		ini_set('date.timezone','America/Lima');
@@ -118,21 +128,28 @@ class My_Created_Workshops extends CI_Controller {
       		$dataView=[
       			'page'=>'workshops/rate_students',
 				'info'=>$student_info,
-				'final'=>$final
+				'final'=>$final,
+				'error'=>$error
 			];
 			$this->load->view('template/basic',$dataView);
 		}else{
-			echo "El taller aun no ha finalizado";
+			$error = "El taller aun no ha finalizado, no se puede calificar";
+			redirect('my_created_workshops/show_student_list/' .$w_id.'/?message='.$error ,'refresh');
 		}
 	}
 
 	public function rate_student($iu_id){
-
-		$this->created_workshops_model->rate_student($_POST,$iu_id);
-
+		//var_dump($_POST);exit();
 		$inscribed_user_id = $this->created_workshops_model->find_user_by_iu_id($iu_id);
+		if($_POST['puntaje']>=1 && $_POST['puntaje']<=5){
+			$this->created_workshops_model->rate_student($_POST,$iu_id);
+			
+			$this->created_workshops_model->insert_final_rating_to_users($inscribed_user_id['iu_user_id']);
+			redirect('my_created_workshops/show_rate_students/'.$inscribed_user_id['iu_user_id'].'/'.$inscribed_user_id['iu_w_id'], 'refresh');
+		}else{
+			$error = urlencode("La calificación debe ser entre 1 y 5");
+			redirect('my_created_workshops/show_rate_students/'.$inscribed_user_id['iu_user_id'].'/'.$inscribed_user_id['iu_w_id'].'/?message='.$error, 'refresh');
+		}
 		
-		$this->created_workshops_model->insert_final_rating_to_users($inscribed_user_id['iu_user_id']);
-		//redirect('my_created_workshops/show_profile/'.$user_id, 'refresh');
 	}
 }

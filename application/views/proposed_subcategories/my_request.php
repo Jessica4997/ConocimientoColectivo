@@ -1,7 +1,7 @@
 <div class="container text-center mb-6">
   <div class="container">
 
-    <h1 class="no-m ms-site-title center-block ms-site-title-lg mb-6 animated zoomInDown animation-delay-5">Mis Solicitudes de Nuevos Temas</h1>
+    <h1 class="no-m ms-site-title center-block ms-site-title-lg mb-6">Mis Solicitudes de Nuevos Temas</h1>
 
       <form id="workshop_form">
     <h2 class="color-primary">Buscar</h2>
@@ -24,6 +24,15 @@
             <?php echo $row['description']?>
             <li>Categoría: <?php echo $row['c_name']?></li>
             <li>Cantidad de Votos: <?php echo $row['votes_quantity']?></li>
+            <?php
+            if ($row['psc_status'] == 'En Curso') {
+              $status = "Aperturado";
+            }else{
+              $status = "Pendiente";
+            }
+            ?>
+
+            <h4 style="color:yellowgreen">Estado: <?php echo $status ?></h4>
           </p>
         
         </div>
