@@ -45,7 +45,7 @@
                 <div class="row" id="Container">
 
                     <?php foreach($lists as $row){?>
-                    <div class="col-xl-4 col-md-6 ">
+                    <div class="col-xl-6 col-lg-6 col-md-6">
                         <div class="card ms-feature">
                             <div class="card-body text-center">
                                 <h4 class="text-normal text-center">

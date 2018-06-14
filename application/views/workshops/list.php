@@ -47,7 +47,7 @@
 					?>
 
 					<?php foreach($lists as $row){?>
-					<div class="col-xl-6 col-lg-6 col-md-6 mix " data-price="<?php echo $row['amount']?>">
+					<div class="col-xl-6 col-lg-6 col-md-6" data-price="<?php echo $row['amount']?>">
 						<div class="card ms-feature">
 							<div class="card-body text-center">
 								<h4 class="text-normal text-center">
