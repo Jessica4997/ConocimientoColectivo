@@ -1,4 +1,14 @@
 <div class="container">
+
+      <?php if($error){?>
+      <div class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <i class="zmdi zmdi-close"></i>
+      </button>
+      <?php echo $error;?>
+      </div>
+      <?php }?>
+                
     <table class="table">
   <thead>
     <tr>

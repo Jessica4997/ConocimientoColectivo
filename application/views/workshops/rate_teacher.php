@@ -55,12 +55,21 @@
 
                 </table>
             </div>
+
+                <?php if($error){?>
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <i class="zmdi zmdi-close"></i>
+                </button>
+                <?php echo $error;?>
+                </div>
+                <?php }?>
             
                 <form method="post" action="<?php echo site_url('my_workshops/rate_teacher/' .$teacher_info['iu_id']) ?>" class="form-horizontal">
                     <label>Nota: La calificación es de 1 a 5</label>
                     <fieldset>
                         <button class="btn btn-raised btn-primary">Calificar</button>
-                        <input class="ml-5" type="number" name="puntaje" onkeypress="return only_for_ratings(event)" min="1" max="5" required>
+                        <input class="ml-5" type="number" name="puntaje" onkeypress="return only_for_ratings(event)"  required>
                     </fieldset>
                 </form>
 

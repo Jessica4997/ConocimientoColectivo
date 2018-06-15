@@ -33,17 +33,20 @@ class My_Workshops extends CI_Controller {
 
 	}
 
-	public function show_teacher($id){
-		$teacher = $this->my_workshops_model->get_teacher_list($id);
+	public function show_teacher($w_id){
+		$error = $this->input->get('message');
+		$teacher = $this->my_workshops_model->get_teacher_list($w_id);
 		//var_dump($teacher);exit;
 		$dataView=[
 			'page'=>'workshops/teacher_list',
-			'listaa'=>$teacher
+			'listaa'=>$teacher,
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
 	public function show_rate_teacher($user_id,$w_id){
+		$error = $this->input->get('message');
 		$w_info = $this->my_workshops_model->get_workshop_info($w_id);
 
 		ini_set('date.timezone','America/Lima');
@@ -59,22 +62,32 @@ class My_Workshops extends CI_Controller {
 			$dataView=[
 				'page'=>'workshops/rate_teacher',
 				'teacher_info'=>$teacher_info,
-				'final'=>$final
+				'final'=>$final,
+				'error'=>$error
 			];
 			$this->load->view('template/basic',$dataView);
 		}else{
-			echo "El taller aun no ha finalizado";
+			$error = urlencode("El taller aun no ha finalizado");
+			redirect('my_workshops/show_teacher/'.$user_id.'/'.$w_id.'/?message='.$error,'refresh');
 		}
 	}
 
 	public function rate_teacher($iu_id){
-		$this->my_workshops_model->rate_teacher($_POST,$iu_id);
-
 		$get_w_id = $this->my_workshops_model->find_w_id_by_iu_id($iu_id);
-		$tutor_user_id = $this->my_workshops_model->find_user_by_w_id($get_w_id['iu_w_id']);
+		if($_POST['puntaje']>=1 && $_POST['puntaje']<=5){
+			$this->my_workshops_model->rate_teacher($_POST,$iu_id);
+			$tutor_user_id = $this->my_workshops_model->find_user_by_w_id($get_w_id['iu_w_id']);
+			$this->my_workshops_model->insert_final_tutor_rating_to_users($tutor_user_id['w_user_id']);
+			redirect('my_workshops/show_rate_teacher/'.$get_w_id['iu_user_id'].'/'.$get_w_id['iu_w_id'], 'refresh');
+		}else{
+			$error = urlencode("La calificación debe ser entre 1 y 5");
+			redirect('my_workshops/show_rate_teacher/'.$get_w_id['iu_user_id'].'/'.$get_w_id['iu_w_id'].'/?message='.$error, 'refresh');
+		}
+		
 
-		$this->my_workshops_model->insert_final_tutor_rating_to_users($tutor_user_id['w_user_id']);
-		//redirect('my_workshops/show_profile/'.$user_id, 'refresh');
+		
+		
+		//
 	}
 
 }
