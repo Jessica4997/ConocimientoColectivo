@@ -32,12 +32,12 @@
                 <div class="row form-group">
                   <label for="inputName" class="col-md-2 control-label">Nombres</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="nombres" placeholder="Nombres" onkeypress="return only_numbers(event)" required> </div>
+                    <input type="text" class="form-control" name="nombres" placeholder="Nombres" onkeypress="return only_letters(event)" required> </div>
                 </div>
                 <div class="row form-group">
                   <label for="inputLast" class="col-md-2 control-label">Apellidos</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" onkeypress="return only_numbers(event)" required> </div>
+                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" onkeypress="return only_letters(event)" required> </div>
                 </div>
 
                 <div class="row form-group">
@@ -75,6 +75,18 @@
   
               </fieldset>
             </form>
+
+
+            <?php if($error){?>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="zmdi zmdi-close"></i>
+                </button>
+                <?php echo $error;?>
+              </div>
+            <?php }?>
+
+
           </div>
         </div>
       </div>

@@ -16,7 +16,7 @@
   <div class="row mt-2">
 
     <?php foreach($lisss as $row){?>
-    <div class="col-xl-6 col-lg-6 col-md-6 mix ">
+    <div class="col-xl-6 col-lg-6 col-md-6">
       <div class="card ms-feature">
         <div class="card-body text-center">
           <h4 class="text-normal text-center"> <?php echo $row['title']?></h4>
@@ -25,7 +25,7 @@
             <li>Categoría: <?php echo $row['category_name']?></li>
             <li>Sub-categoría: <?php echo $row['subcategory_name']?></li>
             <li>Nivel: <?php echo $row['level_name']?></li>
-            <li>Fecha: <?php echo $row['start_date']?></li>
+            <li>Fecha: <?php echo date("d-m-Y", strtotime($row['start_date']))?></li>
             <li>Horario: <?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?></li>
           </p>
 

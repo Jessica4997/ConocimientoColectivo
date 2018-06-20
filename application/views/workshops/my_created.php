@@ -17,7 +17,7 @@
   <div class="row">
 
     <?php foreach($hhh as $row){?>
-    <div class="col-xl-6 col-lg-6 col-md-6 mix ">
+    <div class="col-xl-6 col-lg-6 col-md-6">
       <div class="card ms-feature">
         <div class="card-body text-center">
           <h4 class="text-normal text-center"> <?php echo $row['title']?> <?php echo $row['w_id']?></h4>

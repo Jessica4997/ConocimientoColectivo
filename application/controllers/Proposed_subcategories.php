@@ -38,12 +38,14 @@ class Proposed_subcategories extends CI_Controller {
 	}
 
 	public function description($id) {
+		$error = $this->input->get('message');
 		$proposed_subcategory_description = $this->proposed_subcategories_model->show_by_id($id);
 		if($proposed_subcategory_description['removed'] == 'Activo'){
 		//var_dump($proposed_workshop_description);exit();
 		$dataView=[
 			'page'=>'proposed_subcategories/description',
-			'description'=>$proposed_subcategory_description
+			'description'=>$proposed_subcategory_description,
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 		}else{
@@ -93,13 +95,13 @@ class Proposed_subcategories extends CI_Controller {
 
 
 	public function vote($psc_id){
-
 		//var_dump($proposed_workshop_description);exit();
 		$verify_votes = $this->proposed_subcategories_model->get_votes_quantity($psc_id);
 		$verify_user_vote = $this->proposed_subcategories_model->verify_user_vote($psc_id, $this->user_id);
 	
 		if($verify_user_vote){
-			echo "Ya votaste por este tema";
+			$error = urlencode("Ya votaste por este tema");
+			redirect('proposed_subcategories/description/' .$psc_id.'/?message='.$error, 'refresh');
 		}else{
 			if($verify_votes['votes_quantity'] < 20){
 				$this->proposed_subcategories_model->insert_into_votes($psc_id, $this->user_id);
@@ -107,7 +109,8 @@ class Proposed_subcategories extends CI_Controller {
 				$this->proposed_subcategories_model->update_votes_quantity($psc_id, $verify_votes['votes_quantity']);
 				redirect('proposed_subcategories/description/' .$psc_id, 'refresh');
 			}else{
-				echo "Alcanzó el maximo de votos";
+				$error = urlencode("Alcanzó el maximo de votos");
+				redirect('proposed_subcategories/description/' .$psc_id.'/?message='.$error, 'refresh');
 			}
 		}
 	}

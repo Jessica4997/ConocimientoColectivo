@@ -357,7 +357,6 @@ class Admin extends CI_Controller {
 		redirect('admin/proposed_workshop_description/' .$id, 'refresh');
 	}
 
-
 //RATINGS
 
 	public function show_student_list($iu_w_id){
@@ -372,21 +371,31 @@ class Admin extends CI_Controller {
 	}
 
 	public function show_edit_student_rate($iu_w_id, $user_id){
+		$error = $this->input->get('message');
 		$iu_id = $this->admin_model->get_iu_id($iu_w_id,$user_id);
 		//var_dump($iu_id);exit();
 		$dataView=[
 			'page'=>'admin/workshops/edit_delete_student_rate',
-			'iu_id'=>$iu_id
+			'iu_id'=>$iu_id,
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
 	public function edit_student_rate($iu_id){
-		$this->admin_model->update_student_rating($_POST,$iu_id);
-		//PARA INSERTAR CALIFICACION FINAL EN USUARIO
-		$iu_user_id = $this->admin_model->get_user_by_iu_id($iu_id);
-		$this->admin_model->insert_final_rating_to_users($iu_user_id['iu_user_id']);
-		//redirect('admin/show_edit_student_rate/'.$id, 'refresh');
+		$info_by_iu = $this->admin_model->get_user_by_iu_id($iu_id);
+		$user_id = $info_by_iu['iu_user_id'];
+		$w_id = $info_by_iu['iu_w_id'];
+		//var_dump($_POST);exit();
+		if ($_POST['puntaje_alumno'] >= 1 && $_POST['puntaje_alumno'] <= 5){
+			$this->admin_model->update_student_rating($_POST,$iu_id);
+
+			$this->admin_model->insert_final_rating_to_users($user_id);
+			redirect('admin/show_student_list/'.$w_id, 'refresh');
+		}else{
+			$error = urlencode("La calificación debe ser entre 1 y 5");
+			redirect('admin/show_edit_student_rate/'.$w_id.'/'.$user_id.'/?message='.$error, 'refresh');
+		}
 	}
 
 	public function delete_rate_student($iu_id){
@@ -399,23 +408,35 @@ class Admin extends CI_Controller {
 	}
 
 	public function show_edit_teacher_rate($iu_w_id, $user_id){
+		$error = $this->input->get('message');
 		$iu_id = $this->admin_model->get_iu_id($iu_w_id,$user_id);
-		//$this->admin_model->update_student_rating($iu_id);
 		$dataView=[
 			'page'=>'admin/workshops/edit_delete_teacher_rate',
-			'iu_id'=>$iu_id
+			'iu_id'=>$iu_id,
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
 
 	public function edit_teacher_rate($iu_id){
-		$this->admin_model->update_teacher_rating($_POST,$iu_id);
-		//PARA INSERTAR CALIFICACION FINAL EN USUARIO
-		$iu_w_id = $this->admin_model->get_user_by_iu_id($iu_id);
-		$w_user_id = $this->admin_model->get_user_id_by_iu_w_id($iu_w_id['iu_w_id']);
-		$this->admin_model->insert_final_teacher_rating_to_users($iu_w_id['iu_w_id'],$w_user_id['user_id']);
-		//redirect('admin/show_edit_student_rate/'.$id, 'refresh');
+		//INFORMACION POR IU_ID
+		$info_by_iu = $this->admin_model->get_user_by_iu_id($iu_id);
+		$iu_user_id = $info_by_iu['iu_user_id'];
+		$w_id = $info_by_iu['iu_w_id'];
+		//INFORMACION POR IU_W_ID
+		$w_info = $this->admin_model->get_user_id_by_iu_w_id($w_id);
+		$w_user_id = $w_info['w_user_id'];
+
+		if ($_POST['puntaje_docente'] >= 1 && $_POST['puntaje_docente'] <= 5){
+			$this->admin_model->update_teacher_rating($_POST,$iu_id);
+
+			$f =$this->admin_model->insert_final_teacher_rating_to_users($w_user_id);
+			redirect('admin/show_student_list/'.$w_id, 'refresh');
+		}else{
+			$error = urlencode("La calificación debe ser entre 1 y 5");
+			redirect('admin/show_edit_teacher_rate/'.$w_id.'/'.$user_id.'/?message='.$error, 'refresh');
+		}		
 	}
 
 //PROPOSED_SUBCATEGORIES
@@ -441,11 +462,13 @@ class Admin extends CI_Controller {
 	}
 
 	public function proposed_subcategories_description($id) {
+		$error = $this->input->get('message');
 		$proposed_subcategory_description = $this->admin_model->proposed_subcategories_show_by_id($id);
 		//var_dump($proposed_workshop_description);exit();
 		$dataView=[
 			'page'=>'admin/proposed_subcategories/description',
-			'description'=>$proposed_subcategory_description
+			'description'=>$proposed_subcategory_description,
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -473,7 +496,7 @@ class Admin extends CI_Controller {
 
 	public function proposed_subcategories_cancel_delete($id){
 		$this->admin_model->cancel_delete_proposed_subcategories($id);
-		redirect('admin/proposed_subcategories_description/' .$id, 'refresh');
+		redirect('admin/proposed_subcategories_description/'.$id, 'refresh');
 	}
 
 	public function proposed_subcategories_open_request($id){
@@ -484,7 +507,8 @@ class Admin extends CI_Controller {
 			//var_dump($_POST);exit();
 			redirect('admin/proposed_subcategories_description/' .$id, 'refresh');
 		}else{
-			echo "No tiene suficientes votos";
+			$error = urlencode("No tiene suficientes votos");
+			redirect('admin/proposed_subcategories_description/' .$id.'?message='.$error, 'refresh');
 		}
 	}
 
@@ -492,26 +516,91 @@ class Admin extends CI_Controller {
 
 	public function show_reports() {
 		$month = $this->input->get('mes');
-		$inscriptions_month = $this->admin_model->inscriptions_per_month($month);
-		$pw_month = $this->admin_model->workshops_request_per_month($month);
+		//WORKSHOP INSCRIPTIONS
+		//$inscription_number = $this->admin_model->number_inscriptions_per_month($month);
+		//$inscriptions_month = $this->admin_model->inscriptions_per_month($month);
+		//PROPOSED_WORKSHOPS
+		
+		//PROPOSED_SUBCATEGORIES
+		
+		//USERS REGISTRATION
+
+		//MOST_POPULAR_CATEGORY
+		$popular_categories = $this->admin_model->most_popular_category();
+
+		$draw =$this->admin_model->category_draw();
+
+		$inscriptions_draw = $this->admin_model->incriptions_draw();
 
 		//var_dump($inscriptions_month);exit();
 		$dataView=[
 			'page'=>'admin/reports/reports',
-			'inscriptions_month'=>$inscriptions_month,
-			'pw_month'=>$pw_month
+			'month'=>$month,
+
+			'popular_categories'=>$popular_categories,
+			'draw'=>$draw,
+			'inscription_draw'=>$inscriptions_draw
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function to_pdf() {
+	public function workshop_inscriptions_per_month() {
+		$month = $this->input->get('mes');
+		//WORKSHOP INSCRIPTIONS
+		$inscription_number = $this->admin_model->number_inscriptions_per_month($month);
+		$inscriptions_month = $this->admin_model->inscriptions_per_month($month);
+		$dataView=[
+			'inscription_number'=>$inscription_number,
+			'inscriptions_month'=>$inscriptions_month,
+		];
+		$this->load->view('admin/reports/workshops_inscription_per_month',$dataView);
+	}
 
-		$this->load->helper('pdf_helper');
+	public function proposed_workshops_per_month(){
+		$month = $this->input->get('mes');
+
+		$pw_number = $this->admin_model->number_workshops_request_per_month($month);
+		$pw_month = $this->admin_model->workshops_request_per_month($month);
+		$dataView=[
+			'pw_number'=>$pw_number,
+			'pw_month'=>$pw_month,
+		];
+		$this->load->view('admin/reports/proposed_workshops_per_month',$dataView);
+	}
+
+	public function proposed_subcategories_per_month(){
+		$month = $this->input->get('mes');
+
+		$psc_number = $this->admin_model->number_subcategories_request_per_month($month);
+		$psc_month = $this->admin_model->subcategories_request_per_month($month);
+		$dataView=[
+			'psc_number'=>$psc_number,
+			'psc_month'=>$psc_month,
+		];
+		$this->load->view('admin/reports/proposed_subcategories_per_month',$dataView);
+	}
+
+	public function registrations_per_month(){
+		$month = $this->input->get('mes');
+
+		$users_number = $this->admin_model->number_user_registration_per_month($month);
+		$users_month = $this->admin_model->user_registration_per_month($month);
+		$dataView=[
+			'users_number'=>$users_number,
+			'users_month'=>$users_month,
+		];
+		$this->load->view('admin/reports/registrations_per_month',$dataView);
+	}
+
+	public function chart() {
+		$category_draw = $this->admin_model->category_draw();
+		$inscriptions_draw = $this->admin_model->incriptions_draw();
 
 		$dataView=[
-			'page'=>'admin/reports/topdf'
+		'draw'=>$category_draw,
+		'inscription_draw'=>$inscriptions_draw
 		];
-		$this->load->view('template/basic',$dataView);
+		$this->load->view('admin/reports/charts',$dataView);
 	}
 
 }

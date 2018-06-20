@@ -69,7 +69,7 @@
                     <label>Nota: La calificación es de 1 a 5</label>
                     <fieldset>
                         <button class="btn btn-raised btn-primary">Calificar</button>
-                        <input class="ml-5" type="number" name="puntaje" onkeypress="return only_for_ratings(event)" min="1" max="5" required>
+                        <input class="ml-5" type="number" name="puntaje" onkeypress="return only_for_ratings(event)" required>
                     </fieldset>
                 </form>
 

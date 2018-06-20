@@ -21,25 +21,19 @@
     }
     </style>
 
-
-  </head>
-  <body>
-
-    <div class="ms-site-container">
-      <?php $this->load->view('template/header')?>
-
-        <?php $this->load->view($page)?>
-    
-      <?php $this->load->view('template/footer')?>
-    </div>
-    
-    <script src="/assets/js/plugins.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+ <script src="/assets/js/plugins.min.js"></script>
     <script src="/assets/js/app.min.js"></script>
     <script src="/assets/js/configurator.min.js"></script>
     <script src="/assets/js/ecommerce.js"></script>
 
     <script src="/assets/js/jquery.timepicker.min.js"></script>
     <script src="/assets/js/bootstrap-datepicker.es.min.js"></script>
+
+  </head>
+  <body>
+
+   
 
     <script>
 
@@ -129,8 +123,17 @@
         interval:60
       });
 
-
     </script>
+
+    <div class="ms-site-container">
+      <?php $this->load->view('template/header')?>
+
+        <?php $this->load->view($page)?>
+    
+      <?php $this->load->view('template/footer')?>
+    </div>
+    
+
 
     <!--<script>$(document).ready(function() {
     $(".datePickercc").datepicker({

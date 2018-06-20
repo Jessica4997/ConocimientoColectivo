@@ -29,6 +29,8 @@ class Proposed_Workshop_model extends CI_Model {
       if(is_array($category) && count($category)>0){
         $cat_id = implode(",",$category);
         $sql.="AND c.id IN ({$cat_id}) ";
+      }else{
+        echo "Nada";
       }
 
       if(trim($q)!=''){

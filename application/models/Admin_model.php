@@ -793,17 +793,19 @@ class Admin_model extends CI_Model {
     }
 
 
-    public function get_teacher_final_rating($w_id){
+    public function get_teacher_final_rating($w_user_id){
       $sql = "SELECT
-        ROUND(SUM(tutor_rating) / COUNT(*),1) AS teacher_final_note 
-        FROM inscribed_users
-          WHERE wrks_id = ?
-          AND tutor_rating is not null 
-          GROUP BY wrks_id
+        ROUND(SUM(iu.tutor_rating) / COUNT(*),1) AS teacher_final_note 
+        FROM inscribed_users AS iu
+        INNER JOIN workshops AS w
+        ON iu.wrks_id = w.id
+          WHERE w.user_id = ?
+          AND iu.tutor_rating is not null 
+          GROUP BY w.user_id
           HAVING COUNT(*) >= 2
           ";
 
-      $query = $this->db->query($sql,array($w_id));
+      $query = $this->db->query($sql,array($w_user_id));
 
       $rs = $query->row_array();
 
@@ -815,20 +817,19 @@ class Admin_model extends CI_Model {
       return $num;
     }
 
-    public function insert_final_teacher_rating_to_users($w_id,$user_id){
-      $final_teacher_rating = $this->get_teacher_final_rating($w_id);
+    public function insert_final_teacher_rating_to_users($user_id){
+      $final_teacher_rating = $this->get_teacher_final_rating($user_id);
       $data=array(
         'tutor_rating'=> $final_teacher_rating
       );
       return $this->db->update('users', $data, array('id' => $user_id));
-
     }
 
 
     public function get_user_id_by_iu_w_id($w_id){
       $sql = "SELECT
                 w.id,
-                w.user_id
+                w.user_id AS w_user_id
               FROM
                   workshops AS w
                   INNER JOIN users AS u
@@ -961,7 +962,7 @@ class Admin_model extends CI_Model {
 
 //REPORTS
 
-    public function inscriptions_per_month($month){
+    public function sql_inscriptions_per_month($month){
       $sql = "SELECT
               iu.id AS iu_id,
               iu.iu_status,
@@ -984,14 +985,26 @@ class Admin_model extends CI_Model {
                     ON w.category_id = c.id
                       INNER JOIN subcategories AS sc
                       ON w.subcategory_id = sc.id
-            WHERE MONTH(iu.created_date) = ? ";
-
-        $query = $this->db->query($sql,array($month));
+            WHERE MONTH(iu.created_date) = $month ";
         
-        return $query->result_array();
+        return $sql;
       }
 
-    public function workshops_request_per_month($month){
+    public function inscriptions_per_month($month){
+      $sql = $this->sql_inscriptions_per_month($month);
+      $query = $this->db->query($sql);
+      return $query->result_array();
+      }
+
+    public function number_inscriptions_per_month($month){
+      $sql = $this->sql_inscriptions_per_month($month);
+      $query = $this->db->query($sql);
+      return $query->num_rows();
+    }
+
+
+
+    public function sql_workshops_request_per_month($month){
       $sql = "SELECT
               pw.id AS pw_id,
               pw.title,
@@ -1011,11 +1024,148 @@ class Admin_model extends CI_Model {
                   ON pw.category_id = c.id
                     INNER JOIN subcategories AS sc
                     ON pw.subcategory_id = sc.id
-            WHERE MONTH(pw.created_date) = ? ";
-
-        $query = $this->db->query($sql,array($month));
+            WHERE MONTH(pw.created_date) = $month ";
         
-        return $query->result_array();
+        return $sql;
       }
+
+    public function workshops_request_per_month($month){
+      $sql = $this->sql_workshops_request_per_month($month);
+      $query = $this->db->query($sql);
+      return $query->result_array();
+    }
+
+    public function number_workshops_request_per_month($month){
+      $sql = $this->sql_workshops_request_per_month($month);
+      $query = $this->db->query($sql);
+      return $query->num_rows();
+    }
+
+
+
+   public function sql_subcategories_request_per_month($month){
+      $sql = "SELECT
+              psc.id AS psc_id,
+              psc.name,
+              psc.user_id AS psc_user_id,
+              psc.votes_quantity,
+              psc.category_id,
+              psc.status,
+              u.name AS u_name,
+              u.last_name AS u_last_name,
+              c.name AS c_name
+            FROM
+                proposed_subcategories AS psc
+                INNER JOIN users AS u
+                ON psc.user_id = u.id
+                  INNER JOIN categories AS c
+                  ON psc.category_id = c.id
+            WHERE MONTH(psc.created_date) = $month ";
+        
+        return $sql;
+      }
+
+    public function subcategories_request_per_month($month){
+      $sql = $this->sql_subcategories_request_per_month($month);
+      $query = $this->db->query($sql);
+      return $query->result_array();
+    }
+
+    public function number_subcategories_request_per_month($month){
+      $sql = $this->sql_subcategories_request_per_month($month);
+      $query = $this->db->query($sql);
+      return $query->num_rows();
+    }
+
+
+   public function sql_user_registration_per_month($month){
+      $sql = "SELECT
+              u.id AS u_id,
+              u.name,
+              u.last_name,
+              u.email,
+              u.date_birth,
+              u.gender,
+              u.student_rating
+            FROM
+                users AS u
+            WHERE MONTH(u.created_date) = $month ";
+        
+        return $sql;
+      }
+
+    public function user_registration_per_month($month){
+      $sql = $this->sql_user_registration_per_month($month);
+      $query = $this->db->query($sql);
+      return $query->result_array();
+    }
+
+    public function number_user_registration_per_month($month){
+      $sql = $this->sql_user_registration_per_month($month);
+      $query = $this->db->query($sql);
+      return $query->num_rows();
+    }
+
+    public function most_popular_category(){
+        $sql = "SELECT 
+                  c.name AS c_name,
+                  COUNT(iu.id) AS iu_quantity
+                FROM
+                  inscribed_users AS iu 
+                  INNER JOIN workshops AS w 
+                    ON iu.wrks_id = w.id
+                    INNER JOIN categories AS c
+                    ON w.category_id = c.id
+                    GROUP BY w.category_id
+                    ORDER BY iu_quantity DESC
+                    LIMIT 3";
+
+      $query = $this->db->query($sql,array());
+      
+      return $query->result_array();
+  }
+
+    public function category_draw(){
+        $category_name = $this->most_popular_category();
+        $name = array();
+        $quantity = array();
+        foreach ($category_name as $key => $value) {
+          $name[] = '"'.$value['c_name'].'"';
+          $quantity[] = $value['iu_quantity'];
+        }
+
+        return array(
+          'name' => implode(",", $name),
+          'quantity' => implode(",", $quantity),
+        );
+
+  }
+
+    public function quantity_inscriptions_per_month(){
+        $sql = "SELECT
+              MONTHNAME(iu.created_date) AS month_name,
+              COUNT(iu.id) AS iu_quantity
+              FROM
+                inscribed_users AS iu
+                  GROUP BY MONTH(iu.created_date)
+                  ORDER BY MONTH(iu.created_date)";
+
+        $query = $this->db->query($sql,array());
+      
+        return $query->result_array();
+  }
+
+    public function incriptions_draw(){
+        $category_name = $this->quantity_inscriptions_per_month();
+        $quantity = array();
+        foreach ($category_name as $key => $value) {
+          $quantity[] = $value['iu_quantity'];
+        }
+        return array(
+          'quantity' => implode(",", $quantity),
+        );
+
+  }
+
 
 }

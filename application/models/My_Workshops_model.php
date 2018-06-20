@@ -117,6 +117,7 @@ class My_Workshops_model extends CI_Model {
         ROUND(SUM(iu.tutor_rating) / COUNT(*),1) AS teacher_final_note 
         FROM inscribed_users AS iu
         INNER JOIN workshops AS w
+        ON iu.wrks_id = w.id
           WHERE w.user_id = ?
           AND iu.tutor_rating is not null 
           GROUP BY w.user_id

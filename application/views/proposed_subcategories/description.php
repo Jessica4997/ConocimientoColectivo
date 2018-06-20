@@ -1,6 +1,18 @@
 <div class="container">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-        <div class="card animated zoomInDown animation-delay-5">
+        <div class="card">
+
+
+                    <?php if($error){?>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="zmdi zmdi-close"></i>
+                        </button>
+                        <?php echo $error;?>
+                    </div>
+                    <?php }?>
+
+                    
             <div class="card-body">
                 <h2 align="center">
                     <?php echo $description['psc_name']?>
