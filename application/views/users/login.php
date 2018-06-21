@@ -1,11 +1,11 @@
 <div class="ms-hero-page-override ms-hero-img-city ms-hero-bg-dark-light">
     <div class="container">
         <div class="text-center">
-            <span class="ms-logo ms-logo-lg ms-logo-white center-block mb-2 mt-2 animated zoomInDown animation-delay-5">CC</span>
-            <h1 class="ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Conocimiento
+            <span class="ms-logo ms-logo-lg ms-logo-white center-block mb-2 mt-2">CC</span>
+            <h1 class="ms-site-title color-white center-block ms-site-title-lg mt-2">Conocimiento
                 <strong>&nbsp;&nbsp;Colectivo</strong>
             </h1>
-            <p class="lead lead-lg color-white text-center center-block mt-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">Inicia sesión para poder disfrutar de los beneficios que te brinda Conocimiento
+            <p class="lead lead-lg color-white text-center center-block mt-2 mw-800 text-uppercase fw-300 ">Inicia sesión para poder disfrutar de los beneficios que te brinda Conocimiento
                 <strong>&nbsp;Colectivo</strong>
             </p>
         </div>
@@ -14,7 +14,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-lg-6">
-            <div class="card card-hero card-primary animated fadeInUp animation-delay-7">
+            <div class="card card-hero card-primary">
                 <div class="card-body">
                     <?php if($error){?>
                     <div class="alert alert-danger alert-dismissible" role="alert">

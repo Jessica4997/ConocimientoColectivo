@@ -1,8 +1,8 @@
 <div class="ms-hero-page-override ms-hero-img-city ms-hero-bg-dark-light">
     <div class="container">
         <div class="text-center">
-            <span class="ms-logo ms-logo-lg ms-logo-white center-block mb-2 mt-2 animated zoomInDown animation-delay-5">CC</span>
-            <h1 class="ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Conocimiento
+            <span class="ms-logo ms-logo-lg ms-logo-white center-block mb-2 mt-2">CC</span>
+            <h1 class="ms-site-title color-white center-block ms-site-title-lg mt-2">Conocimiento
                 <strong>&nbsp;&nbsp;Colectivo</strong>
             </h1>
         </div>
@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-lg-6">
-            <div class="card card-hero card-primary animated fadeInUp animation-delay-7">
+            <div class="card card-hero card-primary">
                 <div class="card-body">
 
                     <h1 class="color-primary text-center">Recuperar contraseña</h1>

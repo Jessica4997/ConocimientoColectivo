@@ -387,10 +387,15 @@ class Admin_model extends CI_Model {
                       INNER JOIN level AS l
                       ON pw.level_id = l.id ";
 
-      if(is_array($category) && count($category)>0){
-        $cat_id = implode(",",$category);
-        $sql.="AND c.id IN ({$cat_id}) ";
+      if(is_numeric($category)){
+        if(is_array($category) && count($category)>0){
+          $cat_id = implode(",",$category);
+          $sql.="AND c.id IN ({$cat_id}) ";
+        }
+      }else{
+        unset($category);
       }
+      
 
       if(trim($q)!=''){
         $q = trim($q);
@@ -523,10 +528,14 @@ class Admin_model extends CI_Model {
                     ON w.level_id = l.id
                  ";
 
-      if(is_array($category) && count($category)>0){
-        $cat_id = implode(",",$category);
-        $sql.="AND c.id IN ({$cat_id}) ";
-      }
+      if(is_numeric($category)){
+        if(is_array($category) && count($category)>0){
+          $cat_id = implode(",",$category);
+          $sql.="AND c.id IN ({$cat_id}) ";
+        }
+      }else{
+        unset($category);
+      }    
 
       if(trim($q)!=''){
         $q = trim($q);
@@ -862,10 +871,15 @@ class Admin_model extends CI_Model {
                 ON psc.user_id = u.id
                    ";
 
-      if(is_array($category) && count($category)>0){
-        $cat_id = implode(",",$category);
-        $sql.="AND c.id IN ({$cat_id}) ";
+      if(is_numeric($category)){
+        if(is_array($category) && count($category)>0){
+          $cat_id = implode(",",$category);
+          $sql.="AND c.id IN ({$cat_id}) ";
+        }
+      }else{
+        unset($category);
       }
+
 
       if(trim($q)!=''){
         $q = trim($q);

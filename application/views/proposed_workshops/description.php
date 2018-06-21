@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-        <div class="card animated zoomInDown animation-delay-5">
+        <div class="card">
             <div class="card-body">
                 <h2 align="center">
                     <?php echo $description['title']?>

@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-lg-6">
-            <div class="card card-hero card-primary animated fadeInUp animation-delay-5">
+            <div class="card card-hero card-primary">
                 <div class="card-body">
 
                     <h1 class="color-primary text-center">Olvide mi contraseña</h1>

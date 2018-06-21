@@ -1,7 +1,7 @@
 <div class="container text-center mb-6">
   <div class="container">
 
-    <h1 class="no-m ms-site-title center-block ms-site-title-lg mb-6 animated zoomInDown animation-delay-5">Mis Talleres Solicitados</h1>
+    <h1 class="no-m ms-site-title center-block ms-site-title-lg mb-6">Mis Talleres Solicitados</h1>
 
       <form id="workshop_form">
     <h2 class="color-primary">Buscar</h2>
@@ -16,7 +16,7 @@
   <div class="row mt-2">
 
     <?php foreach($request_list as $row){?>
-    <div class="col-xl-6 col-lg-6 col-md-6 mix ">
+    <div class="col-xl-6 col-lg-6 col-md-6">
       <div class="card ms-feature">
         <div class="card-body text-center">
           <h4 class="text-normal text-center"> <?php echo $row['title']?></h4>

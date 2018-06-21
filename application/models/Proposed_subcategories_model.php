@@ -21,9 +21,13 @@ class Proposed_subcategories_model extends CI_Model {
             psc.status = 'Pendiente'
                  ";
 
-      if(is_array($category) && count($category)>0){
-        $cat_id = implode(",",$category);
-        $sql.="AND c.id IN ({$cat_id}) ";
+      if(is_numeric($category)){
+        if(is_array($category) && count($category)>0){
+          $cat_id = implode(",",$category);
+          $sql.="AND c.id IN ({$cat_id}) ";
+        }
+      }else{
+        unset($category);
       }
 
       if(trim($q)!=''){

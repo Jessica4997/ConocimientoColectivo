@@ -202,12 +202,15 @@ class Workshop_model extends CI_Model {
                 ON w.level_id = l.id
               WHERE w.removed = 'Activo'
                ";
-
-      if(is_array($category) && count($category)>0){
-        $cat_id = implode(",",$category);
-        $sql.="AND c.id IN ({$cat_id}) ";
+      if(is_numeric($category)){
+        if(is_array($category) && count($category)>0){
+          $cat_id = implode(",",$category);
+          $sql.="AND c.id IN ({$cat_id}) ";
+        }
+      }else{
+        unset($category);
       }
-
+      
       if(trim($q)!=''){
         $q = trim($q);
         $sql.="AND w.title LIKE '%{$q}%' ";

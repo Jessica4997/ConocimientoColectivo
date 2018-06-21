@@ -1,8 +1,8 @@
       <div class="ms-hero-page-override ms-hero-img-airplane ms-bg-fixed ms-hero-bg-dark-light">
         <div class="container">
           <div class="text-center">
-            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Registrarse</h1>
-            <p class="lead lead-lg color-light text-center center-block mt-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">¡No esperes más y disfruta de los beneficios que te brinda Conocimiento <strong>Colectivo</strong>!
+            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2">Registrarse</h1>
+            <p class="lead lead-lg color-light text-center center-block mt-2 mw-800 text-uppercase fw-300">¡No esperes más y disfruta de los beneficios que te brinda Conocimiento <strong>Colectivo</strong>!
           </div>
         </div>
       </div>

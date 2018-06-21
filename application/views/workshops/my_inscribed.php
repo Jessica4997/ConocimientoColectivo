@@ -1,6 +1,6 @@
 <div class="container text-center mb-6">
   <div class="container">
-    <h1 class="no-m ms-site-title center-block ms-site-title-lg mb-6 animated zoomInDown animation-delay-5">Mis Talleres Matriculados</h1>
+    <h1 class="no-m ms-site-title center-block ms-site-title-lg mb-6">Mis Talleres Matriculados</h1>
 
   <form id="workshop_form">
     <h2 class="color-primary">Buscar</h2>

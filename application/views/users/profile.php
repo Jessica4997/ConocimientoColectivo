@@ -3,7 +3,7 @@
         <div class="col-lg-4">
             <div class="row">
                 <div class="col-lg-12 col-md-6 order-md-1">
-                    <div class="card animated fadeInUp animation-delay-7">
+                    <div class="card">
                         <div class="ms-hero-bg-primary ms-hero-img-coffee">
                             <h3 class="color-white index-1 text-center no-m pt-4">
                                 <?php echo $user_data['name']?>

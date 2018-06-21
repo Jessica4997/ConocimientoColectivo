@@ -1,7 +1,7 @@
 <div class="container">
         <div class="row"> 
           <div class="col-xl-12">
-            <div class="card card-primary animated fadeInUp animation-delay-7">
+            <div class="card card-primary">
               <div class="card-body">
 
                 <h1 class="color-primary text-center">Crear Nuevo Taller</h1>
