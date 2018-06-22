@@ -30,10 +30,16 @@ class Proposed_subcategories_model extends CI_Model {
         unset($category);
       }
 
-      if(trim($q)!=''){
-        $q = trim($q);
-        $sql.="AND psc.name LIKE '%{$q}%' ";
+      if (trim($q)!='') {
+        if (preg_replace("[^A-Za-z\s]"," ",$q)){
+          $q = trim($q);
+          $sql.="AND psc.name LIKE '%{$q}%' ";
+        }else{
+          unset($q);
+        }
+
       }
+
 
       $sql.=" ORDER BY psc.id ";
 

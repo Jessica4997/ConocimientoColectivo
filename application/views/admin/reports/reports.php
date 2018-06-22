@@ -22,10 +22,9 @@
         <option value="11">Noviembre</option>
         <option value="12">Diciembre</option>
     </select>
-    <button>Seleccionar</button>
 </form>
 
-<h3>Inscripciones a Talleres por Mes  <button id="btn_w_insciption_per_month">Ver Detalles</button> </h3>
+<h3>Inscripciones a Talleres por Mes  <button class="btn btn-primary" id="btn_w_insciption_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_inscriptions">Ocultar</button> </h3>
 <div id="w_insciption_per_month">
   <label>Cantidad de Inscripciones:</label> 
     <table class="table">
@@ -42,7 +41,7 @@
 </div>
 
 
-<h3>Solicitudes de Talleres por Mes <button id="btn_proposed_workshops_per_month">Ver Detalles</button> </h3>
+<h3>Solicitudes de Talleres por Mes <button class="btn btn-primary" id="btn_proposed_workshops_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_pw_per_month">Ocultar</button> </h3>
 <div id="proposed_workshops_per_month">
   <label>Cantidad de Solicitudes:</label> 
 <table class="table">
@@ -58,7 +57,7 @@
 </table>
 </div>
 
-<h3>Solicitudes de Subcategorías por Mes <button id="btn_proposed_subcategories_per_month">Ver Detalles</button></h3>
+<h3>Solicitudes de Subcategorías por Mes <button class="btn btn-primary" id="btn_proposed_subcategories_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_psc_per_month">Ocultar</button></h3>
 <div id="proposed_subcategories_per_month">
 <label>Cantidad de Solicitudes:</label>
 <table class="table">
@@ -74,7 +73,7 @@
 </table>
 </div>
 
-<h3>Registro de Usuarios por Mes <button id="btn_registrations_per_month">Ver Detalles</button></h3>
+<h3>Registro de Usuarios por Mes <button class="btn btn-primary" id="btn_registrations_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_registrations_per_month">Ocultar</button></h3>
 <div id="registrations_per_month">
 <label>Cantidad de Registros:</label>
 <table class="table">
@@ -112,7 +111,7 @@
 <script>
 
   $( document ).ready(function() {
-
+//MOSTRAR
         $('#btn_w_insciption_per_month').on('click',function(){
           mes = $('#month_for_reports').val();
           $.ajax({
@@ -122,7 +121,16 @@
               $("#w_insciption_per_month").html(result);
             }});
         });
+//OCULTAR
+        $('#btn_hide_inscriptions').on('click',function(){
+          $.ajax({
+            url: "<?php echo site_url('admin/empty')?>",
+            success: function(result){
+              $("#w_insciption_per_month").html(result);
+            }});
+        });
 
+//MOSTRAR
         $('#btn_proposed_workshops_per_month').on('click',function(){
           mes = $('#month_for_reports').val();
           $.ajax({
@@ -132,7 +140,16 @@
               $("#proposed_workshops_per_month").html(result);
             }});
         });
+//OCULTAR
+        $('#btn_hide_pw_per_month').on('click',function(){
+          $.ajax({
+            url: "<?php echo site_url('admin/empty')?>",
+            success: function(result){
+              $("#proposed_workshops_per_month").html(result);
+            }});
+        });
 
+//MOSTRAR
         $('#btn_proposed_subcategories_per_month').on('click',function(){
           mes = $('#month_for_reports').val();
           $.ajax({
@@ -142,7 +159,16 @@
               $("#proposed_subcategories_per_month").html(result);
             }});
         });
+//OCULTAR
+        $('#btn_hide_psc_per_month').on('click',function(){
+          $.ajax({
+            url: "<?php echo site_url('admin/empty')?>",
+            success: function(result){
+              $("#proposed_subcategories_per_month").html(result);
+            }});
+        });
 
+//MOSTRAR
         $('#btn_registrations_per_month').on('click',function(){
           mes = $('#month_for_reports').val();
           $.ajax({
@@ -152,8 +178,16 @@
               $("#registrations_per_month").html(result);
             }});
         });
+//OCULTAR
+        $('#btn_hide_registrations_per_month').on('click',function(){
+          $.ajax({
+            url: "<?php echo site_url('admin/empty')?>",
+            success: function(result){
+              $("#registrations_per_month").html(result);
+            }});
+        });
 
-
+//GRAFICOS
         var ctx = document.getElementById("popular_category_chart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',

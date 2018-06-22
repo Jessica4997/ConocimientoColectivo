@@ -39,6 +39,7 @@ class Register_page extends CI_Controller {
                 if($_POST['contrasena'] != $_POST['recontrasena']){
                     $error = urlencode("Las contraseñas no coinciden");
                     redirect ('register_page?message='.$error,'refresh');
+                    
                 }else if(!empty($_POST['fecha_nacimiento'])){
                     $var = $_POST['fecha_nacimiento'];
                     $birth = new Datetime($var);

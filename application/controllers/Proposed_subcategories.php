@@ -20,7 +20,7 @@ class Proposed_subcategories extends CI_Controller {
 	public function index(){
 		$rp = 2;
 		$category = (isset($_GET['category']))? $_GET['category']:[];
-		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$psc_list = $this->proposed_subcategories_model->search_by_category_title($page,$category,$q,$rp);
 		$num_pages = $this->proposed_subcategories_model->get_total_search($category,$q,$rp);
@@ -69,17 +69,18 @@ class Proposed_subcategories extends CI_Controller {
 		$sc_exist = $this->proposed_subcategories_model->check_if_subcategory_exist($_POST['categoria'],$_POST['nombre_subcategoria']);
 		if ($sc_exist){
 			$error = urldecode("Esta subcategoria ya existe");
-			redirect('proposed_subcategories/create?message='.$error, 'refresh');
+			$toRedirect = 'proposed_subcategories/create?message='.$error;
 		}else{
 			$this->proposed_subcategories_model->create($_POST, $this->user_id);
-			redirect('proposed_subcategories', 'refresh');
+			$toRedirect = 'proposed_subcategories';
 		}
+		redirect($toRedirect, 'refresh');
 	}
 
 
 	public function show_my_requests(){
 		$rp = 2;
-		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$request_list = $this->proposed_subcategories_model->search_request_list_by_title($this->user_id,$page,$q,$rp);
 		$num_pages = $this->proposed_subcategories_model->get_request_list_total_search($this->user_id,$q,$rp);
@@ -101,17 +102,18 @@ class Proposed_subcategories extends CI_Controller {
 	
 		if($verify_user_vote){
 			$error = urlencode("Ya votaste por este tema");
-			redirect('proposed_subcategories/description/' .$psc_id.'/?message='.$error, 'refresh');
+			$toRedirect = 'proposed_subcategories/description/'.$psc_id.'?message='.$error;
 		}else{
 			if($verify_votes['votes_quantity'] < 20){
 				$this->proposed_subcategories_model->insert_into_votes($psc_id, $this->user_id);
 				$verify_votes['votes_quantity'] = $verify_votes['votes_quantity'] + 1;
 				$this->proposed_subcategories_model->update_votes_quantity($psc_id, $verify_votes['votes_quantity']);
-				redirect('proposed_subcategories/description/' .$psc_id, 'refresh');
+				$toRedirect = 'proposed_subcategories/description/'.$psc_id.'?message='.$error;
 			}else{
 				$error = urlencode("Alcanzó el maximo de votos");
-				redirect('proposed_subcategories/description/' .$psc_id.'/?message='.$error, 'refresh');
+				$toRedirect = 'proposed_subcategories/description/'.$psc_id.'?message='.$error;
 			}
 		}
+		redirect($toRedirect, 'refresh');
 	}
 }

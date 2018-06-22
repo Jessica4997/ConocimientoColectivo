@@ -31,18 +31,22 @@ class Profile_Page extends CI_Controller {
 
 	public function show_edit_profile(){
 		$data_u = $this->user_model->show_profile_by_id($this->user_id);
+		$error = $this->input->get('message');
 		$dataView=[
-		'page'=>'users/edit',
-		'user_d'=>$data_u
+			'page'=>'users/edit',
+			'user_d'=>$data_u,
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
 	public function show_edit_password(){
 		$data_u = $this->user_model->show_profile_by_id($this->user_id);
+		$error = $this->input->get('message');
 		$dataView=[
-		'page'=>'users/edit_password',
-		'user_d'=>$data_u
+			'page'=>'users/edit_password',
+			'user_d'=>$data_u,
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -51,21 +55,24 @@ class Profile_Page extends CI_Controller {
 		//var_dump($_POST);exit();
 		if (!empty($_POST['nombres']) || trim($_POST['nombres']) != '' || !empty($_POST['apellidos']) || trim($_POST['apellidos']) != '' || trim($_POST['descripcion']) != '') {
 			$this->user_model->update_user_profile($_POST);
-			redirect('profile_page', 'refresh');
+			$toRedirect = 'profile_page';
 		}else{
-			echo "Campos vacíos";
+			$error = urlencode("Campos vacíos");
+			$toRedirect = 'profile_page/show_edit_profile?message='.$error;
 		}
+		redirect($toRedirect, 'refresh');
 
 	}
 
 	public function save_edit_password_data(){
 		if($_POST['contrasena'] === $_POST['recontrasena']){
 			$this->user_model->change_user_password($_POST);
-			redirect('profile_page', 'refresh');
+			$toRedirect = 'profile_page';
 		}else{
-			echo "Las contraseñas no coinciden";
+			$error = urlencode("Las contraseñas no coinciden");
+			$toRedirect = 'profile_page/show_edit_password?message='.$error;
 		}
-
+		redirect($toRedirect, 'refresh');
 	}
 
 

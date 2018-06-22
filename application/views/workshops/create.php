@@ -3,7 +3,18 @@
           <div class="col-xl-12">
             <div class="card card-primary">
               <div class="card-body">
+
+                  <?php if($error){?>
+                  <div class="alert alert-danger alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="zmdi zmdi-close"></i>
+                  </button>
+                  <?php echo $error;?>
+                  </div>
+                  <?php }?>
+
                 <h1 class="color-primary text-center">Crear Nuevo Taller</h1>
+                <label class="ml-2">Nota: Debes crear un taller por lo menos con un día de anticipación</label>
                 <form method="post" action="<?php echo site_url('workshop/save')?>"  class="form-horizontal">
                   <fieldset>
 
@@ -105,6 +116,7 @@
                     </div>
                   </fieldset>
                 </form>
+
               </div>
             </div>
           </div>

@@ -21,6 +21,12 @@ class Login extends CI_Controller {
 		$u = $this->input->post('correo');
 		$p = $this->input->post('contrasena');
 
+		if(false === filter_var($u, FILTER_VALIDATE_EMAIL)){
+			$error=urlencode("Ingresa un email valido");
+			$toRedicrect='/login?message='.$error;
+			redirect($toRedicrect, 'refresh');
+		}
+
 		$session_user = $this->user_model->check_user_login($u,$p);
 
 		if($session_user){

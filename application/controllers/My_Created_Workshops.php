@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class My_Created_Workshops extends CI_Controller {
 
 	private $user_id = '0';
+	private $today = '0';
     public function __construct() {
 		parent::__construct();
 		$this->load->model('created_workshops_model');
@@ -12,11 +13,13 @@ class My_Created_Workshops extends CI_Controller {
         if ($this->user_id === null){
             redirect('login', 'refresh');
         }
+        ini_set('date.timezone','America/Lima');
+        $this->today = new Datetime();
 	}
 
 	public function index(){
 		$rp = 2;
-		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$request_list = $this->created_workshops_model->search_created_w_list_by_title($this->user_id,$page,$q,$rp);
 		$num_pages = $this->created_workshops_model->get_created_w_list_total_search($this->user_id,$q,$rp);
@@ -46,13 +49,11 @@ class My_Created_Workshops extends CI_Controller {
 	public function validate_student($user_id,$w_id){
 		$w_info = $this->created_workshops_model->get_workshop_info($w_id);
 
-		ini_set('date.timezone','America/Lima');
-  		$today = new Datetime();
       	$workshop_date = new Datetime($w_info['start_date']);
 		$workshop_date->sub(new DateInterval('P1D'));
 		//var_dump($workshop_date);exit();
 		//var_dump($w_info);exit();
-		if ($today > $workshop_date){
+		if ($this->today > $workshop_date){
 			$error = urlencode("La fecha de modificación culminó");
 			redirect('my_created_workshops/show_postulants_list/' .$w_id.'/?message='.$error ,'refresh');
 		}else{
@@ -78,11 +79,9 @@ class My_Created_Workshops extends CI_Controller {
 	public function cancel_validate_student($user_id,$w_id){
 		$w_info = $this->created_workshops_model->get_workshop_info($w_id);
 
-		ini_set('date.timezone','America/Lima');
-  		$today = new Datetime();
       	$workshop_date = new Datetime($w_info['start_date']);
 
-      	if ($today > $workshop_date) {
+      	if ($this->today > $workshop_date) {
 			$error = urlencode("La fecha de modificación culminó");
 			redirect('my_created_workshops/show_postulants_list/' .$w_id.'/?message='.$error ,'refresh');
 		}else{
@@ -117,12 +116,10 @@ class My_Created_Workshops extends CI_Controller {
 		$error = $this->input->get('message');
 		$w_info = $this->created_workshops_model->get_workshop_info($w_id);
 
-		ini_set('date.timezone','America/Lima');
-  		$today = new Datetime();
       	$workshop_date = new Datetime($w_info['start_date']);
       	$workshop_date->add(new DateInterval('P1D'));
 
-      	if ($today > $workshop_date){
+      	if ($this->today > $workshop_date){
       		$student_info = $this->created_workshops_model->get_student_info($user_id, $w_id);
       		$final = $this->created_workshops_model->get_student_final_rating($user_id);
       		$dataView=[

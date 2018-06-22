@@ -28,7 +28,7 @@
                 
                 <h2 class="color-primary">Buscar</h2>
                 <div class="form-group">
-                    <input type="text" name="q" class="form-control" onkeypress="return only_letters(event)" value="<?php echo $q?>"> </div>
+                    <input type="text" name="q" class="form-control" onkeypress="return only_letters(event)" onpaste="return false" value="<?php echo $q?>"> </div>
                     <button type="submit" class="btn btn-primary btn-raised btn-block">
                         <i class="zmdi zmdi-search"></i>Buscar</button>
                     </form>

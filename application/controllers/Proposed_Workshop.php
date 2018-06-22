@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Proposed_Workshop extends CI_Controller {
 
 	private $user_id= '0';
+	private $today = '0';
     public function __construct() {
 		parent::__construct();
 		$this->load->model('proposed_workshop_model');
@@ -14,13 +15,15 @@ class Proposed_Workshop extends CI_Controller {
         if ($this->user_id === null && !in_array($ruta,$whiteList)){
             redirect('login', 'refresh');
         }
+        ini_set('date.timezone','America/Lima');
+        $this->today = new Datetime();
 	}
 
 
 	public function index(){
 		$rp = 2;
 		$category = (isset($_GET['category']))? $_GET['category']:[];
-		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$pw_list = $this->proposed_workshop_model->search_by_category_title($page,$category,$q,$rp);
 		$num_pages = $this->proposed_workshop_model->get_total_search($category,$q,$rp);
@@ -39,15 +42,17 @@ class Proposed_Workshop extends CI_Controller {
 
 	public function description($id) {
 		$proposed_workshop_description = $this->proposed_workshop_model->show_by_id($id);
+		$error = $this->input->get('message');
 		if($proposed_workshop_description['removed'] == 'Activo'){
-		//var_dump($proposed_workshop_description);exit();
-		$dataView=[
-			'page'=>'proposed_workshops/description',
-			'description'=>$proposed_workshop_description
+			$dataView=[
+				'page'=>'proposed_workshops/description',
+				'description'=>$proposed_workshop_description,
+				'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 		}else{
-			echo "Esta solicitud esta eliminada";
+			$error = urlencode("Esta solicitud esta eliminada");
+			redirect('proposed_workshop/description/'.$id.'?message='.$error,'refresh');
 		}
 	}
 
@@ -56,37 +61,40 @@ class Proposed_Workshop extends CI_Controller {
 		$categorylist = $this->proposed_workshop_model->get_categories_list();
 		$level_list = $this->proposed_workshop_model->level_list();
 		$subcategorylist = $this->proposed_workshop_model->get_subcategories_list();
+		$error = $this->input->get('message');
 
 		$dataView=[
 			'page'=>'proposed_workshops/create',
 			'prueba'=>$categorylist,
 			'level_list'=>$level_list,
-			'subcat'=>$subcategorylist
+			'subcat'=>$subcategorylist,
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
 	public function save(){
-		ini_set('date.timezone','America/Lima'); 
-        $today = new Datetime();
         $proposed_workshop_date = new Datetime($_POST['fecha_inicio']);
 
-        if ($proposed_workshop_date > $today){
+        if ($proposed_workshop_date > $this->today){
         	if ($_POST['hora_fin'] > $_POST['hora_inicio']) {
         		$this->proposed_workshop_model->create($_POST, $this->user_id);
-        		redirect('proposed_workshop', 'refresh');
+        		$toRedirect = 'proposed_workshop';
         	}else{
-        		echo "La hora de fin debe ser mayor a la hora de inicio";
+        		$error = urlencode("La hora de fin debe ser mayor a la hora de inicio");
+        		$toRedirect = 'proposed_workshop/create?message='.$error;
         	}
         }else{
-        	echo "Debes escoger una fecha posterior";
-        }	
+        	$error = urlencode("Debes escoger una fecha posterior");
+        	$toRedirect = 'proposed_workshop/create?message='.$error;
+        }
+        redirect($toRedirect, 'refresh');	
 	}
 
 
 	public function show_my_requests(){
 		$rp = 2;
-		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$request_list = $this->proposed_workshop_model->search_request_list_by_title($this->user_id,$page,$q,$rp);
 		$num_pages = $this->proposed_workshop_model->get_request_list_total_search($this->user_id,$q,$rp);
@@ -103,11 +111,9 @@ class Proposed_Workshop extends CI_Controller {
 
 	public function open_request($pw_id){
 		$pw_data = $this->proposed_workshop_model->get_proposed_workshop_data($pw_id);
-		ini_set('date.timezone','America/Lima');
-		$today = new Datetime();
         $proposed_workshop_date = new Datetime($pw_data['start_date']);
 
-		if($pw_data['pw_user_id'] != $this->user_id && $proposed_workshop_date > $today){
+		if($pw_data['pw_user_id'] != $this->user_id && $proposed_workshop_date > $this->today){
 			$dataView=[
 				'page'=>'proposed_workshops/open_request',
 				'abc'=>$pw_data
@@ -139,26 +145,29 @@ class Proposed_Workshop extends CI_Controller {
 	public function vote($pw_id){
 		$proposed_workshop_description = $this->proposed_workshop_model->show_by_id($pw_id);
 		//var_dump($proposed_workshop_description);exit();
-		ini_set('date.timezone','America/Lima');
-		$today = new Datetime();
+
         $proposed_workshop_date = new Datetime($proposed_workshop_description['start_date']);
 
 		$verify_votes = $this->proposed_workshop_model->get_votes_quantity($pw_id);
 		$verify_user_vote = $this->proposed_workshop_model->verify_user_vote($pw_id, $this->user_id);
 	
 		if($verify_user_vote){
-			echo "Ya votaste por este taller";
-		}else if($proposed_workshop_date < $today){
-			echo "La fecha de inicio culminó";
+			$error = urlencode("Ya votaste por este taller");
+			$toRedirect = 'proposed_workshop/description/'.$pw_id.'?message='.$error;
+		}else if($proposed_workshop_date < $this->today){
+			$error = urlencode("La fecha de inicio culminó");
+			$toRedirect = 'proposed_workshop/description/'.$pw_id.'?message='.$error;
 		}else{
 			if($verify_votes['votes_quantity'] < 10){
 				$this->proposed_workshop_model->insert_into_votes($pw_id, $this->user_id);
 				$verify_votes['votes_quantity'] = $verify_votes['votes_quantity'] + 1;
 				$this->proposed_workshop_model->update_votes_quantity($pw_id, $verify_votes['votes_quantity']);
-				redirect('proposed_workshop/description/' .$pw_id, 'refresh');
+				$toRedirect = 'proposed_workshop/description/'.$pw_id;
 			}else{
-				echo "Alcanzó el maximo de votos";
+				$error = urlencode("Alcanzó el maximo de votos");
+				$toRedirect = 'proposed_workshop/description/'.$pw_id.'?message='.$error;
 			}
 		}
+		redirect($toRedirect, 'refresh');
 	}
 }

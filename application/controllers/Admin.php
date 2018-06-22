@@ -88,7 +88,7 @@ class Admin extends CI_Controller {
 
 	public function categories_list(){
 		$rp = 3;
-		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$c_list = $this->admin_model->search_categories_by_name($q,$page,$rp);
 		$num_row = $this->admin_model->get_rows_number_categories($q,$page,$rp);
@@ -148,7 +148,7 @@ class Admin extends CI_Controller {
 	public function workshop_list(){
 		$rp = 2;
 		$category = (isset($_GET['category']))? $_GET['category']:[];
-		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$w_list = $this->admin_model->search_w_by_category_title($page,$category,$q,$rp);
 		$num_pages = $this->admin_model->get_w_total_search($category,$q,$rp);
@@ -209,7 +209,7 @@ class Admin extends CI_Controller {
 
 	public function subcategories_list($category_id){
 		$rp = 4;
-		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$sc_list = $this->admin_model->search_subcategories_by_name($category_id,$q,$page,$rp);
 		$num_row = $this->admin_model->get_rows_number_subcategories($category_id,$q,$page,$rp);
@@ -287,7 +287,7 @@ class Admin extends CI_Controller {
 	public function proposed_workshop_list(){
 		$rp = 2;
 		$category = (isset($_GET['category']))? $_GET['category']:[];
-		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$pw_list = $this->admin_model->search_pw_by_category_title($page,$category,$q,$rp);
 		$num_pages = $this->admin_model->get_pw_total_search($category,$q,$rp);
@@ -444,7 +444,7 @@ class Admin extends CI_Controller {
 	public function proposed_subcategories_list(){
 		$rp = 2;
 		$category = (isset($_GET['category']))? $_GET['category']:[];
-		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$psc_list = $this->admin_model->search_psc_by_category_title($page,$category,$q,$rp);
 		$num_pages = $this->admin_model->get_psc_total_search($category,$q,$rp);
@@ -602,5 +602,10 @@ class Admin extends CI_Controller {
 		];
 		$this->load->view('admin/reports/charts',$dataView);
 	}
+
+	public function empty() {
+		$this->load->view('admin/reports/empty');
+	}
+
 
 }

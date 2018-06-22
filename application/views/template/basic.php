@@ -115,12 +115,14 @@
           language: 'es'
         });
       });
-
-      $('input.timepicker').timepicker({
-        timeFormat: 'HH:mm',
-        minTime: '8',
-        maxTime: '10:00pm',
-        interval:60
+      
+      $(function(){
+        $('input.timepicker').timepicker({
+          timeFormat: 'HH:mm',
+          minTime: '8',
+          maxTime: '10:00pm',
+          interval:60
+        });
       });
 
     </script>

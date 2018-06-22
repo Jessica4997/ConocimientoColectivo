@@ -31,6 +31,7 @@ class My_Workshops_model extends CI_Model {
                  ";
 
       if(trim($q)!=''){
+        //$q_clean = preg_replace('([^A-Za-z])', '', $q);
         $q = trim($q);
         $sql.="AND w.title LIKE '%{$q}%' ";
       }

@@ -2,6 +2,16 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
             <div class="card-body">
+                
+                  <?php if($error){?>
+                  <div class="alert alert-danger alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="zmdi zmdi-close"></i>
+                  </button>
+                  <?php echo $error;?>
+                  </div>
+                  <?php }?>
+
                 <h2 align="center">
                     <?php echo $description['title']?>
                 </h2>

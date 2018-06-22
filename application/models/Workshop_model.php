@@ -210,7 +210,7 @@ class Workshop_model extends CI_Model {
       }else{
         unset($category);
       }
-      
+
       if(trim($q)!=''){
         $q = trim($q);
         $sql.="AND w.title LIKE '%{$q}%' ";

@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class My_Workshops extends CI_Controller {
 
 	private $user_id = '0';
+	private $today = '0';
     public function __construct() {
 		parent::__construct();
 		$this->load->model('my_workshops_model');
@@ -12,12 +13,14 @@ class My_Workshops extends CI_Controller {
         if ($this->user_id === null){
             redirect('login', 'refresh');
         }
+        ini_set('date.timezone','America/Lima');
+        $this->today = new Datetime();
 	}
 
 	public function index(){
 		
 		$rp = 2;
-		$q = (isset($_GET['q']))? $_GET['q']:'';
+		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$get_list_by_inscribed_user = $this->my_workshops_model->search_my_works_by_title($this->user_id,$page,$q,$rp);
 		$num_pages = $this->my_workshops_model->get_my_works_total_search($this->user_id,$q,$rp);
@@ -49,13 +52,11 @@ class My_Workshops extends CI_Controller {
 		$error = $this->input->get('message');
 		$w_info = $this->my_workshops_model->get_workshop_info($w_id);
 
-		ini_set('date.timezone','America/Lima');
-  		$today = new Datetime();
       	$workshop_date = new Datetime($w_info['start_date']);
       	$workshop_date->add(new DateInterval('P1D'));
 
       	//var_dump($w_info);exit();
-		if ($today > $workshop_date) {
+		if ($this->today > $workshop_date) {
 			$teacher_info = $this->my_workshops_model->get_teacher_info($w_id, $this->user_id);
 			$final = $this->my_workshops_model->get_teacher_final_rating($w_info['user_id']);
 			//var_dump($teacher_info);exit;
@@ -84,10 +85,6 @@ class My_Workshops extends CI_Controller {
 			redirect('my_workshops/show_rate_teacher/'.$get_w_id['iu_user_id'].'/'.$get_w_id['iu_w_id'].'/?message='.$error, 'refresh');
 		}
 		
-
-		
-		
-		//
 	}
 
 }
