@@ -6,6 +6,7 @@ class My_Workshops_model extends CI_Model {
 			  iu.iu_status,
 			  iu.user_id AS inscribed_user,
 			  iu.wrks_id,
+        iu.student_rating,
 			  w.id,
 			  w.title,
 			  w.start_date,
@@ -42,7 +43,16 @@ class My_Workshops_model extends CI_Model {
     }
 
     public function search_my_works_by_title($user_id,$page,$q,$rp){
+      $page = preg_replace('([^1-9])', '', $page);
+      if ($page === '') {
+        $page = 1;
+      }
+
       $offset = (($page-1)*$rp);
+      if ($offset <= 0) {
+        $offset = 0;
+      }
+      
       $sql = $this->get_sql_my_works_list($user_id,$q);
       $sql.=  " LIMIT {$rp} OFFSET {$offset}";
       $query = $this->db->query($sql,array($user_id));
@@ -149,7 +159,8 @@ class My_Workshops_model extends CI_Model {
       $sql = "SELECT
         iu.id AS iu_id,
         iu.user_id AS iu_user_id,
-        iu.wrks_id AS iu_w_id
+        iu.wrks_id AS iu_w_id,
+        iu.tutor_rating AS iu_tutor_rating
       FROM
         inscribed_users AS iu
           WHERE iu.id = ? ";
@@ -188,4 +199,5 @@ class My_Workshops_model extends CI_Model {
 
       return $query->row_array();
     }
+
  }

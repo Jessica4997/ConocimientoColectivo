@@ -38,15 +38,15 @@
                   <li> Horario: <?php echo date("H:i", strtotime($description['start_time']))?> - <?php echo date("H:i", strtotime($description['end_time']))?></li>
 
                   <li> Vacantes: <?php echo $description['vacancy']?> </li>
+
+                  <li> Postulaciones: <?php echo $postulants_number?> </li>
                 </ul>
 
+                <label style="color:red">Nota: Solo se admite 15 postulaciones</label>
                 <?php
-
-                //var_dump($w_historial);
-
                 if ($description['workshop_creator'] != $this->session->userdata('s_iduser') || $w_historial['dificult'] >= $description['dificult']){
-
                   ?>
+
                 <a href="<?php echo site_url('workshop/save_inscribed_user/'.$description['id'])?>" class="btn btn-primary btn-block btn-raised">Postular</a>
                 <?php }?>
 

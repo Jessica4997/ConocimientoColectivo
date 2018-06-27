@@ -14,6 +14,9 @@ class Register_page extends CI_Controller {
         }
         ini_set('date.timezone','America/Lima');
         $this->today = new Datetime();
+
+        $this->output->set_header('X-XSS-Protection: 1; mode=block');
+
 	}
 
 	public function index(){
@@ -26,8 +29,9 @@ class Register_page extends CI_Controller {
 	}
 
 	public function saveuser(){
-        
 		//var_dump($_POST);exit();
+    if($_POST){
+
         if (!empty($_POST['correo']) || trim($_POST['correo']) != '' || !empty($_POST['contrasena']) || trim($_POST['contrasena']) != '' || !empty($_POST['nombres']) || trim($_POST['nombres']) != '' || !empty($_POST['apellidos']) || trim($_POST['apellidos']) != ''){
 
             $email_exist = $this->user_model->find_user_by_email($_POST['correo']);
@@ -49,12 +53,18 @@ class Register_page extends CI_Controller {
                     }
                 }else{
                     $this->user_model->createuser($_POST);
-                    redirect('','refresh');
+                    //redirect('','refresh');
                 }
             }
         }else{
             $error = urlencode("Faltan completar campos");
-            redirect ('register_page?message='.$error,'refresh');
+            //redirect ('register_page?message='.$error,'refresh');
         }
-	}
+    }else{
+        $dataView=[
+            'page'=>'error'
+        ];
+        $this->load->view('template/basic',$dataView);
+    }
+  }
 }

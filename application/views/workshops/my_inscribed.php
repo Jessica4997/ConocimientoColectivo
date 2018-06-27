@@ -27,6 +27,14 @@
             <li>Nivel: <?php echo $row['level_name']?></li>
             <li>Fecha: <?php echo date("d-m-Y", strtotime($row['start_date']))?></li>
             <li>Horario: <?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?></li>
+            <?php
+            if($row['student_rating']){
+              $calification = $row['student_rating'];
+            }else{
+              $calification = "Aún no se califica";
+            }
+            ?>
+            <h4 style="color: green">Calificación: <?php echo $calification?></h4>
           </p>
 
             <span class="ms-tag ms-tag-success">S/.<?php echo $row['amount']?></span>

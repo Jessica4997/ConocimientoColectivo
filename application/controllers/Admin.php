@@ -544,6 +544,37 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
+	public function to_pdf(){
+		$month = $this->input->post('mes_pdf');
+		//var_dump($month);exit();
+		$inscription_number = $this->admin_model->number_inscriptions_per_month($month);
+		$inscriptions_month = $this->admin_model->inscriptions_per_month($month);
+
+		$pw_number = $this->admin_model->number_workshops_request_per_month($month);
+		$pw_month = $this->admin_model->workshops_request_per_month($month);
+
+		$psc_number = $this->admin_model->number_subcategories_request_per_month($month);
+		$psc_month = $this->admin_model->subcategories_request_per_month($month);
+
+		$users_number = $this->admin_model->number_user_registration_per_month($month);
+		$users_month = $this->admin_model->user_registration_per_month($month);
+
+		$dataView=[
+			'month'=>$month,
+			'inscription_number'=>$inscription_number,
+			'inscriptions_month'=>$inscriptions_month,
+			'pw_number'=>$pw_number,
+			'pw_month'=>$pw_month,
+			'psc_number'=>$psc_number,
+			'psc_month'=>$psc_month,
+			'users_number'=>$users_number,
+			'users_month'=>$users_month,
+		];
+
+		$this->load->library('pdf');
+		$this->load->view('admin/reports/topdf',$dataView);
+	}
+
 	public function workshop_inscriptions_per_month() {
 		$month = $this->input->get('mes');
 		//WORKSHOP INSCRIPTIONS

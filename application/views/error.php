@@ -6,8 +6,6 @@
             <div class="text-center color-dark">
               <h1 class="color-primary text-big">Error</h1>
               <h2>Página no encontrada</h2>
-              <p class="lead lead-sm">We have not found what you are looking for.
-                <br>We have put our robots to search.</p>
               <a href="/" class="btn btn-primary btn-raised">
                 <i class="zmdi zmdi-home"></i>Ir a Inicio</a>
             </div>

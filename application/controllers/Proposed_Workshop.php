@@ -17,6 +17,9 @@ class Proposed_Workshop extends CI_Controller {
         }
         ini_set('date.timezone','America/Lima');
         $this->today = new Datetime();
+
+        $this->output->set_header('X-XSS-Protection: 1; mode=block');
+        
 	}
 
 
@@ -24,7 +27,7 @@ class Proposed_Workshop extends CI_Controller {
 		$rp = 2;
 		$category = (isset($_GET['category']))? $_GET['category']:[];
 		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
-		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$page = (isset($_GET['page']))? preg_replace('([^1-9])', '', $_GET['page']):'1';
 		$pw_list = $this->proposed_workshop_model->search_by_category_title($page,$category,$q,$rp);
 		$num_pages = $this->proposed_workshop_model->get_total_search($category,$q,$rp);
 		$catlist = $this->proposed_workshop_model->get_categories_list();
@@ -40,7 +43,7 @@ class Proposed_Workshop extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function description($id) {
+	public function description($id = null) {
 		$proposed_workshop_description = $this->proposed_workshop_model->show_by_id($id);
 		$error = $this->input->get('message');
 		if($proposed_workshop_description['removed'] == 'Activo'){
@@ -51,8 +54,10 @@ class Proposed_Workshop extends CI_Controller {
 		];
 		$this->load->view('template/basic',$dataView);
 		}else{
-			$error = urlencode("Esta solicitud esta eliminada");
-			redirect('proposed_workshop/description/'.$id.'?message='.$error,'refresh');
+			$dataView=[
+				'page'=>'error'
+        	];
+        	$this->load->view('template/basic',$dataView);
 		}
 	}
 
@@ -108,6 +113,40 @@ class Proposed_Workshop extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
+    public function send_email($email,$pw_title){
+      $this->load->library("email");
+
+      $config_email = array(
+        'protocol' => 'smtp',
+        'smtp_host' => 'ssl://smtp.gmail.com',
+        'smtp_port' => 465,
+        'smtp_user' => 'conocimientocolectivo2018@gmail.com',
+        'smtp_pass' => 'lifeline44',
+        'mailtype' => 'html',
+        'charset' => 'utf-8',
+        'newline' => "\r\n"
+      );
+
+      $this->email->initialize($config_email);
+
+      $this->email->from('conocimientocolectivo2018@gmail.com');
+      $this->email->to($email);
+      $this->email->subject('Apertura de Solicitud de Taller');
+
+      $dataView=[
+      	'pw_title'=>$pw_title
+      ];
+
+      $html = $this->load->view('proposed_workshops/email',$dataView, TRUE);
+
+      $this->email->message($html);
+    
+      //$this->email->message("Se le informa que el taller " .$pw_title. " que usted solicito, se ha aperturado");
+
+      if($this->email->send()){
+      	return TRUE;
+      }
+    }
 
 	public function open_request($pw_id){
 		$pw_data = $this->proposed_workshop_model->get_proposed_workshop_data($pw_id);
@@ -137,7 +176,7 @@ class Proposed_Workshop extends CI_Controller {
 			$this->proposed_workshop_model->open_workshop_request($_POST, $this->user_id);
 			$this->proposed_workshop_model->remove_from_list($id);
 			$this->proposed_workshop_model->change_status($id);
-			$this->proposed_workshop_model->send_email($email['email'],$pw_data['pw_title']);
+			$this->send_email($email['email'],$pw_data['pw_title']);
 			redirect('workshop','refresh');
 		//}
 	}
@@ -170,4 +209,5 @@ class Proposed_Workshop extends CI_Controller {
 		}
 		redirect($toRedirect, 'refresh');
 	}
+
 }

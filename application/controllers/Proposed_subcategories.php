@@ -14,6 +14,8 @@ class Proposed_subcategories extends CI_Controller {
         if ($this->user_id === null && !in_array($ruta,$whiteList)){
             redirect('login', 'refresh');
         }
+
+        $this->output->set_header('X-XSS-Protection: 1; mode=block');
 	}
 
 
@@ -21,7 +23,8 @@ class Proposed_subcategories extends CI_Controller {
 		$rp = 2;
 		$category = (isset($_GET['category']))? $_GET['category']:[];
 		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
-		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		$page = (isset($_GET['page']))? preg_replace('([^1-9])', '', $_GET['page']):'1';
+		//$page = (isset($_GET['page']))? $_GET['page']:'1';
 		$psc_list = $this->proposed_subcategories_model->search_by_category_title($page,$category,$q,$rp);
 		$num_pages = $this->proposed_subcategories_model->get_total_search($category,$q,$rp);
 		$catlist = $this->proposed_subcategories_model->get_categories_list();
@@ -37,7 +40,8 @@ class Proposed_subcategories extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function description($id) {
+
+	public function description($id = null) {
 		$error = $this->input->get('message');
 		$proposed_subcategory_description = $this->proposed_subcategories_model->show_by_id($id);
 		if($proposed_subcategory_description['removed'] == 'Activo'){
@@ -49,7 +53,10 @@ class Proposed_subcategories extends CI_Controller {
 		];
 		$this->load->view('template/basic',$dataView);
 		}else{
-			echo "Esta solicitud esta eliminada";
+			$dataView=[
+				'page'=>'error'
+        	];
+        	$this->load->view('template/basic',$dataView);
 		}
 	}
 

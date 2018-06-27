@@ -21,11 +21,12 @@
     }
     </style>
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
- <script src="/assets/js/plugins.min.js"></script>
+ <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>-->
+    <script src="/assets/js/plugins.min.js"></script>
     <script src="/assets/js/app.min.js"></script>
     <script src="/assets/js/configurator.min.js"></script>
     <script src="/assets/js/ecommerce.js"></script>
+    <script src="/assets/js/Chart.min.js"></script>
 
     <script src="/assets/js/jquery.timepicker.min.js"></script>
     <script src="/assets/js/bootstrap-datepicker.es.min.js"></script>

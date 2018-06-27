@@ -18,16 +18,21 @@ class Proposed_subcategories_model extends CI_Model {
               	INNER JOIN users AS u
                 ON psc.user_id = u.id
            	WHERE psc.removed = 'Activo' AND
-            psc.status = 'Pendiente'
+            psc.psc_status = 'Inactivo'
                  ";
 
-      if(is_numeric($category)){
-        if(is_array($category) && count($category)>0){
+      if(is_array($category) && count($category)>0){
+        $list_cat=array();
+        foreach ($category as $row){
+          if(is_numeric($row)){
+            $list_cat[]=$row;
+          }
+        }
+        if(count($list_cat)>0){
           $cat_id = implode(",",$category);
+          $cat_id = (isset($cat_id))? preg_replace('([^1-9])', '', $cat_id):'';
           $sql.="AND c.id IN ({$cat_id}) ";
         }
-      }else{
-        unset($category);
       }
 
       if (trim($q)!='') {
@@ -47,7 +52,21 @@ class Proposed_subcategories_model extends CI_Model {
     }
 
     public function search_by_category_title($page,$category,$q,$rp){
+      $page = preg_replace('([^1-9])', '', $page);
+      if ($page === '') {
+        $page = 1;
+      }
+
       $offset = (($page-1)*$rp);
+      if (is_int($offset)) {
+        if ($offset <= 0) {
+          $offset = 0;
+        }
+      }else{
+        $offset = 0;
+      }
+      
+
       $sql = $this->get_sql_search($category,$q);
       $sql.=  " LIMIT {$rp} OFFSET {$offset}";
       $query = $this->db->query($sql);
@@ -93,7 +112,7 @@ class Proposed_subcategories_model extends CI_Model {
         'category_id' => $dataform['categoria'],
         'description' => $dataform['descripcion'],
         'removed' => 'Activo',
-        'status' => 'Pendiente',
+        'psc_status' => 'Inactivo',
         'user_id'=> $user_id
     );
     $this->db->insert('proposed_subcategories', $data);
@@ -135,7 +154,7 @@ class Proposed_subcategories_model extends CI_Model {
               psc.name AS psc_name,
               psc.description,
               psc.votes_quantity,
-              psc.status AS psc_status,
+              psc.psc_status,
               c.id,
               c.name AS c_name,
               u.id AS u_id,
@@ -160,7 +179,16 @@ class Proposed_subcategories_model extends CI_Model {
     }
 
     public function search_request_list_by_title($user_id,$page,$q,$rp){
+      $page = preg_replace('([^1-9])', '', $page);
+      if ($page === '') {
+        $page = 1;
+      }
+
       $offset = (($page-1)*$rp);
+      if ($offset <= 0) {
+        $offset = 1;
+      }
+      
       $sql = $this->get_sql_my_request_list($user_id,$q);
       $sql.=  " LIMIT {$rp} OFFSET {$offset}";
       $query = $this->db->query($sql,array($user_id));

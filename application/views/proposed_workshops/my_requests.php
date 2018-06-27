@@ -26,7 +26,16 @@
             <li>Nivel: <?php echo $row['level_name']?></li>
             <li>Fecha: <?php echo $row['start_date']?></li>
             <li>Horario:  <?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?></li>
-            <li>Votos: <?php echo $row['votes_quantity']?></li>
+
+              <?php if(($row['votes_quantity']) != null){
+                  $quantity_votes = $row['votes_quantity'];
+              }else{
+                  $quantity_votes = 0;
+              }
+              ?>
+            <li>Votos: <?php echo $quantity_votes?></li>
+
+            <h4 style="color:yellowgreen">Estado: <?php echo $row['pw_status'] ?></h4>
           </p>
         
         </div>

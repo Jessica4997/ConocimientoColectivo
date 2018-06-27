@@ -56,7 +56,7 @@
                     </li>
                 </ul>
 
-                <label>Nota: Debe tener al menos 10 votos para ser aperturado</label>
+                <label style="color:red">Nota: Debe tener al menos 10 votos para ser aperturado</label>
                 <div align="center" >
                 <?php if($description['psc_removed'] == 'Activo' && $description['psc_status'] == 'Pendiente'){ ?>
                 <a href="<?php echo site_url('admin/proposed_subcategories_open_request/' .$description['psc_id'])?>" class="btn btn-primary btn-raised">Aperturar</a>

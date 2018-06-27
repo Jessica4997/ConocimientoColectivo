@@ -24,15 +24,7 @@
             <?php echo $row['description']?>
             <li>Categoría: <?php echo $row['c_name']?></li>
             <li>Cantidad de Votos: <?php echo $row['votes_quantity']?></li>
-            <?php
-            if ($row['psc_status'] == 'En Curso') {
-              $status = "Aperturado";
-            }else{
-              $status = "Pendiente";
-            }
-            ?>
-
-            <h4 style="color:yellowgreen">Estado: <?php echo $status ?></h4>
+            <h4 style="color:yellowgreen">Estado: <?php echo $row['psc_status']?></h4>
           </p>
         
         </div>

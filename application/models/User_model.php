@@ -2,21 +2,33 @@
 class User_model extends CI_Model {
 
   public function createuser($dataform){
-
-    $date = new DateTime($dataform['fecha_nacimiento']);
-    $dateformat = $date->format('Y-m-d');
-
-    $data = array(
-        'email' => $dataform['correo'],
-        'password' => $dataform['contrasena'],
-        'name' => $dataform['nombres'],
-        'last_name' => $dataform['apellidos'],
-        'cell_phone' => $dataform['celular'],
-        'gender' => $dataform['genero'],
-        'date_birth' => $dateformat,
-        'description' => $dataform['descripcion'],
-        'removed' => 'Activo'
-    );
+    if ($dataform['fecha_nacimiento']) {
+        $date = new DateTime($dataform['fecha_nacimiento']);
+        $dateformat = $date->format('Y-m-d');
+        $data = array(
+            'email' => $dataform['correo'],
+            'password' => $dataform['contrasena'],
+            'name' => $dataform['nombres'],
+            'last_name' => $dataform['apellidos'],
+            'cell_phone' => $dataform['celular'],
+            'gender' => $dataform['genero'],
+            'date_birth' => $dateformat,
+            'description' => $dataform['descripcion'],
+            'removed' => 'Activo'
+        );
+}else{
+            $data = array(
+            'email' => $dataform['correo'],
+            'password' => $dataform['contrasena'],
+            'name' => $dataform['nombres'],
+            'last_name' => $dataform['apellidos'],
+            'cell_phone' => $dataform['celular'],
+            'gender' => $dataform['genero'],
+            'date_birth' => '',
+            'description' => $dataform['descripcion'],
+            'removed' => 'Activo'
+        );
+}
     $this->db->insert('users', $data);
   }
 

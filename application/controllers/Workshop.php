@@ -19,6 +19,10 @@ class Workshop extends CI_Controller {
         }
         ini_set('date.timezone','America/Lima');
         $this->today = new Datetime();
+
+        $this->output->set_header('X-XSS-Protection: 1; mode=block');
+
+
 	}
 
 	public function index() {
@@ -33,7 +37,8 @@ class Workshop extends CI_Controller {
 		$category = (isset($_GET['category']))? $_GET['category']:[];
 		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		//$q = (isset($_GET['q']))? $_GET['q']:'';
-		$page = (isset($_GET['page']))? $_GET['page']:'1';
+		//$page = (isset($_GET['page']))? preg_replace('([^1-9])', '', $_GET['page']):'1';
+		$page = (isset($_GET['page']))? preg_replace('([^1-9])', '', $_GET['page']):'1';
 		$wrk = $this->workshop_model->search_by_category_title($page,$category,$q,$rp);
 		$num_pages = $this->workshop_model->get_total_search($category,$q,$rp);
 		$catlist = $this->workshop_model->get_categories_list();
@@ -46,28 +51,39 @@ class Workshop extends CI_Controller {
 			'pagination'=>$page,
 			'num_pages'=>$num_pages,
 		];
+		//var_dump($dataView);exit();
+
 		$this->load->view('template/basic',$dataView);
 	}
 
 
-	public function description($id) {
+	public function description($id = null) {
 
 		$workshop_description = $this->workshop_model->show_by_id($id);
 		//var_dump($workshop_description);exit();
 		$w_by_user = $this->workshop_model->get_inscribed_workshops_by_user($this->user_id,$workshop_description['sc_id']);
 		$w_by_user_validate = isset($w_by_user)? $w_by_user :1;
 
+		$postulants_number = $this->workshop_model->get_postulants_number($id);
 		$this->my_workshops_model->get_teacher_final_rating($id);
 		$this->my_workshops_model->insert_final_tutor_rating_to_users($workshop_description['workshop_creator']);
-		$error = $this->input->get('message');
 
-		$dataView=[
-			'page'=>'workshops/description',
-			'description'=>$workshop_description,
-			'w_historial'=>$w_by_user_validate,
-			'error'=>$error
-		];
-		$this->load->view('template/basic',$dataView);
+		$error = $this->input->get('message');
+		if($workshop_description['removed'] == 'Activo'){
+			$dataView=[
+				'page'=>'workshops/description',
+				'description'=>$workshop_description,
+				'w_historial'=>$w_by_user_validate,
+				'error'=>$error,
+				'postulants_number'=>$postulants_number
+			];
+			$this->load->view('template/basic',$dataView);
+		}else{
+			$dataView=[
+				'page'=>'error'
+        	];
+        	$this->load->view('template/basic',$dataView);
+		}
 	}
 
 	public function create(){
@@ -103,7 +119,7 @@ class Workshop extends CI_Controller {
 		redirect($toRedirect, 'refresh');
 	}
 
-	public function save_inscribed_user($id){
+	public function save_inscribed_user($id = null){
 		$workshop_description = $this->workshop_model->show_by_id($id);
 
       	$workshop_date = new Datetime($workshop_description['start_date']);
@@ -116,7 +132,10 @@ class Workshop extends CI_Controller {
 		$postulants_number = $this->workshop_model->get_postulants_number($id);
 
 		//$w_by_user_validate = isset($w_by_user['dificult'])? $w_by_user['dificult'] :$w_by_user['dificult']=1;
-
+		if ($id === null) {
+			echo "No valido";exit();
+		}
+		
 		if ($verifydata) {
 			$error = urlencode("Ya te matriculaste");
 			$toRedirect = 'workshop/description/'.$id.'?message='.$error;

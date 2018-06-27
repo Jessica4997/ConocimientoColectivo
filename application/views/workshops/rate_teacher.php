@@ -2,7 +2,7 @@
     <div class="row">
 
         <div class="col-lg-12">
-            <label>La calificación total se mostrará cuando tengas dos calificaciones como mínimo</label> 
+            <label style="color:red">La calificación total se mostrará cuando tengas dos calificaciones como mínimo</label>  
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">DATOS DEL PROFESOR</h3>
@@ -66,7 +66,7 @@
                 <?php }?>
             
                 <form method="post" action="<?php echo site_url('my_workshops/rate_teacher/' .$teacher_info['iu_id']) ?>" class="form-horizontal">
-                    <label>Nota: La calificación es de 1 a 5</label>
+                    <label style="color:red">Nota: La calificación es de 1 a 5</label>
                     <fieldset>
                         <button class="btn btn-raised btn-primary">Calificar</button>
                         <input class="ml-5" type="number" name="puntaje" onkeypress="return only_for_ratings(event)"  required>

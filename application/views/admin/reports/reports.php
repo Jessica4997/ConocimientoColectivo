@@ -1,5 +1,28 @@
 <div class="container">
-  <h2 align="center">Reportes</h2>
+  
+    <h2 align="center">Reportes</h2>
+  <div align="center">
+    <form method="post" action="<?php echo site_url('admin/to_pdf')?>">
+    <label>Seleccionar Mes</label>
+    <select name="mes_pdf">
+        <option value="1">Enero</option>
+        <option value="2">Febrero</option>
+        <option value="3">Marzo</option>
+        <option value="4">Abril</option>
+        <option value="5">Mayo</option>
+        <option value="6" >Junio</option>
+        <option value="7">Julio</option>
+        <option value="8">Agosto</option>
+        <option value="9">Setiembre</option>
+        <option value="10">Octubre</option>
+        <option value="11">Noviembre</option>
+        <option value="12">Diciembre</option>
+    </select>
+    <input class="btn btn-raised btn-primary" type="submit" value="Exportar a PDF">
+</form>
+
+  </div>
+  
   <h3>Categoría más Solicitada</h3>
 <canvas id="popular_category_chart" width="40" height="10"></canvas>
   <h3>Inscripciones por Mes</h3>

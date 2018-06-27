@@ -42,7 +42,16 @@ class Created_Workshops_model extends CI_Model {
     }
 
     public function search_created_w_list_by_title($user_id,$page,$q,$rp){
+      $page = preg_replace('([^1-9])', '', $page);
+      if ($page === '') {
+        $page = 1;
+      }
+
       $offset = (($page-1)*$rp);
+      if ($offset <= 0) {
+        $offset = 0;
+      }
+      
       $sql = $this->get_sql_my_created_w_list($user_id,$q);
       $sql.=  " LIMIT {$rp} OFFSET {$offset}";
       $query = $this->db->query($sql,array($user_id));
@@ -81,6 +90,7 @@ class Created_Workshops_model extends CI_Model {
 
       return $query->result_array();
   }
+
 
   public function validate_student($iu_id){
     $data=array(
@@ -192,7 +202,8 @@ class Created_Workshops_model extends CI_Model {
       $sql = "SELECT
         iu.id AS iu_id,
         iu.user_id AS iu_user_id,
-        iu.wrks_id AS iu_w_id
+        iu.wrks_id AS iu_w_id,
+        iu.student_rating AS iu_student_rating
       FROM
         inscribed_users AS iu
           WHERE iu.id = ? ";

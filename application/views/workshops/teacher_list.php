@@ -1,4 +1,5 @@
 <div class="container">
+  <h3 align="center" class="color-primary" style="font-weight: bold">Docente del Taller </h3>
 
       <?php if($error){?>
       <div class="alert alert-danger alert-dismissible" role="alert">
@@ -8,6 +9,10 @@
       <?php echo $error;?>
       </div>
       <?php }?>
+
+<label style="color:red">Nota: Se podrá calificar a partir del día siguiente de finalizado el taller</label>
+<br>
+<ul>Fecha del Taller: <?php echo date("d-m-Y", strtotime($workshop_info['start_date']))?></ul>
                 
     <table class="table">
   <thead>

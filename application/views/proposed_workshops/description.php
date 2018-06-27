@@ -49,8 +49,17 @@
                         <?php echo date("H:i", strtotime($description['start_time']))?> - <?php echo date("H:i", strtotime($description['end_time']))?>
                     </li>
 
+
+                    <?php if(($description['votes_quantity']) != null){
+                        $quantity_votes = $description['votes_quantity'];
+
+                    }else{
+                        $quantity_votes = 0;
+                    }
+                    ?>
+
                     <li> Cantidad de Votos:
-                        <?php echo $description['votes_quantity']?>
+                        <?php echo $quantity_votes?>
                     </li>
                 </ul>
                 <div align="center" >
@@ -63,7 +72,7 @@
                 <?php if($description['pw_user_id'] != $this->session->userdata('s_iduser')){ ?>
 
                 <a href="<?php echo site_url('proposed_workshop/vote/' .$description['id'])?>" class="btn btn-primary btn-raised">
-                    <i class="fa fa-thumbs-up"></i>Votar (<?php echo $description['votes_quantity']?>)</a>
+                    <i class="fa fa-thumbs-up"></i>Votar (<?php echo $quantity_votes?>)</a>
 
                 <?php } ?>
                 

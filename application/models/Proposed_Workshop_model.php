@@ -25,14 +25,24 @@ class Proposed_Workshop_model extends CI_Model {
                   ON pw.level_id = l.id
                 WHERE pw.removed = 'Activo'
                  ";
-      if(is_numeric($category)){
+
         if(is_array($category) && count($category)>0){
-          $cat_id = implode(",",$category);
-          $sql.="AND c.id IN ({$cat_id}) ";
+          $list_cat=array();
+          foreach ($category as $row){
+            if(is_numeric($row) && !is_null($row)){
+              $list_cat[]=$row;
+            }
+          }
+          if(count($list_cat)>0){
+            //var_dump($list_cat);exit();
+            $cat_id = implode(",",$list_cat);
+            //var_dump($cat_id);exit();
+
+            $cat_id = (isset($cat_id))? preg_replace('([^1-9,])', '', $cat_id):'';
+            $sql.="AND c.id IN ({$cat_id}) ";
+          }
         }
-      }else{
-        unset($category);
-      }
+
 
       if(trim($q)!=''){
         $q = trim($q);
@@ -45,7 +55,22 @@ class Proposed_Workshop_model extends CI_Model {
     }
 
     public function search_by_category_title($page,$category,$q,$rp){
+      $page = preg_replace('([^1-9])', '', $page);
+      if ($page === '') {
+        $page = 1;
+      }
+
       $offset = (($page-1)*$rp);
+
+      if (is_int($offset)){
+        if ($offset <= 0) {
+          $offset = 0;
+        }
+      }else{
+        $offset = 0;
+      }
+      
+
       $sql = $this->get_sql_search($category,$q);
       $sql.=  " LIMIT {$rp} OFFSET {$offset}";
       $query = $this->db->query($sql);
@@ -108,7 +133,7 @@ class Proposed_Workshop_model extends CI_Model {
         'start_time' => $dataform['hora_inicio'],
         'end_time' => $dataform['hora_fin'],
         'description' => $dataform['descripcion'],
-        'pw_status' => 'Activo',
+        'pw_status' => 'Inactivo',
         'removed' => 'Activo',
         'user_id'=> $user_id
     );
@@ -167,6 +192,7 @@ class Proposed_Workshop_model extends CI_Model {
               pw.start_time,
               pw.end_time,
               pw.votes_quantity,
+              pw.pw_status,
               c.name AS category_name,
               sc.sub_name AS subcategory_name,
               l.id,
@@ -193,7 +219,16 @@ class Proposed_Workshop_model extends CI_Model {
     }
 
     public function search_request_list_by_title($user_id,$page,$q,$rp){
+      $page = preg_replace('([^1-9])', '', $page);
+      if ($page === '') {
+        $page = 1;
+      }
+
       $offset = (($page-1)*$rp);
+      if ($offset <= 0) {
+        $offset = 0;
+      }
+
       $sql = $this->get_sql_my_request_list($user_id,$q);
       $sql.=  " LIMIT {$rp} OFFSET {$offset}";
       $query = $this->db->query($sql,array($user_id));
@@ -218,7 +253,7 @@ class Proposed_Workshop_model extends CI_Model {
                   pw.end_time,
                   pw.removed AS removed,
                   pw.user_id AS pw_user_id,
-                  /*pw.pw_status,*/
+                  pw.pw_status,
                   c.id AS category_id,
                   c.name AS category_name,
                   sc.id AS subcategory_id,
@@ -292,37 +327,6 @@ class Proposed_Workshop_model extends CI_Model {
 
         return $query->row_array();
     }
-
-
-    public function send_email($email,$pw_title){
-      $this->load->library("email");
-
-      $config_email = array(
-        'protocol' => 'smtp',
-        'smtp_host' => 'ssl://smtp.gmail.com',
-        'smtp_port' => 465,
-        'smtp_user' => 'conocimientocolectivo2018@gmail.com',
-        'smtp_pass' => 'lifeline44',
-        'mailtype' => 'html',
-        'charset' => 'utf-8',
-        'newline' => "\r\n"
-      );
-
-    $this->email->initialize($config_email);
-
-        $this->email->from('conocimientocolectivo2018@gmail.com');
-        $this->email->to($email);
-        $this->email->subject('Apertura de taller');
-
-        //$html = $this->load->view('users/email',$dataView, TRUE);
-    
-        $this->email->message("Se le informa que el taller " .$pw_title. " que usted solicito, se ha aperturado");
-
-        if($this->email->send()){
-          return TRUE;
-        }
-  }
-
 
     public function insert_into_votes($pw_id, $user_id){
         $data = array(

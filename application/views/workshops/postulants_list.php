@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 align="center">Alumnos Postulantes</h3>
+  <h3 align="center" class="color-primary" style="font-weight: bold" >Alumnos Postulantes</h3>
 
   <?php if($error){?>
   <div class="alert alert-danger alert-dismissible" role="alert">
@@ -9,6 +9,10 @@
     <?php echo $error;?>
   </div>
   <?php }?>
+
+<label style="color:red">Nota: Solo podrás hacer la modificación hasta dos días antes del inicio del taller</label>
+<br>
+<ul>Fecha de Inicio del Taller: <?php echo date("d-m-Y", strtotime($workshop_info['start_date']))?></ul> 
 
     <table class="table">
   <thead>

@@ -38,14 +38,21 @@
                         <?php echo $description['category_name']?>
                     </li>
 
+                    <?php if(($description['votes_quantity']) != null){
+                        $quantity_votes = $description['votes_quantity'];
+
+                    }else{
+                        $quantity_votes = 0;
+                    }
+                    ?>
                     <li> Cantidad de Votos:
-                        <?php echo $description['votes_quantity']?>
+                        <?php echo $quantity_votes?>
                     </li>
                 </ul>
                 <div align="center" >
 
                 <a href="<?php echo site_url('proposed_subcategories/vote/' . $description['psc_id'] )?>" class="btn btn-primary btn-raised">
-                    <i class="fa fa-thumbs-up"></i>Votar (<?php echo $description['votes_quantity']?>)</a>
+                    <i class="fa fa-thumbs-up"></i>Votar (<?php echo $quantity_votes?>)</a>
                 
                 </div>
 

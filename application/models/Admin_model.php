@@ -145,7 +145,16 @@ class Admin_model extends CI_Model {
     }
 
     public function search_categories_by_name($q,$page,$rp){
+      $page = preg_replace('([^1-9])', '', $page);
+      if ($page === '') {
+        $page = 1;
+      }
+
       $offset = (($page-1)*$rp);
+      if ($offset <= 0) {
+        $offset = 1;
+      }
+
       $sql = $this->get_sql_categories($q);
       $sql.= " LIMIT {$rp} OFFSET {$offset}";
       $query = $this->db->query($sql);
@@ -275,7 +284,16 @@ class Admin_model extends CI_Model {
     }
 
     public function search_subcategories_by_name($category_id,$q,$page,$rp){
+      $page = preg_replace('([^1-9])', '', $page);
+      if ($page === '') {
+        $page = 1;
+      }
+
       $offset = (($page-1)*$rp);
+      if ($offset <= 0) {
+        $offset = 0;
+      }
+
       $sql = $this->get_sql_subcategories($category_id,$q);
       $sql.= " LIMIT {$rp} OFFSET {$offset}";
       $query = $this->db->query($sql,array($category_id));
@@ -387,13 +405,17 @@ class Admin_model extends CI_Model {
                       INNER JOIN level AS l
                       ON pw.level_id = l.id ";
 
-      if(is_numeric($category)){
-        if(is_array($category) && count($category)>0){
+      if(is_array($category) && count($category)>0){
+        $list_cat=array();
+        foreach ($category as $row){
+          if(is_numeric($row)){
+            $list_cat[]=$row;
+          }
+        }
+        if(count($list_cat)>0){
           $cat_id = implode(",",$category);
           $sql.="AND c.id IN ({$cat_id}) ";
         }
-      }else{
-        unset($category);
       }
       
 
@@ -408,7 +430,16 @@ class Admin_model extends CI_Model {
     }
 
     public function search_pw_by_category_title($page,$category,$q,$rp){
+      $page = preg_replace('([^1-9])', '', $page);
+      if ($page === '') {
+        $page = 1;
+      }
+
       $offset = (($page-1)*$rp);
+      if ($offset <= 0) {
+        $offset = 0;
+      }
+
       $sql = $this->get_sql_pw_list($category,$q);
       $sql.=  " LIMIT {$rp} OFFSET {$offset}";
       $query = $this->db->query($sql);
@@ -528,14 +559,18 @@ class Admin_model extends CI_Model {
                     ON w.level_id = l.id
                  ";
 
-      if(is_numeric($category)){
-        if(is_array($category) && count($category)>0){
+      if(is_array($category) && count($category)>0){
+        $list_cat=array();
+        foreach ($category as $row){
+          if(is_numeric($row)){
+            $list_cat[]=$row;
+          }
+        }
+        if(count($list_cat)>0){
           $cat_id = implode(",",$category);
           $sql.="AND c.id IN ({$cat_id}) ";
         }
-      }else{
-        unset($category);
-      }    
+      }
 
       if(trim($q)!=''){
         $q = trim($q);
@@ -548,7 +583,17 @@ class Admin_model extends CI_Model {
     }
 
   public function search_w_by_category_title($page,$category,$q,$rp){
-    $offset = (($page-1)*$rp);
+      $page = preg_replace('([^1-9])', '', $page);
+      if ($page === '') {
+        $page = 1;
+      }
+
+      $offset = (($page-1)*$rp);
+      if ($offset <= 0) {
+        $offset = 0;
+      }
+
+
     $sql = $this->get_sql_w_list($category,$q);
     $sql.=  " LIMIT {$rp} OFFSET {$offset}";
     $query = $this->db->query($sql);
@@ -892,7 +937,16 @@ class Admin_model extends CI_Model {
     }
 
     public function search_psc_by_category_title($page,$category,$q,$rp){
+      $page = preg_replace('([^1-9])', '', $page);
+      if ($page === '') {
+        $page = 1;
+      }
+
       $offset = (($page-1)*$rp);
+      if ($offset <= 0) {
+        $offset = 0;
+      }
+
       $sql = $this->get_psc_sql_search($category,$q);
       $sql.=  " LIMIT {$rp} OFFSET {$offset}";
       $query = $this->db->query($sql);
@@ -913,7 +967,7 @@ class Admin_model extends CI_Model {
                   psc.description AS psc_description,
                   psc.votes_quantity,
                   psc.removed AS psc_removed,
-                  psc.status AS psc_status,
+                  psc.psc_status AS psc_status,
                   c.id AS c_id,
                   c.name AS category_name,
                   u.name AS user_name,
@@ -962,7 +1016,8 @@ class Admin_model extends CI_Model {
       $data = array(
         'sub_name' => $psc_data['psc_name'],
         'categories_id' => $psc_data['c_id'],
-        'removed' => 'Activo'
+        'removed' => 'Activo',
+        'psc_status'=> 'Aperturado'
       );
       $this->db->insert('subcategories', $data);
     }
@@ -1064,7 +1119,7 @@ class Admin_model extends CI_Model {
               psc.user_id AS psc_user_id,
               psc.votes_quantity,
               psc.category_id,
-              psc.status,
+              psc.psc_status,
               u.name AS u_name,
               u.last_name AS u_last_name,
               c.name AS c_name

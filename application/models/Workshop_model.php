@@ -12,6 +12,7 @@ class Workshop_model extends CI_Model {
         w.amount,
         w.vacancy,
         w.description,
+        w.removed,
         w.user_id AS workshop_creator,
         c.name AS category_name,
         sc.id AS sc_id,
@@ -162,7 +163,22 @@ class Workshop_model extends CI_Model {
 
 
   public function search_by_category_title($page,$category,$q,$rp){
+    $page = preg_replace('([^1-9])', '', $page);
+    if ($page === '') {
+      $page = 1;
+    }
+
     $offset = (($page-1)*$rp);
+
+    if (is_int($offset)) {
+      if ($offset <= 0) {
+        $offset = 0;
+      }
+    }else{
+      $offset = 0;
+    }
+    
+
     $sql = $this->get_sql_search($category,$q);
     $sql.=  " LIMIT {$rp} OFFSET {$offset}";
     $query = $this->db->query($sql);
@@ -202,14 +218,21 @@ class Workshop_model extends CI_Model {
                 ON w.level_id = l.id
               WHERE w.removed = 'Activo'
                ";
-      if(is_numeric($category)){
+      
         if(is_array($category) && count($category)>0){
-          $cat_id = implode(",",$category);
-          $sql.="AND c.id IN ({$cat_id}) ";
+          $list_cat=array();
+          foreach ($category as $row) {
+            if(is_numeric($row)){
+              $list_cat[]=$row;
+            }
+          }
+          if(count($list_cat)>0){
+            $cat_id = implode(",",$list_cat);
+            $cat_id = (isset($cat_id))? preg_replace('([^1-9,])', '', $cat_id):'';
+            $sql.="AND c.id IN ({$cat_id}) ";
+          }
         }
-      }else{
-        unset($category);
-      }
+      
 
       if(trim($q)!=''){
         $q = trim($q);
@@ -217,6 +240,8 @@ class Workshop_model extends CI_Model {
       }
 
       $sql.=" ORDER BY w.id ";
+
+      //echo $sql;exit();
 
       return $sql;
     }

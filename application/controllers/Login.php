@@ -6,6 +6,8 @@ class Login extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('user_model');
+
+		$this->output->set_header('X-XSS-Protection: 1; mode=block');
     }
 
 	public function index(){
@@ -19,7 +21,7 @@ class Login extends CI_Controller {
 
 	public function user_login(){
 		$u = $this->input->post('correo');
-		$p = $this->input->post('contrasena');
+		$p = $this->input->post('contrasena', TRUE);
 
 		if(false === filter_var($u, FILTER_VALIDATE_EMAIL)){
 			$error=urlencode("Ingresa un email valido");

@@ -13,6 +13,8 @@ class Profile_Page extends CI_Controller {
         if ($this->user_id === null){
             redirect('login', 'refresh');
         }
+
+        $this->output->set_header('X-XSS-Protection: 1; mode=block');
 	}
 
 	public function index(){
@@ -75,6 +77,31 @@ class Profile_Page extends CI_Controller {
 		redirect($toRedirect, 'refresh');
 	}
 
+	public function upload_profile_photo(){
 
+		$uploadedfileload="true";
+		$uploadedfile_size=$_FILES['profile_photo']['size'];
+		echo $_FILES['profile_photo']['name'];
+		if ($_FILES['profile_photo']['size']>200000){
+			echo "El archivo es mayor que 200KB, debes reduzcirlo antes de subirlo<BR>";
+			$uploadedfileload="false";
+		}
 
+		if (!($_FILES['profile_photo']['type'] =="image/jpeg" OR $_FILES['profile_photo']['type'] =="image/gif")){
+			echo " Tu archivo tiene que ser JPG o GIF. Otros archivos no son permitidos<BR>";
+			$uploadedfileload="false";
+		}
+
+		$file_name=$_FILES['profile_photo']['name'];
+		$add="uploads/$file_name";
+		if($uploadedfileload=="true"){
+			if(move_uploaded_file ($_FILES['profile_photo']['tmp_name'], $add)){
+				echo " Ha sido subido satisfactoriamente";
+			}else{
+				echo "Error al subir el archivo";
+			}
+		}else{
+			echo "NO SE";
+		}
+	}
 }
