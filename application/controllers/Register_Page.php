@@ -29,12 +29,15 @@ class Register_page extends CI_Controller {
 	}
 
 	public function saveuser(){
-		//var_dump($_POST);exit();
+		//svar_dump($_POST);exit();
     if($_POST){
 
-        if (!empty($_POST['correo']) || trim($_POST['correo']) != '' || !empty($_POST['contrasena']) || trim($_POST['contrasena']) != '' || !empty($_POST['nombres']) || trim($_POST['nombres']) != '' || !empty($_POST['apellidos']) || trim($_POST['apellidos']) != ''){
+        if (!empty($_POST['correo']) || trim($_POST['correo']) != '' || !empty($_POST['contrasena']) || trim($_POST['contrasena']) != '' || !empty($_POST['nombres']) || trim($_POST['nombres']) != '' || !empty($_POST['apellidos']) || trim($_POST['apellidos']) != '' || !empty($_POST['fecha_nacimiento']) || trim($_POST['fecha_nacimiento']) != ''){
 
             $email_exist = $this->user_model->find_user_by_email($_POST['correo']);
+            $var = $_POST['fecha_nacimiento'];
+            $birth = new Datetime($var);
+
             if($email_exist){
                 $error = urlencode("El correo ya está siendo usado");
                 redirect ('register_page?message='.$error,'refresh');
@@ -44,21 +47,17 @@ class Register_page extends CI_Controller {
                     $error = urlencode("Las contraseñas no coinciden");
                     redirect ('register_page?message='.$error,'refresh');
                     
-                }else if(!empty($_POST['fecha_nacimiento'])){
-                    $var = $_POST['fecha_nacimiento'];
-                    $birth = new Datetime($var);
-                    if ($birth >= $this->today){
-                        $error = urlencode("Fecha incorrecta");
-                        redirect ('register_page?message='.$error,'refresh');
-                    }
+                }else if($birth >= $this->today){
+                    $error = urlencode("Fecha incorrecta");
+                    redirect ('register_page?message='.$error,'refresh');
                 }else{
                     $this->user_model->createuser($_POST);
-                    //redirect('','refresh');
+                    redirect('','refresh');
                 }
             }
         }else{
             $error = urlencode("Faltan completar campos");
-            //redirect ('register_page?message='.$error,'refresh');
+            redirect ('register_page?message='.$error,'refresh');
         }
     }else{
         $dataView=[

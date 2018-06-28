@@ -27,9 +27,12 @@
             <li>Nivel: <?php echo $row['level_name']?></li>
             <li>Fecha: <?php echo date("d-m-Y", strtotime($row['start_date']))?></li>
             <li>Horario: <?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?></li>
+            <li>Estado de Postulación: <?php echo $row['iu_status']?></li>
             <?php
             if($row['student_rating']){
               $calification = $row['student_rating'];
+            }else if($row['iu_status'] == 'No confirmado'){
+              $calification = "Aún no estas en el taller";
             }else{
               $calification = "Aún no se califica";
             }
@@ -38,9 +41,12 @@
           </p>
 
             <span class="ms-tag ms-tag-success">S/.<?php echo $row['amount']?></span>
-        
+
+          <?php if($row['iu_status'] == 'Confirmado'){?>
           <a href="<?php echo site_url('my_workshops/show_teacher/' .$row['id'])?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
             <i class="fa fa-search"></i>Datos del Docente</a>
+          <?php }?> 
+
         </div>
       </div>
     </div>

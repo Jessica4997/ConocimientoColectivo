@@ -37,9 +37,42 @@
 				</h1>
 
 				<p class="text-center">
-					<a href="<?php echo site_url('workshop/create')?>" class="btn btn-primary btn-raised text-right" role="button">
-						<i class="fa fa-plus"></i>Crear Taller</a>
+				<button type="button" class="btn btn-primary btn-raised text-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i>Crear Taller</button>
 				</p>
+				<!-- Modal -->
+				<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog animated zoomIn animated-3x" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h3 class="modal-title color-primary">Seleccionar Categoría</h3>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="zmdi zmdi-close"></i></span></button>
+							</div>
+						<div class="modal-body">
+
+							<form method="POST" action="<?php echo site_url('workshop/create_second_step')?>">
+								<div class="row form-group">
+									<label for="" class="col-md-2 control-label">Categoría</label>
+									<div class="col-md-9">
+
+										<select name="categoria_first_step" class="form-control selectpicker">
+											<?php foreach($lis as $rowc){?>
+											<option value="<?php echo $rowc['id']?>"><?php echo $rowc['name']?></option>
+											<?php }?>
+
+	                        			</select>
+	                      			</div>
+	                    		</div>								
+							
+            			</div>
+            			<div class="modal-footer">
+            				<button class="btn btn-raised btn-primary btn-block">Continuar</button>
+          				</div>
+
+          				</form>
+        				</div>
+        			</div>
+        		</div>
+
 
 				<div class="row" id="Container">
 					<?php

@@ -120,13 +120,13 @@ class Proposed_Workshop_model extends CI_Model {
       return $query->row_array();
   }
 
-  public function create($dataform, $user_id){
+  public function create($dataform, $category_id, $user_id){
     $date = new DateTime($dataform['fecha_inicio']);
     $dateformat = $date->format('Y-m-d');
 
     $data = array(
         'title' => $dataform['titulo'],
-        'category_id' => $dataform['categoria'],
+        'category_id' => $category_id,
         'subcategory_id' => $dataform['sub_categoria'],
         'level_id' => $dataform['nivel'],
         'start_date' => $dateformat,
@@ -168,6 +168,20 @@ class Proposed_Workshop_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_filter_subcategories_list($category_id){
+        $sql = "SELECT 
+            id,
+            sub_name,
+            categories_id
+      FROM
+        subcategories
+        WHERE categories_id = ?
+        AND removed = 'Activo';";
+
+        $query = $this->db->query($sql,array($category_id));
+        
+        return $query->result_array();
+    }
 
     public function level_list(){
         $sql = "SELECT 
@@ -373,4 +387,18 @@ class Proposed_Workshop_model extends CI_Model {
 
     return $this->db->update('proposed_workshops', $data, array('id' => $pw_id));
     }
+
+    public function get_category_id_by_subcategory_id($subcategory_id){
+      $sql = "SELECT 
+        sc.id,
+        sc.sub_name,
+        sc.categories_id
+      FROM
+        subcategories AS sc 
+          WHERE sc.id = ? ";
+
+      $query = $this->db->query($sql,array($subcategory_id));
+
+      return $query->row_array(); 
+  }
 }

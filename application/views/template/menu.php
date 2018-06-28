@@ -2,7 +2,7 @@
     <a href="<?php echo site_url('')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Inicio</a>
 </li>
 
-<?php if($this->session->userdata('s_iduser') != 20){ ?>
+<?php if($this->session->userdata('s_urole') != 'Admin'){ ?>
 <li class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle animated fadeIn animation-delay-9" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-name="ecommerce">
         Talleres
@@ -55,7 +55,8 @@
 
 <?php }?>
 
-<?php if($this->session->userdata('s_iduser') == 20){ ?>
+<?php if($this->session->userdata('s_urole') == 'Admin'){ ?>
+
 <li class="nav-item">
     <a href="<?php echo site_url('admin')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Usuarios</a>
 </li>
@@ -81,4 +82,3 @@
 </li>
 
 <?php }?>
-

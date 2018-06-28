@@ -1,5 +1,6 @@
 <div class="container">
   <h3>Lista de Alumnos</h3>
+  <div style="overflow-x:auto;"> 
   <table class="table">
     <thead>
       <tr>
@@ -42,6 +43,6 @@
   </tbody>
 </table>
 
-
+</div>s
 
 </div>

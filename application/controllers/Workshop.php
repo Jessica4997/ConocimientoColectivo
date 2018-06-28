@@ -86,35 +86,50 @@ class Workshop extends CI_Controller {
 		}
 	}
 
-	public function create(){
-		$categorylist = $this->workshop_model->get_categories_list();
-		$subcategorylist = $this->workshop_model->get_subcategories_list();
-		$level_list = $this->workshop_model->level_list();
+	public function create_second_step(){
+		$category_id = $this->input->post('categoria_first_step');
 		$error = $this->input->get('message');
-		$dataView=[
-			'page'=>'workshops/create',
-			'prueba'=>$categorylist,
-			'list_sc'=>$subcategorylist,
-			'level_list'=>$level_list,
-			'error'=>$error
-		];
-		$this->load->view('template/basic',$dataView);
+		if(!is_null($category_id)){
+			$subcategorylist = $this->workshop_model->get_filter_subcategories_list($category_id);
+			$level_list = $this->workshop_model->level_list();
+			$error = $this->input->get('message');
+			$dataView=[
+				'page'=>'workshops/create_second_step',
+				'list_sc'=>$subcategorylist,
+				'level_list'=>$level_list,
+				'error'=>$error
+			];
+			$this->load->view('template/basic',$dataView);			
+		}else{
+			//var_dump($category_id);exit();
+			$dataView=[
+				'page'=>'error',
+				'category_id'=>$category_id
+			];
+			$this->load->view('template/basic',$dataView);				
+		}
 	}
 
 	public function save(){
+		$category_id = $this->workshop_model->get_category_id_by_subcategory_id($_POST['subcategoria']);
         $workshop_date = new Datetime($_POST['fecha']);
-		if ($workshop_date > $this->today){
+
+        ini_set('date.timezone','America/Lima');
+        $today_modified = new Datetime();
+        $today_modified->add(new DateInterval('P1D'));
+
+		if ($workshop_date > $today_modified){
 			if ($_POST['hora_fin'] > $_POST['hora_inicio']) {
-				$this->workshop_model->create($_POST, $this->user_id);
+				$this->workshop_model->create($_POST, $category_id['categories_id'], $this->user_id);
 				//redirect('workshop', 'refresh');
 				$toRedirect = 'workshop';
 			}else{
 				$error = urlencode("La hora de fin debe ser mayor a la hora de inicio");
-				$toRedirect = 'workshop/create?message='.$error;
+				$toRedirect = 'workshop/create_second_step?message='.$error;
 			}
 		}else{
 			$error = urlencode("Debes escoger una fecha posterior");
-			$toRedirect = 'workshop/create?message='.$error;
+			$toRedirect = 'workshop/create_second_step?message='.$error;
 		}
 		redirect($toRedirect, 'refresh');
 	}

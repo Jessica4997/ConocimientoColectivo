@@ -62,28 +62,37 @@ class Proposed_Workshop extends CI_Controller {
 	}
 
 
-	public function create(){
-		$categorylist = $this->proposed_workshop_model->get_categories_list();
-		$level_list = $this->proposed_workshop_model->level_list();
-		$subcategorylist = $this->proposed_workshop_model->get_subcategories_list();
-		$error = $this->input->get('message');
+	public function create_second_step(){
+		$category_id = $this->input->post('categoria_pw_first_step');
+		if($category_id){
+			$level_list = $this->proposed_workshop_model->level_list();
+			$subcategorylist = $this->proposed_workshop_model->get_filter_subcategories_list($category_id);
+			$error = $this->input->get('message');
 
-		$dataView=[
-			'page'=>'proposed_workshops/create',
-			'prueba'=>$categorylist,
-			'level_list'=>$level_list,
-			'subcat'=>$subcategorylist,
-			'error'=>$error
-		];
-		$this->load->view('template/basic',$dataView);
+			$dataView=[
+				'page'=>'proposed_workshops/create_second_step',
+				'level_list'=>$level_list,
+				'subcat'=>$subcategorylist,
+				'error'=>$error
+			];
+			$this->load->view('template/basic',$dataView);
+		}else{
+			$dataView=[
+				'page'=>'error',
+				'category_id'=>$category_id
+			];
+			$this->load->view('template/basic',$dataView);				
+		}
 	}
 
 	public function save(){
+		$category_id = $this->proposed_workshop_model->get_category_id_by_subcategory_id($_POST['sub_categoria']);
+
         $proposed_workshop_date = new Datetime($_POST['fecha_inicio']);
 
         if ($proposed_workshop_date > $this->today){
         	if ($_POST['hora_fin'] > $_POST['hora_inicio']) {
-        		$this->proposed_workshop_model->create($_POST, $this->user_id);
+        		$this->proposed_workshop_model->create($_POST,$category_id['categories_id'], $this->user_id);
         		$toRedirect = 'proposed_workshop';
         	}else{
         		$error = urlencode("La hora de fin debe ser mayor a la hora de inicio");

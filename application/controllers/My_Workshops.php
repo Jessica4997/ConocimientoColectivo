@@ -38,17 +38,27 @@ class My_Workshops extends CI_Controller {
 	}
 
 	public function show_teacher($w_id){
-		$error = $this->input->get('message');
-		$teacher = $this->my_workshops_model->get_teacher_list($w_id);
-		$workshop_info = $this->my_workshops_model->get_workshop_info($w_id);
-		//var_dump($teacher);exit;
-		$dataView=[
-			'page'=>'workshops/teacher_list',
-			'listaa'=>$teacher,
-			'error'=>$error,
-			'workshop_info'=>$workshop_info
-		];
-		$this->load->view('template/basic',$dataView);
+		$user_is_confirm_validation = $this->my_workshops_model->check_if_user_is_confirm_validation($w_id,$this->user_id);
+		//var_dump($user_is_confirm_validation);exit();
+		if ($user_is_confirm_validation['iu_status'] == 'Confirmado') {
+			$error = $this->input->get('message');
+			$teacher = $this->my_workshops_model->get_teacher_list($w_id);
+			$workshop_info = $this->my_workshops_model->get_workshop_info($w_id);
+			//var_dump($teacher);exit;
+			$dataView=[
+				'page'=>'workshops/teacher_list',
+				'listaa'=>$teacher,
+				'error'=>$error,
+				'workshop_info'=>$workshop_info
+			];
+			$this->load->view('template/basic',$dataView);
+		}else{
+			$dataView=[
+				'page'=>'error'
+        	];
+        	$this->load->view('template/basic',$dataView);			
+		}
+
 	}
 
 	public function show_rate_teacher($user_id,$w_id){
@@ -62,21 +72,32 @@ class My_Workshops extends CI_Controller {
       	$workshop_limit->add(new DateInterval('P5D'));
 
       	//var_dump($w_info);exit();
-		if ($this->today > $workshop_date && $this->today <= $workshop_limit) {
-			$teacher_info = $this->my_workshops_model->get_teacher_info($w_id, $this->user_id);
-			$final = $this->my_workshops_model->get_teacher_final_rating($w_info['user_id']);
-			//var_dump($teacher_info);exit;
+      	//COMPROBAR QUE EL TALLER QUE HAYA INGRESADO SEA UNO EN EL QUE ESTE CONFIRMADO
+      	$user_is_confirm_validation = $this->my_workshops_model->check_if_user_is_confirm_validation($w_id,$this->user_id);
+      	if($user_is_confirm_validation['iu_status'] == 'Confirmado' && $w_info['user_id'] == $user_id ){
+
+				if ($this->today > $workshop_date && $this->today <= $workshop_limit) {
+					$teacher_info = $this->my_workshops_model->get_teacher_info($w_id, $this->user_id);
+					$final = $this->my_workshops_model->get_teacher_final_rating($w_info['user_id']);
+					//var_dump($teacher_info);exit;
+					$this->my_workshops_model->insert_final_tutor_rating_to_users($w_info['user_id']);
+					$dataView=[
+						'page'=>'workshops/rate_teacher',
+						'teacher_info'=>$teacher_info,
+						'final'=>$final,
+						'error'=>$error
+					];
+					$this->load->view('template/basic',$dataView);
+				}else{
+					$error = urlencode("No se puede modificar, esta fuera de fecha");
+					redirect('my_workshops/show_teacher/'.$w_id.'/?message='.$error,'refresh');
+				}
+      	}else{
 			$dataView=[
-				'page'=>'workshops/rate_teacher',
-				'teacher_info'=>$teacher_info,
-				'final'=>$final,
-				'error'=>$error
-			];
-			$this->load->view('template/basic',$dataView);
-		}else{
-			$error = urlencode("No se puede modificar, esta fuera de fecha");
-			redirect('my_workshops/show_teacher/'.$user_id.'/'.$w_id.'/?message='.$error,'refresh');
-		}
+				'page'=>'error'
+        	];
+        	$this->load->view('template/basic',$dataView);	
+      	}
 	}
 
 	public function rate_teacher($iu_id){

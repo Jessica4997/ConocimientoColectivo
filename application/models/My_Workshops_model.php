@@ -27,8 +27,7 @@ class My_Workshops_model extends CI_Model {
                 ON w.subcategory_id = sc.id
                   INNER JOIN level AS l
                   ON w.level_id = l.id
-          WHERE iu.iu_status = 'Confirmado'
-          AND iu.user_id = $user_id
+          WHERE iu.user_id = $user_id
                  ";
 
       if(trim($q)!=''){
@@ -196,6 +195,23 @@ class My_Workshops_model extends CI_Model {
       WHERE w.id = ? ";
 
       $query = $this->db->query($sql,array($w_id));
+
+      return $query->row_array();
+    }
+
+    public function check_if_user_is_confirm_validation($w_id,$user_id){
+      $sql = "SELECT
+        iu.id,
+        iu.iu_status,
+        iu.wrks_id,
+        iu.user_id
+      FROM
+        inscribed_users AS iu
+      WHERE iu.wrks_id = ?
+      AND iu.user_id = ?
+      ";
+
+      $query = $this->db->query($sql,array($w_id,$user_id));
 
       return $query->row_array();
     }

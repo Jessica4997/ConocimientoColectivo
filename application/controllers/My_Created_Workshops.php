@@ -37,25 +37,30 @@ class My_Created_Workshops extends CI_Controller {
 	}
 
 	public function show_postulants_list($id = null){
+		$workshop_creator_validation = $this->created_workshops_model->check_if_is_my_created_workshop_validation($id);
 		$error = $this->input->get('message');
 		$postulants_list = $this->created_workshops_model->get_postulants_list($id);
 		$workshop_info = $this->created_workshops_model->get_workshop_info($id);
 		if ($workshop_info['id']){
-			$dataView=[
-				'page'=>'workshops/postulants_list',
-				'list'=>$postulants_list,
-				'error'=>$error,
-				'workshop_info'=>$workshop_info
-			];
-			$this->load->view('template/basic',$dataView);
+			if ($workshop_creator_validation['w_user_id'] == $this->user_id) {
+				$dataView=[
+					'page'=>'workshops/postulants_list',
+					'list'=>$postulants_list,
+					'error'=>$error,
+					'workshop_info'=>$workshop_info
+				];
+				$this->load->view('template/basic',$dataView);
+			}else{
+				$dataView=[
+					'page'=>'error'
+				];
+				$this->load->view('template/basic',$dataView);
+			}
 		}else{
 			$dataView=[
 				'page'=>'error'
-        	];
-        	$this->load->view('template/basic',$dataView);			
+			];
 		}
-
-
 	}
 
 	public function validate_student($user_id,$w_id){
@@ -113,48 +118,67 @@ class My_Created_Workshops extends CI_Controller {
 	}
 
 	public function show_student_list($id = null){
+		$workshop_creator_validation = $this->created_workshops_model->check_if_is_my_created_workshop_validation($id);
 		$error = $this->input->get('message');
 		$students_list = $this->created_workshops_model->get_students_list($id);
 		$workshop_info = $this->created_workshops_model->get_workshop_info($id);
+		//var_dump($students_list);exit();
+
 		if ($workshop_info['id']){
+			if ($workshop_creator_validation['w_user_id'] == $this->user_id) {
+				$dataView=[
+					'page'=>'workshops/student_list',
+					'listaa'=>$students_list,
+					'error'=>$error,
+					'workshop_info'=>$workshop_info
+				];
+			}else{
+				$dataView=[
+					'page'=>'error'
+				];
+			}
+		}else{
 			$dataView=[
-				'page'=>'workshops/student_list',
-				'listaa'=>$students_list,
-				'error'=>$error,
-				'workshop_info'=>$workshop_info
-			];
-			$this->load->view('template/basic',$dataView);
+				'page'=>'error'
+        	];				
+		}
+		$this->load->view('template/basic',$dataView);	
+	}
+
+	public function show_rate_students($user_id, $w_id){
+		$w_info = $this->created_workshops_model->get_workshop_info($w_id);
+		$inscribed_user_is_my_student = $this->created_workshops_model->check_if_inscribed_user_is_my_student($w_id,$user_id);
+		$error = $this->input->get('message');
+
+		//PARA VERIFICAR QUE EL TALLER SEA UNO QUE HE CREADO Y COMPROBAR QUE EL USUARIO QUE ESCOJA ESTE EN MI TALLER
+		if($w_info['user_id'] == $this->user_id && $inscribed_user_is_my_student){
+		      	$workshop_date = new Datetime($w_info['start_date']);
+		      	$workshop_date->add(new DateInterval('P1D'));
+
+		      	$workshop_limit = new Datetime($w_info['start_date']);
+		      	$workshop_limit->add(new DateInterval('P5D'));
+
+		      	if ($this->today > $workshop_date && $this->today <= $workshop_limit){
+		      		$student_info = $this->created_workshops_model->get_student_info($user_id, $w_id);
+		      		$final = $this->created_workshops_model->get_student_final_rating($user_id);
+
+		      		$this->created_workshops_model->insert_final_rating_to_users($user_id);
+		      		$dataView=[
+		      			'page'=>'workshops/rate_students',
+						'info'=>$student_info,
+						'final'=>$final,
+						'error'=>$error
+					];
+					$this->load->view('template/basic',$dataView);
+				}else{
+					$error = "No se puede modificar, esta fuera de fecha";
+					redirect('my_created_workshops/show_student_list/' .$w_id.'/?message='.$error ,'refresh');
+				}
 		}else{
 			$dataView=[
 				'page'=>'error'
         	];
-        	$this->load->view('template/basic',$dataView);					
-		}
-	}
-
-	public function show_rate_students($user_id, $w_id){
-		$error = $this->input->get('message');
-		$w_info = $this->created_workshops_model->get_workshop_info($w_id);
-
-      	$workshop_date = new Datetime($w_info['start_date']);
-      	$workshop_date->add(new DateInterval('P1D'));
-
-      	$workshop_limit = new Datetime($w_info['start_date']);
-      	$workshop_limit->add(new DateInterval('P5D'));
-
-      	if ($this->today > $workshop_date && $this->today <= $workshop_limit){
-      		$student_info = $this->created_workshops_model->get_student_info($user_id, $w_id);
-      		$final = $this->created_workshops_model->get_student_final_rating($user_id);
-      		$dataView=[
-      			'page'=>'workshops/rate_students',
-				'info'=>$student_info,
-				'final'=>$final,
-				'error'=>$error
-			];
-			$this->load->view('template/basic',$dataView);
-		}else{
-			$error = "No se puede modificar, esta fuera de fecha";
-			redirect('my_created_workshops/show_student_list/' .$w_id.'/?message='.$error ,'refresh');
+        	$this->load->view('template/basic',$dataView);
 		}
 	}
 
@@ -174,6 +198,5 @@ class My_Created_Workshops extends CI_Controller {
 				redirect('my_created_workshops/show_rate_students/'.$inscribed_user_id['iu_user_id'].'/'.$inscribed_user_id['iu_w_id'].'/?message='.$error, 'refresh');
 			}
 		}
-		
 	}
 }

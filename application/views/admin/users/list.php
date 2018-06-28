@@ -9,13 +9,17 @@
         <i class="zmdi zmdi-search"></i>Buscar</button>
       </form>
 
+      <p align="center">
+        <a class="btn btn-primary btn-raised text-right" href="<?php echo site_url('admin/show_create_user')?>">Crear Usuario</a>
+      </p>
+      
     <table class="table">
   <thead>
     <tr>
       <th>Nombre</th>
       <th>Correo Electrónico</th>
       <th>Celular</th>
-      <th>Calificación</th>
+
       <th>Estado</th>
       <th>Opciones</th>
     </tr>
@@ -27,7 +31,7 @@
       <th><?php echo $rows['name']?> <?php echo $rows['last_name']?></th>
       <td><?php echo $rows['email']?></td>
       <td><?php echo $rows['cell_phone']?></td>
-      <td></td>
+
       <td><?php echo $rows['removed']?></td>
       <td><a href="<?php echo site_url('admin/show_profile/' .$rows['id'])?>" class="btn btn-primary">Ver más</a></td>
     </tr>

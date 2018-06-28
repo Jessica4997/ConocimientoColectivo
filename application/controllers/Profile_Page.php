@@ -24,9 +24,16 @@ class Profile_Page extends CI_Controller {
 
 		$this->my_workshops_model->get_teacher_final_rating($this->user_id);
 		$this->my_workshops_model->insert_final_tutor_rating_to_users($this->user_id);
+
+		$total_workshops = $this->user_model->get_total_workshops_by_user($this->user_id);
+		$total_proposed_workshops = $this->user_model->get_total_proposed_workshops_by_user($this->user_id);
+		$total_inscriptions = $this->user_model->get_total_inscriptions_by_user($this->user_id);
 		$dataView=[
 			'page'=>'users/profile',
-			'user_data'=>$data_profile
+			'user_data'=>$data_profile,
+			'total_workshops'=>$total_workshops,
+			'total_proposed_workshops'=>$total_proposed_workshops,
+			'total_inscriptions'=>$total_inscriptions
 		];
 		$this->load->view('template/basic',$dataView);
 	}

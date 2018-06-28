@@ -218,7 +218,8 @@ class Created_Workshops_model extends CI_Model {
         w.id,
         w.title,
         w.vacancy,
-        w.start_date
+        w.start_date,
+        w.user_id
       FROM
         workshops AS w
       WHERE w.id = ? ";
@@ -234,5 +235,37 @@ class Created_Workshops_model extends CI_Model {
       );
       return $this->db->update('workshops', $data, array('id' => $id));
     }
+
+    public function check_if_is_my_created_workshop_validation($w_id){
+      $sql = "SELECT
+        w.id AS w_id,
+        w.user_id AS w_user_id
+      FROM
+        workshops AS w
+      WHERE w.id = ?
+      AND w.removed = 'Activo'
+        ";
+
+      $query = $this->db->query($sql,array($w_id));
+
+      return $query->row_array();
+    }
+
+    public function check_if_inscribed_user_is_my_student($w_id,$user_id){
+      $sql = "SELECT
+        iu.id,
+        iu.user_id,
+        iu.wrks_id
+      FROM
+        inscribed_users AS iu
+      WHERE iu.wrks_id = ?
+      AND iu.user_id = ? ";
+
+      $query = $this->db->query($sql,array($w_id,$user_id));
+
+      return $query->row_array();
+    }
+
+
 
 }

@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin extends CI_Controller {
 
     private $user_id = '0';
+    private $today = '0';
     public function __construct() {
 		parent::__construct();
 		$this->load->model('admin_model');
@@ -11,8 +12,11 @@ class Admin extends CI_Controller {
 		$this->user_id = $this->session->userdata('s_iduser');
 		$u_data = $this->admin_model->check_admin($this->user_id);
         if ($this->user_id === null || $u_data['role'] != 'Admin'){
-        redirect('login', 'refresh');
+        redirect('', 'refresh');
     	}
+
+    	ini_set('date.timezone','America/Lima');
+        $this->today = new Datetime();
 	}
 
 //USERS
@@ -83,6 +87,58 @@ class Admin extends CI_Controller {
 		$edit_profile = $this->admin_model->delete_users($user_id);
 		redirect('admin/show_profile/'.$user_id, 'refresh');
 	}
+
+
+
+	public function show_create_user(){
+        $error = $this->input->get('message');
+		$dataView=[
+			'page'=>'admin/users/create',
+            'error'=> $error
+		];
+		$this->load->view('template/basic',$dataView);
+	}
+
+	public function create_user(){
+		//svar_dump($_POST);exit();
+    if($_POST){
+
+        if (!empty($_POST['correo']) || trim($_POST['correo']) != '' || !empty($_POST['contrasena']) || trim($_POST['contrasena']) != '' || !empty($_POST['nombres']) || trim($_POST['nombres']) != '' || !empty($_POST['apellidos']) || trim($_POST['apellidos']) != '' || !empty($_POST['fecha_nacimiento']) || trim($_POST['fecha_nacimiento']) != ''){
+
+            $email_exist = $this->admin_model->find_user_by_email($_POST['correo']);
+            $var = $_POST['fecha_nacimiento'];
+            $birth = new Datetime($var);
+
+            if($email_exist){
+                $error = urlencode("El correo ya está siendo usado");
+                redirect ('admin/show_create_user?message='.$error,'refresh');
+            }else{
+
+                if($_POST['contrasena'] != $_POST['recontrasena']){
+                    $error = urlencode("Las contraseñas no coinciden");
+                    redirect ('admin/show_create_user?message='.$error,'refresh');
+                    
+                }else if($birth >= $this->today){
+                    $error = urlencode("Fecha incorrecta");
+                    redirect ('admin/show_create_user?message='.$error,'refresh');
+                }else{
+                    $this->admin_model->createuser($_POST);
+                    redirect('admin','refresh');
+                }
+            }
+        }else{
+            $error = urlencode("Faltan completar campos");
+            redirect ('admin/show_create_user?message='.$error,'refresh');
+        }
+    }else{
+        $dataView=[
+            'page'=>'error'
+        ];
+        $this->load->view('template/basic',$dataView);
+    }
+  }
+
+
 
 //CATEGORIES
 

@@ -113,6 +113,41 @@ class Admin_model extends CI_Model {
         return $this->db->update('users', $data, array('id' => $user_id));
     }
 
+
+    public function createuser($dataform){
+      $date = new DateTime($dataform['fecha_nacimiento']);
+      $dateformat = $date->format('Y-m-d');
+      $data = array(
+          'email' => $dataform['correo'],
+          'password' => $dataform['contrasena'],
+          'name' => $dataform['nombres'],
+          'last_name' => $dataform['apellidos'],
+          'cell_phone' => $dataform['celular'],
+          'gender' => $dataform['genero'],
+          'date_birth' => $dateformat,
+          'description' => $dataform['descripcion'],
+          'removed' => 'Activo',
+          'role'=>$dataform['rol']
+      );
+      $this->db->insert('users', $data);
+    }
+
+
+    public function find_user_by_email($email){
+        $sql = "SELECT
+                id,
+                name,
+                last_name,
+                email
+              FROM
+                users
+                    WHERE email = ?
+                    LIMIT 1";
+
+      $query = $this->db->query($sql,array($email));
+      
+      return $query->row_array();
+    }
 //CATEGORIES
 
     public function get_categories_list(){
@@ -152,7 +187,7 @@ class Admin_model extends CI_Model {
 
       $offset = (($page-1)*$rp);
       if ($offset <= 0) {
-        $offset = 1;
+        $offset = 0;
       }
 
       $sql = $this->get_sql_categories($q);

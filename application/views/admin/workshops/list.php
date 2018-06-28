@@ -53,13 +53,6 @@
             <li>Descripción: <?php echo $row['description']?></li>
           </p>
 
-            <span class="mr-2">
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star"></i>
-            </span>
             <span class="ms-tag ms-tag-success">S/. <?php echo $row['amount']?></span>
         
           <a href="<?php echo site_url ('admin/workshop_description/'.$row['w_id'])?>" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">

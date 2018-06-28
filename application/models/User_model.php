@@ -2,39 +2,25 @@
 class User_model extends CI_Model {
 
   public function createuser($dataform){
-    if ($dataform['fecha_nacimiento']) {
-        $date = new DateTime($dataform['fecha_nacimiento']);
-        $dateformat = $date->format('Y-m-d');
-        $data = array(
-            'email' => $dataform['correo'],
-            'password' => $dataform['contrasena'],
-            'name' => $dataform['nombres'],
-            'last_name' => $dataform['apellidos'],
-            'cell_phone' => $dataform['celular'],
-            'gender' => $dataform['genero'],
-            'date_birth' => $dateformat,
-            'description' => $dataform['descripcion'],
-            'removed' => 'Activo'
-        );
-}else{
-            $data = array(
-            'email' => $dataform['correo'],
-            'password' => $dataform['contrasena'],
-            'name' => $dataform['nombres'],
-            'last_name' => $dataform['apellidos'],
-            'cell_phone' => $dataform['celular'],
-            'gender' => $dataform['genero'],
-            'date_birth' => '',
-            'description' => $dataform['descripcion'],
-            'removed' => 'Activo'
-        );
-}
+    $date = new DateTime($dataform['fecha_nacimiento']);
+    $dateformat = $date->format('Y-m-d');
+    $data = array(
+        'email' => $dataform['correo'],
+        'password' => $dataform['contrasena'],
+        'name' => $dataform['nombres'],
+        'last_name' => $dataform['apellidos'],
+        'cell_phone' => $dataform['celular'],
+        'gender' => $dataform['genero'],
+        'date_birth' => $dateformat,
+        'description' => $dataform['descripcion'],
+        'removed' => 'Activo'
+    );
     $this->db->insert('users', $data);
   }
 
   public function check_user_login($u,$p){
 
-    $this->db->select('id,name,last_name');
+    $this->db->select('id,name,last_name,role');
     $this->db->from('users');
     $this->db->where('removed','Activo');
     $this->db->where('email',$u);
@@ -45,7 +31,8 @@ class User_model extends CI_Model {
         $q = $query->row();
         return array(
             's_iduser' => $q->id,
-            //'s_username' => $q->name.", ".$q->last_name
+            's_username' => $q->name.", ".$q->last_name,
+            's_urole' => $q->role
         );
     }else{
         return false;
@@ -148,5 +135,52 @@ class User_model extends CI_Model {
 
     public function delete_token($id){
         $this->db->delete('token', array('id' => $id));
+    }
+
+
+    public function get_total_workshops_by_user($user_id){
+        $sql = "SELECT
+                id,
+                title,
+                user_id
+              FROM
+                workshops
+                WHERE user_id = ?
+                AND removed = 'Activo'
+                    ";
+
+        $query = $this->db->query($sql,array($user_id));
+
+        return $query->num_rows();
+    }
+
+    public function get_total_proposed_workshops_by_user($user_id){
+        $sql = "SELECT
+                id,
+                title,
+                user_id
+              FROM
+                proposed_workshops
+                WHERE user_id = ?
+                AND removed = 'Activo'
+                    ";
+
+        $query = $this->db->query($sql,array($user_id));
+
+        return $query->num_rows();
+    }
+
+    public function get_total_inscriptions_by_user($user_id){
+        $sql = "SELECT
+                id
+              FROM
+                inscribed_users
+                WHERE user_id = ?
+                AND iu_status = 'Confirmado'
+                    ";
+
+        $query = $this->db->query($sql,array($user_id));
+
+        return $query->num_rows();
     }
 }

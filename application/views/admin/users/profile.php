@@ -78,31 +78,6 @@
                 </table>
             </div>
 
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="card card-info card-body text-center wow zoomInUp animation-delay-2">
-                        <h2 class="color-info">5</h2>
-                        <i class="fa fa-4x fa-file-text color-info"></i>
-                        <p class="mt-2 no-mb lead small-caps color-info">Talleres Creados</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card card-success card-body text-center wow zoomInUp animation-delay-5">
-                        <h2 class="color-success">2</h2>
-                        <i class="fa fa-4x fa-briefcase color-success"></i>
-                        <p class="mt-2 no-mb lead small-caps color-success">Talleres Matriculados</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card card-royal card-body text-center wow zoomInUp animation-delay-4">
-                        <h2 class="color-royal">0</h2>
-                        <i class="fa fa-4x fa-comments-o color-royal"></i>
-                        <p class="mt-2 no-mb lead small-caps color-royal">Talleres Solicitados</p>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
     </div>
 </div>

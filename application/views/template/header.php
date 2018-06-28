@@ -19,6 +19,7 @@
                 <i class="zmdi zmdi-account"></i>
             </a>
             <?php }?>
+
             <?php if($this->session->userdata('s_iduser')){?>
             <div class="btn-group">
                 <button type="button" class="btn btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white"> Mi Cuenta
@@ -52,6 +53,7 @@
 
         <div class="collapse navbar-collapse" id="ms-navbar">
             <ul class="navbar-nav">
+                
                 <?php $this->load->view('template/menu')?>
             </ul>
         </div>

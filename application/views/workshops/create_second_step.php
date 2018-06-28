@@ -14,7 +14,7 @@
                   <?php }?>
 
                 <h1 class="color-primary text-center">Crear Nuevo Taller</h1>
-                <label class="ml-2" style="color:red">Nota: Debes crear un taller por lo menos con un día de anticipación</label>
+                <label class="ml-2" style="color:red">Nota: Debes crear un taller por lo menos con dos días de anticipación</label>
                 <form method="post" action="<?php echo site_url('workshop/save')?>"  class="form-horizontal">
                   <fieldset>
 
@@ -22,21 +22,6 @@
                       <label for="" class="col-md-2 control-label">Título</label>
                       <div class="col-md-9">
                         <input type="text" class="form-control" placeholder="Título" name="titulo" onkeypress="return only_letters(event)" onpaste="return false" required> </div>
-                    </div>
-                
-                  <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Categoría</label>
-                      <div class="col-md-9">
-
-                        <select name="categoria" class="form-control selectpicker">
-                          <?php foreach($prueba as $rowp){?>
-                          <option value="<?php echo $rowp['id']?>"><?php echo $rowp['name']?></option>
-                          <?php }?>
-
-                        </select>
-                        
-                      </div>
-                      
                     </div>
 
                     <div class="row form-group">

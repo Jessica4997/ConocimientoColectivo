@@ -23,7 +23,16 @@
           <p>
             <?php echo $row['description']?>
             <li>Categoría: <?php echo $row['c_name']?></li>
-            <li>Cantidad de Votos: <?php echo $row['votes_quantity']?></li>
+
+              <?php if(($row['votes_quantity']) != null){
+                  $quantity_votes = $row['votes_quantity'];
+              }else{
+                  $quantity_votes = 0;
+              }
+              ?>
+
+            
+            <li>Cantidad de Votos: <?php echo $quantity_votes?></li>
             <h4 style="color:yellowgreen">Estado: <?php echo $row['psc_status']?></h4>
           </p>
         

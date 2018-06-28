@@ -1,8 +1,7 @@
       <div class="ms-hero-page-override ms-hero-img-airplane ms-bg-fixed ms-hero-bg-dark-light">
         <div class="container">
           <div class="text-center">
-            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2">Registrarse</h1>
-            <p class="lead lead-lg color-light text-center center-block mt-2 mw-800 text-uppercase fw-300">¡No esperes más y disfruta de los beneficios que te brinda Conocimiento <strong>Colectivo</strong>!
+            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2">Crear Usuario</h1>
           </div>
         </div>
       </div>
@@ -21,7 +20,7 @@
 
 
             
-            <form method="post" action="<?php echo site_url('register_page/saveuser')?>" class="form-horizontal">
+            <form method="post" action="<?php echo site_url('admin/create_user')?>" class="form-horizontal">
               <fieldset>
 
                 <div class="row form-group">
@@ -58,6 +57,18 @@
                     <input type="text" class="form-control" name="celular" placeholder="Celular" onkeypress="return only_numbers(event)"> </div>
                 </div>
 
+
+                <div class="row form-group">
+                  <label for="inputGen" class="col-md-2 control-label">Rol</label>
+                  <div class="col-md-9">
+                    <select name="rol" class="form-control selectpicker">
+                      
+                      <option value='Default'>Normal</option>
+                      <option value='Admin'>Administrador</option>
+                    </select>
+                  </div>
+                </div>
+
                 <div class="row form-group">
                   <label for="inputGen" class="col-md-2 control-label">Género</label>
                   <div class="col-md-9">
@@ -82,7 +93,7 @@
                 </div>
 
                   <div class="col-lg-3">
-                    <button class="btn btn-raised btn-primary">Registrarse Ahora</button>
+                    <button class="btn btn-raised btn-primary">Crear</button>
                   </div>
   
               </fieldset>

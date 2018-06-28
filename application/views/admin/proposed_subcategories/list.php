@@ -60,7 +60,7 @@
                                         <?php echo $row['c_name']?>
                                     </li>
 
-                                    <li>Cantidad de Votos:
+                                    <li id="psc_votes_id">Cantidad de Votos:
                                         <?php echo $row['votes_quantity']?>
                                     </li>                       
                                 </p>
