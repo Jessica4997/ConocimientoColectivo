@@ -266,6 +266,26 @@ class Created_Workshops_model extends CI_Model {
       return $query->row_array();
     }
 
+    public function get_info_by_iu($iu_id){
+      $sql = "SELECT
+        iu.id,
+        iu.user_id AS iu_user_id,
+        iu.wrks_id,
+        iu.iu_status,
+        w.id,
+        w.user_id AS w_user_id
+      FROM
+        inscribed_users AS iu
+        INNER JOIN workshops AS w
+        ON iu.wrks_id = w.id
+      WHERE iu.id = ?
+      ";
+
+      $query = $this->db->query($sql,array($iu_id));
+
+      return $query->row_array();
+    }
+
 
 
 }

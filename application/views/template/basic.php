@@ -126,6 +126,12 @@
         });
       });
 
+
+        $('#create_workshop_buttton').on('click',function(event){
+          $.alert("Aqui","Titulo");
+        });
+
+
     </script>
 
     <div class="ms-site-container">

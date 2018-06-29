@@ -117,22 +117,52 @@ class Workshop extends CI_Controller {
         ini_set('date.timezone','America/Lima');
         $today_modified = new Datetime();
         $today_modified->add(new DateInterval('P1D'));
+        //var_dump($_POST);exit();
+        if (!empty($_POST['titulo']) && trim($_POST['titulo']) != '' && !empty($_POST['fecha']) && trim($_POST['fecha']) != '' && !empty($_POST['hora_inicio']) && trim($_POST['hora_inicio']) != '' && !empty($_POST['hora_fin']) && trim($_POST['hora_fin']) != '' && !empty($_POST['vacantes']) && trim($_POST['vacantes']) != '' && !empty($_POST['monto']) && trim($_POST['monto']) != '') {
 
-		if ($workshop_date > $today_modified){
-			if ($_POST['hora_fin'] > $_POST['hora_inicio']) {
-				$this->workshop_model->create($_POST, $category_id['categories_id'], $this->user_id);
-				//redirect('workshop', 'refresh');
-				$toRedirect = 'workshop';
-			}else{
-				$error = urlencode("La hora de fin debe ser mayor a la hora de inicio");
-				$toRedirect = 'workshop/create_second_step?message='.$error;
-			}
-		}else{
-			$error = urlencode("Debes escoger una fecha posterior");
+        			$hour_format1 = $this->validate_hour1($_POST['hora_inicio'], $format = 'H:i');
+        			$hour_format2 = $this->validate_hour2($_POST['hora_fin'], $format = 'H:i');
+					if ($hour_format1 == 'true' && $hour_format2 == 'true') {
+
+							if ($workshop_date > $today_modified){
+								if ( $_POST['hora_fin'] > $_POST['hora_inicio']) {
+									$this->workshop_model->create($_POST, $category_id['categories_id'], $this->user_id);
+									//redirect('workshop', 'refresh');
+									$toRedirect = 'workshop';
+								}else{
+									$error = urlencode("La hora de fin debe ser mayor a la hora de inicio");
+									$toRedirect = 'workshop/create_second_step?message='.$error;
+								}
+							}else{
+								$error = urlencode("Debes escoger una fecha posterior");
+								$toRedirect = 'workshop/create_second_step?message='.$error;
+							}
+
+					}else{
+						$error = urlencode("Ingresa un formato de hora adecuado");
+						$toRedirect = 'workshop/create_second_step?message='.$error;
+					}
+
+
+        }else{
+        	$error = urlencode("Hay campos vacíos");
 			$toRedirect = 'workshop/create_second_step?message='.$error;
-		}
+        }
 		redirect($toRedirect, 'refresh');
 	}
+
+
+	public function validate_hour1($hour, $format = 'H:i'){
+		$h = DateTime::createFromFormat($format, $hour);
+    	return $h && $h->format($format) == $hour;
+    }
+
+
+	public function validate_hour2($hour, $format = 'H:i'){
+		$h = DateTime::createFromFormat($format, $hour);
+    	return $h && $h->format($format) == $hour;
+    }
+
 
 	public function save_inscribed_user($id = null){
 		$workshop_description = $this->workshop_model->show_by_id($id);

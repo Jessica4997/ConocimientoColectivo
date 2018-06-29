@@ -75,7 +75,7 @@
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Cantidad de Vacantes</label>
                       <div class="col-md-9">
-                        <input type="number" name="vacantes" min="1" max="10" class="form-control" placeholder="Cantidad de Vacantes" required> </div>
+                        <input type="number" name="vacantes" min="1" max="10" class="form-control" placeholder="Cantidad de Vacantes" onkeypress="return only_numbers(event)" onpaste="return false" required> </div>
                     </div>
 
                     <div class="row form-group">
@@ -96,7 +96,7 @@
 
                     <div class="row mt-2">
                       <div class="col">
-                        <button class="btn btn-raised btn-primary btn-block">Crear Taller</button>
+                        <button id="create_workshop_buttton" class="btn btn-raised btn-primary btn-block">Crear Taller</button>
                       </div>
                     </div>
                   </fieldset>

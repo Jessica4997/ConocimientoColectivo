@@ -73,14 +73,21 @@ class Proposed_subcategories extends CI_Controller {
 	}
 
 	public function save(){
-		$sc_exist = $this->proposed_subcategories_model->check_if_subcategory_exist($_POST['categoria'],$_POST['nombre_subcategoria']);
-		if ($sc_exist){
-			$error = urldecode("Esta subcategoria ya existe");
-			$toRedirect = 'proposed_subcategories/create?message='.$error;
+		//var_dump($_POST);exit();
+		if(!empty($_POST['nombre_subcategoria']) && trim($_POST['nombre_subcategoria']) != ''){
+				$sc_exist = $this->proposed_subcategories_model->check_if_subcategory_exist($_POST['categoria'],$_POST['nombre_subcategoria']);
+				if ($sc_exist){
+					$error = urldecode("Esta subcategoria ya existe");
+					$toRedirect = 'proposed_subcategories/create?message='.$error;
+				}else{
+					$this->proposed_subcategories_model->create($_POST, $this->user_id);
+					$toRedirect = 'proposed_subcategories';
+				}
 		}else{
-			$this->proposed_subcategories_model->create($_POST, $this->user_id);
-			$toRedirect = 'proposed_subcategories';
+			$error = urldecode("Campos obligatorios vacios");
+			$toRedirect = 'proposed_subcategories/create?message='.$error;
 		}
+
 		redirect($toRedirect, 'refresh');
 	}
 
@@ -102,7 +109,7 @@ class Proposed_subcategories extends CI_Controller {
 	}
 
 
-	public function vote($psc_id){
+	public function vote($psc_id = null){
 		//var_dump($proposed_workshop_description);exit();
 		$verify_votes = $this->proposed_subcategories_model->get_votes_quantity($psc_id);
 		$verify_user_vote = $this->proposed_subcategories_model->verify_user_vote($psc_id, $this->user_id);

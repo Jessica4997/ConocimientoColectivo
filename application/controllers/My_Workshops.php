@@ -37,28 +37,36 @@ class My_Workshops extends CI_Controller {
 
 	}
 
-	public function show_teacher($w_id){
+	public function show_teacher($w_id = null){
 		$user_is_confirm_validation = $this->my_workshops_model->check_if_user_is_confirm_validation($w_id,$this->user_id);
+		$w_id_exist = $this->my_workshops_model->check_if_workshop_id_exist($w_id);
 		//var_dump($user_is_confirm_validation);exit();
-		if ($user_is_confirm_validation['iu_status'] == 'Confirmado') {
-			$error = $this->input->get('message');
-			$teacher = $this->my_workshops_model->get_teacher_list($w_id);
-			$workshop_info = $this->my_workshops_model->get_workshop_info($w_id);
-			//var_dump($teacher);exit;
-			$dataView=[
-				'page'=>'workshops/teacher_list',
-				'listaa'=>$teacher,
-				'error'=>$error,
-				'workshop_info'=>$workshop_info
-			];
-			$this->load->view('template/basic',$dataView);
+
+		if ($w_id_exist) {
+
+				if ($user_is_confirm_validation['iu_status'] == 'Confirmado'){
+					$error = $this->input->get('message');
+					$teacher = $this->my_workshops_model->get_teacher_list($w_id);
+					$workshop_info = $this->my_workshops_model->get_workshop_info($w_id);
+					//var_dump($teacher);exit;
+					$dataView=[
+						'page'=>'workshops/teacher_list',
+						'listaa'=>$teacher,
+						'error'=>$error,
+						'workshop_info'=>$workshop_info
+					];
+				}else{
+					$dataView=[
+						'page'=>'error'
+		        	];		
+				}
+		
 		}else{
 			$dataView=[
 				'page'=>'error'
-        	];
-        	$this->load->view('template/basic',$dataView);			
+		    ];		
 		}
-
+		$this->load->view('template/basic',$dataView);
 	}
 
 	public function show_rate_teacher($user_id,$w_id){
@@ -102,20 +110,38 @@ class My_Workshops extends CI_Controller {
 
 	public function rate_teacher($iu_id){
 		$get_w_id = $this->my_workshops_model->find_w_id_by_iu_id($iu_id);
-		if ($get_w_id['iu_tutor_rating']) {
-			$error = urlencode("Ya ha calificado al alumno");
-			redirect('my_workshops/show_rate_teacher/'.$get_w_id['iu_user_id'].'/'.$get_w_id['iu_w_id'].'/?message='.$error, 'refresh');
+		$info_by_iu = $this->my_workshops_model->get_info_by_iu($iu_id);
+		//var_dump($info_by_iu['w_user_id']);exit();
+		if ($info_by_iu['iu_user_id'] == $this->user_id && $info_by_iu['iu_status'] == 'Confirmado'){
+
+					if ($get_w_id['iu_tutor_rating']) {
+						$error = urlencode("Ya ha calificado al alumno");
+						redirect('my_workshops/show_rate_teacher/'.$info_by_iu['w_user_id'].'/'.$get_w_id['iu_w_id'].'/?message='.$error, 'refresh');exit();
+					}else{
+
+						if (is_numeric($_POST['puntaje']) && !empty($_POST['puntaje']) && trim($_POST['puntaje']) != ''){
+
+							if($_POST['puntaje']>=1 && $_POST['puntaje']<=5){
+								$this->my_workshops_model->rate_teacher($_POST,$iu_id);
+								$tutor_user_id = $this->my_workshops_model->find_user_by_w_id($get_w_id['iu_w_id']);
+								$this->my_workshops_model->insert_final_tutor_rating_to_users($tutor_user_id['w_user_id']);
+								redirect('my_workshops/show_rate_teacher/'.$info_by_iu['w_user_id'].'/'.$get_w_id['iu_w_id'], 'refresh');
+							}else{
+								$error = urlencode("La calificación debe ser entre 1 y 5");
+								redirect('my_workshops/show_rate_teacher/'.$info_by_iu['w_user_id'].'/'.$get_w_id['iu_w_id'].'/?message='.$error, 'refresh');exit();
+							}
+						}else{
+							$error = urlencode("Datos incorrectos");
+							redirect('my_workshops/show_rate_teacher/'.$info_by_iu['w_user_id'].'/'.$get_w_id['iu_w_id'].'/?message='.$error, 'refresh');exit();
+						}
+					}
 		}else{
-			if($_POST['puntaje']>=1 && $_POST['puntaje']<=5){
-				$this->my_workshops_model->rate_teacher($_POST,$iu_id);
-				$tutor_user_id = $this->my_workshops_model->find_user_by_w_id($get_w_id['iu_w_id']);
-				$this->my_workshops_model->insert_final_tutor_rating_to_users($tutor_user_id['w_user_id']);
-				redirect('my_workshops/show_rate_teacher/'.$get_w_id['iu_user_id'].'/'.$get_w_id['iu_w_id'], 'refresh');
-			}else{
-				$error = urlencode("La calificación debe ser entre 1 y 5");
-				redirect('my_workshops/show_rate_teacher/'.$get_w_id['iu_user_id'].'/'.$get_w_id['iu_w_id'].'/?message='.$error, 'refresh');
-			}
-		}	
+			$dataView=[
+				'page'=>'error'
+        	];
+        	$this->load->view('template/basic',$dataView);
+		}
+	
 	}
 
 }

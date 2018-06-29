@@ -86,24 +86,58 @@ class Proposed_Workshop extends CI_Controller {
 	}
 
 	public function save(){
-		$category_id = $this->proposed_workshop_model->get_category_id_by_subcategory_id($_POST['sub_categoria']);
+		//var_dump($_POST);exit();
 
-        $proposed_workshop_date = new Datetime($_POST['fecha_inicio']);
+		ini_set('date.timezone','America/Lima');
+        $today_modified = new Datetime();
+        $today_modified->add(new DateInterval('P2D'));
 
-        if ($proposed_workshop_date > $this->today){
-        	if ($_POST['hora_fin'] > $_POST['hora_inicio']) {
-        		$this->proposed_workshop_model->create($_POST,$category_id['categories_id'], $this->user_id);
-        		$toRedirect = 'proposed_workshop';
-        	}else{
-        		$error = urlencode("La hora de fin debe ser mayor a la hora de inicio");
-        		$toRedirect = 'proposed_workshop/create?message='.$error;
-        	}
-        }else{
-        	$error = urlencode("Debes escoger una fecha posterior");
-        	$toRedirect = 'proposed_workshop/create?message='.$error;
-        }
-        redirect($toRedirect, 'refresh');	
+		if (!empty($_POST['titulo']) && trim($_POST['titulo']) != '' && !empty($_POST['fecha_inicio']) && trim($_POST['fecha_inicio']) != '' && !empty($_POST['hora_inicio']) && trim($_POST['hora_inicio']) != '' && !empty($_POST['hora_fin']) && trim($_POST['hora_fin']) != '') {
+
+				    $hour_format1 = $this->validate_hour1($_POST['hora_inicio'], $format = 'H:i');
+        			$hour_format2 = $this->validate_hour2($_POST['hora_fin'], $format = 'H:i');
+					if ($hour_format1 == 'true' && $hour_format2 == 'true'){
+
+							$category_id = $this->proposed_workshop_model->get_category_id_by_subcategory_id($_POST['sub_categoria']);
+
+					        $proposed_workshop_date = new Datetime($_POST['fecha_inicio']);
+
+					        if ($proposed_workshop_date > $today_modified){
+					        	if ($_POST['hora_fin'] > $_POST['hora_inicio']) {
+					        		$this->proposed_workshop_model->create($_POST,$category_id['categories_id'], $this->user_id);
+					        		$toRedirect = 'proposed_workshop';
+					        	}else{
+					        		$error = urlencode("La hora de fin debe ser mayor a la hora de inicio");
+					        		$toRedirect = 'proposed_workshop/create_second_step?message='.$error;
+					        	}
+					        }else{
+					        	$error = urlencode("Debes escoger una fecha posterior");
+					        	$toRedirect = 'proposed_workshop/create_second_step?message='.$error;
+					        }
+					        redirect($toRedirect, 'refresh');
+
+					}else{
+						$error = urlencode("Ingresa un formato de hora adecuado");
+						$toRedirect = 'proposed_workshop/create_second_step?message='.$error;
+					}
+		}else{
+			$error = urlencode("Campos obligatorios vacios");
+        	$toRedirect = 'proposed_workshop/create_second_step?message='.$error;
+		}
+		redirect($toRedirect, 'refresh');	
 	}
+
+
+	public function validate_hour1($hour, $format = 'H:i'){
+		$h = DateTime::createFromFormat($format, $hour);
+    	return $h && $h->format($format) == $hour;
+    }
+
+
+	public function validate_hour2($hour, $format = 'H:i'){
+		$h = DateTime::createFromFormat($format, $hour);
+    	return $h && $h->format($format) == $hour;
+    }
 
 
 	public function show_my_requests(){
@@ -157,25 +191,40 @@ class Proposed_Workshop extends CI_Controller {
       }
     }
 
-	public function open_request($pw_id){
+	public function open_request($pw_id = null){
 		$pw_data = $this->proposed_workshop_model->get_proposed_workshop_data($pw_id);
-        $proposed_workshop_date = new Datetime($pw_data['start_date']);
 
-		if($pw_data['pw_user_id'] != $this->user_id && $proposed_workshop_date > $this->today){
-			$dataView=[
-				'page'=>'proposed_workshops/open_request',
-				'abc'=>$pw_data
-			];
-			$this->load->view('template/basic',$dataView);
+		if ($pw_data){
+
+		        $proposed_workshop_date = new Datetime($pw_data['start_date']);
+
+				if($pw_data['pw_user_id'] != $this->user_id && $proposed_workshop_date > $this->today){
+					$dataView=[
+						'page'=>'proposed_workshops/open_request',
+						'abc'=>$pw_data
+					];
+				}else{
+					$dataView=[
+					'page'=>'error',
+					];
+				}
+
 		}else{
 			$dataView=[
-			'page'=>'error',
-		];
-		$this->load->view('template/basic',$dataView);
+				'page'=>'error',
+			];
 		}
+		$this->load->view('template/basic',$dataView);
 	}
 
-	public function insert_to_workshop($id){
+	public function insert_to_workshop($id = null){
+		//var_dump($_POST);
+		if ($id === null) {
+			$dataView=[
+				'page'=>'error',
+			];
+			$this->load->view('template/basic',$dataView);exit();
+		}
 		$pw_data = $this->proposed_workshop_model->get_proposed_workshop_data($id);
 		$email = $this->proposed_workshop_model->get_pw_creator_email($pw_data['pw_user_id']);
 		//var_dump($pw_data);exit();
@@ -190,7 +239,7 @@ class Proposed_Workshop extends CI_Controller {
 		//}
 	}
 
-	public function vote($pw_id){
+	public function vote($pw_id = null){
 		$proposed_workshop_description = $this->proposed_workshop_model->show_by_id($pw_id);
 		//var_dump($proposed_workshop_description);exit();
 

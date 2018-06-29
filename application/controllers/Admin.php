@@ -41,7 +41,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function show_profile($user_id){
+	public function show_profile($user_id = null){
 		$show_by_id = $this->admin_model->show_specific_user($user_id);
 		$dataView=[
 		'page'=>'admin/users/profile',
@@ -50,7 +50,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function show_edit_profile($user_id){
+	public function show_edit_profile($user_id = null){
 		$show_by_id = $this->admin_model->show_specific_user($user_id);
 		$dataView=[
 		'page'=>'admin/users/edit_profile',
@@ -59,7 +59,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function show_edit_password($user_id){
+	public function show_edit_password($user_id = null){
 		$show_by_id = $this->admin_model->show_specific_user($user_id);
 		$dataView=[
 		'page'=>'admin/users/edit_password',
@@ -69,7 +69,7 @@ class Admin extends CI_Controller {
 	}
 
 
-	public function save_edit_profile($user_id){
+	public function save_edit_profile($user_id = null){
 		$edit_profile = $this->admin_model->update_users_profiles($_POST, $user_id);
 		redirect('admin/show_profile/'.$user_id, 'refresh');
 	}
@@ -83,7 +83,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function remove_users($user_id){
+	public function remove_users($user_id = null){
 		$edit_profile = $this->admin_model->delete_users($user_id);
 		redirect('admin/show_profile/'.$user_id, 'refresh');
 	}
@@ -103,7 +103,7 @@ class Admin extends CI_Controller {
 		//svar_dump($_POST);exit();
     if($_POST){
 
-        if (!empty($_POST['correo']) || trim($_POST['correo']) != '' || !empty($_POST['contrasena']) || trim($_POST['contrasena']) != '' || !empty($_POST['nombres']) || trim($_POST['nombres']) != '' || !empty($_POST['apellidos']) || trim($_POST['apellidos']) != '' || !empty($_POST['fecha_nacimiento']) || trim($_POST['fecha_nacimiento']) != ''){
+        if (!empty($_POST['correo']) && trim($_POST['correo']) != '' && !empty($_POST['contrasena']) && trim($_POST['contrasena']) != '' && !empty($_POST['nombres']) && trim($_POST['nombres']) != '' && !empty($_POST['apellidos']) && trim($_POST['apellidos']) != '' && !empty($_POST['fecha_nacimiento']) && trim($_POST['fecha_nacimiento']) != ''){
 
             $email_exist = $this->admin_model->find_user_by_email($_POST['correo']);
             $var = $_POST['fecha_nacimiento'];
@@ -160,7 +160,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function show_edit_category($category_id){
+	public function show_edit_category($category_id = null){
 		$specific_c = $this->admin_model->get_specific_category($category_id); 
 		$dataView=[
 			'page'=>'admin/categories/edit_delete',
@@ -169,7 +169,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function edit_category($category_id){
+	public function edit_category($category_id = null){
 		//var_dump($_POST['category_name']);exit();
 		if (!empty($_POST['category_name']) && trim($_POST['category_name']) != '') {
 			$this->admin_model->update_category($_POST,$category_id);
@@ -188,12 +188,12 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function remove_category($category_id){
+	public function remove_category($category_id = null){
 		$this->admin_model->delete_category($category_id);
 		redirect('admin/categories_list/', 'refresh');
 	}
 
-	public function cancel_remove_category($category_id){
+	public function cancel_remove_category($category_id = null){
 		$this->admin_model->cancel_delete_category($category_id);
 		redirect('admin/categories_list/', 'refresh');
 	}
@@ -221,7 +221,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function workshop_description($id) {
+	public function workshop_description($id = null) {
 		$workshop_description = $this->admin_model->show_w_by_id($id);
 		$dataView=[
 			'page'=>'admin/workshops/description',
@@ -230,7 +230,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function workshop_show_edit($id){
+	public function workshop_show_edit($id = null){
 		$show_by_id = $this->admin_model->show_w_by_id($id);
 		$show_categories = $this->admin_model->get_categories_list();
 		$show_subcategories = $this->admin_model->get_subcategories_list_no_filter();
@@ -246,12 +246,12 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function workshop_save_edit($id){
+	public function workshop_save_edit($id = null){
 		$this->admin_model->update_w_description($_POST, $id);
 		redirect('admin/workshop_description/'.$id, 'refresh');
 	}
 
-	public function workshop_delete($id){
+	public function workshop_delete($id = null){
 		$this->admin_model->delete_w($id);
 		redirect('admin/workshop_description/' .$id, 'refresh');
 	}
@@ -263,7 +263,7 @@ class Admin extends CI_Controller {
 
 //SUBCATEGORIES
 
-	public function subcategories_list($category_id){
+	public function subcategories_list($category_id = null){
 		$rp = 4;
 		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		$page = (isset($_GET['page']))? $_GET['page']:'1';
@@ -282,7 +282,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function show_create_subcategory($category_id){
+	public function show_create_subcategory($category_id = null){
 		$specific_c = $this->admin_model->get_specific_category($category_id); 
 		$dataView=[
 			'page'=>'admin/categories/create',
@@ -291,7 +291,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function save_subcategory($category_id){
+	public function save_subcategory($category_id = null){
 		if (!empty($_POST['subcategory_name']) && trim($_POST['subcategory_name']) != '') {
 			$this->admin_model->create_subcategory($_POST, $category_id);
 			redirect('admin/categories_list/' .$category_id, 'refresh');
@@ -301,7 +301,7 @@ class Admin extends CI_Controller {
 
 	}
 
-	public function show_edit_subcategory($subcategory_id){
+	public function show_edit_subcategory($subcategory_id = null){
 		$get_specific_sc = $this->admin_model->get_specific_subcategory($subcategory_id);
 		//var_dump($get_specific_sc);exit();
 		$dataView=[
@@ -312,7 +312,7 @@ class Admin extends CI_Controller {
 	}
 
 
-	public function edit_subcategory($subcategory_id){
+	public function edit_subcategory($subcategory_id = null){
 		//var_dump($_POST);exit();
 		$specif_sc = $this->admin_model->get_specific_subcategory($subcategory_id);
 		if (!empty($_POST['subcategory_name']) && trim($_POST['subcategory_name']) != '') {
@@ -324,14 +324,14 @@ class Admin extends CI_Controller {
 	}
 
 
-	public function delete_subcategory($subcategory_id){
+	public function delete_subcategory($subcategory_id = null){
 		$specif_sc = $this->admin_model->get_specific_subcategory($subcategory_id);
 		$this->admin_model->delete_subcategory($subcategory_id);
 		redirect('admin/subcategories_list/' .$specif_sc['categories_id'], 'refresh');
 
 	}
 
-	public function cancel_delete_subcategory($subcategory_id){
+	public function cancel_delete_subcategory($subcategory_id = null){
 		$specif_sc = $this->admin_model->get_specific_subcategory($subcategory_id);
 		$this->admin_model->cancel_delete_subcategory($subcategory_id);
 		redirect('admin/subcategories_list/' .$specif_sc['categories_id'], 'refresh');
@@ -360,7 +360,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function proposed_workshop_description($id){
+	public function proposed_workshop_description($id = null){
 		 $show_by_id = $this->admin_model->show_by_id($id);
 		 $dataView=[
 			'page'=>'admin/proposed_workshops/description',
@@ -369,7 +369,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function proposed_workshop_show_edit($id){
+	public function proposed_workshop_show_edit($id = null){
 		$show_by_id = $this->admin_model->show_by_id($id);
 		$show_categories = $this->admin_model->get_categories_list();
 		$show_subcategories = $this->admin_model->get_subcategories_list_no_filter();
@@ -385,7 +385,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function proposed_workshop_save_edit($id){
+	public function proposed_workshop_save_edit($id = null){
 		ini_set('date.timezone','America/Lima'); 
         $fechaActual = date('d-m-Y g:i A');
 		//var_dump($_POST);exit();
@@ -403,19 +403,19 @@ class Admin extends CI_Controller {
 
 	}
 
-	public function proposed_workshop_delete($id){
+	public function proposed_workshop_delete($id = null){
 		$this->admin_model->delete_pw($id);
 		redirect('admin/proposed_workshop_description/' .$id, 'refresh');
 	}
 
-	public function proposed_workshop_cancel_delete($id){
+	public function proposed_workshop_cancel_delete($id = null){
 		$this->admin_model->cancel_delete_pw($id);
 		redirect('admin/proposed_workshop_description/' .$id, 'refresh');
 	}
 
 //RATINGS
 
-	public function show_student_list($iu_w_id){
+	public function show_student_list($iu_w_id = null){
 		$student_list = $this->admin_model->get_student_list($iu_w_id);
 		$teacher = $this->admin_model->get_teacher($iu_w_id);
 		$dataView=[
@@ -438,7 +438,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function edit_student_rate($iu_id){
+	public function edit_student_rate($iu_id = null){
 		$info_by_iu = $this->admin_model->get_user_by_iu_id($iu_id);
 		$user_id = $info_by_iu['iu_user_id'];
 		$w_id = $info_by_iu['iu_w_id'];
@@ -454,7 +454,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function delete_rate_student($iu_id){
+	public function delete_rate_student($iu_id = null){
 		$this->admin_model->delete_student_rating($_POST,$iu_id);
 
 		$iu_user_id = $this->admin_model->get_user_by_iu_id($iu_id);
@@ -475,7 +475,7 @@ class Admin extends CI_Controller {
 	}
 
 
-	public function edit_teacher_rate($iu_id){
+	public function edit_teacher_rate($iu_id = null){
 		//INFORMACION POR IU_ID
 		$info_by_iu = $this->admin_model->get_user_by_iu_id($iu_id);
 		$iu_user_id = $info_by_iu['iu_user_id'];
@@ -517,7 +517,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function proposed_subcategories_description($id) {
+	public function proposed_subcategories_description($id = null) {
 		$error = $this->input->get('message');
 		$proposed_subcategory_description = $this->admin_model->proposed_subcategories_show_by_id($id);
 		//var_dump($proposed_workshop_description);exit();
@@ -529,7 +529,7 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function proposed_subcategories_edit($id){
+	public function proposed_subcategories_edit($id = null){
 		$categorylist = $this->admin_model->get_categories_list();
 		$proposed_subcategory_description = $this->admin_model->proposed_subcategories_show_by_id($id);
 		$dataView=[
@@ -540,22 +540,22 @@ class Admin extends CI_Controller {
 		$this->load->view('template/basic',$dataView);
 	}
 
-	public function proposed_subcategories_save_edit($id){
+	public function proposed_subcategories_save_edit($id = null){
 		$this->admin_model->update_proposed_subcategories($_POST,$id);
 		redirect('admin/proposed_subcategories_description/' .$id, 'refresh');
 	}
 
-	public function proposed_subcategories_delete($id){
+	public function proposed_subcategories_delete($id = null){
 		$this->admin_model->delete_proposed_subcategories($id);
 		redirect('admin/proposed_subcategories_description/' .$id, 'refresh');
 	}
 
-	public function proposed_subcategories_cancel_delete($id){
+	public function proposed_subcategories_cancel_delete($id = null){
 		$this->admin_model->cancel_delete_proposed_subcategories($id);
 		redirect('admin/proposed_subcategories_description/'.$id, 'refresh');
 	}
 
-	public function proposed_subcategories_open_request($id){
+	public function proposed_subcategories_open_request($id = null){
 		$sc_info = $this->admin_model->proposed_subcategories_show_by_id($id);
 		if ($sc_info['votes_quantity'] >= 10) {
 			$this->admin_model->open_subcategory_request($id,$_POST);
