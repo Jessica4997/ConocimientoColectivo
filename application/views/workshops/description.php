@@ -33,16 +33,29 @@
 
                   <li> Nivel: <?php echo $description['level_name']?></li>
 
-                  <li> Fecha: <?php echo $description['start_date']?></li>
+                  <li> Fecha de Inicio: <?php echo $description['start_date']?></li>
+
+                    <?php
+                      $final_inscriptions = strtotime ( '-3 day' , strtotime ( $description['start_date'] ) ) ;
+                      $final_inscriptions = date ( 'j-m-Y' , $final_inscriptions);
+
+                    ?>
+
+
+                  <li> Cierrre de Inscripciones: <?php echo $final_inscriptions?></li>
 
                   <li> Horario: <?php echo date("H:i", strtotime($description['start_time']))?> - <?php echo date("H:i", strtotime($description['end_time']))?></li>
 
                   <li> Vacantes: <?php echo $description['vacancy']?> </li>
 
-                  <li> Postulaciones: <?php echo $postulants_number?> </li>
+                  <li> Postulantes: <?php echo $postulants_number?> </li>
                 </ul>
 
-                <label style="color:red">Nota: Solo se admite 15 postulaciones</label>
+                <label style="color:red">
+                   Notas: <li>Solo se admite 15 postulantes por taller</li>
+                  <br>
+                  <li> Solo podrás postular hasta tres días antes del inicio del taller para que puedan validar tu postulación</li>
+                </label>
                 <?php
                 if ($description['workshop_creator'] != $this->session->userdata('s_iduser') || $w_historial['dificult'] >= $description['dificult']){
                   ?>

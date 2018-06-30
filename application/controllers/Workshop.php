@@ -38,7 +38,7 @@ class Workshop extends CI_Controller {
 		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		//$q = (isset($_GET['q']))? $_GET['q']:'';
 		//$page = (isset($_GET['page']))? preg_replace('([^1-9])', '', $_GET['page']):'1';
-		$page = (isset($_GET['page']))? preg_replace('([^1-9])', '', $_GET['page']):'1';
+		$page = (isset($_GET['page']) && (!is_numeric($_GET['page'])))? preg_replace('([^1-9])', '', $_GET['page']):'1';
 		$wrk = $this->workshop_model->search_by_category_title($page,$category,$q,$rp);
 		$num_pages = $this->workshop_model->get_total_search($category,$q,$rp);
 		$catlist = $this->workshop_model->get_categories_list();
@@ -55,6 +55,7 @@ class Workshop extends CI_Controller {
 
 		$this->load->view('template/basic',$dataView);
 	}
+
 
 
 	public function description($id = null) {
@@ -88,35 +89,41 @@ class Workshop extends CI_Controller {
 
 	public function create_second_step(){
 		$category_id = $this->input->post('categoria_first_step');
-		$error = $this->input->get('message');
-		if(!is_null($category_id)){
-			$subcategorylist = $this->workshop_model->get_filter_subcategories_list($category_id);
-			$level_list = $this->workshop_model->level_list();
-			$error = $this->input->get('message');
-			$dataView=[
-				'page'=>'workshops/create_second_step',
-				'list_sc'=>$subcategorylist,
-				'level_list'=>$level_list,
-				'error'=>$error
-			];
-			$this->load->view('template/basic',$dataView);			
-		}else{
-			//var_dump($category_id);exit();
-			$dataView=[
-				'page'=>'error',
-				'category_id'=>$category_id
-			];
-			$this->load->view('template/basic',$dataView);				
+		$category_id_get = $this->input->get('ci');
+		if(is_null($category_id)){
+			if (is_null($category_id_get)) {
+				redirect('workshop','refresh');
+			}else{
+				$category_id = $category_id_get;
+			}
+			
 		}
+
+		$error = $this->input->get('message');
+		
+
+		$subcategorylist = $this->workshop_model->get_filter_subcategories_list($category_id);
+		$level_list = $this->workshop_model->level_list();
+		$error = $this->input->get('message');
+		$dataView=[
+			'page'=>'workshops/create_second_step',
+			'list_sc'=>$subcategorylist,
+			'level_list'=>$level_list,
+			'error'=>$error
+		];
+		$this->load->view('template/basic',$dataView);			
+		
 	}
 
 	public function save(){
 		$category_id = $this->workshop_model->get_category_id_by_subcategory_id($_POST['subcategoria']);
         $workshop_date = new Datetime($_POST['fecha']);
 
+        $urlbase = 'workshop/create_second_step?ci='.$category_id['categories_id'];
+
         ini_set('date.timezone','America/Lima');
         $today_modified = new Datetime();
-        $today_modified->add(new DateInterval('P1D'));
+        $today_modified->add(new DateInterval('P6D'));
         //var_dump($_POST);exit();
         if (!empty($_POST['titulo']) && trim($_POST['titulo']) != '' && !empty($_POST['fecha']) && trim($_POST['fecha']) != '' && !empty($_POST['hora_inicio']) && trim($_POST['hora_inicio']) != '' && !empty($_POST['hora_fin']) && trim($_POST['hora_fin']) != '' && !empty($_POST['vacantes']) && trim($_POST['vacantes']) != '' && !empty($_POST['monto']) && trim($_POST['monto']) != '') {
 
@@ -131,22 +138,22 @@ class Workshop extends CI_Controller {
 									$toRedirect = 'workshop';
 								}else{
 									$error = urlencode("La hora de fin debe ser mayor a la hora de inicio");
-									$toRedirect = 'workshop/create_second_step?message='.$error;
+									$toRedirect = $urlbase.'&message='.$error;
 								}
 							}else{
 								$error = urlencode("Debes escoger una fecha posterior");
-								$toRedirect = 'workshop/create_second_step?message='.$error;
+								$toRedirect = $urlbase.'&message='.$error;
 							}
 
 					}else{
 						$error = urlencode("Ingresa un formato de hora adecuado");
-						$toRedirect = 'workshop/create_second_step?message='.$error;
+						$toRedirect = $urlbase.'&message='.$error;
 					}
 
 
         }else{
         	$error = urlencode("Hay campos vacíos");
-			$toRedirect = 'workshop/create_second_step?message='.$error;
+			$toRedirect = $urlbase.'&message='.$error;
         }
 		redirect($toRedirect, 'refresh');
 	}
@@ -176,6 +183,9 @@ class Workshop extends CI_Controller {
 
 		$postulants_number = $this->workshop_model->get_postulants_number($id);
 
+		$today_modified = new Datetime();
+        $today_modified->add(new DateInterval('P2D'));
+
 		//$w_by_user_validate = isset($w_by_user['dificult'])? $w_by_user['dificult'] :$w_by_user['dificult']=1;
 		if ($id === null) {
 			echo "No valido";exit();
@@ -193,8 +203,8 @@ class Workshop extends CI_Controller {
 			$error = urlencode("No puedes matricularte porque necesitas llevar algun taller previo");
 			$toRedirect = 'workshop/description/'.$id.'?message='.$error;
 
-		}else if($workshop_date < $this->today){
-			$error = urlencode("La fecha de inicio ya paso");
+		}else if($workshop_date < $today_modified){
+			$error = urlencode("La fecha de postulación ya paso");
 			$toRedirect = 'workshop/description/'.$id.'?message='.$error;
 
 		}else if ($workshop_description['vacancy'] <= 0) {

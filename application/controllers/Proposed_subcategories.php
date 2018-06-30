@@ -20,6 +20,7 @@ class Proposed_subcategories extends CI_Controller {
 
 
 	public function index(){
+
 		$rp = 2;
 		$category = (isset($_GET['category']))? $_GET['category']:[];
 		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';

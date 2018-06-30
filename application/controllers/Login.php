@@ -23,6 +23,11 @@ class Login extends CI_Controller {
 	public function user_login(){
 		$u = $this->input->post('correo');
 		$p = $this->input->post('contrasena', TRUE);
+		if (empty($u) && empty($p)) {
+			$error=urlencode("Campos vacios");
+			$toRedicrect='/login?message='.$error;
+			redirect($toRedicrect, 'refresh');exit();
+		}
 
 		if(false === filter_var($u, FILTER_VALIDATE_EMAIL)){
 			$error=urlencode("Ingresa un email valido");
@@ -50,9 +55,10 @@ class Login extends CI_Controller {
 	}
 
 	public function show_forgot_password(){
-		//$error = $this->input->get('message');
+		$error = $this->input->get('message');
 		$dataView=[
-			'page'=>'users/forgot_password'
+			'page'=>'users/forgot_password',
+			'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -61,7 +67,8 @@ class Login extends CI_Controller {
 		//var_dump($token);exit();
 		$user_d = $this->user_model->find_user_by_token($token);
 		if(!$user_d){
-			echo "El token no existe";exit();
+			$error = urlencode("El token no existe");
+			redirect('login/show_forgot_password?message='.$error, 'refresh');exit();
 		}
 		$this->user_model->delete_token($user_d['id']);
 		
@@ -74,11 +81,17 @@ class Login extends CI_Controller {
 
 
 	public function update_new_password(){
+		if (empty($_POST['contrasena'])  && trim($_POST['contrasena']) == '') {
+			$error = urlencode("Se ha ingresado campos vacios al modificar la contraseña");
+			redirect('login/show_forgot_password?message='.$error, 'refresh');exit();
+		}
+
 		if($_POST['contrasena'] === $_POST['recontrasena']){
 		$this->user_model->update_user_password($_POST);
 		redirect('','refresh');
 		}else{
-			echo "Las contraseñas no coinciden";
+			$error = urlencode("Las contraseñas ingresadas no coincidian");
+			redirect('login/show_forgot_password?message='.$error, 'refresh');exit();
 		}
 	}
 
@@ -86,6 +99,18 @@ class Login extends CI_Controller {
 	public function recovery_password(){
 		$email = $this->input->post('correo');
 		$u_data = $this->user_model->find_user_by_email($email);
+
+		if (empty($email) && trim($email) == ''){
+			$error = urlencode("Ingresa un correo");
+			redirect('login/show_forgot_password?message='.$error, 'refresh');exit();
+		}
+
+		if(false === filter_var($email, FILTER_VALIDATE_EMAIL)){
+			$error=urlencode("Ingresa un email valido");
+			$toRedicrect='login/show_forgot_password?message='.$error;
+			redirect($toRedicrect, 'refresh');exit();
+		}
+
 
 		if($u_data){
 			$this->load->helper('string');
@@ -96,7 +121,9 @@ class Login extends CI_Controller {
 
 			redirect('','refresh');
 		}else{
-			echo "El correo no existe";
+			$error=urlencode("Este correo no existe");
+			$toRedicrect='login/show_forgot_password?message='.$error;
+			redirect($toRedicrect, 'refresh');exit();
 		}
 	}
 

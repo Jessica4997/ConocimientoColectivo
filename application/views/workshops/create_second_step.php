@@ -14,7 +14,7 @@
                   <?php }?>
 
                 <h1 class="color-primary text-center">Crear Nuevo Taller</h1>
-                <label class="ml-2" style="color:red">Nota: Debes crear un taller por lo menos con dos días de anticipación</label>
+                <label class="ml-2" style="color:red">Nota: Debes crear un taller por lo menos con una semana de anticipación</label>
                 <form method="post" action="<?php echo site_url('workshop/save')?>"  class="form-horizontal">
                   <fieldset>
 

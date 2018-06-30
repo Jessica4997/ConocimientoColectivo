@@ -14,6 +14,9 @@ class Profile_Page extends CI_Controller {
             redirect('login', 'refresh');
         }
 
+        ini_set('date.timezone','America/Lima');
+        $this->today = new Datetime();
+
         $this->output->set_header('X-XSS-Protection: 1; mode=block');
 	}
 
@@ -62,7 +65,16 @@ class Profile_Page extends CI_Controller {
 
 	public function save_edit_profile_data(){
 		//var_dump($_POST);exit();
-		if (!empty($_POST['nombres']) && trim($_POST['nombres']) != '' && !empty($_POST['apellidos']) && trim($_POST['apellidos']) != '' && trim($_POST['descripcion']) != '') {
+		if (!empty($_POST['nombres']) && trim($_POST['nombres']) != '' && !empty($_POST['apellidos']) && trim($_POST['apellidos']) != '' && trim($_POST['descripcion']) != '' && !empty($_POST['fecha_nacimiento']) && trim($_POST['fecha_nacimiento']) != '') {
+			
+			$birthday = new Datetime($_POST['fecha_nacimiento']);
+
+			if($birthday > $this->today){
+				$error = urlencode("Fecha incorrecta");
+				$toRedirect = 'profile_page/show_edit_profile?message='.$error;
+				redirect($toRedirect, 'refresh');exit();
+			}
+
 			$this->user_model->update_user_profile($_POST);
 			$toRedirect = 'profile_page';
 		}else{
@@ -74,6 +86,13 @@ class Profile_Page extends CI_Controller {
 	}
 
 	public function save_edit_password_data(){
+
+		if (empty($_POST['contrasena']) && trim($_POST['contrasena']) == '') {
+			$error = urlencode("Campos vacios");
+			$toRedirect = 'profile_page/show_edit_password?message='.$error;
+			redirect($toRedirect, 'refresh');exit();
+		}
+
 		if($_POST['contrasena'] === $_POST['recontrasena']){
 			$this->user_model->change_user_password($_POST);
 			$toRedirect = 'profile_page';
@@ -90,7 +109,7 @@ class Profile_Page extends CI_Controller {
 		$uploadedfile_size=$_FILES['profile_photo']['size'];
 		echo $_FILES['profile_photo']['name'];
 		if ($_FILES['profile_photo']['size']>200000){
-			echo "El archivo es mayor que 200KB, debes reduzcirlo antes de subirlo<BR>";
+			echo "El archivo es mayor que 200KB, debes reducirlo antes de subirlo<BR>";
 			$uploadedfileload="false";
 		}
 

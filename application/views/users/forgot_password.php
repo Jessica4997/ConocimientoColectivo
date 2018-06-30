@@ -15,6 +15,16 @@
                 <div class="card-body">
 
                     <h1 class="color-primary text-center">Olvide mi contraseña</h1>
+
+                        <?php if($error){?>
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="zmdi zmdi-close"></i>
+                            </button>
+                            <?php echo $error;?>
+                          </div>
+                        <?php }?>
+                    
                     <form method="post" action="<?php echo site_url('login/recovery_password')?>" class="form-horizontal">
                         <fieldset>
                             <div class="form-group row">

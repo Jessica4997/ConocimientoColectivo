@@ -232,6 +232,7 @@ class Workshop_model extends CI_Model {
                 INNER JOIN level AS l
                 ON w.level_id = l.id
               WHERE w.removed = 'Activo'
+              AND DATE_SUB(start_date, INTERVAL 2 DAY) > NOW()
                ";
       
         if(is_array($category) && count($category)>0){

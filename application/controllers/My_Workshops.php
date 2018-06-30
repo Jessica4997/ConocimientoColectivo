@@ -115,7 +115,7 @@ class My_Workshops extends CI_Controller {
 		if ($info_by_iu['iu_user_id'] == $this->user_id && $info_by_iu['iu_status'] == 'Confirmado'){
 
 					if ($get_w_id['iu_tutor_rating']) {
-						$error = urlencode("Ya ha calificado al alumno");
+						$error = urlencode("Ya ha calificado al profesor");
 						redirect('my_workshops/show_rate_teacher/'.$info_by_iu['w_user_id'].'/'.$get_w_id['iu_w_id'].'/?message='.$error, 'refresh');exit();
 					}else{
 

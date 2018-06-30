@@ -28,6 +28,9 @@
             <li>Fecha: <?php echo date("d-m-Y", strtotime($row['start_date']))?></li>
             <li>Horario: <?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?></li>
             <li>Estado de Postulación: <?php echo $row['iu_status']?></li>
+
+            <label style="color:red">Nota: Los resultados finales de tu postulación se verán un día antes del inicio del taller</label>
+            
             <?php
             if($row['student_rating']){
               $calification = $row['student_rating'];

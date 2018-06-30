@@ -24,6 +24,7 @@ class Proposed_Workshop_model extends CI_Model {
                   INNER JOIN level AS l
                   ON pw.level_id = l.id
                 WHERE pw.removed = 'Activo'
+                AND DATE_SUB(start_date, INTERVAL 7 DAY) > NOW()
                  ";
 
         if(is_array($category) && count($category)>0){
@@ -324,7 +325,7 @@ class Proposed_Workshop_model extends CI_Model {
 
     public function change_status($pw_id){
       $data = array(
-        'pw_status' => 'Activo'
+        'pw_status' => 'Aperturado'
       );
       $this->db->update('proposed_workshops', $data, array('id' => $pw_id));
     }

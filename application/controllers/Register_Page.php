@@ -38,6 +38,12 @@ class Register_page extends CI_Controller {
             $var = $_POST['fecha_nacimiento'];
             $birth = new Datetime($var);
 
+            if(false === filter_var($_POST['correo'], FILTER_VALIDATE_EMAIL)){
+                $error=urlencode("Ingresa un email valido");
+                $toRedicrect='register_page?message='.$error;
+                redirect($toRedicrect, 'refresh');exit();
+            }
+
             if($email_exist){
                 $error = urlencode("El correo ya está siendo usado");
                 redirect ('register_page?message='.$error,'refresh');

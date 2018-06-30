@@ -45,7 +45,7 @@
                   ?>
                   <label for="inputDate" class="col-md-2 control-label">Fecha de Nacimiento</label>
                   <div class="col-md-9">
-                    <input type="text" class="mydatepicker" name="fecha_nacimiento" value="<?php echo $datetime->format('d-m-Y')?>"> </div>
+                    <input type="text" class="mydatepicker" name="fecha_nacimiento" value="<?php echo $datetime->format('d-m-Y')?>" required> </div>
                 </div>
 
                 <div class="form-group row justify-content-end">
