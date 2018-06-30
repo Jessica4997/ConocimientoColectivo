@@ -1,6 +1,6 @@
 <div class="container">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card animated zoomInDown animation-delay-5">
+            <div class="card">
               <div class="card-body">
                 <h2 align="center"><?php echo $description['title']?></h2>
                 
@@ -8,15 +8,7 @@
                     <li class="list-unstyled"> Creado por: <?php echo $description['user_name']?> <?php echo $description['user_last_name']?>
 
                     </li>
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                      
-                        <i class="zmdi zmdi-hc-lg zmdi-star color-warning"></i>
-                        <i class="zmdi zmdi-hc-lg zmdi-star color-warning"></i>
-                        <i class="zmdi zmdi-hc-lg zmdi-star color-warning"></i>
-                        <i class="zmdi zmdi-hc-lg zmdi-star color-warning"></i>
-                        <i class="zmdi zmdi-hc-lg zmdi-star"></i>
-                   
-                      </div>
+
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" align="center">
                       <h2 class="color-success text-normal">S/. <?php echo $description['amount']?></h2>

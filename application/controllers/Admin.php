@@ -60,10 +60,12 @@ class Admin extends CI_Controller {
 	}
 
 	public function show_edit_password($user_id = null){
+		$error = $this->input->get('message');
 		$show_by_id = $this->admin_model->show_specific_user($user_id);
 		$dataView=[
 		'page'=>'admin/users/edit_password',
-		'data_id'=>$show_by_id
+		'data_id'=>$show_by_id,
+		'error'=>$error
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -79,13 +81,14 @@ class Admin extends CI_Controller {
 			$edit_profile = $this->admin_model->update_users_password($_POST, $user_id);
 			redirect('admin/show_profile/'.$user_id, 'refresh');
 		}else{
-			echo "Las contraseñas no coinciden";
+			$error = urlencode("Las contraseñas no coinciden");
+			redirect('admin/show_edit_password/'.$user_id.'?message='.$error, 'refresh');
 		}
 	}
 
 	public function remove_users($user_id = null){
 		$edit_profile = $this->admin_model->delete_users($user_id);
-		redirect('admin/show_profile/'.$user_id, 'refresh');
+		redirect('admin/show_edit_password/'.$user_id, 'refresh');
 	}
 
 
@@ -231,6 +234,8 @@ class Admin extends CI_Controller {
 	}
 
 	public function workshop_show_edit($id = null){
+
+		$error = $this->input->get('message');
 		$show_by_id = $this->admin_model->show_w_by_id($id);
 		$show_categories = $this->admin_model->get_categories_list();
 		$show_subcategories = $this->admin_model->get_subcategories_list_no_filter();
@@ -240,13 +245,31 @@ class Admin extends CI_Controller {
 			'prueba'=>$show_categories,
 			'subcat'=>$show_subcategories,
 			'w_by_id'=>$show_by_id,
-			'level_list'=>$show_level
+			'level_list'=>$show_level,
+			'error'=>$error
 
 		];
 		$this->load->view('template/basic',$dataView);
 	}
 
 	public function workshop_save_edit($id = null){
+
+		//var_dump($_POST);exit();
+		//var_dump($_POST['fecha_inicio']);
+		//var_dump($this->today);exit();
+
+		$workshop_date = new Datetime($_POST['fecha_inicio']);
+
+		if ($_POST['hora_inicio'] >= $_POST['hora_fin']) {
+			$error = urlencode("La hora de fin tiene que ser mayor a la hora de inicio");
+			redirect('admin/workshop_show_edit/'.$id.'?message='.$error, 'refresh');
+		}
+
+		if ($workshop_date <= $this->today) {
+			$error = urlencode("Escoge una fecha posterior");
+			redirect('admin/workshop_show_edit/'.$id.'?message='.$error, 'refresh');
+		}
+
 		$this->admin_model->update_w_description($_POST, $id);
 		redirect('admin/workshop_description/'.$id, 'refresh');
 	}
@@ -370,6 +393,7 @@ class Admin extends CI_Controller {
 	}
 
 	public function proposed_workshop_show_edit($id = null){
+		$error = $this->input->get('message');
 		$show_by_id = $this->admin_model->show_by_id($id);
 		$show_categories = $this->admin_model->get_categories_list();
 		$show_subcategories = $this->admin_model->get_subcategories_list_no_filter();
@@ -379,7 +403,8 @@ class Admin extends CI_Controller {
 			'prueba'=>$show_categories,
 			'subcat'=>$show_subcategories,
 			'pw_by_id'=>$show_by_id,
-			'level_list'=>$level_list
+			'level_list'=>$level_list,
+			'error'=>$error
 
 		];
 		$this->load->view('template/basic',$dataView);
@@ -395,10 +420,12 @@ class Admin extends CI_Controller {
 				$this->admin_model->update_pw_description($_POST, $id);
 				redirect('admin/proposed_workshop_description/'.$id, 'refresh');
 			}else{
-				echo "Debes escoger una hora de fin mayor";
+				$error = urlencode("Debes escoger una hora de fin mayor") ;
+				redirect('admin/proposed_workshop_show_edit/'.$id.'?message='.$error, 'refresh');
 			}
 		}else{
-			echo "La fecha ya paso";
+			$error = urlencode("La fecha ya paso") ;
+			redirect('admin/proposed_workshop_show_edit/'.$id.'?message='.$error, 'refresh');
 		}
 
 	}

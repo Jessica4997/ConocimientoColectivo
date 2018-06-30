@@ -123,7 +123,7 @@ class Proposed_subcategories extends CI_Controller {
 				$this->proposed_subcategories_model->insert_into_votes($psc_id, $this->user_id);
 				$verify_votes['votes_quantity'] = $verify_votes['votes_quantity'] + 1;
 				$this->proposed_subcategories_model->update_votes_quantity($psc_id, $verify_votes['votes_quantity']);
-				$toRedirect = 'proposed_subcategories/description/'.$psc_id.'?message='.$error;
+				$toRedirect = 'proposed_subcategories/description/'.$psc_id;
 			}else{
 				$error = urlencode("Alcanzó el maximo de votos");
 				$toRedirect = 'proposed_subcategories/description/'.$psc_id.'?message='.$error;

@@ -4,7 +4,7 @@
             <div class="card card-primary">
               <div class="card-body">
 
-                <h1 class="color-primary text-center">Crear Nuevo Taller</h1>
+                <h1 class="color-primary text-center">Aperturar Taller</h1>
 
                     <?php if($error){?>
                     <div class="alert alert-danger alert-dismissible" role="alert">
@@ -49,13 +49,13 @@
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Cantidad de Vacantes</label>
                       <div class="col-md-9">
-                        <input type="number" name="vacantes" min="1" max="10" class="form-control" id="" placeholder="Cantidad de Vacantes" onkeypress="return only_numbers(event)" onpaste="return false" > </div>
+                        <input type="number" name="vacantes" min="1" max="10" class="form-control" id="" placeholder="Cantidad de Vacantes" onkeypress="return only_numbers(event)" onpaste="return false" required> </div>
                     </div>
 
                     <div class="row form-group">
                       <label for="" class="col-md-2 control-label">Monto</label>
                       <div class="col-md-9">
-                        <input type="number" name="monto" min="1" class="form-control" id="" placeholder="Monto" onkeypress="return only_numbers(event)" onpaste="return false" > </div>
+                        <input type="number" name="monto" min="1" class="form-control" id="" placeholder="Monto" onkeypress="return only_numbers(event)" onpaste="return false" required> </div>
                     </div>
 
                     <div class="form-group row justify-content-end">

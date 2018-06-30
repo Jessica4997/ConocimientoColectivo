@@ -42,16 +42,9 @@
 
 <nav class="navbar navbar-expand-md navbar-static ms-navbar ms-navbar-white">
     <div class="container container-full">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="">
-                <img src="/assets/img/logo/people.png">
-                <span class="ms-title">C
-                    <strong>C</strong>
-                </span>
-            </a>
-        </div>
+        
 
-        <div class="collapse navbar-collapse" id="ms-navbar">
+        <div class="collapse navbar-collapse" id="ms-navbarj">
             <ul class="navbar-nav">
                 
                 <?php $this->load->view('template/menu')?>

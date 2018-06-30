@@ -1,9 +1,21 @@
 <div class="container">
     <div class="row">
         <div class="col-xl-12">
-            <div class="card card-primary animated fadeInUp animation-delay-7">
+            <div class="card card-primary">
                 <div class="card-body">
                     <h1 class="color-primary text-center">Editar Taller</h1>
+
+
+                    <?php if($error){?>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="zmdi zmdi-close"></i>
+                        </button>
+                        <?php echo $error;?>
+                    </div>
+                    <?php }?>
+
+
                     <form method="post" action="<?php echo site_url('admin/workshop_save_edit/' .$w_by_id['id'])?>" class="form-horizontal">
                         <fieldset>
 

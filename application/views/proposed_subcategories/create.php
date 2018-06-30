@@ -36,7 +36,7 @@
                             <div class="row form-group">
                                 <label for="" class="col-md-2 control-label">Nombre</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" placeholder="Título" name="nombre_subcategoria" onkeypress="return only_letters(event)" required> </div>
+                                    <input type="text" class="form-control" placeholder="Título" name="nombre_subcategoria" onkeypress="return only_letters(event)" > </div>
                             </div>
 
                             <div class="form-group row justify-content-end">

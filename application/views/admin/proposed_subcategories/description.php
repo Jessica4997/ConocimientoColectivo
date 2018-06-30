@@ -46,7 +46,7 @@
 
                     <li> Aperturado:
                         <?php
-                        if ($description['psc_status'] == 'Pendiente') {
+                        if ($description['psc_status'] == 'Inactivo') {
                             $condition = 'No';
                         }else{
                             $condition = 'Si';
@@ -58,7 +58,7 @@
 
                 <label style="color:red">Nota: Debe tener al menos 10 votos para ser aperturado</label>
                 <div align="center" >
-                <?php if($description['psc_removed'] == 'Activo' && $description['psc_status'] == 'Pendiente'){ ?>
+                <?php if($description['psc_removed'] == 'Activo' && $description['psc_status'] == 'Inactivo'){ ?>
                 <a href="<?php echo site_url('admin/proposed_subcategories_open_request/' .$description['psc_id'])?>" class="btn btn-primary btn-raised">Aperturar</a>
                 <?php }?>
 

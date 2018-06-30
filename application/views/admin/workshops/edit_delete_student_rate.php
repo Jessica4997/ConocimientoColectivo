@@ -32,9 +32,6 @@
               </fieldset>
             </form>
 
-            <?php if(!is_null($iu_id['iu_student_rating'])){ ?>
-            <a href="<?php echo site_url('admin/delete_rate_student/' .$iu_id['iu_id'])?>" class="btn btn-raised btn-primary btn-block">Eliminar</a>
-            <?php } ?>
 
           </div>
         </div>

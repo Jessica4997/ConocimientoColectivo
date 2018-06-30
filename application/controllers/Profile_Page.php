@@ -65,7 +65,7 @@ class Profile_Page extends CI_Controller {
 
 	public function save_edit_profile_data(){
 		//var_dump($_POST);exit();
-		if (!empty($_POST['nombres']) && trim($_POST['nombres']) != '' && !empty($_POST['apellidos']) && trim($_POST['apellidos']) != '' && trim($_POST['descripcion']) != '' && !empty($_POST['fecha_nacimiento']) && trim($_POST['fecha_nacimiento']) != '') {
+		if (!empty($_POST['nombres']) && trim($_POST['nombres']) != '' && !empty($_POST['apellidos']) && trim($_POST['apellidos']) != '' && !empty($_POST['fecha_nacimiento']) && trim($_POST['fecha_nacimiento']) != '') {
 			
 			$birthday = new Datetime($_POST['fecha_nacimiento']);
 

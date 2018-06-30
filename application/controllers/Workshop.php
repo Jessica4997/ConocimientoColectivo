@@ -38,7 +38,7 @@ class Workshop extends CI_Controller {
 		$q = (isset($_GET['q']))? preg_replace('([^A-Za-záéíó ])', '', $_GET['q']):'';
 		//$q = (isset($_GET['q']))? $_GET['q']:'';
 		//$page = (isset($_GET['page']))? preg_replace('([^1-9])', '', $_GET['page']):'1';
-		$page = (isset($_GET['page']) && (!is_numeric($_GET['page'])))? preg_replace('([^1-9])', '', $_GET['page']):'1';
+		$page = (isset($_GET['page']) )? preg_replace('([^1-9])', '', $_GET['page']):'1';
 		$wrk = $this->workshop_model->search_by_category_title($page,$category,$q,$rp);
 		$num_pages = $this->workshop_model->get_total_search($category,$q,$rp);
 		$catlist = $this->workshop_model->get_categories_list();

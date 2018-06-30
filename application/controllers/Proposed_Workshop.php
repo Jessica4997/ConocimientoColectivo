@@ -201,7 +201,9 @@ class Proposed_Workshop extends CI_Controller {
 		$pw_data = $this->proposed_workshop_model->get_proposed_workshop_data($pw_id);
 		$error = $this->input->get('message');
 
+
 		if ($pw_data){
+			//var_dump($pw_data);exit();
 
 		        $proposed_workshop_date = new Datetime($pw_data['start_date']);
 		        $today_modified = new Datetime();
@@ -211,7 +213,7 @@ class Proposed_Workshop extends CI_Controller {
 					$dataView=[
 						'page'=>'proposed_workshops/open_request',
 						'abc'=>$pw_data,
-						'page'=>'error',
+						'error'=>$error
 					];
 				}else{
 					$dataView=[
@@ -228,7 +230,8 @@ class Proposed_Workshop extends CI_Controller {
 	}
 
 	public function insert_to_workshop($id = null){
-		//var_dump($_POST);
+		$pw_data = $this->proposed_workshop_model->get_proposed_workshop_data($id);
+		//var_dump($_POST);exit();
 		if ($id === null) {
 			$dataView=[
 				'page'=>'error',
@@ -236,11 +239,17 @@ class Proposed_Workshop extends CI_Controller {
 			$this->load->view('template/basic',$dataView);exit();
 		}
 
-		if (empty($_POST['vacantes']) && empty($_POST['monto'])) {
+		if (empty($_POST['vacantes']) || empty($_POST['monto'])) {
 			$error = urlencode('Campos vacios');
-			redirect('proposed_workshop/open_request?message='.$error,'refresh');
+			redirect('proposed_workshop/open_request/'.$pw_data['pw_id'].'?message='.$error,'refresh');exit();
 		}
-		$pw_data = $this->proposed_workshop_model->get_proposed_workshop_data($id);
+
+		if ($_POST['vacantes'] <= 0 || $_POST['vacantes'] > 10) {
+			$error = urlencode('El valor debe ser entre 1 y 10');
+			redirect('proposed_workshop/open_request/'.$pw_data['pw_id'].'?message='.$error,'refresh');exit();
+		}
+
+		
 		$email = $this->proposed_workshop_model->get_pw_creator_email($pw_data['pw_user_id']);
 		//var_dump($pw_data);exit();
 		//var_dump($email['email']);exit();

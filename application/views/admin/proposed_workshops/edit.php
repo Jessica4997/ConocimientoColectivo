@@ -1,7 +1,21 @@
 <div class="container">
     <div class="row">
         <div class="col-xl-12">
-            <div class="card card-primary animated fadeInUp animation-delay-7">
+            <div class="card card-primary ">
+
+
+
+
+                    <?php if($error){?>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="zmdi zmdi-close"></i>
+                        </button>
+                        <?php echo $error;?>
+                    </div>
+                    <?php }?>
+
+                
                 <div class="card-body">
                     <h1 class="color-primary text-center">Editar Solicitud de Taller</h1>
                     <form method="post" action="<?php echo site_url('admin/proposed_workshop_save_edit/' .$pw_by_id['id'])?>" class="form-horizontal">
