@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <form class="form-horizontal" id="workshop_form">
                         <input type="hidden" id="workshop_form_page" name="page" value="<?php echo $pagination;?>">
-                        <h4 class="no-mt">Categorías</h4>
+                        <h4 class="mb-1 no-mt color-primary"><strong>Categorías</strong></h4>
 
                         <fieldset>
                             <?php foreach($lis as $rowc){
@@ -28,7 +28,7 @@
                 
                 <h2 class="color-primary">Buscar</h2>
                 <div class="form-group">
-                    <input type="text" name="q" class="form-control" onkeypress="return only_letters(event)"  value="<?php echo $q?>"> </div>
+                    <input type="text" name="q" placeholder="Buscar ...." class="form-control" onkeypress="return only_letters(event)"  value="<?php echo $q?>"> </div>
                     <button type="submit" class="btn btn-primary btn-raised btn-block">
                         <i class="zmdi zmdi-search"></i>Buscar</button>
                     </form>
@@ -39,7 +39,7 @@
             </div>
             <div class="col-lg-9">
                 <h1 align="center">
-                    <strong>Solicitudes de Nuevos Temas</strong>
+                    <strong style="color:olive">Solicitudes de Nuevos Temas</strong>
                 </h1>
 
                 <p class="text-center">
@@ -51,19 +51,22 @@
 
                     <?php foreach($lists as $row){?>
                     <div class="col-xl-6 col-lg-6 col-md-6">
-                        <div class="card ms-feature">
-                            <div class="card-body text-center">
-                                <h4 class="text-normal text-center">
+                        <div class="card card card-primary ms-feature">
+                            <div class="card-body text-center card-primary">
+
+                                <h4 class="text-normal text-center color-primary">
                                     <?php echo $row['psc_name']?>
                                 </h4>
                                 <p>
                                     <?php echo $row['description']?>
-                                    <li>Creado por:
-                                        <?php echo $row['u_name']?> <?php echo $row['u_last_name']?>
-                                    </li>
-                                    <li>Categoría:
-                                        <?php echo $row['c_name']?>
-                                    </li>                             
+                                    <ul class="list-unstyled">
+                                        <li>Creado por:
+                                            <?php echo $row['u_name']?> <?php echo $row['u_last_name']?>
+                                        </li>
+                                        <li>Categoría:
+                                            <?php echo $row['c_name']?>
+                                        </li>  
+                                    </ul>                           
                                 </p>
 
                                 <div align="center">

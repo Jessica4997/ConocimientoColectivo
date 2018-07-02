@@ -9,7 +9,7 @@
 				<div class="card-body">
 					<form class="form-horizontal" id="workshop_form">
             <input type="hidden" id="workshop_form_page" name="page" value="<?php echo $pagination;?>">
-						<h4 class="mb-1 no-mt">Categorías</h4>
+						<h4 class="mb-1 no-mt color-primary"><strong>Categorías</strong></h4>
 
 						<fieldset>
 							<?php foreach($lis as $rowc){
@@ -23,7 +23,7 @@
 								<?php }?>
 						</fieldset>
 						<div class="form-group">
-							<input type="text" name="q" class="form-control" value="<?php echo $q?>" placeholder="buscar" > </div>
+							<input type="text" name="q" class="form-control" value="<?php echo $q?>" placeholder="Buscar ....." > </div>
 						<button type="submit" class="btn btn-primary btn-raised btn-block">
 							<i class="zmdi zmdi-search"></i>Buscar</button>
 					</form>
@@ -33,7 +33,7 @@
 
 			<div class="col-lg-9">
 				<h1 align="center">
-					<strong>Talleres</strong>
+					<strong style="color:olive">Lista de Talleres</strong>
 				</h1>
 
 				<p class="text-center">
@@ -75,31 +75,32 @@
 
 
 				<div class="row" id="Container">
-					<?php
-					$hora_ini = date("g:i a", strtotime("15:30:00"));
-					?>
-
+	
 					<?php foreach($lists as $row){?>
 					<div class="col-xl-6 col-lg-6 col-md-6" data-price="<?php echo $row['amount']?>">
-						<div class="card ms-feature">
-							<div class="card-body text-center">
-								<h4 class="text-normal text-center">
-									<?php echo $row['title']?>
+						<div class="card card card-primary ms-feature">
+							<div class="card-body text-center card-primary">
+								<h4 class="text-normal text-center color-primary">
+									<strong><?php echo $row['title']?></strong>
 								</h4>
 								<p>
 									<?php echo $row['description']?>
-									<li>Categoría:
-										<?php echo $row['name']?> - <?php echo $row['sub_name']?> 
-									</li>
-									<li>Nivel:
-										<?php echo $row['level_name']?>
-									</li>
-									<li>Fecha:
-										<?php echo $row['start_date']?>
-									</li>
-									<li>Horario:
-										<?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?>
-									</li>
+
+									<ul class="list-unstyled">
+										<li>Categoría:
+											<?php echo $row['name']?> - <?php echo $row['sub_name']?> 
+										</li>
+										<li>Nivel:
+											<?php echo $row['level_name']?>
+										</li>
+										<li>Fecha:
+											<?php echo $row['start_date']?>
+										</li>
+										<li>Horario:
+											<?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?>
+										</li>
+									</ul>
+
 								</p>
 
 								<span class="ms-tag ms-tag-success">S/.

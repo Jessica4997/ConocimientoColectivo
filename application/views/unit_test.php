@@ -1,7 +1,7 @@
 <!--<?php echo $validate_hour1; ?>-->
 <h3 align="center">WORKSHOP MODEL</h3>
 <?php echo $workshop_info_by_id; ?>
-<?php echo $workshop_create; ?>
+
 <?php echo $categories_list; ?>
 <?php echo $subcategories_list; ?>
 <?php echo $filter_subcategories_list; ?>

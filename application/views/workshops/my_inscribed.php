@@ -1,15 +1,18 @@
 <div class="container text-center mb-6">
   <div class="container">
-    <h1 class="no-m ms-site-title center-block ms-site-title-lg mb-6">Mis Talleres Matriculados</h1>
+    <h1 class="no-m ms-site-title center-block ms-site-title-lg" style="color: olive"><strong>Mis Postulaciones a Talleres</strong></h1>
 
   <form id="workshop_form">
     <h2 class="color-primary">Buscar</h2>
     <div class="form-group">
-      <input type="text" name="q" class="form-control" value="<?php echo $q?>"> </div>
+      <input type="text" name="q" placeholder="Buscar ...." class="form-control" value="<?php echo $q?>"> </div>
       <input type="hidden" name="page" id="workshop_form_page" value="<?php echo $pagination?>"> 
       <button type="submit" class="btn btn-primary btn-raised btn-block">
         <i class="zmdi zmdi-search"></i>Buscar</button>
   </form>
+  <p align="text-center">
+    <label style="color:red">Nota: Los resultados finales de tu postulación se verán un día antes del inicio del taller</label>
+  </p>
 
 </div>
 
@@ -19,17 +22,37 @@
     <div class="col-xl-6 col-lg-6 col-md-6">
       <div class="card ms-feature">
         <div class="card-body text-center">
-          <h4 class="text-normal text-center"> <?php echo $row['title']?></h4>
+
+            <?php
+              if ($row['level_name'] == 'Básico') {
+                $color = "chartreuse";
+              }elseif ($row['level_name'] == 'Intermedio') {
+                $color = "gold";
+              }elseif ($row['level_name'] == 'Avanzado') {
+                $color = "red";
+              }
+            ?>
+
+
+            <?php
+              if ($row['iu_status'] == 'Confirmado') {
+                $color2 = "yellowgreen";
+              }elseif ($row['iu_status'] == 'No confirmado') {
+                $color2 = "red";
+              }
+            ?>
+
+          <h4 class="text-normal text-center color-primary"> <?php echo $row['title']?></h4>
           <p>
             <?php echo $row['description']?>
-            <li>Categoría: <?php echo $row['category_name']?></li>
-            <li>Sub-categoría: <?php echo $row['subcategory_name']?></li>
-            <li>Nivel: <?php echo $row['level_name']?></li>
-            <li>Fecha: <?php echo date("d-m-Y", strtotime($row['start_date']))?></li>
-            <li>Horario: <?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?></li>
-            <li>Estado de Postulación: <?php echo $row['iu_status']?></li>
-
-            <label style="color:red">Nota: Los resultados finales de tu postulación se verán un día antes del inicio del taller</label>
+            <ul class="list-unstyled">
+              <li>Categoría: <?php echo $row['category_name']?></li>
+              <li>Sub-categoría: <?php echo $row['subcategory_name']?></li>
+              <li style="color: <?php echo $color?>">Nivel: <?php echo $row['level_name']?></li>
+              <li>Fecha: <?php echo date("d-m-Y", strtotime($row['start_date']))?></li>
+              <li>Horario: <?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?></li>
+              <li style="color: <?php echo $color2?>">Estado de Postulación: <?php echo $row['iu_status']?></li>
+            </ul>
             
             <?php
             if($row['student_rating']){
@@ -40,7 +63,7 @@
               $calification = "Aún no se califica";
             }
             ?>
-            <h4 style="color: green">Calificación: <?php echo $calification?></h4>
+            <h4 style="color: green; font-weight: bold;">Calificación: <?php echo $calification?></h4>
           </p>
 
             <span class="ms-tag ms-tag-success">S/.<?php echo $row['amount']?></span>

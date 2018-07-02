@@ -14,13 +14,14 @@
                             </div>
                              <img src="uploads/dog.jpg" alt="" class="img-avatar-circle"> </div>
                         <div class="card-body pt-4 text-center">
-                            <h3 class="color-primary">Biografía</h3>
+                            <h3 class="color-primary" style="font-weight: bold;">Biografía</h3>
                             <p>
                                 <?php echo $user_data['description']?>
                                 <br>
-                                S<i class="fa fa-star" style="color: goldenrod" id="s_rating"><?php echo $user_data['student_rating']?></i>
+                                <h4 class="color-primary" align="center" style="font-weight: bold;">Calificaciones</h4>
+                                <label style="color: olive">Como Estudiante: </label> <i class="fa fa-star" style="color: goldenrod" id="s_rating"><?php echo $user_data['student_rating']?></i>
                                 <br>
-                                T<i class="fa fa-star" style="color: goldenrod" id="t_rating"><?php echo $user_data['tutor_rating']?></i>
+                                <label style="color: olive">Como Profesor: </label> <i class="fa fa-star" style="color: goldenrod" id="t_rating"><?php echo $user_data['tutor_rating']?></i>
                             </p>
 
                         </div>
@@ -30,17 +31,17 @@
                 <div class="col-lg-12 col-md-12 order-md-3 order-lg-2">
                     <form enctype="multipart/form-data" action="<?php echo site_url('profile_page/upload_profile_photo')?>" method="POST">
                         <input type="file" name="profile_photo">
-                        <input type="submit" value="Subir archivo" class="btn btn-royal btn-raised btn-block">
+                        <input type="submit" value="Subir archivo" class="btn btn-info btn-raised btn-block">
                     </form>
                 </div>
 
                 <div class="col-lg-12 col-md-12 order-md-3 order-lg-2">
-                    <a href="<?php echo site_url('profile_page/show_edit_profile')?>" class="btn btn-warning btn-raised btn-block">
+                    <a href="<?php echo site_url('profile_page/show_edit_profile')?>" class="btn btn-success btn-raised btn-block">
                         <i class="zmdi zmdi-edit"></i>Editar Perfil</a>
                 </div>
 
                 <div class="col-lg-12 col-md-12 order-md-3 order-lg-2">
-                    <a href="<?php echo site_url('profile_page/show_edit_password')?>" class="btn btn-success btn-raised btn-block">
+                    <a href="<?php echo site_url('profile_page/show_edit_password')?>" class="btn btn-royal btn-raised btn-block">
                         <i class="zmdi zmdi-edit"></i>Cambiar contraseña</a>
                 </div>
             </div>
@@ -54,7 +55,7 @@
                     <div class="card card-info card-body text-center">
                         <h2 class="color-info"><?php echo $total_workshops?></h2>
                         <i class="fa fa-4x fa-file-text color-info"></i>
-                        <p class="mt-2 no-mb lead small-caps color-info">Talleres Creados</p>
+                        <p class="mt-2 no-mb lead small-caps color-info">Mis Talleres Creados</p>
                     </div>
                 </div>
                 <div class="col-sm-4">

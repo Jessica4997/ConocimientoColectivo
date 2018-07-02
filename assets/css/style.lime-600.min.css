@@ -17661,6 +17661,9 @@ body.lb-disable-scrolling {
 }
 
 @media(max-width:767px) {
+	.ms-header {
+		display: none
+	}
 	.container-full {
 		min-width: 100%
 	}

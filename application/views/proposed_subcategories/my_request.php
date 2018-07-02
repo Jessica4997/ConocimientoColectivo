@@ -1,12 +1,12 @@
 <div class="container text-center mb-6">
   <div class="container">
 
-    <h1 class="no-m ms-site-title center-block ms-site-title-lg mb-6">Mis Solicitudes de Nuevos Temas</h1>
+    <h1 class="no-m ms-site-title center-block ms-site-title-lg" style="color: olive"><strong>Mis Solicitudes de Nuevos Temas</strong></h1>
 
       <form id="workshop_form">
     <h2 class="color-primary">Buscar</h2>
     <div class="form-group">
-      <input type="text" name="q" class="form-control" value="<?php echo $q?>"> </div>
+      <input type="text" name="q" placeholder="Buscar ...." class="form-control" value="<?php echo $q?>"> </div>
       <input type="hidden" name="page" id="workshop_form_page" value="<?php echo $pagination?>"> 
       <button type="submit" class="btn btn-primary btn-raised btn-block">
         <i class="zmdi zmdi-search"></i>Buscar</button>
@@ -17,11 +17,12 @@
 
     <?php foreach($request_list as $row){?>
     <div class="col-xl-6 col-lg-6 col-md-6">
-      <div class="card ms-feature">
+      <div class="card card card-primary ms-feature">
         <div class="card-body text-center">
-          <h4 class="text-normal text-center"> <?php echo $row['psc_name']?></h4>
+          <h4 class="text-normal text-center color-primary"> <?php echo $row['psc_name']?></h4>
           <p>
             <?php echo $row['description']?>
+            <ul class="list-unstyled">
             <li>Categoría: <?php echo $row['c_name']?></li>
 
               <?php if(($row['votes_quantity']) != null){
@@ -31,9 +32,9 @@
               }
               ?>
 
-            
             <li>Cantidad de Votos: <?php echo $quantity_votes?></li>
-            <h4 style="color:yellowgreen">Estado: <?php echo $row['psc_status']?></h4>
+            </ul>
+            <h4 style="color:yellowgreen; font-weight: bold;">Estado: <?php echo $row['psc_status']?></h4>
           </p>
         
         </div>
