@@ -9,7 +9,7 @@
             <div class="card-body">
                 <form class="form-horizontal" id="workshop_form">
                     <input type="hidden" id="workshop_form_page" name="page" value="<?php echo $pagination;?>">
-                    <h4 class="no-mt">Categorías</h4>
+                    <h4 class="no-mt color-primary"><strong>Categorías</strong></h4>
 
                     <fieldset>
                         <?php foreach($lis as $rowc){
@@ -26,7 +26,7 @@
                 
                 <h2 class="color-primary">Buscar</h2>
                 <div class="form-group">
-                    <input type="text" name="q" class="form-control" value="<?php echo $q?>" > </div>
+                    <input type="text" name="q" placeholder="Buscar ...." class="form-control" value="<?php echo $q?>" > </div>
                     <button type="submit" class="btn btn-primary btn-raised btn-block">
                         <i class="zmdi zmdi-search"></i>Buscar</button>
                     </form>
@@ -37,40 +37,53 @@
 
             <div class="col-lg-9">
                 <h1 align="center">
-                    <strong>Solicitudes de Talleres</strong>
+                    <strong style="color:olive">Lista de Solicitudes de Talleres</strong></h1>
                 </h1>
 
                 <div class="row" id="Container">
 
                     <?php foreach($lists as $row){?>
                     <div class="col-xl-6 col-lg-6 col-md-6">
-                        <div class="card ms-feature">
+                        <div class="card card card-primary ms-feature">
                             <div class="card-body text-center">
-                                <h4 class="text-normal text-center">
-                                    <?php echo $row['title']?>
+
+                                    <?php
+                                      if ($row['level_name'] == 'Básico') {
+                                        $color = "chartreuse";
+                                      }elseif ($row['level_name'] == 'Intermedio') {
+                                        $color = "gold";
+                                      }elseif ($row['level_name'] == 'Avanzado') {
+                                        $color = "red";
+                                      }
+                                    ?>
+
+                                <h4 class="text-normal text-center color-primary">
+                                    <strong><?php echo $row['title']?></strong> 
                                 </h4>
                                 <p>
                                     <?php echo $row['description']?>
 
-                                    <li>Creado por:
-                                        <?php echo $row['u_name']?> <?php echo $row['u_last_name']?>
-                                    </li>
+                                    <ul class="list-unstyled">
+                                        <li>Creado por:
+                                            <?php echo $row['u_name']?> <?php echo $row['u_last_name']?>
+                                        </li>
 
-                                    <li>Categoría:
-                                        <?php echo $row['name']?> - <?php echo $row['sub_name']?>
-                                    </li>
+                                        <li>Categoría:
+                                            <?php echo $row['name']?> - <?php echo $row['sub_name']?>
+                                        </li>
 
-                                    <li>Nivel:
-                                        <?php echo $row['level_name']?>
-                                    </li>
+                                        <li style="color: <?php echo $color?>">Nivel:
+                                            <?php echo $row['level_name']?>
+                                        </li>
 
-                                    <li>Fecha:
-                                        <?php echo $row['start_date']?>
-                                    </li>
+                                        <li>Fecha:
+                                            <?php echo $row['start_date']?>
+                                        </li>
 
-                                    <li>Horario:
-                                        <?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?>
-                                    </li>
+                                        <li>Horario:
+                                            <?php echo date("H:i", strtotime($row['start_time']))?> - <?php echo date("H:i", strtotime($row['end_time']))?>
+                                        </li>
+                                    </ul>
                                 </p>
 
                                 <div align="center">

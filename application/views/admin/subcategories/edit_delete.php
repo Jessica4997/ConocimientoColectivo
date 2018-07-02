@@ -1,12 +1,12 @@
       <div class="ms-hero-page-override ms-hero-img-airplane ms-bg-fixed ms-hero-bg-dark-light">
         <div class="container">
           <div class="text-center">
-            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Editar Datos</h1>
+            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2">Editar Datos</h1>
           </div>
         </div>
       </div>
       <div class="container">
-        <div class="card card-primary card-hero animated fadeInUp animation-delay-7">
+        <div class="card card-primary card-hero">
           <div class="card-body">
             <form method="post" action="<?php echo site_url('admin/edit_subcategory/' .$sc_id['id'])?>" class="form-horizontal">
               <fieldset>

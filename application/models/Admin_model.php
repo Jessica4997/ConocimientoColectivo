@@ -1051,15 +1051,14 @@ class Admin_model extends CI_Model {
       $data = array(
         'sub_name' => $psc_data['psc_name'],
         'categories_id' => $psc_data['c_id'],
-        'removed' => 'Activo',
-        'psc_status'=> 'Aperturado'
+        'removed' => 'Activo'
       );
       $this->db->insert('subcategories', $data);
     }
 
     public function change_proposed_subcategory_status($id){
       $data = array(
-        'status' => 'En Curso'
+        'psc_status' => 'En Curso'
       );
       $this->db->update('proposed_subcategories', $data, array('id' => $id));
     }

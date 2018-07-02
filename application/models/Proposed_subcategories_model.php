@@ -124,7 +124,9 @@ class Proposed_subcategories_model extends CI_Model {
             id,
             name
       FROM
-        categories;";
+        categories
+        WHERE removed = 'Activo';
+        ";
 
         $query = $this->db->query($sql);
         

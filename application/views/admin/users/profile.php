@@ -2,18 +2,25 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="row">
+
                 <div class="col-lg-12 col-md-12 order-md-3 order-lg-2">
-                    <a href="<?php echo site_url('admin/show_edit_profile/' .$list['id'])?>" class="btn btn-warning btn-raised btn-block">
+                    <a href="<?php echo site_url('admin/show_edit_profile/' .$list['id'])?>" class="btn btn-info btn-raised btn-block">
                         <i class="zmdi zmdi-edit"></i>Editar Datos</a>
                 </div>
                 <div class="col-lg-12 col-md-12 order-md-3 order-lg-2">
-                    <a href="<?php echo site_url('admin/show_edit_password/' .$list['id'])?>" class="btn btn-success btn-raised btn-block ">
+                    <a href="<?php echo site_url('admin/show_edit_password/' .$list['id'])?>" class="btn btn-warning btn-raised btn-block ">
                         <i class="zmdi zmdi-edit"></i>Editar Contraseña</a>
                 </div>
                 <div class="col-lg-12 col-md-12 order-md-3 order-lg-2">
                     <a href="<?php echo site_url('admin/remove_users/' .$list['id'])?>" class="btn btn-danger btn-raised btn-block ">
                         <i class="zmdi zmdi-delete"></i>Eliminar</a>
                 </div>
+
+                <div class="col-lg-12 col-md-12 order-md-3 order-lg-2">
+                    <a href="<?php echo site_url('admin/remove_users/' .$list['id'])?>" class="btn btn-success btn-raised btn-block">
+                        <i class="zmdi zmdi-delete"></i>Volver a Agregar</a>
+                </div>
+
             </div>
         </div>
 

@@ -80,6 +80,17 @@
 					<div class="col-xl-6 col-lg-6 col-md-6" data-price="<?php echo $row['amount']?>">
 						<div class="card card card-primary ms-feature">
 							<div class="card-body text-center card-primary">
+
+                                    <?php
+                                      if ($row['level_name'] == 'Básico') {
+                                        $color = "chartreuse";
+                                      }elseif ($row['level_name'] == 'Intermedio') {
+                                        $color = "gold";
+                                      }elseif ($row['level_name'] == 'Avanzado') {
+                                        $color = "red";
+                                      }
+                                    ?>
+
 								<h4 class="text-normal text-center color-primary">
 									<strong><?php echo $row['title']?></strong>
 								</h4>
@@ -90,7 +101,7 @@
 										<li>Categoría:
 											<?php echo $row['name']?> - <?php echo $row['sub_name']?> 
 										</li>
-										<li>Nivel:
+										<li style="color: <?php echo $color?>">Nivel:
 											<?php echo $row['level_name']?>
 										</li>
 										<li>Fecha:

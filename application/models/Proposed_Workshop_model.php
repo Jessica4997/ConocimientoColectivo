@@ -148,7 +148,9 @@ class Proposed_Workshop_model extends CI_Model {
             id,
             name
       FROM
-        categories;";
+        categories
+        WHERE removed = 'Activo';
+        ";
 
         $query = $this->db->query($sql);
         
