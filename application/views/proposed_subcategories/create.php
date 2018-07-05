@@ -19,7 +19,7 @@
                         <fieldset>
 
                             <div class="row form-group">
-                                <label for="" class="col-md-2 control-label">Categoría</label>
+                                <label for="" class="col-md-2 control-label">Categoría (obligatorio)</label>
                                 <div class="col-md-9">
 
                                     <select name="categoria" class="form-control selectpicker">
@@ -34,7 +34,7 @@
                             </div>
 
                             <div class="row form-group">
-                                <label for="" class="col-md-2 control-label">Nombre</label>
+                                <label for="" class="col-md-2 control-label">Nombre (obligatorio)</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" placeholder="Título" name="nombre_subcategoria" onkeypress="return only_letters(event)" > </div>
                             </div>

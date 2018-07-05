@@ -31,12 +31,23 @@ class Profile_Page extends CI_Controller {
 		$total_workshops = $this->user_model->get_total_workshops_by_user($this->user_id);
 		$total_proposed_workshops = $this->user_model->get_total_proposed_workshops_by_user($this->user_id);
 		$total_inscriptions = $this->user_model->get_total_inscriptions_by_user($this->user_id);
+
+		$error = $this->input->get('message');
+
+		$profile_photo_name = $this->user_model->get_profile_photo_name($this->user_id);
+
+		$name_pp = $profile_photo_name['name'];
+
+		//var_dump($name_pp);exit();
+
 		$dataView=[
 			'page'=>'users/profile',
 			'user_data'=>$data_profile,
 			'total_workshops'=>$total_workshops,
 			'total_proposed_workshops'=>$total_proposed_workshops,
-			'total_inscriptions'=>$total_inscriptions
+			'total_inscriptions'=>$total_inscriptions,
+			'error'=>$error,
+			'profile_photo_name'=>$name_pp
 		];
 		$this->load->view('template/basic',$dataView);
 	}
@@ -108,26 +119,37 @@ class Profile_Page extends CI_Controller {
 		$uploadedfileload="true";
 		$uploadedfile_size=$_FILES['profile_photo']['size'];
 		echo $_FILES['profile_photo']['name'];
-		if ($_FILES['profile_photo']['size']>200000){
-			echo "El archivo es mayor que 200KB, debes reducirlo antes de subirlo<BR>";
+		if ($_FILES['profile_photo']['size']>600000){
+			//echo "El archivo es mayor que 200KB, debes reducirlo antes de subirlo<BR>";
+			$error = urlencode("El archivo es mayor que 600KB, debes reducirlo antes de subirlo");
 			$uploadedfileload="false";
+
+			redirect('profile_page?message='.$error,'refresh');
+
 		}
 
-		if (!($_FILES['profile_photo']['type'] =="image/jpeg" OR $_FILES['profile_photo']['type'] =="image/gif")){
-			echo " Tu archivo tiene que ser JPG o GIF. Otros archivos no son permitidos<BR>";
+		if (!($_FILES['profile_photo']['type'] =="image/jpeg" OR $_FILES['profile_photo']['type'] =="image/gif" OR $_FILES['profile_photo']['type'] =="image/png")){
+			//echo "Tu archivo tiene que ser JPG o GIF. Otros archivos no son permitidos<BR>";
 			$uploadedfileload="false";
+
+			$error = urlencode("Tu archivo tiene que ser JPG o GIF. Otros archivos no son permitidos");
+			redirect('profile_page?message='.$error,'refresh');
 		}
 
 		$file_name=$_FILES['profile_photo']['name'];
 		$add="uploads/$file_name";
 		if($uploadedfileload=="true"){
 			if(move_uploaded_file ($_FILES['profile_photo']['tmp_name'], $add)){
-				echo " Ha sido subido satisfactoriamente";
+				//var_dump($file_name);exit();
+				//echo " Ha sido subido satisfactoriamente";
+				$this->user_model->insert_to_profile_photo($this->user_id, $file_name);
+				redirect('profile_page','refresh');
+
 			}else{
 				echo "Error al subir el archivo";
 			}
 		}else{
-			echo "NO SE";
+			echo "Error al subir el archivo";
 		}
 	}
 }

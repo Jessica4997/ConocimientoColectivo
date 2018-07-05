@@ -1,7 +1,7 @@
       <div class="ms-hero-page-override ms-hero-img-airplane ms-bg-fixed ms-hero-bg-dark-light">
         <div class="container">
           <div class="text-center">
-            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2">Editar Datos</h1>
+            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2">Editar Contraseña</h1>
           </div>
         </div>
       </div>
@@ -22,13 +22,13 @@
               <fieldset>
 
                 <div class="row form-group">
-                  <label for="inputPassword" class="col-md-2 control-label">Contraseña</label>
+                  <label for="inputPassword" class="col-md-2 control-label">Contraseña (obligatorio)</label>
                   <div class="col-md-9">
                     <input type="password" class="form-control" name="contrasena" placeholder="Contraseña" required> </div>
                 </div>
 
                 <div class="row form-group">
-                  <label for="inputPassword" class="col-md-2 control-label">Reingresar Contraseña</label>
+                  <label for="inputPassword" class="col-md-2 control-label">Reingresar Contraseña (obligatorio)</label>
                   <div class="col-md-9">
                     <input type="password" class="form-control" name="recontrasena" placeholder="Reingresar Contraseña" required> </div>
                 </div>

@@ -1,18 +1,30 @@
 <div class="container">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-        <div class="card animated zoomInDown animation-delay-5">
+        <div class="card card-primary">
             <div class="card-body">
-                <h2 align="center">
-                    <?php echo $description['title']?>
+                <h2 class="color-primary" align="center">
+                   <strong><?php echo $description['title']?></strong>
                 </h2>
 
                 <div class="row" align="center">
-                    <li class="list-unstyled"> Creado por:
+                    <li class="list-unstyled ml-2"> Creado por:
                         <?php echo $description['user_name']?>
                         <?php echo $description['user_last_name']?>
+                        <i class="fa fa-star" style="color: goldenrod; font-size: 20px;" id="s_rating"><?php echo $description['user_student_rating']?></i>
 
                     </li>
                 </div>
+
+
+                   <?php
+                      if ($description['level_name'] == 'Básico') {
+                        $color = "chartreuse";
+                      }elseif ($description['level_name'] == 'Intermedio') {
+                        $color = "gold";
+                      }elseif ($description['level_name'] == 'Avanzado') {
+                        $color = "red";
+                      }
+                    ?>                      
 
                 <p class="lead" align="center">
                     <?php echo $description['description']?>
@@ -27,7 +39,7 @@
                         <?php echo $description['subcategory_name']?>
                     </li>
 
-                    <li> Nivel:
+                    <li style="color: <?php echo $color?>"> Nivel:
                         <?php echo $description['level_name']?>
                     </li>
 

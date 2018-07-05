@@ -19,13 +19,13 @@
                   <fieldset>
 
                   <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Título</label>
+                      <label for="" class="col-md-2 control-label">Título (obligatorio)</label>
                       <div class="col-md-9">
                         <input type="text" class="form-control" placeholder="Título" name="titulo" onkeypress="return only_letters(event)" onpaste="return false" required> </div>
                     </div>
 
                     <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Sub-categoría</label>
+                      <label for="" class="col-md-2 control-label">Sub-categoría (obligatorio)</label>
                       <div class="col-md-9">
                         <select name="subcategoria" class="form-control selectpicker">
                           <?php foreach($list_sc as $rowsc){?>
@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Nivel</label>
+                      <label for="" class="col-md-2 control-label">Nivel (obligatorio)</label>
                       <div class="col-md-9">
                         <select name="nivel" class="form-control selectpicker">
                           <?php foreach($level_list as $rowi){?>
@@ -54,32 +54,32 @@
                       $fechaActual = date('Y-m-d\TH:i');
                       ?>
 
-                      <label class="col-md-2 control-label">Fecha</label>
+                      <label class="col-md-2 control-label">Fecha (obligatorio)</label>
                       <div class="col-md-9">
                         <input class="mydatepicker" type="text" name="fecha" placeholder="mes/día/año" required> </div>
                     </div>
 
 
                     <div class="row form-group">
-                      <label for="inputDate" class="col-md-2 control-label">Hora de Inicio</label>
+                      <label for="inputDate" class="col-md-2 control-label">Hora de Inicio (obligatorio)</label>
                       <div class="col-md-9">
                         <input class="timepicker" type="text" name="hora_inicio" placeholder="   -- : -- --" value="" required> </div>
                     </div>
 
                     <div class="row form-group">
-                      <label for="inputDate" class="col-md-2 control-label">Hora de Fin</label>
+                      <label for="inputDate" class="col-md-2 control-label">Hora de Fin (obligatorio)</label>
                       <div class="col-md-9">
                         <input class="timepicker" type="text" name="hora_fin" placeholder="   -- : -- --" required> </div>
                     </div>
 
                     <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Cantidad de Vacantes</label>
+                      <label for="" class="col-md-2 control-label">Cantidad de Vacantes (obligatorio)</label>
                       <div class="col-md-9">
-                        <input type="number" name="vacantes" min="1" max="10" class="form-control" placeholder="Cantidad de Vacantes" onkeypress="return only_numbers(event)" onpaste="return false" required> </div>
+                        <input type="number" name="vacantes" class="form-control" placeholder="Cantidad de Vacantes" onkeypress="return only_numbers(event)" onpaste="return false" required> </div>
                     </div>
 
                     <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Monto</label>
+                      <label for="" class="col-md-2 control-label">Monto (obligatorio)</label>
                       <div class="col-md-9">
                         <input type="number" name="monto" min="1" onkeypress="return only_numbers(event)" onpaste="return false" class="form-control" id="" placeholder="Monto" required> </div>
                     </div>

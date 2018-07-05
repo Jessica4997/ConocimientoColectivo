@@ -1,6 +1,18 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-4">
+
+                  <?php if($error){?>
+                  <div class="alert alert-danger alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="zmdi zmdi-close"></i>
+                  </button>
+                  <?php echo $error;?>
+                  </div>
+                  <?php }?>
+
+
+
             <div class="row">
                 <div class="col-lg-12 col-md-6 order-md-1">
                     <div class="card">
@@ -12,16 +24,19 @@
                             <div class="color-medium index-1 text-center np-m">
                                 <?php echo $user_data['email']?>
                             </div>
-                             <img src="uploads/dog.jpg" alt="" class="img-avatar-circle"> </div>
+                             <img src="/uploads/<?php echo $profile_photo_name?>" alt="" class="img-avatar-circle"> </div>
                         <div class="card-body pt-4 text-center">
                             <h3 class="color-primary" style="font-weight: bold;">Biografía</h3>
                             <p>
                                 <?php echo $user_data['description']?>
+
+                            <?php if($this->session->userdata('s_urole') != 'Admin'){ ?>
                                 <br>
                                 <h4 class="color-primary" align="center" style="font-weight: bold;">Calificaciones</h4>
-                                <label style="color: olive">Como Estudiante: </label> <i class="fa fa-star" style="color: goldenrod" id="s_rating"><?php echo $user_data['student_rating']?></i>
+                                <label style="color: olive">Como Estudiante: </label> <i class="fa fa-star" style="color: goldenrod; font-size: 20px;" id="s_rating"><?php echo $user_data['student_rating']?></i>
                                 <br>
-                                <label style="color: olive">Como Profesor: </label> <i class="fa fa-star" style="color: goldenrod" id="t_rating"><?php echo $user_data['tutor_rating']?></i>
+                                <label style="color: olive">Como Profesor: </label> <i class="fa fa-star" style="color: goldenrod; font-size: 20px;" id="t_rating"><?php echo $user_data['tutor_rating']?></i>
+                            <?php }?>
                             </p>
 
                         </div>
@@ -74,11 +89,13 @@
                 </div>
             </div>
             <?php }?>
+            
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="zmdi zmdi-account-circle"></i>INFORMACIÓN DE PERFIL</h3>
                 </div>
+                <div style="overflow-x:auto;">
                 <table class="table table-no-border ">
                     <tr>
                         <th style="color: olive">NOMBRES</th>
@@ -117,7 +134,8 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+                </div>
+        </div>
 
 
         </div>

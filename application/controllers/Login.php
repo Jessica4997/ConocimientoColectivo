@@ -88,7 +88,7 @@ class Login extends CI_Controller {
 
 		if($_POST['contrasena'] === $_POST['recontrasena']){
 		$this->user_model->update_user_password($_POST);
-		redirect('','refresh');
+		redirect('login','refresh');
 		}else{
 			$error = urlencode("Las contraseñas ingresadas no coincidian");
 			redirect('login/show_forgot_password?message='.$error, 'refresh');exit();

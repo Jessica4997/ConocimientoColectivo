@@ -1,6 +1,5 @@
 <div class="container">
-  
-    <h2 align="center">Reportes</h2>
+  <h2 align="center" class="color-primary" style="font-weight: bold" >Reportes</h2>
   <div align="center">
     <form method="post" action="<?php echo site_url('admin/to_pdf')?>">
     <label>Seleccionar Mes</label>
@@ -22,10 +21,11 @@
 </form>
 
   </div>
-  
-  <h3>Categoría más Solicitada</h3>
+
+  <h3 align="center" class="color-primary" style="font-weight: bold" >Categoría más Solicitada</h3>
+
 <canvas id="popular_category_chart" width="40" height="10"></canvas>
-  <h3>Inscripciones por Mes</h3>
+<h3 align="center" class="color-primary" style="font-weight: bold" >Inscripciones por Mes</h3>
 <canvas id="workshop_inscriptions_per_month" width="40" height="10"></canvas>
 
 
@@ -47,88 +47,114 @@
     </select>
 </form>
 
-<h3>Inscripciones a Talleres por Mes  <button class="btn btn-primary" id="btn_w_insciption_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_inscriptions">Ocultar</button> </h3>
+
+<h3 class="color-primary" style="font-weight: bold" >Inscripciones a Talleres por Mes  <button class="btn btn-primary" id="btn_w_insciption_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_inscriptions">Ocultar</button> </h3>
 <div id="w_insciption_per_month">
-  <label>Cantidad de Inscripciones:</label> 
-    <table class="table">
+  <label>Cantidad de Inscripciones:</label>
+
+  <div class="card">
+    <div style="overflow-x:auto;">
+      <table class="table table-no-border table-striped">
+        <thead>
+          <tr class="color-white">
+            <th style="background: #c0ca33">Estado</th>
+            <th style="background: #c0ca33">Nombres</th>
+            <th style="background: #c0ca33">Taller</th>
+            <th style="background: #c0ca33">Categoría</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+
+<h3 class="color-primary" style="font-weight: bold" >Solicitudes de Talleres por Mes <button class="btn btn-primary" id="btn_proposed_workshops_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_pw_per_month">Ocultar</button> </h3>
+<div id="proposed_workshops_per_month">
+  <label>Cantidad de Solicitudes:</label> 
+
+  <div class="card">
+    <div style="overflow-x:auto;">
+      <table class="table table-no-border table-striped">
+        <thead>
+          <tr class="color-white">
+            <th style="background: #c0ca33">Taller</th>
+            <th style="background: #c0ca33">Categoría</th>
+            <th style="background: #c0ca33">Creado por</th>
+            <th style="background: #c0ca33">Cantidad de Votos</th>
+            <th style="background: #c0ca33">Estado de la Solicitud</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+<h3 class="color-primary" style="font-weight: bold" >Solicitudes de Subcategorías por Mes <button class="btn btn-primary" id="btn_proposed_subcategories_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_psc_per_month">Ocultar</button></h3>
+<div id="proposed_subcategories_per_month">
+<label>Cantidad de Solicitudes:</label>
+
+<div class="card">
+  <div style="overflow-x:auto;">
+    <table class="table table-no-border table-striped">
       <thead>
-        <tr>
-          <th>Estado</th>
-          <th>Nombres</th>
-          <th>Taller</th>
-          <th>Categoría</th>
+        <tr class="color-white">
+          <th style="background: #c0ca33">Subcategoría Propuesta</th>
+          <th style="background: #c0ca33">Categoría Principal</th>
+          <th style="background: #c0ca33">Creado por</th>
+          <th style="background: #c0ca33">Cantidad de Votos</th>
+          <th style="background: #c0ca33">Estado de la Solicitud</th>
         </tr>
       </thead>
     </table>
-
+  </div>
 </div>
 
-
-<h3>Solicitudes de Talleres por Mes <button class="btn btn-primary" id="btn_proposed_workshops_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_pw_per_month">Ocultar</button> </h3>
-<div id="proposed_workshops_per_month">
-  <label>Cantidad de Solicitudes:</label> 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Taller</th>
-      <th>Categoría</th>
-      <th>Creado por</th>
-      <th>Cantidad de Votos</th>
-      <th>Estado de la Solicitud</th>
-    </tr>
-  </thead>
-</table>
-</div>
-
-<h3>Solicitudes de Subcategorías por Mes <button class="btn btn-primary" id="btn_proposed_subcategories_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_psc_per_month">Ocultar</button></h3>
-<div id="proposed_subcategories_per_month">
-<label>Cantidad de Solicitudes:</label>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Subcategoría Propuesta</th>
-      <th>Categoría Principal</th>
-      <th>Creado por</th>
-      <th>Cantidad de Votos</th>
-      <th>Estado de la Solicitud</th>
-    </tr>
-  </thead>
-</table>
-</div>
-
-<h3>Registro de Usuarios por Mes <button class="btn btn-primary" id="btn_registrations_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_registrations_per_month">Ocultar</button></h3>
+<h3 class="color-primary" style="font-weight: bold" >Registro de Usuarios por Mes <button class="btn btn-primary" id="btn_registrations_per_month">Ver Detalles</button> <button class="btn btn-primary" id="btn_hide_registrations_per_month">Ocultar</button></h3>
 <div id="registrations_per_month">
 <label>Cantidad de Registros:</label>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Nombres</th>
-      <th>Email</th>
-      <th>Fecha de Nacimiento</th>
-      <th>Género</th>
-      <th>Calificación</th>
-    </tr>
-  </thead>
-</table>
+
+<div class="card">
+  <div style="overflow-x:auto;">
+    <table class="table table-no-border table-striped">
+      <thead>
+        <tr class="color-white">
+          <th style="background: #c0ca33">Nombres</th>
+          <th style="background: #c0ca33">Email</th>
+          <th style="background: #c0ca33">Fecha de Nacimiento</th>
+          <th style="background: #c0ca33">Género</th>
+          <th style="background: #c0ca33">Calificación</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
 </div>
 
-<h3>Categoría mas Popular</h3>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Categoría</th>
-      <th>Cantidad de Inscritos</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach($popular_categories as $rows){?>
-    <tr>
-      <td><?php echo $rows['c_name']?></td>
-      <td><?php echo $rows['iu_quantity'] ?></td>
-    </tr>
-    <?php }?> 
-  </tbody>
-</table>
+<h3 class="color-primary" style="font-weight: bold" >Categoría mas Popular</h3>
+
+    <div class="card">
+      <div style="overflow-x:auto;">
+        <table class="table table-no-border table-striped">
+          <thead>
+            <tr class="color-white">
+              <th style="background: #c0ca33">Categoría</th>
+              <th style="background: #c0ca33">Cantidad de Inscritos</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <?php foreach($popular_categories as $rows){?>
+            <tr>
+              <td><?php echo $rows['c_name']?></td>
+              <td><?php echo $rows['iu_quantity'] ?></td>
+            </tr>
+            <?php }?> 
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+
+
 </div>
 
 <script>
@@ -279,3 +305,8 @@
       });
 
 </script>
+
+</div>
+</div>
+</div>
+</div>

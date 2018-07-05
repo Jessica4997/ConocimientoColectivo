@@ -58,7 +58,7 @@ class Register_page extends CI_Controller {
                     redirect ('register_page?message='.$error,'refresh');
                 }else{
                     $this->user_model->createuser($_POST);
-                    redirect('','refresh');
+                    redirect('login','refresh');
                 }
             }
         }else{

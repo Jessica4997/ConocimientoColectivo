@@ -22,13 +22,13 @@
               <fieldset>
 
                 <div class="row form-group">
-                  <label for="inputName" class="col-md-2 control-label">Nombres</label>
+                  <label for="inputName" class="col-md-2 control-label">Nombres (obligatorio)</label>
                   <div class="col-md-9">
                     <input type="text" class="form-control" name="nombres" placeholder="Nombres" value="<?php echo $user_d['name']?>" onkeypress="return only_letters(event)" required> </div>
                 </div>
 
                 <div class="row form-group">
-                  <label for="inputLast" class="col-md-2 control-label">Apellidos</label>
+                  <label for="inputLast" class="col-md-2 control-label">Apellidos (obligatorio)</label>
                   <div class="col-md-9">
                     <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" value="<?php echo $user_d['last_name']?>" onkeypress="return only_letters(event)" required> </div>
                 </div>
@@ -43,7 +43,7 @@
                   <?php
                   $datetime = new DateTime($user_d['date_birth']);
                   ?>
-                  <label for="inputDate" class="col-md-2 control-label">Fecha de Nacimiento</label>
+                  <label for="inputDate" class="col-md-2 control-label">Fecha de Nacimiento (obligatorio)</label>
                   <div class="col-md-9">
                     <input type="text" class="mydatepicker" name="fecha_nacimiento" value="<?php echo $datetime->format('d-m-Y')?>" required> </div>
                 </div>

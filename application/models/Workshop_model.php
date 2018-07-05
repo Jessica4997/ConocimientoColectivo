@@ -177,7 +177,7 @@ class Workshop_model extends CI_Model {
   }
 
 
-  public function search_by_category_title($page,$category,$q,$rp){
+  public function search_by_category_title($page,$category,$q,$rp,$user_id){
     $page = preg_replace('([^1-9])', '', $page);
     if ($page === '') {
       $page = 1;
@@ -194,20 +194,20 @@ class Workshop_model extends CI_Model {
     }
     
 
-    $sql = $this->get_sql_search($category,$q);
+    $sql = $this->get_sql_search($category,$q,$user_id);
     $sql.=  " LIMIT {$rp} OFFSET {$offset}";
     $query = $this->db->query($sql);
     return $query->result_array();
   }
   
-  public function get_total_search($category,$q,$rp){
-    $sql = $this->get_sql_search($category,$q);
+  public function get_total_search($category,$q,$rp,$user_id){
+    $sql = $this->get_sql_search($category,$q,$user_id);
     $query = $this->db->query($sql);
     $total = $query->num_rows();
     return ceil($total/$rp);
   }
 
-  public function get_sql_search($category,$q){
+  public function get_sql_search($category,$q,$user_id){
     $sql = "SELECT 
             w.id AS w_id,
             w.title,
@@ -233,6 +233,7 @@ class Workshop_model extends CI_Model {
                 ON w.level_id = l.id
               WHERE w.removed = 'Activo'
               AND DATE_SUB(start_date, INTERVAL 2 DAY) > NOW()
+              AND w.user_id <> $user_id
                ";
       
         if(is_array($category) && count($category)>0){

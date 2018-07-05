@@ -1,6 +1,6 @@
 <div class="container">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card">
+            <div class="card card-primary">
               <div class="card-body">
 
                   <?php if($error){?>
@@ -17,8 +17,18 @@
                   <div class="row" align="center">
                     <li class="list-unstyled ml-1"> Creado por: <?php echo $description['user_name']?> <?php echo $description['user_last_name']?>
                       
-                      <i class="fa fa-star" style="color: goldenrod"><?php echo $description['user_tutor_rating']?></i>
+                      <i class="fa fa-star" style="color: goldenrod; font-size: 20px;"><?php echo $description['user_tutor_rating']?></i>
                     </li>
+
+                        <?php
+                          if ($description['level_name'] == 'Básico') {
+                            $color = "chartreuse";
+                          }elseif ($description['level_name'] == 'Intermedio') {
+                            $color = "gold";
+                          }elseif ($description['level_name'] == 'Avanzado') {
+                            $color = "red";
+                          }
+                        ?>                         
 
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" align="center">
@@ -31,7 +41,7 @@
 
                   <li> Sub-Categoría: <?php echo $description['sub_name']?></li>
 
-                  <li> Nivel: <?php echo $description['level_name']?></li>
+                  <li style="color: <?php echo $color?>"> Nivel: <?php echo $description['level_name']?></li>
 
                   <li> Fecha de Inicio: <?php echo $description['start_date']?></li>
 

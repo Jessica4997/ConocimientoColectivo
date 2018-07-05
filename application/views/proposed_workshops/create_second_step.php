@@ -19,14 +19,14 @@
                         <fieldset>
 
                             <div class="row form-group">
-                                <label for="" class="col-md-2 control-label">Título</label>
+                                <label for="" class="col-md-2 control-label">Título (obligatorio)</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" placeholder="Título" name="titulo" onkeypress="return only_letters(event)" required> </div>
                             </div>
 
 
                             <div class="row form-group">
-                                <label for="" class="col-md-2 control-label">Sub-categoría</label>
+                                <label for="" class="col-md-2 control-label">Sub-categoría (obligatorio)</label>
                                 <div class="col-md-9">
                                     <select name="sub_categoria" class="form-control selectpicker">
                                         <?php foreach($subcat as $rowsc){?>
@@ -37,7 +37,7 @@
                             </div>
 
                             <div class="row form-group">
-                                <label for="" class="col-md-2 control-label">Nivel</label>
+                                <label for="" class="col-md-2 control-label">Nivel (obligatorio)</label>
                                 <div class="col-md-9">
                                     <select name="nivel" class="form-control selectpicker">
                                         <?php foreach($level_list as $rowl){?>
@@ -50,20 +50,20 @@
                             </div>
 
                             <div class="row form-group">
-                                <label for="inputDate" class="col-md-2 control-label">Fecha</label>
+                                <label for="inputDate" class="col-md-2 control-label">Fecha (obligatorio)</label>
 
                                 <div class="col-md-9">
                                     <input class="mydatepicker" type="text" name="fecha_inicio" placeholder="mes/día/año" required> </div>
                             </div>
 
                             <div class="row form-group">
-                                <label for="inputDate" class="col-md-2 control-label">Hora de Inicio</label>
+                                <label for="inputDate" class="col-md-2 control-label">Hora de Inicio (obligatorio)</label>
                                 <div class="col-md-9">
                                     <input class="timepicker" type="text" name="hora_inicio" placeholder="   -- : -- --" required> </div>
                             </div>
 
                                 <div class="row form-group">
-                                    <label for="inputDate" class="col-md-2 control-label">Hora de Fin</label>
+                                    <label for="inputDate" class="col-md-2 control-label">Hora de Fin (obligatorio)</label>
                                     <div class="col-md-9">
                                         <input class="timepicker" type="text" name="hora_fin" placeholder="   -- : -- --" required> </div>
                                 </div>

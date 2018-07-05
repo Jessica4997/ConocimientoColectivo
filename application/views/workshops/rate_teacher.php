@@ -17,7 +17,7 @@
                     <tr>
                         <th style="color: olive">CORREO ELECTRÓNICO</th>
                         <td>
-                            <?php echo $teacher_info['email']?> <?php echo $teacher_info['iu_id']?>
+                            <?php echo $teacher_info['email']?>
                         </td>
                     </tr>
                     <tr>

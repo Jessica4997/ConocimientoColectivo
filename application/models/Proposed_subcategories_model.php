@@ -90,7 +90,8 @@ class Proposed_subcategories_model extends CI_Model {
               	  c.id AS c_id,
                   c.name AS category_name,
                   u.name AS user_name,
-                  u.last_name AS user_last_name
+                  u.last_name AS user_last_name,
+                  u.student_rating AS user_student_rating
                 FROM
                   proposed_subcategories AS psc
                   INNER JOIN categories AS c

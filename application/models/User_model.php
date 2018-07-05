@@ -183,4 +183,27 @@ class User_model extends CI_Model {
 
         return $query->num_rows();
     }
+
+    public function get_profile_photo_name($user_id){
+        $sql = "SELECT
+                name
+              FROM
+                profile_photo
+                WHERE user_id = ?
+                ORDER BY id DESC
+                    ";
+
+        $query = $this->db->query($sql,array($user_id));
+
+        return $query->row_array();
+    }
+
+
+    public function insert_to_profile_photo($user_id, $name){
+        $data = array(
+            'user_id' => $user_id,
+            'name' => $name
+    );
+        $this->db->insert('profile_photo', $data);
+    }
 }

@@ -102,6 +102,7 @@ class Proposed_Workshop_model extends CI_Model {
                   sc.sub_name AS subcategory_name,
                   u.name AS user_name,
                   u.last_name AS user_last_name,
+                  u.student_rating AS user_student_rating,
                   l.level AS level_name
                 FROM
                     proposed_workshops AS pw

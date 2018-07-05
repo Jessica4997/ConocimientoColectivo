@@ -12,8 +12,8 @@
                     </div>
                     <?php }?>
 
-                <h2 align="center">
-                    <?php echo $description['psc_name']?>
+                <h2 class="color-primary" align="center">
+                    <strong><?php echo $description['psc_name']?></strong>
                 </h2>
 
                 <div class="row" align="center">
@@ -29,6 +29,7 @@
                     <li> Creado por:
                         <?php echo $description['user_name']?>
                         <?php echo $description['user_last_name']?>
+                        <i class="fa fa-star" style="color: goldenrod; font-size: 20px;" id="s_rating"><?php echo $description['user_student_rating']?></i>
 
                     </li>
 

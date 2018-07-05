@@ -16,7 +16,7 @@
             <a class="dropdown-item" href="<?php echo site_url('my_created_workshops')?>">Mis Talleres Creados</a>
         </li>
         <li>
-            <a class="dropdown-item" href="<?php echo site_url('my_workshops')?>">Mis Talleres</a>
+            <a class="dropdown-item" href="<?php echo site_url('my_workshops')?>">Mis Postulaciones a Talleres</a>
         </li>
 
     </ul>
@@ -40,15 +40,15 @@
 
 <li class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle animated fadeIn animation-delay-9" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-name="ecommerce">
-        Solicitudes de Nuevos Temas
+        Solicitudes de Temas
         <i class="zmdi zmdi-chevron-down"></i>
     </a>
     <ul class="dropdown-menu">
         <li>
-            <a class="dropdown-item" href="<?php echo site_url('proposed_subcategories')?>">Lista de Solicitudes de Nuevos Temas</a>
+            <a class="dropdown-item" href="<?php echo site_url('proposed_subcategories')?>">Lista de Solicitudes de Temas</a>
         </li>
         <li>
-            <a class="dropdown-item" href="<?php echo site_url('proposed_subcategories/show_my_requests')?>">Mis Solicitudes de Nuevos Temas</a>
+            <a class="dropdown-item" href="<?php echo site_url('proposed_subcategories/show_my_requests')?>">Mis Solicitudes de Temas</a>
         </li>
     </ul>
 </li>
@@ -74,7 +74,7 @@
 </li>
 
 <li class="nav-item">
-    <a href="<?php echo site_url('admin/proposed_subcategories_list')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Solicitudes de Nuevos Temas</a>
+    <a href="<?php echo site_url('admin/proposed_subcategories_list')?>" class="nav-link animated fadeIn animation-delay-9" role="button" aria-haspopup="true" aria-expanded="false" data-name="inicio">Solicitudes de Temas</a>
 </li>
 
 <li class="nav-item">

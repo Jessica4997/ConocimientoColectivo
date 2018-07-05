@@ -25,33 +25,40 @@
               <fieldset>
 
                 <div class="row form-group">
-                  <label for="inputEmail" class="col-md-2 control-label">Correo Electrónico</label>
+                  <label for="inputEmail" class="col-md-2 control-label">Correo Electrónico (obligatorio)</label>
                   <div class="col-md-9">
                     <input type="email" class="form-control" name="correo" placeholder="Correo Electrónico" required> </div>
                 </div>
                 <div class="row form-group">
-                  <label for="inputPassword" class="col-md-2 control-label">Contraseña</label>
+                  <label for="inputPassword" class="col-md-2 control-label">Contraseña (obligatorio)</label>
                   <div class="col-md-9">
                     <input type="password" class="form-control" name="contrasena" placeholder="Contraseña" required> </div>
                 </div>
 
                 <div class="row form-group">
-                  <label for="inputPassword" class="col-md-2 control-label">Repetir Contraseña</label>
+                  <label for="inputPassword" class="col-md-2 control-label">Repetir Contraseña (obligatorio)</label>
                   <div class="col-md-9">
                     <input type="password" class="form-control" name="recontrasena" placeholder="Contraseña" required> </div>
                 </div>
 
                 <div class="row form-group">
-                  <label for="inputName" class="col-md-2 control-label">Nombres</label>
+                  <label for="inputName" class="col-md-2 control-label">Nombres (obligatorio)</label>
                   <div class="col-md-9">
                     <input type="text" class="form-control" name="nombres" placeholder="Nombres" onkeypress="return only_letters(event)" required> </div>
                 </div>
                 <div class="row form-group">
-                  <label for="inputLast" class="col-md-2 control-label">Apellidos</label>
+                  <label for="inputLast" class="col-md-2 control-label">Apellidos (obligatorio)</label>
                   <div class="col-md-9">
                     <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" onkeypress="return only_letters(event)" required> </div>
                 </div>
 
+                <div class="row form-group">
+                  <label for="inputDate" class="col-md-2 control-label">Fecha de Nacimiento (obligatorio)</label>
+                  <div class="col-md-9">
+                    <input class="mydatepicker" type="text" name="fecha_nacimiento" placeholder="dia/mes/año" required> </div>
+                </div>
+
+                
                 <div class="row form-group">
                   <label for="inputCel" class="col-md-2 control-label">Celular</label>
                   <div class="col-md-9">
@@ -69,11 +76,6 @@
                   </div>
                 </div>
                 
-                <div class="row form-group">
-                  <label for="inputDate" class="col-md-2 control-label">Fecha de Nacimiento</label>
-                  <div class="col-md-9">
-                    <input class="mydatepicker" type="text" name="fecha_nacimiento" placeholder="dia/mes/año" required> </div>
-                </div>
 
                 <div class="row form-group">
                   <label for="inputCel" class="col-md-2 control-label">Descripción</label>

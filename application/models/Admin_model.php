@@ -507,6 +507,7 @@ class Admin_model extends CI_Model {
                   sc.sub_name AS subcategory_name,
                   u.name AS user_name,
                   u.last_name AS user_last_name,
+                  u.student_rating AS user_student_rating,
                   l.id AS level_id,
                   l.level AS level_name
                 FROM
@@ -662,6 +663,7 @@ class Admin_model extends CI_Model {
                   sc.sub_name AS subcategory_name,
                   u.name AS user_name,
                   u.last_name AS user_last_name,
+                  u.student_rating AS user_student_rating,
                   l.id AS level_id,
                   l.level AS level_name
                 FROM
@@ -1006,7 +1008,8 @@ class Admin_model extends CI_Model {
                   c.id AS c_id,
                   c.name AS category_name,
                   u.name AS user_name,
-                  u.last_name AS user_last_name
+                  u.last_name AS user_last_name,
+                  u.student_rating AS user_student_rating
                 FROM
                   proposed_subcategories AS psc
                   INNER JOIN categories AS c
@@ -1058,7 +1061,7 @@ class Admin_model extends CI_Model {
 
     public function change_proposed_subcategory_status($id){
       $data = array(
-        'psc_status' => 'En Curso'
+        'psc_status' => 'Aperturado'
       );
       $this->db->update('proposed_subcategories', $data, array('id' => $id));
     }

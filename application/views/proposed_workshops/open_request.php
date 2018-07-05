@@ -47,13 +47,13 @@
  
 
                     <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Cantidad de Vacantes</label>
+                      <label for="" class="col-md-2 control-label">Cantidad de Vacantes (obligatorio)</label>
                       <div class="col-md-9">
                         <input type="number" name="vacantes" min="1" max="10" class="form-control" id="" placeholder="Cantidad de Vacantes" onkeypress="return only_numbers(event)" onpaste="return false" required> </div>
                     </div>
 
                     <div class="row form-group">
-                      <label for="" class="col-md-2 control-label">Monto</label>
+                      <label for="" class="col-md-2 control-label">Monto (obligatorio)</label>
                       <div class="col-md-9">
                         <input type="number" name="monto" min="1" class="form-control" id="" placeholder="Monto" onkeypress="return only_numbers(event)" onpaste="return false" required> </div>
                     </div>

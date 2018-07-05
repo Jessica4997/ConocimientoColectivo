@@ -139,13 +139,13 @@
           </li>
 
           <li class="card" role="tab" id="sch4">
-            <a class="collapsed" role="button" data-toggle="collapse" href="#sc4" aria-expanded="false" aria-controls="sc4">Solicitudes de Nuevos Temas</a>
+            <a class="collapsed" role="button" data-toggle="collapse" href="#sc4" aria-expanded="false" aria-controls="sc4">Solicitudes de Temas</a>
             <ul id="sc4" class="card-collapse collapse" role="tabpanel" aria-labelledby="sch4" data-parent="#slidebar-menu">
               <li>
-                <a href="<?php echo site_url('proposed_subcategories')?>">Lista de Solicitudes de Nuevos Temas</a>
+                <a href="<?php echo site_url('proposed_subcategories')?>">Lista de Solicitudes de Temas</a>
               </li>
               <li>
-                <a href="<?php echo site_url('proposed_subcategories/show_my_requests')?>">Mis Solicitudes de Nuevos Temas</a>
+                <a href="<?php echo site_url('proposed_subcategories/show_my_requests')?>">Mis Solicitudes de Temas</a>
               </li>
             </ul>
           </li>

@@ -14,8 +14,8 @@ class Workshop extends CI_Controller {
 		$this->user_id = $this->session->userdata('s_iduser');
 		$ruta = $this->uri->segment(2, '/');
 		$whiteList=array('/','description');
-        if ($this->user_id === null && !in_array($ruta,$whiteList)){
-            redirect('login', 'refresh');
+        if ($this->user_id === null){
+            //redirect('login', 'refresh');
         }
         ini_set('date.timezone','America/Lima');
         $this->today = new Datetime();
@@ -39,8 +39,8 @@ class Workshop extends CI_Controller {
 		//$q = (isset($_GET['q']))? $_GET['q']:'';
 		//$page = (isset($_GET['page']))? preg_replace('([^1-9])', '', $_GET['page']):'1';
 		$page = (isset($_GET['page']) )? preg_replace('([^1-9])', '', $_GET['page']):'1';
-		$wrk = $this->workshop_model->search_by_category_title($page,$category,$q,$rp);
-		$num_pages = $this->workshop_model->get_total_search($category,$q,$rp);
+		$wrk = $this->workshop_model->search_by_category_title($page,$category,$q,$rp,$this->user_id);
+		$num_pages = $this->workshop_model->get_total_search($category,$q,$rp,$this->user_id);
 		$catlist = $this->workshop_model->get_categories_list();
 		$dataView=[
 			'page'=>'workshops/list',
@@ -127,6 +127,13 @@ class Workshop extends CI_Controller {
         //var_dump($_POST);exit();
         if (!empty($_POST['titulo']) && trim($_POST['titulo']) != '' && !empty($_POST['fecha']) && trim($_POST['fecha']) != '' && !empty($_POST['hora_inicio']) && trim($_POST['hora_inicio']) != '' && !empty($_POST['hora_fin']) && trim($_POST['hora_fin']) != '' && !empty($_POST['vacantes']) && trim($_POST['vacantes']) != '' && !empty($_POST['monto']) && trim($_POST['monto']) != '') {
 
+        	if ($_POST['vacantes'] <= 0 || $_POST['vacantes'] > 10) {
+        		$error = urlencode("La vacantes pueden ser de 1 a 10 cupos");
+        		$toRedirect = $urlbase.'&message='.$error;
+        		redirect($toRedirect, 'refresh');exit();
+        	}
+
+
         			$hour_format1 = $this->validate_hour1($_POST['hora_inicio'], $format = 'H:i');
         			$hour_format2 = $this->validate_hour2($_POST['hora_fin'], $format = 'H:i');
 					if ($hour_format1 == 'true' && $hour_format2 == 'true') {
@@ -192,7 +199,7 @@ class Workshop extends CI_Controller {
 		}
 		
 		if ($verifydata) {
-			$error = urlencode("Ya te matriculaste");
+			$error = urlencode("Ya postulaste a este taller");
 			$toRedirect = 'workshop/description/'.$id.'?message='.$error;
 
 		}else if($verifycreator['user_id'] == $this->user_id) {
@@ -208,13 +215,13 @@ class Workshop extends CI_Controller {
 			$toRedirect = 'workshop/description/'.$id.'?message='.$error;
 
 		}else if ($workshop_description['vacancy'] <= 0) {
-			$error = urlencode("No hay vacantes");
+			$error = urlencode("Ya no hay vacantes en el taller");
 			$toRedirect = 'workshop/description/'.$id.'?message='.$error;
 		}
 		else{
 			if ($postulants_number < 15){
 				$this->workshop_model->enroll_workshop($this->user_id, $id);
-				$toRedirect = 'workshop';
+				$toRedirect = 'workshop/description/'.$id;
 			}else{
 				$error = urlencode("Se superó el número de postulantes");
 				$toRedirect = 'workshop/description/'.$id.'?message='.$error;
